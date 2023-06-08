@@ -80,6 +80,7 @@ html, body{
 }
 
 .dropdown img{
+    width: 37px;
     border-radius: 50%;
 }
 .dropdown i{

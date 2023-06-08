@@ -42,17 +42,17 @@ Route::get('/login', [LoginController::class, 'showLoginForm']);
 
 Auth::routes(['register' => false]);
 
-Route::get('/layout', function () {
-    return view('home');
-})->name('layout')->middleware('auth');
+//Route::get('/layout', function () {
+//    return view('home');
+//})->name('layout')->middleware('auth');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('dashboard')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::get('login', [LoginController::class, 'login']);
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-Route::middleware(['auth:web'])->prefix('admin')->group(function () {
+Route::middleware(['auth:web'])->prefix('dashboard')->group(function () {
     Route::get('admin/new', [AdminController::class, 'new']);
     Route::post('admin/profile/update', [AdminController::class, 'updateProfile'])->name('profile-update');
     Route::get('admin/change-password', [AdminController::class, 'password'])->name('change-pass');

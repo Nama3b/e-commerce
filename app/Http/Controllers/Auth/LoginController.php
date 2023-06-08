@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Member;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -37,14 +39,22 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
 
-        if(method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request))
-        {
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 
-            return $this->sendFailedLoginResponse($request);
+            return $this->sendLockoutResponse($request);
+        }
+
+        if(!optional(Member::where('email', $request->input('email'))->first())->status){
+            throw ValidationException::withMessages([
+                $this->username() => [ 'failed' => 'Email or password is incorrect!'],
+            ]);
         }
 
         if ($this->attemptLogin($request)) {
+
+
             $request->session()->put('auth.password_confirmed_at', time());
 
             return $this->sendLoginResponse($request);

@@ -48,7 +48,7 @@ class PaymentOption extends Model
      *
      * @var string
      */
-    protected $table = 'paymentOption';
+    protected $table = 'payment_option';
 
     /**
      * @var string[]

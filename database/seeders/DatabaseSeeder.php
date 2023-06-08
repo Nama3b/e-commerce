@@ -11,12 +11,15 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $this->call([
             AdminSeeder::class,
             BrandSeeder::class,
             PaymentOptionSeeder::class,
+            ProductCategorySeeder::class,
+            MemberSeeder::class,
+            CustomerSeeder::class,
         ]);
     }
 }

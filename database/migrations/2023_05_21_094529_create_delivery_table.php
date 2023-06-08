@@ -25,7 +25,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('creator')->references('id')->on('members')->onUpdate('cascade');
-            $table->foreign('payment_option_id')->references('id')->on('paymentOption')->onUpdate('cascade');
+            $table->foreign('payment_option_id')->references('id')->on('payment_option')->onUpdate('cascade');
         });
     }
 

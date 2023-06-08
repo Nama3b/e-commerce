@@ -1,14 +1,14 @@
 @extends('layout')
 @section('content')
-    <div class="category-section">
-        <div class="container">
-            <div class="d-flex justify-content-center">
-                    <div class="cat-item"><a
-                            href="{{URL::to('/show-product-by-category'.'/'.$cat_item->id)}}"><b>{{$cat_item->name}}</b></a>
-                    </div>
-            </div>
-        </div>
-    </div>
+{{--    <div class="category-section">--}}
+{{--        <div class="container">--}}
+{{--            <div class="d-flex justify-content-center">--}}
+{{--                <div class="cat-item">--}}
+{{--                    <a href="{{URL::to('/show-product-by-category'.'/'.$cat_item->id)}}"><b>{{$cat_item->name}}</b></a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
     <div class="carousel-section">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -57,32 +57,10 @@
                              height="100%">
                     </div>
                     <div class="col-9">
-                        @foreach($sneaker_item as $key => $sneak_item)
-                            <form action="{{URL::to('/add-cart')}}" method="post">
-                                {{ csrf_field() }}
-                                <div class="product">
-                                    <a href="{{URL::to('product-detail'.'/'.$sneak_item->product_id)}}"><img
-                                            src="{{{'uploads/product/'.$sneak_item->image}}}" alt=""></a>
-                                    <div class="d-flex">
-                                        <button class="btn btn-sm btn-outline-dark mr-2"><a
-                                                href="{{URL::to('/add-cart')}}"><i
-                                                    class="fas fa-cart-plus"></i><input type="hidden" name="qty"
-                                                                                        min="1" value="1"><input
-                                                    type="hidden" name="productId_hidden"
-                                                    value="{{$sneak_item->product_id}}"></a></button>
-                                        <button class="btn btn-sm btn-outline-dark mr-2"><i
-                                                class="fas fa-heartbeat"></i></button>
-                                        <button class="btn btn-sm btn-outline-dark"><i class="fas fa-save"></i></button>
-                                    </div>
-                                    <div class="product-info">
-                                        <h6>
-                                            <b><a href="{{URL::to('product-detail'.'/'.$sneak_item->product_id)}}">{{$sneak_item->product_name}}</a></b>
-                                        </h6>
-                                        <p>{{$sneak_item->brand_name}}</p>
-                                        <h5><b>${{$sneak_item->price}}</b></h5>
-                                    </div>
-                                </div>
-                            </form>
+                        @foreach($products as $key => $product_item)
+                            @if($product_item->category_id == 1)
+                                @include('pages.common.product_item')
+                            @endif
                         @endforeach
                     </div>
                 </div>
@@ -102,34 +80,10 @@
                 </div>
                 <div class="d-flex">
                     <div class="col-9">
-                        @foreach($streetwear_item as $key => $stw_item)
-                            <form action="{{URL::to('/add-cart')}}" method="post">
-                                {{ csrf_field() }}
-                                <div class="product">
-                                    <a href="{{URL::to('product-detail'.'/'.$stw_item->product_id)}}"><img
-                                            src="{{{'uploads/product/'.$stw_item->image}}}" alt=""></a>
-                                    <div class="d-flex">
-                                        <button class="btn btn-sm btn-outline-dark mr-2"><a
-                                                href="{{URL::to('/add-cart')}}"><i
-                                                    class="fas fa-cart-plus"></i><input type="hidden" name="qty"
-                                                                                        min="1" value="1"><input
-                                                    type="hidden" name="productId_hidden"
-                                                    value="{{$stw_item->product_id}}"></a></button>
-                                        <button class="btn btn-sm btn-outline-dark mr-2"><i
-                                                class="fas fa-heartbeat"></i></button>
-                                        <button class="btn btn-sm btn-outline-dark"><i class="fas fa-save"></i></button>
-                                    </div>
-                                    <div class="product-info">
-                                        <h6>
-                                            <b><a href="{{URL::to('product-detail'.'/'.$stw_item->product_id)}}">{{$stw_item->product_name}}</a></b>
-                                        </h6>
-                                        <p>{{$sneak_item->brand_name}}</p>
-
-                                        <p>{{$stw_item->brand_name}}</p>
-                                        <h5><b>${{$stw_item->price}}</b></h5>
-                                    </div>
-                                </div>
-                            </form>
+                        @foreach($products as $key => $product_item)
+                            @if($product_item->category_id == 2)
+                                @include('pages.common.product_item')
+                            @endif
                         @endforeach
                     </div>
                     <div class="product-img col-3">
@@ -153,33 +107,10 @@
                                 width="100%" alt="">
                         </div>
                         <div class="col-8 watches-product text-center justify-content-center">
-                            @foreach($watches_item as $key => $watch_item)
-                                <form action="{{URL::to('/add-cart')}}" method="post">
-                                    {{ csrf_field() }}
-                                    <div class="product">
-                                        <a href="{{URL::to('product-detail'.'/'.$watch_item->product_id)}}"><img
-                                                src="{{{'public/uploads/product/'.$watch_item->image}}}" alt=""></a>
-                                        <div class="d-flex justify-content-center">
-                                            <button class="btn btn-sm btn-outline-dark mr-2"><a
-                                                    href="{{URL::to('/add-cart')}}"><i
-                                                        class="fas fa-cart-plus"></i><input
-                                                        type="hidden" name="qty" min="1" value="1"><input
-                                                        type="hidden" name="productId_hidden"
-                                                        value="{{$watch_item->product_id}}"></a></button>
-                                            <button class="btn btn-sm btn-outline-dark mr-2"><i
-                                                    class="fas fa-heartbeat"></i></button>
-                                            <button class="btn btn-sm btn-outline-dark"><i class="fas fa-save"></i>
-                                            </button>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6>
-                                                <b><a href="{{URL::to('product-detail'.'/'.$watch_item->product_id)}}">{{$watch_item->product_name}}</a></b>
-                                            </h6>
-                                            <p>{{$watch_item->brand_name}}</p>
-                                            <h5><b>${{$watch_item->price}}</b></h5>
-                                        </div>
-                                    </div>
-                                </form>
+                            @foreach($products as $key => $product_item)
+                                @if($product_item->category_id == 3)
+                                    @include('pages.common.product_item')
+                                @endif
                             @endforeach
                         </div>
                         <div class="col-2">
