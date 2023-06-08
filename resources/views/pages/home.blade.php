@@ -38,11 +38,10 @@
     </div>
 
     <div class="shopping-section">
-        <div class="container-fluid">
+        <div class="container">
             <div class="sneaker-section">
                 <div class="d-flex">
-                    <div class="col-3"></div>
-                    <div class="col-9 d-flex">
+                    <div class="col d-flex">
                         <div class="col-6">
                             <h6><i class="far fa-star mr-2"></i>Popular sneakers</h6>
                         </div>
@@ -52,23 +51,17 @@
                     </div>
                 </div>
                 <div class="d-flex">
-                    <div class="product-img col-3">
-                        <img src="{{{'WebPage/img/poster/255aa206c44c60401a3cf080fdf227e9.jpg'}}}" alt=""
-                             height="100%">
-                    </div>
-                    <div class="col-9">
                         @foreach($products as $key => $product_item)
                             @if($product_item->category_id == 1)
                                 @include('pages.common.product_item')
                             @endif
                         @endforeach
-                    </div>
                 </div>
             </div>
 
             <div class="streetwear-section">
                 <div class="d-flex">
-                    <div class="col-9 d-flex">
+                    <div class="col d-flex">
                         <div class="col-6">
                             <h6><i class="far fa-star mr-2"></i>Popular streetwear</h6>
                         </div>
@@ -76,20 +69,13 @@
                                 <p><a href="{{URL::to('/show-product-by-category'.'/')}}">See all <i class="fas fa-long-arrow-alt-right"></i></a></p>
                         </div>
                     </div>
-                    <div class="col-3"></div>
                 </div>
                 <div class="d-flex">
-                    <div class="col-9">
                         @foreach($products as $key => $product_item)
                             @if($product_item->category_id == 2)
                                 @include('pages.common.product_item')
                             @endif
                         @endforeach
-                    </div>
-                    <div class="product-img col-3">
-                        <img src="{{{'WebPage/img/poster/ea5aadb567a56290b1b0e31e81c156a8.jpg'}}}" alt=""
-                             height="100%">
-                    </div>
                 </div>
             </div>
 
@@ -97,29 +83,13 @@
                 <div class="container-fluid text-center">
                         <h4><b><a href="{{URL::to('/show-product-by-category'.'/')}}">BAPE
                                     WATCHES COLLECTION</a></b></h4>
-                    <div class="d-flex">
-                        <div class="col-2">
-                            <img
-                                src="{{{'WebPage/img/poster/breguet-the-innovator-watch-the-marine-5827-chronograph-johnson-watch-and-co-ad-delhi-times-06-02-2018.png'}}}"
-                                alt="" width="100%">
-                            <img
-                                src="{{{'WebPage/img/poster/jaquet-droz-grande-seconde-quantieme-grand-feu-enamel-ad-toi-chennai-31-10-2020.png'}}}"
-                                width="100%" alt="">
-                        </div>
-                        <div class="col-8 watches-product text-center justify-content-center">
+                    <div class="watches-product text-center justify-content-centerwatches-product text-center justify-content-center">
+                        <div class="col d-flex">
                             @foreach($products as $key => $product_item)
                                 @if($product_item->category_id == 3)
                                     @include('pages.common.product_item')
                                 @endif
                             @endforeach
-                        </div>
-                        <div class="col-2">
-                            <img
-                                src="{{{'WebPage/img/poster/breguet-the-innovator-retrograde-seconds-7097-ad-times-of-india-mumbai-11-12-2018.png'}}}"
-                                alt="" width="100%">
-                            <img
-                                src="{{{'WebPage/img/poster/johnson-watch-co-breguet-the-innovator-ad-delhi-times-11-12-2018.png'}}}"
-                                alt="" width="100%">
                         </div>
                     </div>
                 </div>
