@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -85,12 +86,15 @@ class Product extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->BelongsTo(ProductCategory::class,'id','category_id');
+        return $this->BelongsTo(ProductCategory::class,'category_id','id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function brand(): BelongsTo
     {
-        return $this->BelongsTo(Brand::class,'id','brand_id');
+        return $this->BelongsTo(Brand::class,'brand_id','id');
     }
 
     /**
@@ -98,6 +102,14 @@ class Product extends Model
      */
     public function member(): BelongsTo
     {
-        return $this->BelongsTo(Member::class,'id', 'creator');
+        return $this->BelongsTo(Member::class,'creator', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function images(): HasMany
+    {
+        return $this->HasMany(Image::class, 'reference_id', 'id');
     }
 }

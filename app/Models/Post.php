@@ -76,7 +76,7 @@ class Post extends Model
      */
     public function member(): BelongsTo
     {
-        return $this->belongsTo(Member::class,'id','author');
+        return $this->belongsTo(Member::class,'author','id');
     }
 
     /**
@@ -84,6 +84,6 @@ class Post extends Model
      */
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(Customer::class,'id', 'author');
+        return $this->belongsTo(Customer::class,'author', 'id');
     }
 }

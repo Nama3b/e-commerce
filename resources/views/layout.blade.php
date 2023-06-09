@@ -19,7 +19,7 @@
 <header id="header" class="header-section">
     <div class="container-fluid">
         <nav class="navbar navbar-expand-sm">
-            <div class="nav-left col-6 d-flex fade-in">
+            <div class="nav-left col-6 fade-in">
                 <a class="navbar-brand" href="{{URL::to('home')}}">
                     <img src="{{'WebPage/img/home/project_name.png'}}" alt="">
                 </a>
@@ -30,7 +30,7 @@
                     <button type="submit" name="search" class="btn btn-sm"><i class="fa fa-search"></i></button>
                 </form>
             </div>
-            <div class="nav-right col-6 d-flex fade-in slide-in collapse navbar-collapse">
+            <div class="nav-right col-6 fade-in slide-in collapse navbar-collapse">
                 <ul class="navbar-nav slide-in">
                     <li class="nav-item active">
                         <div><a class="nav-link" href="{{URL::to('home')}}">Home</a></div>
@@ -89,7 +89,7 @@
         </div>
         <div class="d-flex cre">
             <div class="col-3 d-flex justify-content-center align-items-center">
-                <img src="{{'WebPage/img/home/project_name.png'}}" alt="" width="90%">
+                <img src="{{'WebPage/img/home/project_name_sub.png'}}" alt="" width="70%">
             </div>
             <div class="col-2">
                 <ul>

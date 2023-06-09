@@ -25,13 +25,18 @@ class HomeController extends Controller
         $meta_title = "E-Commerce - Sneakers, Clothes, Watches";
         $url_canonical = $request->url();
 
-        $product_category = DB::table('product_category')->where('status','1')->orderby('id','desc')->get();
-        $brand = DB::table('brands')->where('status','1')->orderby('id','desc')->get();
+        $product_categories = DB::table('product_category')->where('status','1')->orderby('id','desc')->take(6)->get();
+        $brands = DB::table('brands')->where('status','1')->orderby('id','desc')->limit(6)->get();
 
-        $products = DB::table('products')
-            ->join('brands','brands.id','=','products.brand_id')
-            ->where('products.status','STOCKING')
-            ->orderby('products.created_at','desc')->get();
+        $products = Product::with('brand', 'category', 'member', 'images')
+            ->where('status','STOCKING')
+            ->orderby('created_at','desc')->get();
+
+        $sneakers = $products->where('category_id',1)->take(6)->toArray();
+        $clothes = $products->where('category_id',2)->take(6)->toArray();
+        $watches = $products->where('category_id',3)->take(6)->toArray();
+        $best_seller = $products->take(6)->toArray();
+
 
         return view('pages.home')
             ->with(compact('products',
@@ -39,9 +44,12 @@ class HomeController extends Controller
                 'meta_keywords',
                 'meta_title',
                 'url_canonical',
-                'product_category',
-                'brand',
-                'products'));
+                'product_categories',
+                'brands',
+                'sneakers',
+                'clothes',
+                'watches',
+                'best_seller'));
     }
 
     public function showByBrand($brand): Factory|View|Application
