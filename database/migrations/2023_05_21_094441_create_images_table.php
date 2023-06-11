@@ -15,14 +15,12 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('reference_id');
+            $table->integer('reference_id');
             $table->string('url');
             $table->integer('sort_no');
             $table->enum('image_type', ['PRODUCT', 'POST']);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('reference_id')->references('id')->on('products')->on('posts')->onUpdate('cascade');
         });
     }
 

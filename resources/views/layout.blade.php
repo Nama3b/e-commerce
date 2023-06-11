@@ -18,7 +18,7 @@
 <body>
 <header id="header" class="header-section">
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-sm">
+        <nav class="navbar navbar-expand-sm navbar-fixed-top">
             <div class="nav-left col-6 fade-in">
                 <a class="navbar-brand" href="{{URL::to('home')}}">
                     <img src="{{'WebPage/img/home/project_name.png'}}" alt="">
@@ -36,14 +36,24 @@
                         <div><a class="nav-link" href="{{URL::to('home')}}">Home</a></div>
                     </li>
                     <li class="nav-item">
-                        <div><a class="nav-link" href="{{URL::to('product')}}">Product</a></div>
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="dropdownProduct" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">Product</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownProduct">
+                                @foreach($product_categories as $key => $category_item)
+                                    <a class="dropdown-item" href="{{URL::to('product_category')}}">{{$category_item->name}}</a>
+                                @endforeach
+                            </div>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <div class="dropdown">
-                            <a class="nav-link dropdown-toggle" href="" id="dropdownMenuButton" data-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle" href="" id="dropdownBrand" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">Brand</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{URL::to('product_brand')}}">Brand</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownBrand">
+                                @foreach($brand_all as $key => $brand_item)
+                                    <a class="dropdown-item" href="{{URL::to('product_brand')}}">{{$brand_item->name}}</a>
+                                @endforeach
                             </div>
                         </div>
                     </li>

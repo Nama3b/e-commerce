@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $name
+ * @property string $type
  * @property string $thumbnail_image
  * @property int $status
  * @property Carbon|null $created_at
@@ -31,6 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Brand whereDeletedAt($value)
  * @method static Builder|Brand whereId($value)
  * @method static Builder|Brand whereName($value)
+ * @method static Builder|Brand whereType($value)
  * @method static Builder|Brand whereThumbnailImage($value)
  * @method static Builder|Brand whereStatus($value)
  * @method static Builder|Brand whereUpdatedAt($value)
@@ -42,6 +44,7 @@ class Brand extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const TYPE = ['ALL', 'SNEAKER', 'CLOTHES', 'WATCHES', 'ACCESSORIES'];
     const CREATE = 'CREATE_BRAND';
     const VIEW = 'VIEW_BRAND';
     const EDIT = 'EDIT_BRAND';
@@ -59,6 +62,7 @@ class Brand extends Model
      */
     protected $fillable = [
         'name',
+        'type',
         'thumbnail_image',
         'status'
     ];

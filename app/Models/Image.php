@@ -66,20 +66,20 @@ class Image extends Model
         'sort_no'
     ];
 
-    /**
-     * @return BelongsTo
-     */
-    public function product(): BelongsTo
-    {
-        return $this->BelongsTo(Product::class,'id','reference_id');
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function post(): BelongsTo
-    {
-        return $this->BelongsTo(Post::class,'id','reference_id');
-    }
+//    /**
+//     * @return BelongsTo
+//     */
+//    public function product(): BelongsTo
+//    {
+//        return $this->BelongsTo(Product::class,'id','reference_id');
+//    }
+//
+//    /**
+//     * @return BelongsTo
+//     */
+//    public function post(): BelongsTo
+//    {
+//        return $this->BelongsTo(Post::class,'id','reference_id');
+//    }
 
 }

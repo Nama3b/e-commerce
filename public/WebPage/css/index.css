@@ -11,6 +11,12 @@ html, body {
     border-bottom: 1px solid grey;
 }
 
+.header-section .navbar {
+    position: fixed;
+    background: white;
+    border-bottom: 2px solid grey;
+}
+
 .nav-left {
     display: flex;
 }
@@ -156,19 +162,45 @@ html, body {
 
 .brand-section {
     text-align: center;
+    margin: 50px 0;
 }
 
-.brand .d-flex {
-    margin-top: -29px;
+.brand-section .brand {
+    background: white;
+}
+.brand-section .brand .d-flex {
+    margin: -29px 0;
 }
 
-.brand {
-    padding: 0 20px 0 20px;
+.brand, .brand-banner{
+    padding: 0 5px;
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(129px, 1fr));
+}
 
+.brand-item {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+    background: white;
+    padding: 10px 0;
+}
+
+.brand-item .row {
+    width: 100% !important;
+}
+
+.brand-banner img {
+    width: 100%;
+}
+
+.carousel-brand {
+    margin: 50px 0;
 }
 
 .shopping-section {
-    margin: 55px 0;
+    background: url('../img/background.jpg') no-repeat fixed;
 }
 
 .shopping-section .col-6 a {
@@ -179,6 +211,11 @@ html, body {
 .shopping-section .col-6 a:hover {
     color: grey;
     text-decoration: none;
+}
+
+.section-item {
+    background: white;
+    padding: 5px 0;
 }
 
 .product img {
@@ -234,7 +271,7 @@ html, body {
 }
 
 .shopping-section .product-item {
-    margin: 60px 0;
+    margin: 50px 0;
 }
 
 .shopping-section .product-item form {
@@ -262,6 +299,23 @@ html, body {
     -webkit-line-clamp: 1;
     line-clamp: 1;
     -webkit-box-orient: vertical;
+}
+
+.sale-section {
+    margin: 50px 0;
+}
+
+.sale-section img {
+    width: 100%;
+}
+
+.sale-top, .sale-bottom {
+    display: flex;
+    margin: 15px 0;
+}
+
+.sale-bottom {
+    width: 100%;
 }
 
 .watches-section {
@@ -308,10 +362,24 @@ html, body {
     padding: 0 20px 0 20px;
 }
 
+.news-section {
+    margin: 50px 0;
+}
 .news-section .news img {
     height: 175px !important;
 }
 
+.profit {
+    margin: 50px 0;
+    display: flex;
+    text-align: center;
+}
+
+.profit .col-4 {
+    background: white;
+    padding: 20px;
+    margin: 0 15px
+}
 
 @media (min-width: 768px) {
     .col-md-3 {
