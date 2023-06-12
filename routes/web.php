@@ -31,12 +31,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/layout', [HomeController::class, 'index']);
-Route::get('/product', [HomeController::class, 'products']);
-Route::get('/product/{id}', [HomeController::class, 'product_detail']);
+Route::get('/home', [HomeController::class, 'index']);
+Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class, 'products']);
+Route::get('/product-by-brand/{id}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByBrand']);
+Route::get('/product-by-category/{id}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByCategory']);
+Route::get('/product-detail/{id}', [\App\Http\Controllers\HomePage\ProductController::class, 'productDetail']);
+Route::post('/search-product', [\App\Http\Controllers\HomePage\ProductController::class, 'search_product']);
 Route::get('/post', [\App\Http\Controllers\HomePage\PostController::class, 'post']);
-Route::get('/post/{id}', [\App\Http\Controllers\HomePage\PostController::class, 'post_detail']);
-Route::post('/search_product', [HomeController::class, 'search_product']);
+Route::get('/post-detail/{id}', [\App\Http\Controllers\HomePage\PostController::class, 'postDetail']);
 
 Route::get('/login', [LoginController::class, 'showLoginForm']);
 

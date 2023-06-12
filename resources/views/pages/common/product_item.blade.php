@@ -14,6 +14,7 @@
         <button class="btn btn-sm btn-outline-dark"><i class="fas fa-heartbeat"></i></button>
     </div>
     <div class="product-info">
-        <p><a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}">{{$product_item['name']}}</a></p>
+        <small>{{$product_item['brand']['name']}}</small>
+        <p><a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}"><b>{{$product_item['name']}}</b></a></p>
     </div>
 </div>

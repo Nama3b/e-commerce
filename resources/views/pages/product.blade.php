@@ -1,11 +1,10 @@
 @extends('layout')
 @section('content')
-
     <div class="banner-product">
         <div class="container">
             <div class="row">
                 <div class="col-5">
-                    <h1><b>Sneakers</b></h1>
+                    <h1><b>Products</b></h1>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, quidem facere aspernatur natus
                         voluptatum ex sequi doloremque molestiae, sunt inventore est exercitationem quia accusamus esse
                         consectetur ipsam corporis, vitae.</p>
@@ -19,16 +18,16 @@
                 <div class="col-2">
                     <div class="left-item category-item">
                         <h5>Category</h5>
-                        @foreach($category_item as $key => $cat_item)
-                            <a href="{{URL::to('show-product-by-category'.'/'.$cat_item->category_id)}}"
-                               class="">{{$cat_item->category_name}}</a>
+                        @foreach($categories as $key => $category_item)
+                            <a href="{{URL::to('product-by-category'.'/'.$category_item->id)}}"
+                               class="">{{$category_item->name}}</a>
                         @endforeach
                     </div>
                     <div class="left-item brand-item">
                         <h5>Brand</h5>
-                        @foreach($brand_item as $key => $bra_item)
-                            <a href="{{URL::to('show-product-by-brand'.'/'.$bra_item->brand_id)}}"
-                               class="">{{$bra_item->brand_name}}</a>
+                        @foreach($brand_all as $key => $brand_item)
+                            <a href="{{URL::to('product-by-brand'.'/'.$brand_item->id)}}"
+                               class="">{{$brand_item->name}}</a>
                         @endforeach
                     </div>
                 </div>
@@ -49,31 +48,10 @@
                         </div>
                     </div>
                     <div class="product-section">
-                        @foreach($product_item as $key => $pro_item)
+                        @foreach($products as $key => $product_item)
                             <form action="{{URL::to('/add-cart')}}" method="post">
                                 {{ csrf_field() }}
-                                <div class="product">
-                                    <a href="{{URL::to('product-detail'.'/'.$pro_item->product_id)}}"><img
-                                            src="{{{'public/uploads/product/'.$pro_item->image}}}" alt=""></a>
-                                    <div class="d-flex">
-                                        <button class="btn btn-sm btn-outline-dark mr-2">
-                                            <a href="{{URL::to('/add-cart')}}">
-                                                <i class="fas fa-cart-plus"></i>
-                                                <input type="hidden" name="qty" min="1" value="1">
-                                                <input type="hidden" name="productId_hidden"
-                                                       value="{{$pro_item->product_id}}">
-                                            </a>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-dark mr-2"><i
-                                                class="fas fa-heartbeat"></i></button>
-                                        <button class="btn btn-sm btn-outline-dark"><i class="fas fa-save"></i></button>
-                                    </div>
-                                    <div class="product-info">
-                                        <h6><b>{{$pro_item->product_name}}</b></h6>
-                                        <p>{{$pro_item->category_name}}</p>
-                                        <h5><b>{{$pro_item->price}}$</b></h5>
-                                    </div>
-                                </div>
+                                @include('pages.common.product_item')
                             </form>
                         @endforeach
                     </div>
@@ -82,5 +60,4 @@
             </div>
         </div>
     </div>
-
 @endsection

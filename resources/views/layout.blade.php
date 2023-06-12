@@ -40,8 +40,9 @@
                             <a class="nav-link dropdown-toggle" href="" id="dropdownProduct" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">Product</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownProduct">
-                                @foreach($product_categories as $key => $category_item)
-                                    <a class="dropdown-item" href="{{URL::to('product_category')}}">{{$category_item->name}}</a>
+                                <a class="dropdown-item" href="{{URL::to('product')}}">All</a>
+                                @foreach($categories as $key => $category_item)
+                                    <a class="dropdown-item" href="{{URL::to('product-by-category')}}">{{$category_item->name}}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -52,7 +53,7 @@
                                aria-haspopup="true" aria-expanded="false">Brand</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownBrand">
                                 @foreach($brand_all as $key => $brand_item)
-                                    <a class="dropdown-item" href="{{URL::to('product_brand')}}">{{$brand_item->name}}</a>
+                                    <a class="dropdown-item" href="{{URL::to('product-by-brand')}}">{{$brand_item->name}}</a>
                                 @endforeach
                             </div>
                         </div>
