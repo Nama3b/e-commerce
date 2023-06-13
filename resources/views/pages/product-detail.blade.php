@@ -1,17 +1,16 @@
 @extends('layout')
 @section('content')
-
     <div class="product-detail-body">
         <div class="container">
             <div class="row">
                 <div class="product-detail">
-                    @foreach($product_detail as $key => $pro_detail)
+                    @foreach($detail as $key => $detail_item)
                         <div class="product-detail-title">
                             <p>Home / <a
-                                    href="{{URL::to('product'.'/'.$pro_detail->category_id)}}">{{$pro_detail->category_name}}</a>
+                                    href="{{URL::to('product'.'/'.$detail_item['id'])}}">{{$detail_item['name']}}</a>
                                 /
-                                <a href="{{URL::to('product'.'/'.$pro_detail->brand_id)}}">{{$pro_detail->brand_name}}</a>
-                                / {{$pro_detail->product_name}}</p>
+                                <a href="{{URL::to('product'.'/'.$detail_item['brand_id'])}}">{{$detail_item['brand']['name']}}</a>
+                                / {{$detail_item['name']}}</p>
                         </div>
                         <div class="d-flex">
                             <div class="col-6 text-center">
@@ -19,20 +18,20 @@
                                     <a href="" class="">100% Authentic</a>
                                     <a href="" class="">Condition: New</a>
                                 </div>
-                                <img src="{{{'../public/uploads/product/'.$pro_detail->image}}}" alt="" width="80%">
+                                <img src="{{'../'.$image}}" alt="" width="80%">
                             </div>
                             <div class="col-6">
                                 <div class="product-detail-title text-center">
-                                    <h2><u>{{$pro_detail->product_name}}</u></h2>
+                                    <h2><u>{{$detail_item['name']}}</u></h2>
                                     <div class="product-detail-selection">
-                                        <h2><b>${{$pro_detail->price}}</b></h2>
+                                        <h2><b>${{$detail_item['price']}}</b></h2>
                                         <form action="{{URL::to('add-cart')}}" method="post">
                                             <div class="qty-select d-flex">
                                                 {{ csrf_field()}}
                                                 <div class="qty col-6 d-flex">
                                                     <p>Quantity: </p> <input type="number" name="qty" min="1" value="1">
                                                     <input type="hidden" name="productId_hidden"
-                                                           value="{{$pro_detail->product_id}}">
+                                                           value="{{$detail_item['id']}}">
                                                 </div>
                                                 <div class="col-6">
                                                     <select name="" id="">
@@ -64,7 +63,8 @@
                     <h4>Product Details</h4>
                     <div class="d-flex">
                         <div class="col-6">
-                            <p>Our product Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
+                            <p>{{$detail_item['description']}}
+                                Our product Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
                                 reprehenderit nisi harum illum nihil nesciunt soluta commodi fugit officia. Non nihil
                                 ut, veritatis dicta ipsum ullam saepe aperiam, accusamus..
                                 <br>
@@ -84,7 +84,7 @@
                                 </tr>
                                 <tr>
                                     <td>Retail Price</td>
-                                    <td>{{$pro_detail->price}}</td>
+                                    <td>{{$detail_item['price']}}</td>
                                 </tr>
                                 <tr>
                                     <td>Release Date</td>
@@ -95,24 +95,15 @@
                     </div>
                 </div>
                 @endforeach
-                <div class="related-product">
+                <div class="related-product col">
                     <h4>Related product</h4>
                     <div class="d-flex">
-                        @foreach($related_product as $key => $related)
-                            <div class="product col-3">
-                                <a href="{{$related->product_id}}"><img
-                                        src="{{{'../public/uploads/product/'.$related->image}}}" alt=""></a>
-                                <div class="product-info">
-                                    <h6><b>{{$related->product_name}}</b></h6>
-                                    <p>{{$related->brand_name}}</p>
-                                    <h5><b>${{$related->price}}</b></h5>
-                                </div>
-                            </div>
+                        @foreach($products_relate as $key => $product_item)
+                            @include('pages.common.product_item')
                         @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection

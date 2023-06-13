@@ -15,7 +15,7 @@
     <div class="product-body">
         <div class="container">
             <div class="row">
-                <div class="col-2">
+                <div class="col-3">
                     <div class="left-item category-item">
                         <h5>Category</h5>
                         @foreach($categories as $key => $category_item)
@@ -31,7 +31,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="col-10">
+                <div class="col-9">
                     <div class="feature-product">
                         <div class="d-flex">
                             <div class="col-6">
@@ -48,14 +48,15 @@
                         </div>
                     </div>
                     <div class="product-section">
-                        @foreach($products as $key => $product_item)
+                        @foreach($products['data'] as $key => $product_item)
                             <form action="{{URL::to('/add-cart')}}" method="post">
                                 {{ csrf_field() }}
                                 @include('pages.common.product_item')
                             </form>
                         @endforeach
                     </div>
-                    <div class="pagination"></div>
+                    <div class="pagination">
+                    </div>
                 </div>
             </div>
         </div>

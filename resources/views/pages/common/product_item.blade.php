@@ -1,6 +1,6 @@
 <div class="product">
     <a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}"><img
-            src="{{$product_item['url']}}"
+            src="{{'../'.$image}}"
             alt=""></a>
     <div class="product-feature">
         <button class="btn btn-sm btn-secondary mr-2">${{$product_item['price']}}</button>

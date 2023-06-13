@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -25,7 +26,8 @@ class ProductController extends Controller
 
         $brand_all = $this->getAllBrand();
 
-        return view('pages.product')->with(compact('products', 'categories', 'brand_all'));
+        return view('pages.product')
+            ->with(compact('products', 'categories', 'brand_all'));
     }
 
     /**
@@ -52,18 +54,33 @@ class ProductController extends Controller
      */
     public function productDetail($id): View|Factory|Application
     {
-        $detail = Product::with('category', 'brand', 'images', 'member')
-            ->join('images', 'images.reference_id', '=', 'products.id')
-            ->where('images.image_type', 'PRODUCT')
-            ->where('products.status', 'STOCKING' and 'STOCKOUT' and 'BANNED')
+        $detail = Product::with(['category', 'brand', 'member', 'images' => function ($query) {
+            $query->whereImageType('PRODUCT');
+        }])
+            ->where('products.id', $id)
+            ->where('products.status', 'STOCKING')
             ->take(1)->get()->toArray();
 
-        $products_relate = Product::with('category', 'images')
-            ->where('id', array_column($detail, 'category_id'))
-            ->whereNotIn('id', array_column($detail, 'id'))
-            ->take(5)->get();
+        $image = $this->getImages();
 
-        return view('pages.product-detail')->with(compact('detail', 'products_relate'));
+        $products_relate = Product::with(['category', 'brand', 'member', 'images' => function ($query) {
+            $query->whereImageType('PRODUCT');
+        }])
+            ->where('products.id', array_column($detail, 'category_id'))
+            ->whereNotIn('products.id', array_column($detail, 'id'))
+            ->take(5)->get()->toArray();
+
+        $categories = $this->getAllCategory();
+
+        $brand_all = $this->getAllBrand();
+
+        return view('pages.product-detail')
+            ->with(compact(
+                'detail',
+                'products_relate',
+                'categories',
+                'brand_all',
+                'image'));
     }
 
     /**
@@ -78,7 +95,9 @@ class ProductController extends Controller
 
         $brand_all = $this->getAllBrand();
 
-        return view('pages.product-by-brand')->with(compact('products', 'categories', 'brand_all'));
+        $image = $this->getImages();
+
+        return view('pages.brand.product-by-brand')->with(compact('products', 'categories', 'brand_all', 'image'));
     }
 
     /**
@@ -93,20 +112,23 @@ class ProductController extends Controller
 
         $brand_all = $this->getAllBrand();
 
-        return view('pages.category.product-by-category')->with(compact('products', 'categories', 'brand_all'));
+        $image = $this->getImages();
+
+        return view('pages.category.product-by-category')->with(compact('products', 'categories', 'brand_all', 'image'));
     }
+
 
     /**
      * @return Collection|array
      */
     private function getAllProduct(): Collection|array
     {
-        return Product::with('brand', 'category', 'images', 'member')
-            ->join('images', 'images.reference_id', '=', 'products.id')
-            ->where('images.image_type', 'PRODUCT')
+        return Product::with(['category', 'brand', 'member', 'images' => function ($query) {
+            $query->whereImageType('PRODUCT');
+        }])
             ->where('products.status', 'STOCKING')
             ->orderBy('products.created_at', 'desc')
-            ->take(40)->get();
+            ->simplePaginate(40)->toArray();
     }
 
     /**
@@ -123,5 +145,21 @@ class ProductController extends Controller
     private function getAllBrand(): Collection|array
     {
         return Brand::whereStatus(1)->whereType('ALL')->take(6)->get();
+    }
+
+    /**
+     * @return string
+     */
+    private function getImages(): string
+    {
+        $image = '';
+        $images = array_column($this->getAllProduct(),'images');
+        $image_key = array_keys($images);
+        foreach ($image_key as $value)
+        {
+            $image = implode(array_column($images[$value], 'url'));
+        }
+
+        return $image;
     }
 }

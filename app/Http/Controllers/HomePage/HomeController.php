@@ -36,23 +36,32 @@ class HomeController extends Controller
         $brand_clothes = $brands->where('type', 'CLOTHES')->take(6);
 
         // get product
-        $products = Product::with('brand', 'category', 'member', 'images')
-            ->join('images', 'images.reference_id', '=', 'products.id')
-            ->where('images.image_type', 'PRODUCT')
-            ->where('products.status', 'STOCKING')
-            ->orderby('products.created_at', 'desc')->get();
+        $products = Product::with(['category', 'brand', 'member', 'images' => function ($query) {
+            $query->whereImageType('PRODUCT');
+        }])
+            ->where('status', 'STOCKING')
+            ->orderby('created_at', 'desc')->get();
         $product_sneakers = $products->where('category_id', 1)->take(6)->toArray();
         $product_clothes = $products->where('category_id', 2)->take(5)->toArray();
         $product_watches = $products->where('category_id', 3)->take(5)->toArray();
         $product_best_seller = $products->take(6)->toArray();
 
         // get post
-        $news = Post::with('images')
-            ->join('images', 'images.reference_id', '=', 'posts.id')
-            ->where('images.image_type', 'POST')
-            ->where('posts.status', 'ACTIVE')
-            ->where('posts.post_type', 'NEWS')
-            ->orderBy('posts.created_at', 'desc')->take(8)->get()->toArray();
+        $news = Post::with(['images' => function ($query) {
+            $query->whereImageType('POST')
+                ->whereReferenceId('id');
+        }])
+            ->where('status', 'ACTIVE')
+            ->where('post_type', 'NEWS')
+            ->orderBy('created_at', 'desc')->take(8)->get()->toArray();
+
+        // images
+        $images = array_column($products,'images');
+        $image_key = array_keys($images);
+        foreach ($image_key as $value)
+        {
+            $image = implode(array_column($images[$value], 'url'));
+        }
 
         return view('pages.home')
             ->with(compact('products',
@@ -64,7 +73,8 @@ class HomeController extends Controller
                 'product_clothes',
                 'product_watches',
                 'product_best_seller',
-                'news'));
+                'news',
+                'image'));
     }
 
 }
