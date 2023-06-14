@@ -1,7 +1,8 @@
 <div class="news">
     <div class="news-img">
-        <img
-            src="{{$news_item['url']}}" width="100%" alt="">
+        @foreach ($news_image as $key => $image_item)
+        <img src="{{'../'.$image_item}}" width="100%" alt="">
+        @endforeach
     </div>
     <div class="news-info">
         <a href="{{URL::to('news-detail')}}"><h6><b>{{$news_item['title']}}</b></h6></a>

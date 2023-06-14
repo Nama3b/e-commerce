@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use JetBrains\PhpStorm\NoReturn;
 
 class ProductController extends Controller
 {
@@ -26,8 +27,10 @@ class ProductController extends Controller
 
         $brand_all = $this->getAllBrand();
 
+        $image_all = $this->getAllImages();
+
         return view('pages.product')
-            ->with(compact('products', 'categories', 'brand_all'));
+            ->with(compact('products', 'categories', 'brand_all', 'image'));
     }
 
     /**
@@ -43,7 +46,7 @@ class ProductController extends Controller
             ->where('brands.name', 'like', '%' . $keyword . '%')
             ->where('product_category.name', 'like', '%' . $keyword . '%')
             ->where('products.name', 'like', '%' . $keyword . '%')
-            ->where('products.status', 'STOCKING' and 'STOCKOUT')->take(40)->get();
+            ->where('products.status', 'STOCKING')->take(40)->get();
 
         return view('pages.product')->with(compact('search_item'));
     }
@@ -57,17 +60,17 @@ class ProductController extends Controller
         $detail = Product::with(['category', 'brand', 'member', 'images' => function ($query) {
             $query->whereImageType('PRODUCT');
         }])
-            ->where('products.id', $id)
-            ->where('products.status', 'STOCKING')
+            ->where('id', $id)
+            ->where('status', 'STOCKING')
             ->take(1)->get()->toArray();
 
-        $image = $this->getImages();
+        $image = $this->getImage();
 
         $products_relate = Product::with(['category', 'brand', 'member', 'images' => function ($query) {
             $query->whereImageType('PRODUCT');
         }])
-            ->where('products.id', array_column($detail, 'category_id'))
-            ->whereNotIn('products.id', array_column($detail, 'id'))
+            ->where('id', array_column($detail, 'category_id'))
+            ->whereNotIn('id', array_column($detail, 'id'))
             ->take(5)->get()->toArray();
 
         $categories = $this->getAllCategory();
@@ -95,9 +98,7 @@ class ProductController extends Controller
 
         $brand_all = $this->getAllBrand();
 
-        $image = $this->getImages();
-
-        return view('pages.brand.product-by-brand')->with(compact('products', 'categories', 'brand_all', 'image'));
+        return view('pages.brand.product-by-brand')->with(compact('products', 'categories', 'brand_all'));
     }
 
     /**
@@ -112,9 +113,9 @@ class ProductController extends Controller
 
         $brand_all = $this->getAllBrand();
 
-        $image = $this->getImages();
+        $all_image = $this->getAllImages();
 
-        return view('pages.category.product-by-category')->with(compact('products', 'categories', 'brand_all', 'image'));
+        return view('pages.category.product-by-category')->with(compact('products', 'categories', 'brand_all', 'all_image'));
     }
 
 
@@ -150,14 +151,27 @@ class ProductController extends Controller
     /**
      * @return string
      */
-    private function getImages(): string
+    private function getImage(): string
     {
         $image = '';
-        $images = array_column($this->getAllProduct(),'images');
+        $images = array_column($this->getAllProduct()['data'],'images');
         $image_key = array_keys($images);
         foreach ($image_key as $value)
         {
             $image = implode(array_column($images[$value], 'url'));
+        }
+
+        return $image;
+    }
+
+    private function getAllImages()
+    {
+        $image = [];
+        $images = array_column($this->getAllProduct()['data'],'images');
+        $image_key = array_keys($images);
+        foreach ($image_key as $value)
+        {
+            $image[] = implode(array_column($images[$value], 'url'));
         }
 
         return $image;

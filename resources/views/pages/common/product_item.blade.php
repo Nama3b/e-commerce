@@ -1,7 +1,7 @@
 <div class="product">
-    <a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}"><img
-            src="{{'../'.$image}}"
-            alt=""></a>
+    @foreach ($image as $key => $image_item)
+    <a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}"><img src="{{'../'.$image_item}}" alt=""></a>
+    @endforeach
     <div class="product-feature">
         <button class="btn btn-sm btn-secondary mr-2">${{$product_item['price']}}</button>
         <button class="btn btn-sm btn-outline-dark mr-2">

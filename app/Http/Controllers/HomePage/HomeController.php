@@ -27,7 +27,9 @@ class HomeController extends Controller
         $url_canonical = $request->url();
 
         // get product category
-        $categories = DB::table('product_category')->where('status', '1')->orderby('id', 'desc')->take(6)->get();
+        $categories = DB::table('product_category')
+            ->where('status', '1')
+            ->orderby('id', 'desc')->take(6)->get();
 
         // get brand
         $brands = DB::table('brands')->where('status', '1')->get();
@@ -48,19 +50,40 @@ class HomeController extends Controller
 
         // get post
         $news = Post::with(['images' => function ($query) {
-            $query->whereImageType('POST')
-                ->whereReferenceId('id');
+            $query->whereImageType('POST');
         }])
             ->where('status', 'ACTIVE')
             ->where('post_type', 'NEWS')
             ->orderBy('created_at', 'desc')->take(8)->get()->toArray();
 
-        // images
-        $images = array_column($products,'images');
-        $image_key = array_keys($images);
-        foreach ($image_key as $value)
+        // product image
+
+        $images = array_column($products->toArray(), 'images');
+        foreach ($images as $value)
         {
-            $image = implode(array_column($images[$value], 'url'));
+            $image[] = array_column($value, 'url','reference_id');
+        }
+
+        $product_image = [];
+        foreach ($products as $key1 => $value1)
+        {
+            foreach ($image as $key2 => $value2)
+            {
+//                dd((int)implode(array_keys($value2)), $value1['id']);
+                if ($value1['id'] == (int)implode(array_keys($value2)))
+                {
+                    $product_image[] = $value2+$value1;
+                }
+            }
+        }
+
+        dd($product_image);
+
+        // news image
+        $images = array_column($news, 'images');
+        foreach ($images as $value)
+        {
+            $news_image[] = implode(array_column($value, 'url'));
         }
 
         return view('pages.home')
@@ -74,7 +97,19 @@ class HomeController extends Controller
                 'product_watches',
                 'product_best_seller',
                 'news',
-                'image'));
+                'image',
+                'news_image'));
+    }
+
+    public function getImage(array $images, array $image_key): array
+    {
+        $image = [];
+        $image_key = array_flip($image_key);
+        foreach ($images as $key => $value)
+        {
+            $image[$key] = array_intersect_key($value, $image_key);
+        }
+        return $image;
     }
 
 }
