@@ -5,22 +5,17 @@
             <div class="carousel-inner">
                 <div class="item active">
                     <a href="">
-                        <img
-                            src="{{{'WebPage/img/poster/NikeNOCTA_HotStepAirTerra_Translated_Internal_Banners_Primary_Desktop.jpeg'}}}"
-                            alt="">
+                        <img src="{{{'WebPage/img/poster/NikeNOCTA_HotStepAirTerra_Translated_Internal_Banners_Primary_Desktop.jpeg'}}}" alt="">
                     </a>
                 </div>
                 <div class="item">
                     <a href="">
-                        <img
-                            src="{{{'WebPage/img/poster/FOGEssentialsSS22_Translated_Internal_Banners_Primary_Desktop.webp'}}}"
-                            alt="">
+                        <img src="{{{'WebPage/img/poster/FOGEssentialsSS22_Translated_Internal_Banners_Primary_Desktop.webp'}}}" alt="">
                     </a>
                 </div>
                 <div class="item">
                     <a href="">
-                        <img src="{{{'WebPage/img/poster/GucciEvergreen_Internal_Banners_Primary_Desktop.webp'}}}"
-                             alt="">
+                        <img src="{{{'WebPage/img/poster/GucciEvergreen_Internal_Banners_Primary_Desktop.webp'}}}" alt="">
                     </a>
                 </div>
                 <div class="item">

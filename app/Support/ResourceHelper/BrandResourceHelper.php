@@ -2,17 +2,16 @@
 
 namespace App\Support\ResourceHelper;
 
-use App\Models\Product;
-use App\Models\ProductCategory;
+use App\Models\Brand;
 use Illuminate\Database\Eloquent\Collection;
 
-trait CategoryResourceHelper
+trait BrandResourceHelper
 {
     /**
      * @return Collection|array
      */
-    private function getAllCategory(): Collection|array
+    private function getAllBrand(): Collection|array
     {
-        return ProductCategory::whereStatus(1)->take(10)->get();
+        return Brand::whereStatus(1)->whereType('ALL')->take(6)->get();
     }
 }

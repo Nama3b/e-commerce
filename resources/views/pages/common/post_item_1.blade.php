@@ -1,12 +1,22 @@
-<div class="post">
+<div class="post-item-type-1">
     <a href="{{URL::to('post-detail'.'/')}}"><img src="{{'../'}}" alt=""></a>
-    <div class="post-feature">
-        <button class="btn btn-sm btn-outline-dark"><i class="fas fa-heartbeat"></i></button>
-        <button class="btn btn-sm btn-outline-dark mr-2"><i class="fa fa-share-square-o"></i></button>
-        <button class="btn btn-sm btn-secondary mr-2"><i class="fa fa-save"></i></button>
-    </div>
-    <div class="post-info">
-        <small>{{$product_item['brand']['name']}}</small>
-        <p><a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}"><b>{{$product_item['name']}}</b></a></p>
+    <div class="post-infor">
+        <div class="post-type">
+            <span>Topic</span> -
+            <span>Fashion</span> -
+            <small>4 mins</small>
+        </div>
+        <div class="post-title">
+            <b>Lorem ipsum dolor sit amet, consectetur adipisicing.</b>
+        </div>
+        <div class="post-description">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aperiam, culpa earum fugiat ipsam iste non quis sed tempore ut?</p>
+        </div>
+        <div class="post-author">
+            <img src="" alt="">
+            <div class="author-name">
+                <b>Namaeb</b>
+            </div>
+        </div>
     </div>
 </div>
