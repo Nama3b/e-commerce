@@ -1,5 +1,5 @@
 <div class="post-item-type-1">
-    <a href="{{URL::to('post-detail'.'/')}}"><img src="{{'../'}}" alt=""></a>
+    <a href="{{URL::to('post-detail'.'/'.$post_item['id'])}}"><img src="{{'../'.$post_item['url']}}" alt=""></a>
     <div class="post-infor">
         <div class="post-type">
             <span>Topic</span> -
@@ -7,15 +7,15 @@
             <small>4 mins</small>
         </div>
         <div class="post-title">
-            <b>Lorem ipsum dolor sit amet, consectetur adipisicing.</b>
+            <b>{{$post_item['title']}}</b>
         </div>
         <div class="post-description">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aperiam, culpa earum fugiat ipsam iste non quis sed tempore ut?</p>
+            <p>{{$post_item['description']}}</p>
         </div>
         <div class="post-author">
-            <img src="" alt="">
+            <img src="{{'../WebPage/img/home/logo.jpg'}}" alt="">
             <div class="author-name">
-                <b>Namaeb</b>
+                <b>{{$post_item['author']}}</b>
             </div>
         </div>
     </div>

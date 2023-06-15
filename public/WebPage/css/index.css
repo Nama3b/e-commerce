@@ -770,6 +770,16 @@ html, body {
     margin: 0;
 }
 
+/* ====================================POST==================================== */
+
+.main-post .carousel-section {
+    margin-top: 64px;
+}
+
+.main-post .popular-post {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(129px, 1fr));
+}
 
 /* ====================================CART==================================== */
 

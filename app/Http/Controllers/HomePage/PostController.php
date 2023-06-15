@@ -38,10 +38,17 @@ class PostController extends Controller
             }
         }
 
+        $popular_post = collect($this->getAllPost())->take(4)->toArray();
+        $newest_post = collect($this->getAllPost())->orderby('created_at','desc')->take(4)->toArray();
+        $suggest_post = collect($this->getAllPost())->random(4)->take(4)->toArray();
+
         return view('pages.post')->with(compact(
             'post',
             'categories',
-            'brand_all'
+            'brand_all',
+            'popular_post',
+            'newest_post',
+            'suggest_post'
         ));
     }
 

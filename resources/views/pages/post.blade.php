@@ -1,32 +1,34 @@
 @extends('layout')
 @section('content')
-    <div class="carousel-section">
-        <div id="posterCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="item active">
-                    <a href="">
-                        <img src="{{{'WebPage/img/poster/browse-header-collectibles-new.png'}}}" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="">
-                        <img src="{{{'WebPage/img/poster/browse-headersSneakers.png'}}}" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="">
-                        <img src="{{{'WebPage/img/poster/browse-headersStreetwear.png'}}}" alt="">
-                    </a>
+    <div class="main-post">
+        <div class="carousel-section">
+            <div id="posterCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <a href="">
+                            <img src="{{{'WebPage/img/poster/browse-header-collectibles-new.png'}}}" alt="">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <img src="{{{'WebPage/img/poster/browse-headersSneakers.jpg'}}}" alt="">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <img src="{{{'WebPage/img/poster/browse-headersStreetwear.jpg'}}}" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="main">
         <div class="container">
             <div class="popular-post">
-                <form action="">
-                    @include('pages.common.post_item_1')
+                <form action="{{URL::to('/save')}}" method="post">
+                    @foreach($popular_post as $key => $post_item)
+                        @include('pages.common.post_item_1')
+                    @endforeach
                 </form>
             </div>
 
@@ -35,17 +37,17 @@
                     <div class="carousel-inner">
                         <div class="item active">
                             <a href="">
-                                <img src="{{{'WebPage/img/poster/browse-header-collectibles-new.png'}}}" alt="">
+                                <img src="{{{'WebPage/img/poster/browse-headersSneakers.jpg'}}}" alt="">
+                            </a>
+                        </div>
+                        <div class="item">
+                            <img src="{{{'WebPage/img/poster/browse-header-collectibles-new.png'}}}" alt="">
+                            <a href="">
                             </a>
                         </div>
                         <div class="item">
                             <a href="">
-                                <img src="{{{'WebPage/img/poster/browse-headersSneakers.png'}}}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="">
-                                <img src="{{{'WebPage/img/poster/browse-headersStreetwear.png'}}}" alt="">
+                                <img src="{{{'WebPage/img/poster/browse-headersStreetwear.jpg'}}}" alt="">
                             </a>
                         </div>
                     </div>
@@ -73,9 +75,9 @@
                     </div>
                     <form action="{{URL::to('/save')}}" method="post">
                         {{ csrf_field() }}
-{{--                        @foreach($product_sneakers as $key => $product_item)--}}
+                        @foreach($newest_post as $key => $post_item)
                             @include('pages.common.post_item_2')
-{{--                        @endforeach--}}
+                        @endforeach
                     </form>
                 </div>
             </div>
@@ -93,14 +95,14 @@
                     </div>
                     <form action="{{URL::to('/save')}}" method="post">
                         {{ csrf_field() }}
-{{--                        @foreach($product_sneakers as $key => $product_item)--}}
+                        @foreach($suggest_post as $key => $post_item)
                             @include('pages.common.post_item_2')
-{{--                        @endforeach--}}
+                        @endforeach
                     </form>
                 </div>
             </div>
 
-            <div class="main-post">
+            <div class="body-post">
                 <div class="col-9">
                     <div class="nav-tab">
                         @include('pages.common.post_item_1')
