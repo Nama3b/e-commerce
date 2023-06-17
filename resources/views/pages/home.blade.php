@@ -1,27 +1,22 @@
 @extends('layout')
 @section('content')
     <div class="carousel-section">
-        <div id="posterCarousel" class="carousel slide" data-ride="carousel">
+        <div id="postCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="item active">
-                    <a href="">
-                        <img src="{{{'WebPage/img/poster/NikeNOCTA_HotStepAirTerra_Translated_Internal_Banners_Primary_Desktop.jpeg'}}}" alt="">
-                    </a>
+                <div class="carousel-item active">
+                    <a href=""><img class="d-block w-100"
+                                    src="{{'WebPage/img/poster/NikeNOCTA_HotStepAirTerra_Translated_Internal_Banners_Primary_Desktop.jpeg'}}"
+                                    alt="First slide"></a>
                 </div>
-                <div class="item">
-                    <a href="">
-                        <img src="{{{'WebPage/img/poster/FOGEssentialsSS22_Translated_Internal_Banners_Primary_Desktop.webp'}}}" alt="">
-                    </a>
+                <div class="carousel-item">
+                    <a href=""><img class="d-block w-100"
+                                    src="{{'WebPage/img/poster/GucciEvergreen_Internal_Banners_Primary_Desktop.webp'}}"
+                                    alt="Second slide"></a>
                 </div>
-                <div class="item">
-                    <a href="">
-                        <img src="{{{'WebPage/img/poster/GucciEvergreen_Internal_Banners_Primary_Desktop.webp'}}}" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="">
-                        <img src="{{{'WebPage/img/poster/The-Spin-3-22-Primary_Desktop-EN.jpeg'}}}" alt="">
-                    </a>
+                <div class="carousel-item">
+                    <a href=""><img class="d-block w-100"
+                                    src="{{'WebPage/img/poster/The-Spin-3-22-Primary_Desktop-EN.jpeg'}}"
+                                    alt="Third slide"></a>
                 </div>
             </div>
         </div>
@@ -63,40 +58,40 @@
 
         <div class="carousel-brand">
             <div class="container">
-                <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+                <div id="carouselbanner" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselIndicators" data-slide-to="2"></li>
-                        <li data-target="#carouselIndicators" data-slide-to="4"></li>
+                        <li data-target="#carouselbanner" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselbanner" data-slide-to="1"></li>
+                        <li data-target="#carouselbanner" data-slide-to="2"></li>
+                        <li data-target="#carouselbanner" data-slide-to="4"></li>
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="d-block w-100"
-                                 src="{{'WebPage/img/banner/Air-Jordan-1_s-Under-200_Primary_Desktop_EN.webp'}}"
-                                 alt="First slide">
+                            <a href=""><img class="d-block w-100"
+                                            src="{{'WebPage/img/banner/Air-Jordan-1_s-Under-200_Primary_Desktop_EN.webp'}}"
+                                            alt="First slide"></a>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100"
-                                 src="{{'WebPage/img/banner/Summer2023-Merch-A&AEventWear-Wedding-M-W_Primary_Desktop_EN.webp'}}"
-                                 alt="Second slide">
+                            <a href=""><img class="d-block w-100"
+                                            src="{{'WebPage/img/banner/Summer2023-Merch-A&AEventWear-Wedding-M-W_Primary_Desktop_EN.webp'}}"
+                                            alt="Second slide"></a>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100"
-                                 src="{{'WebPage/img/banner/Summer2023-Sunglasses_Primary_Desktop_EN.webp'}}"
-                                 alt="Third slide">
+                            <a href=""><img class="d-block w-100"
+                                            src="{{'WebPage/img/banner/Summer2023-Sunglasses_Primary_Desktop_EN.webp'}}"
+                                            alt="Third slide"></a>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100"
-                                 src="{{'WebPage/img/banner/Nike-Dunks-Under-$100-Evergreen-assetPrimary_Desktop.webp'}}"
-                                 alt="Four slide">
+                            <a href=""><img class="d-block w-100"
+                                            src="{{'WebPage/img/banner/Nike-Dunks-Under-$100-Evergreen-assetPrimary_Desktop.webp'}}"
+                                            alt="Four slide"></a>
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" href="#carouselbanner" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+                    <a class="carousel-control-next" href="#carouselbanner" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>

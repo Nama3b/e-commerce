@@ -4,11 +4,13 @@ namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -23,6 +25,45 @@ class PostController extends Controller
 
         $brand_all = $this->getAllBrand();
 
+        $post_all = collect($this->getPostImage())->take(10)->toArray();
+
+        $tags = $this->getTags();
+
+        $popular_post = collect($this->getPostImage())->take(4)->toArray();
+        $newest_post = collect($this->getPostImage())->sortByDesc('created_at')->take(4)->toArray();
+        $suggest_post = collect($this->getPostImage())->random(4)->take(4)->toArray();
+
+        return view('pages.post')
+            ->with(compact(
+                'post_all',
+                'categories',
+                'brand_all',
+                'popular_post',
+                'newest_post',
+                'suggest_post',
+                'tags'
+            ));
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getAllPost(): mixed
+    {
+        return Post::with(['images' => function ($query) {
+            $query->whereImageType('POST');
+        }])
+            ->whereStatus('ACTIVE')
+            ->wherePostType('NEWS')
+            ->orderBy('created_at', 'desc')->take(8)->get()->toArray();
+    }
+
+    /**
+     * @return array
+     */
+    public function getPostImage(): array
+    {
         $image = [];
         $images = array_column($this->getAllPost(), 'images');
         foreach ($images as $value) {
@@ -38,31 +79,11 @@ class PostController extends Controller
             }
         }
 
-        $popular_post = collect($this->getAllPost())->take(4)->toArray();
-        $newest_post = collect($this->getAllPost())->orderby('created_at','desc')->take(4)->toArray();
-        $suggest_post = collect($this->getAllPost())->random(4)->take(4)->toArray();
-
-        return view('pages.post')->with(compact(
-            'post',
-            'categories',
-            'brand_all',
-            'popular_post',
-            'newest_post',
-            'suggest_post'
-        ));
+        return $post;
     }
 
-    /**
-     * @return array
-     */
-    public function getAllPost(): array
+    public function getTags(): array
     {
-        return Post::with(['images' => function ($query) {
-            $query->whereImageType('POST');
-        }])
-            ->whereStatus('ACTIVE')
-            ->wherePostType('NEWS')
-            ->orderBy('created_at', 'desc')->take(8)->get()->toArray();
+        return DB::table('tags')->orderBy('id','desc')->take(20)->get()->toArray();
     }
-
 }

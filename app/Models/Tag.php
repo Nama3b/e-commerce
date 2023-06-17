@@ -67,21 +67,21 @@ class Tag extends Model
         'name'
     ];
 
-    /**
-     * @return BelongsTo
-     */
-    public function products(): BelongsTo
-    {
-        return $this->BelongsTo(Product::class,'id','reference_id');
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function posts(): BelongsTo
-    {
-        return $this->BelongsTo(Post::class,'id','reference_id');
-    }
+//    /**
+//     * @return BelongsTo
+//     */
+//    public function products(): BelongsTo
+//    {
+//        return $this->BelongsTo(Product::class,'id','reference_id');
+//    }
+//
+//    /**
+//     * @return BelongsTo
+//     */
+//    public function posts(): BelongsTo
+//    {
+//        return $this->BelongsTo(Post::class,'id','reference_id');
+//    }
 
     /**
      * @return BelongsTo
