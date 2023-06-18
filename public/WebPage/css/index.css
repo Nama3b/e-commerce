@@ -123,6 +123,14 @@ html, body {
     background: white;
 }
 
+.dropdown-user {
+    margin-left: -115px !important;
+}
+
+.dropdown-user li a {
+    color: black !important;
+}
+
 .dropdown-menu li:hover {
     background: #313442 !important;
 }
@@ -913,6 +921,26 @@ html, body {
     display: flex;
     align-items: center;
     margin-left: 10px;
+}
+
+.body-post .tag-post {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 50px 0;
+}
+
+.body-post .tag-item {
+    margin: 5px;
+    padding: 5px 10px;
+    background: grey;
+}
+
+.body-post .tag-item p {
+    margin-bottom: 0;
+}
+
+.body-post .tag-item a {
+    color: white;
 }
 
 /* ====================================CART==================================== */

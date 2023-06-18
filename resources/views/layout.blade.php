@@ -72,7 +72,7 @@
                                 <img src="{{{'../WebPage/img/home/logo.jpg'}}}" alt="" width="90%">
                             </button>
                             <i class="fas fa-caret-down d-none"></i>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu dropdown-user">
                                 <li><a href="">Heyy mate!</a></li>
                                 <li><a href="#">My profile</a></li>
                                 <li><a href="#">Setting</a></li>

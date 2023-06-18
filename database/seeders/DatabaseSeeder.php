@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             MemberSeeder::class,
             CustomerSeeder::class,
             PostSeeder::class,
-            ImageSeeder::class
+            ImageSeeder::class,
+            TagSeeder::class
         ]);
     }
 }

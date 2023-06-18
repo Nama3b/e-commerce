@@ -7,7 +7,7 @@
             <small><b>Topic</b> - <b>Fashion</b> - 4 mins</small>
         </div>
         <div class="post-title">
-            <b>{{$post_item['title']}}</b>
+            <b><a href="">{{$post_item['title']}}</a></b>
         </div>
         <div class="post-description">
             <p>{{$post_item['content']}}</p>

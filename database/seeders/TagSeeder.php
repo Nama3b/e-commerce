@@ -64,6 +64,66 @@ class TagSeeder extends Seeder
                 'name' => 'Shopping',
                 'tag_type' => 'POST',
             ],
+            [
+                'reference_id' => '8',
+                'creator' => '1',
+                'name' => 'Art',
+                'tag_type' => 'POST',
+            ],
+            [
+                'reference_id' => '8',
+                'creator' => '1',
+                'name' => 'Model',
+                'tag_type' => 'POST',
+            ],
+            [
+                'reference_id' => '4',
+                'creator' => '1',
+                'name' => 'Myself',
+                'tag_type' => 'POST',
+            ],
+            [
+                'reference_id' => '3',
+                'creator' => '1',
+                'name' => 'Insta daily',
+                'tag_type' => 'POST',
+            ],
+            [
+                'reference_id' => '2',
+                'creator' => '1',
+                'name' => 'Beauty',
+                'tag_type' => 'POST',
+            ],
+            [
+                'reference_id' => '1',
+                'creator' => '1',
+                'name' => 'Moda',
+                'tag_type' => 'POST',
+            ],
+            [
+                'reference_id' => '8',
+                'creator' => '1',
+                'name' => 'Fashion kids',
+                'tag_type' => 'POST',
+            ],
+            [
+                'reference_id' => '8',
+                'creator' => '1',
+                'name' => 'Fashional addict',
+                'tag_type' => 'POST',
+            ],
+            [
+                'reference_id' => '8',
+                'creator' => '1',
+                'name' => 'Weekend show',
+                'tag_type' => 'POST',
+            ],
+            [
+                'reference_id' => '8',
+                'creator' => '1',
+                'name' => 'Fashion designer',
+                'tag_type' => 'POST',
+            ],
         ]);
     }
 }
