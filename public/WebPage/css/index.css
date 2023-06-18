@@ -923,6 +923,10 @@ html, body {
     margin-left: 10px;
 }
 
+.body-post .search-post {
+    margin-bottom: 50px;
+}
+
 .body-post .tag-post {
     display: flex;
     flex-wrap: wrap;
@@ -941,6 +945,10 @@ html, body {
 
 .body-post .tag-item a {
     color: white;
+}
+
+.body-post .banner img {
+    width: 100%;
 }
 
 /* ====================================CART==================================== */
