@@ -36,18 +36,23 @@ class ProductController extends Controller
      * @param Request $request
      * @return Factory|View|Application
      */
-    public function search_product(Request $request): Factory|View|Application
+    public function searchProduct(Request $request): Factory|View|Application
     {
-        $keyword = $request->keyword_submit;
-        $search_item = Product::with('category', 'brand', 'images')
-            ->join('brands', 'brands.id', '=', 'products.id')
-            ->join('product_category', 'product_category.id', '=', 'products.id')
-            ->where('brands.name', 'like', '%' . $keyword . '%')
-            ->where('product_category.name', 'like', '%' . $keyword . '%')
-            ->where('products.name', 'like', '%' . $keyword . '%')
-            ->where('products.status', 'STOCKING')->take(40)->get();
+        $categories = $this->getAllCategory();
 
-        return view('pages.product')->with(compact('search_item'));
+        $brand_all = $this->getAllBrand();
+
+        $keyword = $request->input('keyword_submit');
+        $searches = collect($this->getProductImage())->filter(function ($item) use ($keyword) {
+            return false !== stristr($item['name'], $keyword);
+        });
+
+        return view('pages.product.search-product')
+            ->with(compact(
+                'searches',
+                'categories',
+                'brand_all'
+            ));
     }
 
     /**
@@ -61,8 +66,7 @@ class ProductController extends Controller
             ->take(1)->toArray();
 
         $products_relate = collect($this->getProductImage())
-            ->where('category_id', (int)implode(array_column($detail, 'category_id'))
-                or 'brand_id', (int)implode(array_column($detail, 'brand_id')))
+            ->where('category_id', '=', (int)implode(array_column($detail, 'category_id')))
             ->whereNotIn('id', $id)
             ->take(5)->toArray();
 
@@ -70,7 +74,7 @@ class ProductController extends Controller
 
         $brand_all = $this->getAllBrand();
 
-        return view('pages.product-detail')
+        return view('pages.product.product-detail')
             ->with(compact(
                 'detail',
                 'products_relate',
@@ -93,7 +97,7 @@ class ProductController extends Controller
 
         $brand_all = $this->getAllBrand();
 
-        return view('pages.brand.product-by-brand')
+        return view('pages.product.product-by-brand')
             ->with(compact(
                 'products',
                 'categories',
@@ -115,7 +119,7 @@ class ProductController extends Controller
 
         $brand_all = $this->getAllBrand();
 
-        return view('pages.category.product-by-category')
+        return view('pages.product.product-by-category')
             ->with(compact(
                 'products',
                 'categories',

@@ -1,10 +1,10 @@
 @extends('layout')
 @section('content')
-    <div class="product-detail-body">
+    <div class="product-detail-main">
         <div class="container">
             <div class="row">
-                <div class="product-detail">
-                    @foreach($detail as $key => $detail_item)
+                @foreach($detail as $key => $detail_item)
+                    <div class="product-detail">
                         <div class="product-detail-title">
                             <p>Home / <a
                                     href="{{URL::to('product'.'/'.$detail_item['id'])}}">{{$detail_item['name']}}</a>
@@ -58,50 +58,52 @@
                                 </div>
                             </div>
                         </div>
-                </div>
-                <div class="product-detail-info">
-                    <h4>Product Details</h4>
-                    <div class="d-flex">
-                        <div class="col-6">
-                            <p>{{$detail_item['description']}}
-                                Our product Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
-                                reprehenderit nisi harum illum nihil nesciunt soluta commodi fugit officia. Non nihil
-                                ut, veritatis dicta ipsum ullam saepe aperiam, accusamus..
-                                <br>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio necessitatibus alias
-                                omnis, optio.
-                            </p>
-                        </div>
-                        <div class="col-6 table-info">
-                            <table>
-                                <tr>
-                                    <td>Style</td>
-                                    <td>555088-036</td>
-                                </tr>
-                                <tr>
-                                    <td>Colorway</td>
-                                    <td>BLACK/WHITE-PARTICLE GREY</td>
-                                </tr>
-                                <tr>
-                                    <td>Retail Price</td>
-                                    <td>{{$detail_item['price']}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Release Date</td>
-                                    <td>03/12/2022</td>
-                                </tr>
-                            </table>
+                    </div>
+
+                    <div class="product-detail-info">
+                        <h4>Product Details</h4>
+                        <div class="d-flex">
+                            <div class="col-6">
+                                <p>{{$detail_item['description']}}
+                                    Our product Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
+                                    reprehenderit nisi harum illum nihil nesciunt soluta commodi fugit officia. Non
+                                    nihil
+                                    ut, veritatis dicta ipsum ullam saepe aperiam, accusamus..
+                                    <br>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio necessitatibus
+                                    alias
+                                    omnis, optio.
+                                </p>
+                            </div>
+                            <div class="col-6 table-info">
+                                <table>
+                                    <tr>
+                                        <td>Style</td>
+                                        <td>555088-036</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Colorway</td>
+                                        <td>BLACK/WHITE-PARTICLE GREY</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Retail Price</td>
+                                        <td>{{$detail_item['price']}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Release Date</td>
+                                        <td>03/12/2022</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
+
                 <div class="related-product col">
                     <h4>Related product</h4>
-                    <div class="d-flex">
-                        @foreach($products_relate as $key => $product_item)
-                            @include('pages.common.product_item')
-                        @endforeach
-                    </div>
+                    @foreach($products_relate as $key => $product_item)
+                        @include('pages.common.product_item')
+                    @endforeach
                 </div>
             </div>
         </div>

@@ -36,9 +36,12 @@ Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class,
 Route::get('/product-by-brand/{brand}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByBrand']);
 Route::get('/product-by-category/{category}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByCategory']);
 Route::get('/product-detail/{id}', [\App\Http\Controllers\HomePage\ProductController::class, 'productDetail']);
-Route::post('/search-product', [\App\Http\Controllers\HomePage\ProductController::class, 'search_product']);
+Route::get('/search-product', [\App\Http\Controllers\HomePage\ProductController::class, 'searchProduct']);
 Route::get('/post', [\App\Http\Controllers\HomePage\PostController::class, 'post']);
 Route::get('/post-detail/{id}', [\App\Http\Controllers\HomePage\PostController::class, 'postDetail']);
+Route::get('/search-post', [\App\Http\Controllers\HomePage\PostController::class, 'searchPost']);
+Route::get('/login-home', [\App\Http\Controllers\HomePage\LoginController::class, 'loginHome']);
+
 
 Route::get('/login', [LoginController::class, 'showLoginForm']);
 

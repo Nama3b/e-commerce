@@ -10,6 +10,7 @@ use App\Support\ResourceHelper\CategoryResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
@@ -25,10 +26,9 @@ class PostController extends Controller
 
         $brand_all = $this->getAllBrand();
 
-        $post_all = collect($this->getPostImage())->take(10)->toArray();
-
         $tags = $this->getTags();
 
+        $post_all = collect($this->getPostImage())->take(10)->toArray();
         $popular_post = collect($this->getPostImage())->take(4)->toArray();
         $newest_post = collect($this->getPostImage())->sortByDesc('created_at')->take(4)->toArray();
         $suggest_post = collect($this->getPostImage())->random(4)->take(4)->toArray();
@@ -45,6 +45,32 @@ class PostController extends Controller
             ));
     }
 
+    /**
+     * @param Request $request
+     * @return Factory|View|Application
+     */
+    public function searchPost(Request $request): Factory|View|Application
+    {
+        $categories = $this->getAllCategory();
+
+        $brand_all = $this->getAllBrand();
+
+        $tags = $this->getTags();
+
+        $keyword = $request->input('keyword_submit');
+        $searches = collect($this->getPostImage())->filter(function ($item) use ($keyword) {
+            return false !== stristr($item['title'], $keyword);
+        });
+
+        return view('pages.post.search-post')
+            ->with(compact(
+                'searches',
+                'categories',
+                'brand_all',
+                'tags',
+                'searches'
+            ));
+    }
 
     /**
      * @return mixed

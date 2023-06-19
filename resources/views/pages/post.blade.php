@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-    <div class="main-post">
+    <div class="post-main">
         <div class="carousel-section">
             <div id="posterCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
@@ -122,11 +122,11 @@
                 </div>
                 <div class="col-3">
                     <div class="search-post">
-                        <form class="form-search" method="post" action="{{URL::to('post_search')}}">
+                        <form class="form-search" method="get" action="{{URL::to('search-post')}}">
                             <label>
-                                <input class="form-control" name="keyword_submit" type="text" placeholder="Search..">
+                                <input class="form-control" name="keyword" type="text" placeholder="Search post..">
                             </label>
-                            <button type="submit" name="search" class="btn btn-sm"><i class="fa fa-search"></i></button>
+                            <button type="submit" class="btn btn-sm"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                     <div class="banner">

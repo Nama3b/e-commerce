@@ -24,11 +24,11 @@
                     <a class="navbar-brand" href="{{URL::to('home')}}">
                         <img src="{{'../WebPage/img/home/project_name.png'}}" alt="">
                     </a>
-                    <form class="form-search" method="post" action="{{URL::to('product_search')}}">
+                    <form class="form-search" method="get" action="{{URL::to('search-product')}}">
                         <label>
-                            <input class="form-control" name="keyword_submit" type="text" placeholder="Search..">
+                            <input class="form-control" name="keyword_submit" type="text" placeholder="Search product..">
                         </label>
-                        <button type="submit" name="search" class="btn btn-sm"><i class="fa fa-search"></i></button>
+                        <button type="submit" class="btn btn-sm"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
                 <div class="nav-right col-6 fade-in slide-in collapse navbar-collapse">
@@ -64,7 +64,7 @@
                         <li class="nav-item">
                             <div><a class="nav-link" href="{{URL::to('post')}}">Post</a></div>
                         </li>
-                        <button class="btn btn-dark btn-signup"><a href="">Sign Up</a></button>
+                        <button class="btn btn-dark btn-signup"><a href="{{URL::to('login')}}">Sign Up</a></button>
                         <button class="btn btn-outline-dark btn-cart"><a href=""><i class="fa fa-shopping-cart"></i></a>
                         </button>
                         <div class="dropdown d-flex">
@@ -117,7 +117,7 @@
                     <ul>
                         <li>Lorem ipsum dolor sit.</li>
                         <li>Deleniti possmus volptate, repuandae.</li>
-                        <li><a href="" style="color:black">Qui</a> officia architecto nobis?</li>
+                        <li><a href="{{URL::to('login')}}" style="color:black">Qui</a> officia architecto nobis?</li>
                         <li>Dignissimos fuga vitae sit!</li>
                     </ul>
                 </div>
