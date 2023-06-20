@@ -9,7 +9,6 @@ use App\Http\Requests\Order\EditOrderRequest;
 use App\Http\Requests\Order\StoreOrderRequest;
 use App\Models\Customer;
 use App\Models\Order;
-use App\Models\Shipping;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\WithPaginationLimit;

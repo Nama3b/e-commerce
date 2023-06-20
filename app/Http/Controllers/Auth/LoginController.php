@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Member;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -71,6 +70,6 @@ class LoginController extends Controller
      */
     protected function loggedOut(Request $request): Redirector|Application|RedirectResponse
     {
-        return redirect('/admin/login');
+        return redirect('/dashboard/login');
     }
 }

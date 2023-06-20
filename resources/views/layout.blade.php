@@ -64,8 +64,8 @@
                         <li class="nav-item">
                             <div><a class="nav-link" href="{{URL::to('post')}}">Post</a></div>
                         </li>
-                        <button class="btn btn-dark btn-signup"><a href="{{URL::to('login')}}">Sign Up</a></button>
-                        <button class="btn btn-outline-dark btn-cart"><a href=""><i class="fa fa-shopping-cart"></i></a>
+                        <button class="btn btn-dark btn-signup"><a href="{{URL::to('login-home')}}">Sign Up</a></button>
+                        <button class="btn btn-outline-dark btn-cart"><a href="{{URL::to('my-cart')}}"><i class="fa fa-shopping-cart"></i></a>
                         </button>
                         <div class="dropdown d-flex">
                             <button class="btn btn-outline-dark" type="button" data-toggle="dropdown">
