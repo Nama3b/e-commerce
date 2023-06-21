@@ -44,7 +44,7 @@ class OrderController extends Controller
             "allowClear" => true
         ];
         return (new $instance)
-            ->render('admin.pages.order', compact('options', 'config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.order-list', compact('options', 'config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**

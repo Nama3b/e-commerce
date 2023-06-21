@@ -46,7 +46,7 @@ class DeliveryController extends Controller
             "allowClear" => true
         ];
         return (new $instance)
-            ->render('admin.pages.delivery', compact('option1', 'option2', 'config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.delivery', compact('option1', 'option2', 'config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**

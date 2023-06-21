@@ -5,6 +5,7 @@ namespace App\Http\Controllers\HomePage;
 use App\Http\Controllers\Controller;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
+use Darryldecode\Cart\Cart;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -23,7 +24,8 @@ class OrderController extends Controller
         $categories = $this->getAllCategory();
 
         $brand_all = $this->getAllBrand();
-//        $carts = \Cart::getContent();
+
+        $carts = Cart::getContent();
 
         return view('pages.shopping.my-cart')
             ->with(compact(

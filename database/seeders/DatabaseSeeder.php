@@ -22,7 +22,10 @@ class DatabaseSeeder extends Seeder
             CustomerSeeder::class,
             PostSeeder::class,
             ImageSeeder::class,
-            TagSeeder::class
+            TagSeeder::class,
+            PermissionSeeder::class,
+            RoleSeeder::class,
+            PermissionRoleSeeder::class
         ]);
     }
 }

@@ -5,7 +5,6 @@ namespace App\DataTables\Delivery;
 use App\Models\Shipping;
 use App\Support\DataTableCommonFunction;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
 use Psr\Container\ContainerExceptionInterface;
@@ -37,22 +36,22 @@ class ShippingDataTable extends DataTable
                 return $this->checkbox($shipping);
             })
             ->editColumn('manager', function (Shipping $shipping) {
-                return $shipping->manager;
+                return optional($shipping->member)->full_name;
             })
             ->editColumn('code', function (Shipping $shipping) {
-                return $shipping->shipping_code;
+                return Str::words(strip_tags($shipping->shipping_code), 10);
             })
             ->editColumn('customer_name', function (Shipping $shipping) {
                 return Str::words(strip_tags($shipping->customer_name), 10);
             })
             ->editColumn('shipping_delivery_address', function (Shipping $shipping) {
-                return $shipping->shipping_delivery_address;
+                return Str::words(strip_tags($shipping->shipping_delivery_address), 10);
             })
             ->editColumn('phone_number', function (Shipping $shipping) {
-                return $shipping->phone_number;
+                return Str::words(strip_tags($shipping->phone_number), 10);
             })
             ->editColumn('shipping_delivery_time', function (Shipping $shipping) {
-                return $shipping->shipping_delivery_time;
+                return $this->buildDate($shipping);
             })
             ->editColumn('status', function (Shipping $shipping) {
                 return match ($shipping->status) {
@@ -121,9 +120,10 @@ class ShippingDataTable extends DataTable
      * @param $shipping
      * @return string
      */
-    private function buildImage($shipping): string
+    public function buildDate($shipping): string
     {
-        return $shipping->image ? '<img src="' . Storage::url($shipping->image) . '" alt="' . $shipping->title . '" height="50" />' : '';
+        return $shipping->shipping_delivery_time ? '<input type="date" name="{{$shipping_delivery_time}}" placeholder="Pick a time"
+                           class="form-input">' : '';
     }
 
     /**
@@ -157,10 +157,11 @@ class ShippingDataTable extends DataTable
                     . '<label for="checkAll" class="custom-control-label"></label>'
                     . '</div>'),
             Column::make('id')->title('#ID')->width('1%'),
-            Column::make('title')->title('Title')->orderable(false),
-            Column::make('description')->title('Description')->orderable(false),
-            Column::make('image')->title('Image')->orderable(false),
-            Column::make('url')->title('Url')->orderable(false),
+            Column::make('shipping_code')->title('Code')->orderable(false),
+            Column::make('customer_name')->title('Customer')->orderable(false),
+            Column::make('shipping_delivery_address')->title('Delivery address')->orderable(false),
+            Column::make('phone_number')->title('Phone number')->orderable(false),
+            Column::make('shipping_delivery_time')->title('Delivery time')->orderable(false),
             Column::make('status')->title('Status')->orderable(false),
             Column::computed(__('generate.translate.button.action'))->exportable(false)->printable(false)->width('1%')->addClass('text-center text-nowrap'),
         ];

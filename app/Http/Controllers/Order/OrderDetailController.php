@@ -47,7 +47,7 @@ class OrderDetailController extends Controller
             "allowClear" => true
         ];
         return (new $instance)
-            ->render('admin.pages.order_detail', compact('options', 'config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.order_detail', compact('options', 'config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**
@@ -70,7 +70,7 @@ class OrderDetailController extends Controller
      * @param EditOrderDetailRequest $request
      * @return JsonResponse|mixed
      */
-    public function edit(Order $orderDetail, EditOrderDetailRequest $request): mixed
+    public function edit(OrderDetail $orderDetail, EditOrderDetailRequest $request): mixed
     {
         return $this->withComponentErrorHandling(function () use ($orderDetail, $request) {
             $status = (new Editor($request))->edit($orderDetail);

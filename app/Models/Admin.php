@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +24,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|Admin newModelQuery()
  * @method static Builder|Admin newQuery()
  * @method static Builder|Admin query()
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Admin extends Authenticatable
 {

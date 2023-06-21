@@ -37,11 +37,11 @@ class PostDataTable extends DataTable
                 return $this->checkbox($post);
             })
             ->editColumn('author', function (Post $post) {
-                return $post->author;
+                return optional($post->author)->full_name;
             })
             ->editColumn('post_type', function (Post $post) {
                 return match ($post->post_type) {
-                    'PRODUCT' => 'Product',
+                    'BLOG' => 'Blog',
                     'POST' => 'Post',
                 };
             })

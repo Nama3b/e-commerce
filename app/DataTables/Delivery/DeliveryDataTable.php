@@ -40,19 +40,20 @@ class DeliveryDataTable extends DataTable
                 return $delivery->service_name;
             })
             ->editColumn('creator', function (Delivery $delivery) {
-                return $delivery->member::pluck('name', 'id');
+//                return $delivery->member::pluck('name', 'id');
+                return optional($delivery->member)->name;
             })
             ->editColumn('payment_option_id', function (Delivery $delivery) {
-                return $delivery->payment::pluck('name', 'id');
+                return optional($delivery->payment)->name;
             })
             ->editColumn('delivery_fee', function (Delivery $delivery) {
                 return Str::words(strip_tags($delivery->delivery_fee), 10);
             })
             ->editColumn('delivery_time', function (Delivery $delivery) {
-                return Str::words(strip_tags($delivery->delivery_time), 10);
+                return $this->buildDate($delivery);
             })
             ->editColumn('description', function (Delivery $delivery) {
-                return $this->buildImage($delivery);
+                return Str::words(strip_tags($delivery->description), 10);
             })
             ->rawColumns([__('generate.translate.button.action'), 'type', 'status']);
     }
@@ -117,6 +118,16 @@ class DeliveryDataTable extends DataTable
     private function buildImage($delivery): string
     {
         return $delivery->image ? '<img src="' . Storage::url($delivery->image) . '" alt="' . $delivery->title . '" height="50" />' : '';
+    }
+
+    /**
+     * @param $delivery
+     * @return string
+     */
+    public function buildDate($delivery): string
+    {
+        return $delivery->delivery_time ? '<input type="date" name="{{$delivery_time}}" placeholder="Pick a time"
+                           class="form-input">' : '';
     }
 
     /**

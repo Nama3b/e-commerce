@@ -44,7 +44,7 @@ class PostController extends Controller
             "allowClear" => true
         ];
         return (new $instance)
-            ->render('admin.pages.post', compact('option1', 'option2', 'config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.post-list', compact('option1', 'option2', 'config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**

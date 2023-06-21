@@ -48,7 +48,7 @@ class Post extends Model
     use HasFactory, SoftDeletes;
 
     const STATUS = ['WAITING', 'ACTIVE', 'CLOSED'];
-    const POST_TYPE = ['PRODUCT', 'POST'];
+    const POST_TYPE = ['BLOG', 'POST'];
     const CREATE = 'CREATE_POST';
     const VIEW = 'VIEW_POST';
     const EDIT = 'EDIT_POST';

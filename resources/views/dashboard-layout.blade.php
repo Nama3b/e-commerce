@@ -26,31 +26,37 @@
     </div>
     <hr>
     <h5>Product manager</h5>
-    <a href="{{URL::to('dashboard')}}" class="nav-item"><i class="material-icons">dashboard</i> Dashboard</a>
-    <a href="{{URL::to('category-list')}}" class="nav-item"><i class="fas fa-list"></i> Category</a>
-    <a href="{{URL::to('brand-list')}}" class="nav-item"><i class="fas fa-award"></i> Brand</a>
-    <a href="{{URL::to('product-list')}}" class="nav-item"><i class="fas fa-box-open"></i> Product</a>
+    <a href="{{URL::to('dashboard')}}" class="nav-item"><i class="material-icons">dashboard</i>Dashboard</a>
+    <a href="{{URL::to('dashboard/product_category')}}" class="nav-item"><i class="fas fa-list"></i>Category</a>
+    <a href="{{URL::to('dashboard/brand')}}" class="nav-item"><i class="fas fa-award"></i> Brand</a>
+    <a href="{{URL::to('dashboard/product')}}" class="nav-item"><i class="fas fa-box-open"></i>Product</a>
     <hr>
     <h5>Order</h5>
-    <a href="{{URL::to('order-waiting')}}" class="nav-item"><i class="fas fa-shipping-fast"></i> Waiting order</a>
-    <a href="{{URL::to('order-list')}}" class="nav-item"><i class="material-icons">list</i> List order</a>
+    <a href="{{URL::to('dashboard/order')}}" class="nav-item"><i class="material-icons">list</i> List order</a>
+    <a href="{{URL::to('dashboard/shipping')}}" class="nav-item"><i class="fas fa-shipping-fast"></i> Shipping</a>
+    <hr>
+    <h5>Resources</h5>
+    <a href="{{URL::to('dashboard/comment')}}" class="nav-item"><i class="far fa-comment-alt"></i> Manage Comment</a>
+    <a href="{{URL::to('dashboard/favorite')}}" class="nav-item"><i class="fas fa-hand-holding-heart"></i> Manage Favorite</a>
+    <a href="{{URL::to('dashboard/image')}}" class="nav-item"><i class="far fa-images"></i> Manage Image</a>
+    <a href="{{URL::to('dashboard/tag')}}" class="nav-item"><i class="fas fa-tags"></i> Manage Tag</a>
     <hr>
     <h5>User manager</h5>
 
-    <a href="{{URL::to('admin-user-manage')}}/<?php
-        $admin_name = Session::get('fullname');
+    <a href="{{URL::to('')}}/<?php
+        $admin_name = Session::get('full_name');
         if($admin_name){
             echo $admin_name;
         }
     ?>"  class="nav-item">
         <i class="fas fa-user-shield"></i> Admin user</a>
-    <a href="{{URL::to('client-user-manage')}}" class="nav-item"><i class="fas fa-user-edit"></i> Client user</a>
+    <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-user-edit"></i> Client user</a>
 </div>
 
 @yield('main')
 @yield('content')
 
-<script src="{{{'public/back-end/assets/js/index.js'}}}"></script>
+<script src="{{{'../Dashboard/js/index.js'}}}"></script>
 <script>
     function openNav() {
         document.getElementById("mySidebar").style.width = "300px";

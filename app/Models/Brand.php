@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string $type
  * @property string $thumbnail_image
- * @property int $status
+ * @property boolean $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at

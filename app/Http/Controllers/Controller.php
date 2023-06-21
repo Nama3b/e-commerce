@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Comment;
 use App\Models\Customer;
 use App\Models\Delivery;
@@ -57,6 +58,10 @@ class Controller extends BaseController
         'post' => [
             'database' => 'App\DataTables\PostDataTable',
             'role_create' => Post::CREATE,
+        ],
+        'brand' => [
+            'database' => 'App\DataTables\BrandDataTable',
+            'role_create' => Brand::CREATE,
         ],
         'product_category' => [
             'database' => 'App\DataTables\ProductCategoryDataTable',

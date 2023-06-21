@@ -2,9 +2,10 @@
 
 namespace App\DataTables\Product;
 
-use App\Models\ProductCategory;
+use App\Models\Brand;
 use App\Support\DataTableCommonFunction;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
 use Psr\Container\ContainerExceptionInterface;
@@ -15,7 +16,7 @@ use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductCategoryDataTable extends DataTable
+class BrandDataTable extends DataTable
 {
     use DataTableCommonFunction;
 
@@ -29,17 +30,29 @@ class ProductCategoryDataTable extends DataTable
             ->filter(function ($query) {
                 $this->buildQuerySearch($query);
             })
-            ->addColumn(__('generate.translate.button.action'), function (ProductCategory $productCategory) {
-                return $this->buildAction($productCategory);
+            ->addColumn(__('generate.translate.button.action'), function (Brand $brand) {
+                return $this->buildAction($brand);
             })
-            ->addColumn('checkbox', function (ProductCategory $productCategory) {
-                return $this->checkbox($productCategory);
+            ->addColumn('checkbox', function (Brand $brand) {
+                return $this->checkbox($brand);
             })
-            ->editColumn('name', function (ProductCategory $productCategory) {
-                return Str::words(strip_tags($productCategory->name), 10);
+            ->editColumn('name', function (Brand $brand) {
+                return Str::words(strip_tags($brand->name), 10);
             })
-            ->editColumn('status', function (ProductCategory $productCategory) {
-                return $this->buildStatus($productCategory);
+            ->editColumn('type', function (Brand $brand) {
+                return match ($brand->type) {
+                    'ALL' => 'All',
+                    'SNEAKER' => 'Sneaker',
+                    'CLOTHES' => 'Clothes',
+                    'WATCHES' => 'Watches',
+                    'ACCESSORIES' => 'Accessories'
+                };
+            })
+            ->editColumn('image', function (Brand $brand) {
+                return $this->buildImage($brand);
+            })
+            ->editColumn('status', function (Brand $brand) {
+                return $this->buildStatus($brand);
             })
             ->rawColumns([__('generate.translate.button.action'), 'type', 'status']);
     }
@@ -50,7 +63,7 @@ class ProductCategoryDataTable extends DataTable
      */
     private function buildQuerySearch($query)
     {
-        foreach (__('generate.ProductCategory.filter') as $key => $value) {
+        foreach (__('generate.brand.filter') as $key => $value) {
             if (request()->filled($key)) {
                 if ($key == 'status') {
                     $query->where($key, request()->get($key));
@@ -62,20 +75,20 @@ class ProductCategoryDataTable extends DataTable
     }
 
     /**
-     * @param $productCategory
+     * @param $brand
      * @return string
      * .
      */
-    private function buildAction($productCategory): string
+    private function buildAction($brand): string
     {
-        $action = Gate::allows(ProductCategory::EDIT) ? '<a href="javascript:void(0);" class="btn btn-light btn-xs d-inline-flex py-1 mx-1 inline_edit" data-id="' . $productCategory->id . '">'
+        $action = Gate::allows(Brand::EDIT) ? '<a href="javascript:void(0);" class="btn btn-light btn-xs d-inline-flex py-1 mx-1 inline_edit" data-id="' . $brand->id . '">'
             . '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">'
             . '<path stroke="#29B0FF" stroke-linecap="round" stroke-linejoin="round" d="M9.13306 13.2654H13.3844" />'
             . '<path stroke="#29B0FF" stroke-linecap="round" stroke-linejoin="round" d="M8.57 3.30378C9.06131 2.67778 9.85531 2.71044 10.482 3.20178L11.4086 3.92844C12.0353 4.41978 12.2573 5.18178 11.766 5.80911L6.23997 12.8591C6.05531 13.0951 5.77331 13.2344 5.47331 13.2378L3.34197 13.2651L2.85931 11.1884C2.79131 10.8971 2.85931 10.5904 3.04397 10.3538L8.57 3.30378Z" />'
             . '<path stroke="#29B0FF" stroke-linecap="round" stroke-linejoin="round" d="M7.53516 4.62402L10.7312 7.12936" />'
             . '</svg>'
             . '</a>' : '';
-        $action .= Gate::allows(ProductCategory::DELETE) ? '<a href="javascript:void(0);" class="btn btn-light btn-xs d-inline-flex py-1 mx-1 inline_delete" data-id="' . $productCategory->id . '" >'
+        $action .= Gate::allows(Brand::DELETE) ? '<a href="javascript:void(0);" class="btn btn-light btn-xs d-inline-flex py-1 mx-1 inline_delete" data-id="' . $brand->id . '" >'
             . '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">'
             . '<path stroke="#E26258" stroke-linecap="round" stroke-linejoin="round" d="M12.8833 6.31213C12.8833 6.31213 12.5213 10.8021 12.3113 12.6935C12.2113 13.5968 11.6533 14.1261 10.7393 14.1428C8.99994 14.1741 7.25861 14.1761 5.51994 14.1395C4.64061 14.1215 4.09194 13.5855 3.99394 12.6981C3.78261 10.7901 3.42261 6.31213 3.42261 6.31213" />'
             . '<path stroke="#E26258" stroke-linecap="round" stroke-linejoin="round" d="M13.8056 4.15981H2.50024" />'
@@ -86,24 +99,33 @@ class ProductCategoryDataTable extends DataTable
     }
 
     /**
-     * @param $productCategory
+     * @param $brand
      * @return string
      */
-    private function checkbox($productCategory): string
+    private function checkbox($brand): string
     {
         return '<div class="custom-control custom-checkbox">'
-            . '<input id="checkRow-' . $productCategory->id . '" class="custom-control-input" type="checkbox" value="' . $productCategory->id . '" />'
-            . '<label for="checkRow-' . $productCategory->id . '" class="custom-control-label"></label>'
+            . '<input id="checkRow-' . $brand->id . '" class="custom-control-input" type="checkbox" value="' . $brand->id . '" />'
+            . '<label for="checkRow-' . $brand->id . '" class="custom-control-label"></label>'
             . '</div>';
     }
 
     /**
-     * @param $productCategory
+     * @param $brand
      * @return string
      */
-    private function buildStatus($productCategory): string
+    private function buildImage($brand): string
     {
-        return $productCategory->status ? 'ACTIVE' : 'CLOSED';
+        return $brand->image ? '<img src="' . Storage::url($brand->image) . '" alt="' . $brand->title . '" height="50" />' : '';
+    }
+
+    /**
+     * @param $brand
+     * @return string
+     */
+    private function buildStatus($brand): string
+    {
+        return $brand->status ? 'ACTIVE' : 'CLOSED';
     }
 
     /**
@@ -117,7 +139,7 @@ class ProductCategoryDataTable extends DataTable
             ->setTableId('dataTable')
             ->columns($this->getColumns())
             ->parameters($this->buildParameters())
-            ->ajax($this->buildAjaxData(ProductCategory::class, 'product_category'))
+            ->ajax($this->buildAjaxData(Brand::class, 'brand'))
             ->orderBy(1)
             ->buttons(['remove'])
             ->dom("Bt<'row my-4 pb-2'<'col-sm-6'l><'col-sm-6'p>>");
@@ -138,6 +160,7 @@ class ProductCategoryDataTable extends DataTable
                     . '</div>'),
             Column::make('id')->title('#ID')->width('1%'),
             Column::make('name')->title('Name')->orderable(false),
+            Column::make('image')->title('Image')->orderable(false),
             Column::make('status')->title('Status')->orderable(false),
             Column::computed(__('generate.translate.button.action'))->exportable(false)->printable(false)->width('1%')->addClass('text-center text-nowrap'),
         ];
@@ -164,6 +187,6 @@ class ProductCategoryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Product_category_' . date('YmdHis');
+        return 'Brand_' . date('YmdHis');
     }
 }

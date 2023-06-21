@@ -9,6 +9,7 @@ use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Order\OrderDetailController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Post\PostController;
+use App\Http\Controllers\Product\BrandController;
 use App\Http\Controllers\Product\ProductCategoryController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Resource\CommentController;
@@ -118,6 +119,22 @@ Route::middleware(['auth:web'])->prefix('dashboard')->group(function () {
     Route::delete('permission/delete/{permission}', [PermissionController::class, 'delete'])
         ->name('permission.delete')
         ->middleware(['checkManagerPermission:DELETE_PERMISSION']);
+
+    Route::get('brand', [BrandController::class, 'list'])
+        ->name('brand')
+        ->middleware(['checkManagerPermission:VIEW_BRAND']);
+    Route::get('brand/detail/{brand}', [BrandController::class, 'detail'])
+        ->name('brand.detail')
+        ->middleware(['checkManagerPermission:VIEW_BRAND']);
+    Route::post('brand/store', [BrandController::class, 'store'])
+        ->name('brand.store')
+        ->middleware(['checkManagerPermission:CREATE_BRAND']);
+    Route::post('brand/edit/{brand}', [BrandController::class, 'update'])
+        ->name('brand.edit')
+        ->middleware(['checkManagerPermission:EDIT_BRAND']);
+    Route::delete('brand/delete/{brand}', [BrandController::class, 'delete'])
+        ->name('brand.delete')
+        ->middleware(['checkManagerPermission:DELETE_BRAND']);
 
     Route::get('product_category', [ProductCategoryController::class, 'list'])
         ->name('product_category')
