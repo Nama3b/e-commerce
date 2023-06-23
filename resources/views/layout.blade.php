@@ -64,7 +64,7 @@
                         <li class="nav-item">
                             <div><a class="nav-link" href="{{URL::to('post')}}">Post</a></div>
                         </li>
-                        <button class="btn btn-dark btn-signup"><a href="{{URL::to('login-home')}}">Sign Up</a></button>
+                        <button class="btn btn-dark btn-signup"><a href="{{URL::to('login')}}">Sign Up</a></button>
                         <button class="btn btn-outline-dark btn-cart"><a href="{{URL::to('my-cart')}}"><i class="fa fa-shopping-cart"></i></a>
                         </button>
                         <div class="dropdown d-flex">
@@ -117,7 +117,7 @@
                     <ul>
                         <li>Lorem ipsum dolor sit.</li>
                         <li>Deleniti possmus volptate, repuandae.</li>
-                        <li><a href="{{URL::to('login')}}" style="color:black">Qui</a> officia architecto nobis?</li>
+                        <li><a href="{{URL::to('dashboard/login')}}" style="color:black">Qui</a> officia architecto nobis?</li>
                         <li>Dignissimos fuga vitae sit!</li>
                     </ul>
                 </div>

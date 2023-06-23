@@ -13,7 +13,7 @@
 
     </div>
     <div class="product-info">
-        <small><a href="{{URL::to('product-by-brand'.'/'.$product_item['id'])}}">{{$product_item['brand']['name']}}</a></small>
+        <small><a href="{{URL::to('product-by-brand'.'/'.$product_item['brand_id'])}}">{{$product_item['brand']['name']}}</a></small>
         <p><a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}"><b>{{$product_item['name']}}</b></a></p>
     </div>
 </div>

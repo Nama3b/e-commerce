@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Admin;
+use App\Models\Customer;
+use App\Models\Member;
+
 return [
 
     /*
@@ -38,8 +42,43 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
+            'provider' => 'users'
+        ],
+
+        'api' => [
+            'driver' => 'token',
             'provider' => 'users',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins'
+        ],
+
+        'admin-api' => [
+            'driver' => 'token',
+            'provider' => 'admins'
+        ],
+
+        'member' => [
+            'driver' => 'session',
+            'provider' => 'members'
+        ],
+
+        'member-api' => [
+            'driver' => 'token',
+            'provider' => 'members'
+        ],
+
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers'
+        ],
+
+        'customer-api' => [
+            'driver' => 'session',
+            'provider' => 'customers'
+        ]
     ],
 
     /*
@@ -60,15 +99,25 @@ return [
     */
 
     'providers' => [
-        'users' => [
+         'users' => [
+             'driver' => 'database',
+             'table' => 'users',
+         ],
+
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'provider' => Admin::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'members' => [
+            'driver' => 'eloquent',
+            'model' => Member::class,
+        ],
+
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => Customer::class,
+        ],
     ],
 
     /*

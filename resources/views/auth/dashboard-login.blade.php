@@ -31,7 +31,7 @@
 <div class="body">
     <div class="container d-flex justify-content-center">
         <div class="col-4">
-            <form action="{{URL::to('login-action')}}" method="post" class="form-input">
+            <form action="{{URL::to('dashboard/login')}}" method="post" class="form-input">
                 {{ csrf_field() }}
                 <h6><u>Warning:</u> Do not continue if you don't have a permission in here!</h6>
                 <?php

@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
-Route::get('/login-home', [\App\Http\Controllers\HomePage\LoginController::class, 'loginHome']);
+Route::get('/login', [\App\Http\Controllers\HomePage\LoginController::class, 'loginHome']);
 
 Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class, 'products']);
 Route::get('/product-by-brand/{brand}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByBrand']);
@@ -47,25 +47,24 @@ Route::get('/post-detail/{id}', [\App\Http\Controllers\HomePage\PostController::
 Route::get('/search-post', [\App\Http\Controllers\HomePage\PostController::class, 'searchPost']);
 
 Route::post('add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
-Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'myCart']);
-Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout']);
-Route::get('/payment', [\App\Http\Controllers\HomePage\OrderController::class, 'payment']);
+Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'myCart'])
+    ->middleware(['checkManagerPermission:VIEW_CART']);
+Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout'])
+    ->middleware(['checkManagerPermission:VIEW_CHECKOUT']);
+Route::get('/payment', [\App\Http\Controllers\HomePage\OrderController::class, 'payment'])
+    ->middleware(['checkManagerPermission:VIEW_PAYMENT']);
 Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
 
-Route::get('/login', [LoginController::class, 'showLoginForm']);
 
-Route::get('/admin-dashboard', [DashboardController::class, 'index']);
-
-Auth::routes(['register' => false]);
-
-//Route::get('/layout', function () {
-//    return view('home');
-//})->name('layout')->middleware('auth');
+Route::prefix('dashboard')->group(function () {
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login']);
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+});
 
 Route::middleware(['auth:web'])->prefix('dashboard')->group(function () {
-    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::get('login', [LoginController::class, 'login']);
-    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/home', [DashboardController::class, 'index'])
+        ->middleware(['checkManagerPermission:VIEW_DASHBOARD']);
 
     Route::get('admin/new', [AdminController::class, 'new']);
     Route::post('admin/profile/update', [AdminController::class, 'updateProfile'])->name('profile-update');
