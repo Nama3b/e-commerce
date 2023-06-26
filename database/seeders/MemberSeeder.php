@@ -17,6 +17,7 @@ class MemberSeeder extends Seeder
     {
         DB::table('members')->insert([
             [
+                'role_id' => 2,
                 'user_name' => 'member',
                 'email' => 'member@gmail.com',
                 'password' => Hash::make('member@123'),

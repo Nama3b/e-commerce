@@ -16,10 +16,9 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        Admin::query()->truncate();;
-
         DB::table('admins')->insert([
             [
+                'role_id' => 1,
                 'user_name' => 'admin',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('admin@123'),

@@ -253,12 +253,6 @@ Route::middleware(['auth:web'])->prefix('dashboard')->group(function () {
     Route::get('comment/detail/{comment}', [CommentController::class, 'detail'])
         ->name('comment.detail')
         ->middleware(['checkManagerPermission:VIEW_COMMENT']);
-    Route::post('comment/store', [CommentController::class, 'store'])
-        ->name('comment.store')
-        ->middleware(['checkManagerPermission:CREATE_COMMENT']);
-    Route::post('comment/edit/{comment}', [CommentController::class, 'update'])
-        ->name('comment.edit')
-        ->middleware(['checkManagerPermission:EDIT_COMMENT']);
     Route::delete('comment/delete/{comment}', [CommentController::class, 'delete'])
         ->name('comment.delete')
         ->middleware(['checkManagerPermission:DELETE_COMMENT']);

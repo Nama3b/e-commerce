@@ -23,14 +23,20 @@ class PermissionSeeder extends Seeder
     private function data(): array
     {
         $screen = [
+            'ROLE',
             'NOTIFICATION',
+            'ADMIN',
+            'MEMBER',
+            'CUSTOMER',
+            'BRAND',
+            'PRODUCT_CATEGORY',
             'PRODUCT',
-            'STATION',
-            'USER',
             'POST',
             'ORDER',
-            'VERSION',
-            'ROLE'
+            'COMMENT',
+            'FAVORITE',
+            'IMAGE',
+            'TAG'
         ];
 
         $action = [

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class RoleSeeder extends Seeder
 {
@@ -14,11 +16,24 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::query()->truncate();;
-        Role::create([
-            'id' => 1,
-            'name' => 'Super Admin',
-            'code' => 'SuperAdmin'
+        Role::query()->truncate();
+
+        DB::table('roles')->insert([
+            [
+                'id' => 1,
+                'name' => 'Super Admin',
+                'code' => 'SuperAdmin'
+            ],
+            [
+                'id' => 2,
+                'name' => 'Admin',
+                'code' => 'Admin'
+            ],
+            [
+                'id' => 3,
+                'name' => 'Customer',
+                'code' => 'Customer'
+            ],
         ]);
     }
 }

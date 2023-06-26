@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('role_id');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('full_name');

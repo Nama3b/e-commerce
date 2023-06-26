@@ -50,7 +50,10 @@ class LoginController extends Controller
         }
 
         if (Auth::guard('member')->attempt($arr)) {
-            return redirect('dashboard/home');
+//            return redirect('dashboard/home');
+            $request->session()->put('auth.password_confirmed_at', time());
+
+            return $this->sendLoginResponse($request);
         } else {
             throw ValidationException::withMessages([
                 $this->username() => ['failed' => 'Email or password is incorrect!'],
