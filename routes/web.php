@@ -55,16 +55,16 @@ Route::get('/payment', [\App\Http\Controllers\HomePage\OrderController::class, '
     ->middleware(['checkManagerPermission:VIEW_PAYMENT']);
 Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
 
-
 Route::prefix('dashboard')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [LoginController::class, 'login']);
+    Route::post('login', [LoginController::class, 'loginDashboard']);
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-Route::middleware(['auth:web'])->prefix('dashboard')->group(function () {
-    Route::get('/home', [DashboardController::class, 'index'])
-        ->middleware(['checkManagerPermission:VIEW_DASHBOARD']);
+Route::prefix('dashboard')->group(function () {
+    Route::get('/home', function () {
+        return view('dashboard-pages.main');
+    });
 
     Route::get('admin/new', [AdminController::class, 'new']);
     Route::post('admin/profile/update', [AdminController::class, 'updateProfile'])->name('profile-update');

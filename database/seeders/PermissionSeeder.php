@@ -36,7 +36,8 @@ class PermissionSeeder extends Seeder
             'COMMENT',
             'FAVORITE',
             'IMAGE',
-            'TAG'
+            'TAG',
+            'DASHBOARD'
         ];
 
         $action = [

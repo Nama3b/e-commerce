@@ -11,7 +11,6 @@ use Illuminate\Support\Collection;
 
 class CheckManagerPermission
 {
-
     /**
      * Handle an incoming request.
      *
@@ -26,6 +25,10 @@ class CheckManagerPermission
 
         //if user role is admin handle next request
         if ($managerRole->role_id == Role::ROLE_SUPER_ADMIN_ID) {
+            return $next($request);
+        }
+
+        if ($managerRole->role_id == Role::ROLE_ADMIN_ID) {
             return $next($request);
         }
 

@@ -11,7 +11,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,13 +22,6 @@ class HomeController extends Controller
      */
     public function index(): View|Factory|Application
     {
-        $keyCustomer = ['CUSTOMER', 'COMMENT', 'FAVORITE', 'ORDER'];
-        foreach ($keyCustomer as $value) {
-            $customer[] = DB::table('permissions')->get()->filter(function ($item) use ($value) {
-                return false !== stristr($item->description, $value);
-            });
-        }
-        dd(collect($customer));
         $categories = ProductCategory::whereStatus(1)
             ->orderby('id', 'desc')->take(6)->get();
 

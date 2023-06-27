@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
 use App\Support\ResourceHelper\ProductResourceHelper;

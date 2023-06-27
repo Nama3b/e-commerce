@@ -26,7 +26,7 @@
     </div>
     <hr>
     <h5>Product manager</h5>
-    <a href="{{URL::to('dashboard')}}" class="nav-item"><i class="material-icons">dashboard</i>Dashboard</a>
+    <a href="{{URL::to('dashboard/home')}}" class="nav-item"><i class="material-icons">dashboard</i>Dashboard</a>
     <a href="{{URL::to('dashboard/product_category')}}" class="nav-item"><i class="fas fa-list"></i>Category</a>
     <a href="{{URL::to('dashboard/brand')}}" class="nav-item"><i class="fas fa-award"></i> Brand</a>
     <a href="{{URL::to('dashboard/product')}}" class="nav-item"><i class="fas fa-box-open"></i>Product</a>

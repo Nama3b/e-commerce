@@ -21,7 +21,9 @@
                         <li><a href="#">My profile</a></li>
                         <li><a href="#">Setting</a></li>
                         <hr>
-                        <li><a href="">Logout</a></li>
+                        <form action="{{URL::to('dashboard/logout')}}" method="post">
+                            <li><a href=""><button type="submit">Logout</button></a></li>
+                        </form>
                     </ul>
                 </div>
             </div>

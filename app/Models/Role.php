@@ -60,6 +60,8 @@ class Role extends Model
     const EDIT = 'EDIT_ROLE';
     const DELETE = 'DELETE_ROLE';
     const ROLE_SUPER_ADMIN_ID = 1;
+    const ROLE_ADMIN_ID = 2;
+    const ROLE_CUSTOMER_ID = 3;
 
     /**
      * The attributes that are mass assignable.
