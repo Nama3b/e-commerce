@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Delivery\ShippingController;
 use App\Http\Controllers\HomePage\HomeController;
@@ -80,7 +79,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('member/store', [MemberController::class, 'store'])
         ->name('member.store')
         ->middleware(['checkManagerPermission:CREAT_MEMBER']);
-    Route::get('member/edit/{user}', [MemberController::class, 'edit'])
+    Route::get('member/edit/{member}', [MemberController::class, 'edit'])
         ->name('member.edit')
         ->middleware(['checkManagerPermission:EDIT_MEMBER']);
     Route::get('member/delete/{member}', [MemberController::class, 'delete'])

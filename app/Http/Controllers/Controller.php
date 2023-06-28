@@ -32,63 +32,63 @@ class Controller extends BaseController
 
     const INSTANCE_DATA_TABLE = [
         'permission' => [
-            'database' => 'App\DataTables\User\PermissionDataTable',
+            'datatable' => 'App\DataTables\User\PermissionDataTable',
             'role_create' => Permission::CREATE,
         ],
         'role' => [
-            'database' => 'App\DataTables\User\RoleDataTable',
+            'datatable' => 'App\DataTables\User\RoleDataTable',
             'role_create' => Role::CREATE,
         ],
         'delivery' => [
-            'database' => 'App\DataTables\DeliveryDataTable',
+            'datatable' => 'App\DataTables\Delivery\DeliveryDataTable',
             'role_create' => Delivery::CREATE,
         ],
         'shipping' => [
-            'database' => 'App\DataTables\ShippingDataTable',
+            'datatable' => 'App\DataTables\Delivery\ShippingDataTable',
             'role_create' => Shipping::CREATE,
         ],
         'order' => [
-            'database' => 'App\DataTables\OrderDataTable',
+            'datatable' => 'App\DataTables\Order\OrderDataTable',
             'role_create' => Order::CREATE,
         ],
         'order_detail' => [
-            'database' => 'App\DataTablesOrderDetailDataTable',
+            'datatable' => 'App\DataTables\Order\OrderDetailDataTable',
             'role_create' => OrderDetail::CREATE,
         ],
         'post' => [
-            'database' => 'App\DataTables\PostDataTable',
+            'datatable' => 'App\DataTables\Post\PostDataTable',
             'role_create' => Post::CREATE,
         ],
         'brand' => [
-            'database' => 'App\DataTables\BrandDataTable',
+            'datatable' => 'App\DataTables\Product\BrandDataTable',
             'role_create' => Brand::CREATE,
         ],
         'product_category' => [
-            'database' => 'App\DataTables\ProductCategoryDataTable',
+            'datatable' => 'App\DataTables\Product\ProductCategoryDataTable',
             'role_create' => ProductCategory::CREATE,
         ],
         'product' => [
-            'database' => 'App\DataTables\ProductDataTable',
+            'datatable' => 'App\DataTables\Product\ProductDataTable',
             'role_create' => Product::CREATE,
         ],
         'customer' => [
-            'database' => 'App\DataTables\CustomerDataTable',
+            'datatable' => 'App\DataTables\User\CustomerDataTable',
             'role_create' => Customer::CREATE,
         ],
         'member' => [
-            'database' => 'App\DataTables\MemberDataTable',
+            'datatable' => 'App\DataTables\User\MemberDataTable',
             'role_create' => Member::CREATE,
         ],
         'comment' => [
-            'database' => 'App\DataTables\CommentDataTable',
+            'datatable' => 'App\DataTables\Resource\CommentDataTable',
             'role_create' => Comment::CREATE,
         ],
         'tag' => [
-            'database' => 'App\DataTables\TagDataTable',
+            'datatable' => 'App\DataTables\Resource\TagDataTable',
             'role_create' => Tag::CREATE,
         ],
         'image' => [
-            'database' => 'App\DataTables\ImageDataTable',
+            'datatable' => 'App\DataTables\Resource\ImageDataTable',
             'role_create' => Image::CREATE,
         ],
     ];

@@ -87,7 +87,6 @@ class LoginController extends Controller
      */
     protected function loggedOut(Request $request): Redirector|Application|RedirectResponse
     {
-        dd(111);
         return redirect('/dashboard/login');
     }
 }
