@@ -27,12 +27,15 @@
     <hr>
     <h5>Product manager</h5>
     <a href="{{URL::to('dashboard/home')}}" class="nav-item"><i class="material-icons">dashboard</i>Dashboard</a>
-    <a href="{{URL::to('dashboard/product_category')}}" class="nav-item"><i class="fas fa-list"></i>Category</a>
-    <a href="{{URL::to('dashboard/brand')}}" class="nav-item"><i class="fas fa-award"></i> Brand</a>
+    <a href="{{URL::to('dashboard/product_category')}}" class="nav-item"><i class="fas fa-list ml-1"></i>Category</a>
+    <a href="{{URL::to('dashboard/brand')}}" class="nav-item"><i class="fas fa-award ml-1"></i> Brand</a>
     <a href="{{URL::to('dashboard/product')}}" class="nav-item"><i class="fas fa-box-open"></i>Product</a>
     <hr>
+    <h5>Post</h5>
+    <a href="{{URL::to('dashboard/post')}}" class="nav-item"><i class="far fa-newspaper mr-1"></i>Post</a>
+    <hr>
     <h5>Order</h5>
-    <a href="{{URL::to('dashboard/order')}}" class="nav-item"><i class="material-icons">list</i> List order</a>
+    <a href="{{URL::to('dashboard/order')}}" class="nav-item"><i class="fas fa-money-check-alt"></i> Order</a>
     <a href="{{URL::to('dashboard/shipping')}}" class="nav-item"><i class="fas fa-shipping-fast"></i> Shipping</a>
     <hr>
     <h5>Resources</h5>
@@ -42,15 +45,8 @@
     <a href="{{URL::to('dashboard/tag')}}" class="nav-item"><i class="fas fa-tags"></i> Manage Tag</a>
     <hr>
     <h5>User manager</h5>
-
-    <a href="{{URL::to('')}}/<?php
-        $admin_name = Session::get('full_name');
-        if($admin_name){
-            echo $admin_name;
-        }
-    ?>"  class="nav-item">
-        <i class="fas fa-user-shield"></i> Admin user</a>
-    <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-user-edit"></i> Client user</a>
+    <a href="{{URL::to('')}}"  class="nav-item"><i class="fas fa-user-shield"></i> Admin user</a>
+    <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-users"></i> Client user</a>
 </div>
 
 @yield('main')
