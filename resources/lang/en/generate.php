@@ -4,15 +4,12 @@ return [
     'post' => [
         'filter' => [
             'type' => [
-                'title' => "タイプ",
-                'type' => 'select',
-                'include' => 'admin.custom.filter_types',
-                'variable' => 'data'
+                'title' => "Title",
             ]
         ],
         'editor' => [
             'title' => [
-                'label' => "タイトル",
+                'label' => "Title",
                 'type' => 'include',
                 'col_class' => 'col-12',
                 'required' => true,
@@ -20,7 +17,7 @@ return [
                 'widget' => 'ckeditor',
             ],
             'title_mobile' => [
-                'label' => "タイトル モバイル",
+                'label' => "",
                 'type' => 'include',
                 'col_class' => 'col-12',
                 'required' => true,
@@ -36,18 +33,18 @@ return [
                 'required' => true,
             ],
             'position' => [
-                'label' => "位置",
+                'label' => "",
                 'type' => "input",
             ],
             'image' => [
-                'label' => "イメージ ",
+                'label' => "Thumbnail Image",
                 'type' => 'include',
                 'required' => true,
                 'include' => 'admin.custom.image_news',
                 'widget' => 'image',
             ],
         ],
-        'title' => 'ホームページ',
+        'title' => 'Post management',
         'modal_size' => 'md',
     ],
     'recruitment' => [

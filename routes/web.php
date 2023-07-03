@@ -33,7 +33,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
-Route::get('/login', [\App\Http\Controllers\HomePage\LoginController::class, 'loginHome']);
+Route::get('/login', function () {
+    return view('auth.login');
+});
 
 Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class, 'products']);
 Route::get('/product-by-brand/{brand}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByBrand']);
