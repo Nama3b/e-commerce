@@ -62,7 +62,7 @@ Route::prefix('dashboard')->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-Route::prefix('dashboard')->group(function () {
+Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('/home', function () {
         return view('dashboard-pages.main');
     });

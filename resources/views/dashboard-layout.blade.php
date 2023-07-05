@@ -40,17 +40,50 @@
     <hr>
     <h5>Resources</h5>
     <a href="{{URL::to('dashboard/comment')}}" class="nav-item"><i class="far fa-comment-alt"></i> Manage Comment</a>
-    <a href="{{URL::to('dashboard/favorite')}}" class="nav-item"><i class="fas fa-hand-holding-heart"></i> Manage Favorite</a>
+    <a href="{{URL::to('dashboard/favorite')}}" class="nav-item"><i class="fas fa-hand-holding-heart"></i> Manage
+        Favorite</a>
     <a href="{{URL::to('dashboard/image')}}" class="nav-item"><i class="far fa-images"></i> Manage Image</a>
     <a href="{{URL::to('dashboard/tag')}}" class="nav-item"><i class="fas fa-tags"></i> Manage Tag</a>
     <hr>
     <h5>User manager</h5>
-    <a href="{{URL::to('')}}"  class="nav-item"><i class="fas fa-user-shield"></i> Admin user</a>
+    <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-user-shield"></i> Admin user</a>
     <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-users"></i> Client user</a>
 </div>
+<div id="main">
+    <div class="header-section">
+        <div class="header-left col-6 d-flex">
+            <button class="openbtn" onclick="openNav()">☰</button>
+            <div class="form-search">
+                <input type="text" placeholder="Search..." id="search">
+                <i class="fas fa-search" id="search-ic"></i>
+            </div>
+        </div>
+        <div class="header-right col-6 d-flex">
+            <a href="" class="noti-icon"><i class="material-icons">notifications_none</i></a>
+            <div class="dropdown d-flex">
+                <button class="btn btn-outline-dark" type="button" data-toggle="dropdown">
+                    <img src="{{{'../Dashboard/img/user_logo.jpg'}}}" alt="" width="90%">
+                </button>
+                <i class="fas fa-caret-down d-none"></i>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="">Heyy mate!</a></li>
+                    <li><a href="#">My profile</a></li>
+                    <li><a href="#">Setting</a></li>
+                    <hr>
+                    <form action="{{URL::to('dashboard/logout')}}" method="post">
+                        <li><a href="">
+                                <button type="submit">Logout</button>
+                            </a></li>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-@yield('main')
-@yield('content')
+    @yield('main')
+    @yield('content')
+
+</div>
 
 <script src="{{{'../Dashboard/js/index.js'}}}"></script>
 <script>

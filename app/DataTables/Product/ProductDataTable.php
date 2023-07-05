@@ -164,8 +164,8 @@ class ProductDataTable extends DataTable
                     . '<label for="checkAll" class="custom-control-label"></label>'
                     . '</div>'),
             Column::make('id')->title('#ID')->width('1%'),
-//            Column::make('category_id')->title('Category')->orderable(false),
-//            Column::make('brand_id')->title('Brand')->orderable(false),
+            Column::make('category_id')->title('Category')->orderable(false),
+            Column::make('brand_id')->title('Brand')->orderable(false),
 //            Column::make('author')->title('Author')->orderable(false),
             Column::make('name')->title('Name')->orderable(false),
             Column::make('description')->title('Description')->orderable(false),

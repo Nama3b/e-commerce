@@ -42,7 +42,7 @@ class ProductController extends Controller
         ];
 
         return (new $instance)
-            ->render('dashboard-pages.product-list', compact('config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**

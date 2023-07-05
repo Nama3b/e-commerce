@@ -43,8 +43,9 @@ class PostController extends Controller
             "placeholder" => "Select multiple options..",
             "allowClear" => true
         ];
+
         return (new $instance)
-            ->render('dashboard-pages.post-list', compact('option1', 'option2', 'config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.index', compact('option1', 'option2', 'config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**

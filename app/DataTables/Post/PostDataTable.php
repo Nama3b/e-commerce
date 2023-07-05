@@ -157,10 +157,10 @@ class PostDataTable extends DataTable
                     . '<label for="checkAll" class="custom-control-label"></label>'
                     . '</div>'),
             Column::make('id')->title('#ID')->width('1%'),
+            Column::make('author')->title('Author')->orderable(false),
             Column::make('title')->title('Title')->orderable(false),
-            Column::make('description')->title('Description')->orderable(false),
-            Column::make('image')->title('Image')->orderable(false),
-            Column::make('url')->title('Url')->orderable(false),
+            Column::make('content')->title('Content')->orderable(false),
+            Column::make('post_type')->title('Type')->orderable(false),
             Column::make('status')->title('Status')->orderable(false),
             Column::computed(__('generate.translate.button.action'))->exportable(false)->printable(false)->width('1%')->addClass('text-center text-nowrap'),
         ];
