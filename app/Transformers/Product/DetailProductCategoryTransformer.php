@@ -2,37 +2,21 @@
 
 namespace App\Transformers\Product;
 
+use App\Models\ProductCategory;
+use JetBrains\PhpStorm\ArrayShape;
 use League\Fractal\TransformerAbstract;
 
 class DetailProductCategoryTransformer extends TransformerAbstract
 {
     /**
-     * List of resources to automatically include
-     *
-     * @var array
-     */
-    protected array $defaultIncludes = [
-        //
-    ];
-
-    /**
-     * List of resources possible to include
-     *
-     * @var array
-     */
-    protected array $availableIncludes = [
-        //
-    ];
-
-    /**
-     * A Fractal transformer.
-     *
+     * @param ProductCategory $category
      * @return array
      */
-    public function transform()
+    #[ArrayShape([])] public function transform(ProductCategory $category): array
     {
         return [
-            //
+            'name' => $category->name,
+            'status' => $category->status,
         ];
     }
 }

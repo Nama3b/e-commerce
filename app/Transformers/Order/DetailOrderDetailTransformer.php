@@ -2,37 +2,24 @@
 
 namespace App\Transformers\Order;
 
+use App\Models\OrderDetail;
+use JetBrains\PhpStorm\ArrayShape;
 use League\Fractal\TransformerAbstract;
 
 class DetailOrderDetailTransformer extends TransformerAbstract
 {
     /**
-     * List of resources to automatically include
-     *
-     * @var array
-     */
-    protected array $defaultIncludes = [
-        //
-    ];
-
-    /**
-     * List of resources possible to include
-     *
-     * @var array
-     */
-    protected array $availableIncludes = [
-        //
-    ];
-
-    /**
-     * A Fractal transformer.
-     *
+     * @param OrderDetail $delivery
      * @return array
      */
-    public function transform()
+    #[ArrayShape([])] public function transform(OrderDetail $delivery): array
     {
         return [
-            //
+            'order_id' => $delivery->order_id,
+            'product_id' => $delivery->product_id,
+            'price' => $delivery->price,
+            'quantity' => $delivery->quantity,
+            'total_price' => $delivery->total_price,
         ];
     }
 }
