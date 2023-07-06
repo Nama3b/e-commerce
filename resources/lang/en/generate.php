@@ -4,46 +4,46 @@ return [
     'post' => [
         'filter' => [
             'title' => [
-                'title' => "Title",
-                'type' => 'input'
+                'title' => 'Title',
+                'type' => 'input',
+                'include' => 'dashboard-pages.custom.input',
             ]
         ],
         'editor' => [
             'author' => [
-                'label' => "Author",
+                'label' => 'Author',
                 'type' => 'include',
-                "disable" => true,
                 'include' => 'dashboard-pages.custom.select_type',
                 'widget' => 'select2',
                 'required' => true,
             ],
             'title' => [
-                'label' => "Title",
+                'label' => 'Title',
                 'type' => 'include',
                 'required' => true,
                 'include' => 'dashboard-pages.custom.input',
                 'widget' => 'ckeditor',
             ],
             'content' => [
-                'label' => "Content",
+                'label' => 'Content',
                 'type' => 'include',
                 'include' => 'dashboard-pages.custom.description',
                 'widget' => 'ckeditor',
                 'required' => true,
             ],
             'post_type' => [
-                'label' => "Post type",
+                'label' => 'Post type',
                 'type' => 'include',
-                "disable" => true,
                 'include' => 'dashboard-pages.custom.select_type',
                 'widget' => 'select2',
                 'required' => true,
+                'variable' => 'option2'
             ],
             'status' => [
-                'label' => "Status",
-                'type' => "select",
+                'label' => 'Status',
+                'type' => 'select',
                 'include' => 'dashboard-pages.custom.select_status_type_3',
-                'variable' => 'options'
+                'variable' => 'option1'
             ],
         ],
         'title' => 'Post management',
@@ -52,53 +52,54 @@ return [
     'product' => [
         'filter' => [
             'name' => [
-                'title' => "Name",
-                'type' => 'input'
+                'title' => 'Name',
+                'type' => 'input',
+                'include' => 'dashboard-pages.custom.input',
             ]
         ],
         'editor' => [
             'category_id' => [
-                'label' => "Category",
+                'label' => 'Category',
                 'type' => 'include',
                 'include' => 'dashboard-pages.custom.select_type',
                 'widget' => 'select2',
                 'required' => true,
             ],
             'brand_id' => [
-                'label' => "Brand",
+                'label' => 'Brand',
                 'type' => 'include',
                 'include' => 'dashboard-pages.custom.select_type',
                 'widget' => 'select2',
                 'required' => true,
             ],
             'name' => [
-                'label' => "Name",
+                'label' => 'Name',
                 'type' => 'include',
                 'include' => 'dashboard-pages.custom.input',
                 'widget' => 'ckeditor',
                 'required' => true,
             ],
             'description' => [
-                'label' => "Description",
+                'label' => 'Description',
                 'type' => 'include',
                 'include' => 'dashboard-pages.custom.input',
                 'widget' => 'ckeditor',
             ],
             'price' => [
-                'label' => "Price",
+                'label' => 'Price',
                 'type' => 'include',
                 'include' => 'dashboard-pages.custom.input',
                 'widget' => 'ckeditor',
             ],
             'quantity' => [
-                'label' => "Quantity",
+                'label' => 'Quantity',
                 'type' => 'include',
                 'include' => 'dashboard-pages.custom.input',
                 'widget' => 'ckeditor',
             ],
             'status' => [
-                'label' => "Status",
-                'type' => "select",
+                'label' => 'Status',
+                'type' => 'select',
                 'include' => 'dashboard-pages.custom.select_status_type_2',
                 'variable' => 'options'
             ],
@@ -106,122 +107,220 @@ return [
         'title' => 'Product management',
         'modal_size' => 'md',
     ],
-    'recruitment' => [
+    'product_category' => [
         'filter' => [
-            'status' => [
-                'title' => "状態",
-                'type' => 'select',
-                'include' => 'admin.custom.filter.select_status',
-                'variable' => 'options'
+            'name' => [
+                'title' => 'Name',
+                'type' => 'data',
             ],
-        ],
-        'editor' => [
-            'status' => [
-                'label' => "状態",
-                'type' => 'include',
-                'include' => 'admin.custom.select_status',
-                'widget' => 'select2',
-                'required' => true
-            ],
-        ],
-        'title' => '採用情報',
-        'modal_size' => 'md',
-    ],
-    'group_content' => [
-        'filter' => [
-            'title' => 'タイトル',
-        ],
-        'editor' => [
-            'title' => [
-                'label' => "タイトル",
-                'type' => "input",
-                'required' => true,
-            ],
-            'group_id' => [
-                'label' => "タイプ",
-                'type' => 'include',
-                'include' => 'admin.custom.select_groups',
-                'widget' => 'select2',
-                'required' => true
-            ],
-            'thumbnail_image' => [
-                'label' => "サムネイル ",
-                'type' => 'include',
-                'required' => true,
-                'include' => 'admin.custom.thumbnail_image',
-                'widget' => 'image',
-            ],
-            'image' => [
-                'label' => "イメージ ",
-                'type' => 'include',
-                'required' => true,
-                'include' => 'admin.custom.image_news',
-                'widget' => 'image',
-            ],
-            'meta_description' => [
-                'label' => "説明 概要",
-                'type' => 'include',
-                'col_class' => 'col-12',
-                'required' => true,
-                'include' => 'admin.custom.meta_description',
-                'widget' => 'ckeditor',
-            ],
-            'description' => [
-                'label' => "内容 ",
-                'type' => 'include',
-                'col_class' => 'col-12',
-                'required' => true,
-                'include' => 'admin.custom.description',
-                'widget' => 'ckeditor',
-            ],
-            'meta_data' => [
-                'label' => "仕事の詳細 ",
-                'type' => 'include',
-                'col_class' => 'col-12',
-                'required' => true,
-                'include' => 'admin.custom.meta',
-                'widget' => 'meta',
-            ],
-        ],
-        'title' => '仕事内容',
-        'modal_size' => 'md',
-    ],
-    'performance' => [
-        'filter' => [
-            'name' => 'タイトル',
         ],
         'editor' => [
             'name' => [
-                'label' => "タイトル",
-                'type' => 'input',
-                'required' => true,
+                'title' => 'Name',
+                'type' => 'data',
+                'include' => 'dashboard-pages.custom.input',
+                'required' => true
             ],
-            'timeline' => [
-                'label' => "タイムライン",
+            'status' => [
+                'label' => 'Status',
                 'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_status_type_1',
+                'widget' => 'select2',
                 'required' => true,
-                'include' => 'admin.custom.date_time_product',
-                'widget' => 'date_time_picker'
-            ],
-            'area' => [
-                'label' => "範囲 (m2)",
-                'type' => "input",
-                'required' => true,
-            ],
-            'image' => [
-                'label' => "イメージ ",
-                'type' => 'include',
-                'required' => true,
-                'include' => 'admin.custom.image_news',
-                'widget' => 'image',
+                'variable' => 'options'
             ],
         ],
-        'title' => '管理実績',
+        'title' => 'Product category management',
+        'modal_size' => 'md',
+    ],
+    'brand' => [
+        'filter' => [
+            'name' => [
+                'title' => 'Name',
+                'type' => 'data',
+            ],
+        ],
+        'editor' => [
+            'name' => [
+                'title' => 'Name',
+                'type' => 'data',
+                'include' => 'dashboard-pages.custom.input',
+                'required' => true
+            ],
+            'status' => [
+                'label' => 'Status',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_status_type_1',
+                'widget' => 'select2',
+                'required' => true,
+                'variable' => 'options'
+            ],
+        ],
+        'title' => 'Brand management',
+        'modal_size' => 'md',
+    ],
+    'Order' => [
+        'filter' => [
+            'name' => [
+                'title' => 'Customer',
+                'type' => 'data'
+            ],
+            'phone_number' => [
+                'title' => 'Phone Number',
+                'type' => 'data'
+            ],
+            'status' => [
+                'title' => 'Status',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_status_type_1',
+                'widget' => 'select2'
+            ]
+        ],
+        'editor' => [
+            'name' => [
+                'label' => 'Customer',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'required' => true
+            ],
+            'email' => [
+                'label' => 'Email',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'required' => true
+            ],
+            'address' => [
+                'label' => 'Address',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'required' => true
+            ],
+            'phone_number' => [
+                'label' => 'Phone Number',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'required' => true
+            ],
+            'notice' => [
+                'label' => 'Notice',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.description',
+                'widget' => 'ckeditor',
+            ],
+            'total' => [
+                'label' => 'Total price',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'ckeditor',
+                'required' => true,
+            ],
+            'status' => [
+                'label' => 'Status',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_status_type_1',
+                'widget' => 'select2',
+                'required' => true,
+                'variable' => 'options'
+            ],
+        ],
+        'title' => 'Order management',
+        'modal_size' => 'md',
+    ],
+    'shipping' => [
+        'filter' => [
+            'shipping_code' => [
+                'title' => 'Shipping Code',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input'
+            ],
+            'manager' => [
+                'title' => 'Manager',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input'
+            ],
+            'customer_name' => [
+                'title' => 'Customer',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input'
+            ],
+            'shipping_delivery_time' => [
+                'title' => 'Delivery Time',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.datetime',
+                'widget' => 'date_time_picker'
+            ]
+        ],
+        'editor' => [
+            'delivery_id' => [
+                'label' => 'Delivery method',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_type',
+                'widget' => 'select2',
+                'required' => true,
+                'variable' => 'option2'
+            ],
+            'manager' => [
+                'label' => 'Manager',
+                'type' => 'include',
+                'required' => true,
+                'include' => 'dashboard-pages.custom.select_type',
+                'widget' => 'select2',
+                'variable' => 'option1'
+            ],
+            'shipping_code' => [
+                'label' => 'Shipping Code',
+                'type' => 'include',
+                'required' => true,
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select'
+            ],
+            'customer_name' => [
+                'label' => 'Customer',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_type',
+                'required' => true,
+                'disabled' => true
+            ],
+            'shipping_delivery_address' => [
+                'label' => 'Shipping Address',
+                'type' => 'include',
+                'required' => true,
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2'
+            ],
+            'phone_number' => [
+                'label' => 'Phone Number',
+                'type' => 'include',
+                'required' => true,
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2'
+            ],
+            'shipping_delivery_time' => [
+                'label' => 'Shipping time',
+                'type' => 'include',
+                'required' => true,
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2'
+            ],
+            'status' => [
+                'label' => 'Status',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_status_type_4',
+                'widget' => 'select2',
+                'required' => true,
+                'variable' => 'option3'
+            ],
+        ],
+        'title' => 'Shipping management',
         'modal_size' => 'md',
     ],
     'translate' => [
         'news' => [
-            'category_id' => 'Category name',
+            'category_id' => '',
             'title' => 'Title',
             'download_url' => 'Link',
             'meta_description' => 'Meta Description',

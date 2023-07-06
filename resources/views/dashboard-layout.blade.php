@@ -37,6 +37,7 @@
     <h5>Order</h5>
     <a href="{{URL::to('dashboard/order')}}" class="nav-item"><i class="fas fa-money-check-alt"></i> Order</a>
     <a href="{{URL::to('dashboard/shipping')}}" class="nav-item"><i class="fas fa-shipping-fast"></i> Shipping</a>
+    <a href="{{URL::to('dashboard/delivery')}}" class="nav-item"><i class="fas fa-luggage-cart"></i> Delivery</a>
     <hr>
     <h5>Resources</h5>
     <a href="{{URL::to('dashboard/comment')}}" class="nav-item"><i class="far fa-comment-alt"></i> Manage Comment</a>
@@ -61,20 +62,21 @@
         <div class="header-right col-6 d-flex">
             <a href="" class="noti-icon"><i class="material-icons">notifications_none</i></a>
             <div class="dropdown d-flex">
-                <button class="btn btn-outline-dark" type="button" data-toggle="dropdown">
+                <button class="btn btn-outline-dark user-btn" type="button" data-toggle="dropdown">
                     <img src="{{{'../Dashboard/img/user_logo.jpg'}}}" alt="" width="90%">
                 </button>
                 <i class="fas fa-caret-down d-none"></i>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="">Heyy mate!</a></li>
-                    <li><a href="#">My profile</a></li>
-                    <li><a href="#">Setting</a></li>
+                    <li>Heyy mate!</li>
+                    <li>My profile</li>
+                    <li>Setting</li>
                     <hr>
-                    <form action="{{URL::to('dashboard/logout')}}" method="post">
-                        <li><a href="">
-                                <button type="submit">Logout</button>
-                            </a></li>
-                    </form>
+                    <li>
+                        <form action="{{URL::to('dashboard/logout')}}" method="post">
+                            {{ csrf_field() }}
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>

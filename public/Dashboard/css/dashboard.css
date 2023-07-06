@@ -145,9 +145,16 @@ html, body {
     padding: 8px 15px 0 0;
 }
 
-.header-right button {
+.header-right .user-btn {
     border-radius: 50%;
     padding: 3px;
+}
+
+.header-right form button {
+    background: none;
+    color: #919395;
+    border: none;
+    padding: 0;
 }
 
 .header-right img {
@@ -168,6 +175,13 @@ html, body {
 .dropdown-menu hr {
     margin: 5px 0;
     border-bottom: 1px solid grey;
+}
+
+.dropdown-menu li {
+    color: #919395;
+    padding-left: 15px;
+    cursor: pointer;
+    margin: 3px 0;
 }
 
 .dropdown-menu li:hover {
