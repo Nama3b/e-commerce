@@ -41,13 +41,14 @@ class ShippingController extends Controller
 
         $option1 = Member::pluck('full_name', 'id');
         $option2 = Delivery::pluck('service_name', 'id');
+        $option3 = Shipping::STATUS;
 
         $config = [
             "placeholder" => "Select multiple options..",
             "allowClear" => true
         ];
         return (new $instance)
-            ->render('dashboard-pages.shipping', compact('option1', 'option2', 'config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.index', compact('option1', 'option2', 'option3', 'config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**

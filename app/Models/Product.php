@@ -54,7 +54,7 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const STATUS = ['STOCKOUT', 'STOCKING', 'BANNED'];
+    const STATUS = ['WAITING', 'STOCKOUT', 'STOCKING', 'BANNED'];
     const CREATE = 'CREATE_PRODUCT';
     const VIEW = 'VIEW_PRODUCT';
     const EDIT = 'EDIT_PRODUCT';

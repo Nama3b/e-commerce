@@ -38,7 +38,7 @@ class FavoriteController extends Controller
         ];
 
         return (new $instance)
-            ->render('admin.pages.favorite', compact('config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**

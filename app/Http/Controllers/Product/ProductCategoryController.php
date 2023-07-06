@@ -17,6 +17,7 @@ use App\Transformers\Product\DetailProductCategoryTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductCategoryController extends Controller
 {
@@ -38,13 +39,15 @@ class ProductCategoryController extends Controller
     {
         list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
 
+        $options = ProductCategory::STATUS;
+
         $config = [
             "placeholder" => "Select multiple options..",
             "allowClear" => true
         ];
 
         return (new $instance)
-            ->render('dashboard-pages.category-list', compact('config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create', 'options'));
     }
 
     /**

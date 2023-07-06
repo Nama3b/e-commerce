@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property int $product_id
  * @property float $price
  * @property int $quantity
- * @property float $ total_price
+ * @property float $total_price
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at

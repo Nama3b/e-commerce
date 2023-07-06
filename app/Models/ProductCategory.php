@@ -40,6 +40,7 @@ class ProductCategory extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const STATUS = ['ACTIVE', 'INACTIVE'];
     const CREATE = 'CREATE_PRODUCT_CATEGORY';
     const VIEW = 'VIEW_PRODUCT_CATEGORY';
     const EDIT = 'EDIT_PRODUCT_CATEGORY';

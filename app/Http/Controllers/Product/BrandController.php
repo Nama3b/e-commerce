@@ -36,13 +36,15 @@ class BrandController extends Controller
     {
         list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
 
+        $options = Brand::STATUS;
+
         $config = [
             "placeholder" => "Select multiple options..",
             "allowClear" => true
         ];
 
         return (new $instance)
-            ->render('dashboard-pages.brand-list', compact('config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create', 'options'));
     }
 
     /**

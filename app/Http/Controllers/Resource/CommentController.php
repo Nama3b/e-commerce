@@ -42,7 +42,7 @@ class CommentController extends Controller
         ];
 
         return (new $instance)
-            ->render('admin.pages.comment', compact('config', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**
