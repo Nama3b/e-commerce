@@ -36,6 +36,16 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::get('/login', function () {
     return view('auth.login');
 });
+Route::middleware('auth:customer')->group(function () {
+    Route::post('login', [LoginController::class, 'loginHome']);
+    Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'myCart'])
+        ->middleware(['checkManagerPermission:VIEW_CART']);
+    Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout'])
+        ->middleware(['checkManagerPermission:VIEW_CHECKOUT']);
+    Route::get('/payment', [\App\Http\Controllers\HomePage\OrderController::class, 'payment'])
+        ->middleware(['checkManagerPermission:VIEW_PAYMENT']);
+    Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
+});
 
 Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class, 'products']);
 Route::get('/product-by-brand/{brand}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByBrand']);
@@ -48,13 +58,6 @@ Route::get('/post-detail/{id}', [\App\Http\Controllers\HomePage\PostController::
 Route::get('/search-post', [\App\Http\Controllers\HomePage\PostController::class, 'searchPost']);
 
 Route::post('add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
-Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'myCart'])
-    ->middleware(['checkManagerPermission:VIEW_CART']);
-Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout'])
-    ->middleware(['checkManagerPermission:VIEW_CHECKOUT']);
-Route::get('/payment', [\App\Http\Controllers\HomePage\OrderController::class, 'payment'])
-    ->middleware(['checkManagerPermission:VIEW_PAYMENT']);
-Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
 
 Route::prefix('dashboard')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

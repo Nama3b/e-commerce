@@ -21,7 +21,8 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-3">
-                <a href="{{URL::to('/home')}}"><img src="{{'../WebPage/img/home/project_name.png'}}" alt="" width="100%"></a>
+                <a href="{{URL::to('/home')}}"><img src="{{'../WebPage/img/home/project_name.png'}}" alt=""
+                                                    width="100%"></a>
             </div>
             <hr>
         </div>
@@ -32,8 +33,8 @@
     <div class="container d-flex justify-content-center">
         <div class="form-input col-5">
             <ul class="nav nav-tabs mb-3 mt-2 d-flex">
-                <li class="active col-6 text-center"><a data-toggle="tab" href="#home">Sign Up</a></li>
-                <li class="col-6 text-center"><a data-toggle="tab" href="#menu1">Log In</a></li>
+                <li class="active col-6 text-center"><a data-toggle="tab" href="#home">Sign In</a></li>
+                <li class="col-6 text-center"><a data-toggle="tab" href="#menu1">Sign Up</a></li>
             </ul>
             <a href="{{URL::to('login-google')}}">
                 <button class="btn btn-outline-dark mb-2">
@@ -55,8 +56,8 @@
                         Session::put('message', null);
                     }
                     ?>
-                    <form method="post" action="{{URL::to('/create-client')}}">
-                        {{csrf_field()}}
+                    <form action="{{URL::to('/login')}}" method="post">
+                        {{ csrf_field() }}
                         <div class="error-item">
                             @foreach($errors->all() as $val)
                                 <ul class="errors">
@@ -64,24 +65,19 @@
                                 </ul>
                             @endforeach
                         </div>
-                        <input type="text" name="client_fullname" placeholder="Client name">
-                        <input type="text" name="client_email" placeholder="Email">
+                        <input type="text" name="email" placeholder="Email Address">
                         <input type="password" name="password" placeholder="Password">
-                        <input type="text" name="client_phonenumber" placeholder="Phonenumber">
-                        <input type="text" name="client_address" placeholder="Address">
-                        <div class="d-flex">
-                            <input type="checkbox" class="checkbox" name="policy" value="">
-                            <label for="policy"> <small>By signing up, you agree to the <b>Terms of Service</b>
-                                    and <b>Privacy Policy</b></small></label>
-                        </div>
+                        <small class="text-right">Forgot Password?</small>
                         <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
                         <br/>
                         @if($errors->has('g-recaptcha-response'))
                             <span class="invalid-feedback" style="display:block">
-                        <strong>{{$errors->first('g-recaptcha-response')}}</strong>
-                    </span>
+                                <strong>{{$errors->first('g-recaptcha-response')}}</strong>
+                            </span>
                         @endif
-                        <button type="submit" class="btn btn-dark">Sign Up</button>
+                        <button type="submit" class="btn btn-dark" name="login">Sign In</button>
+                        <label for="policy"> <small>By signing in, you agree to the <b>Terms of Service</b>
+                                and <b>Privacy Policy</b></small></label>
                     </form>
                 </div>
                 <div id="menu1" class="tab-pane fade">
@@ -92,8 +88,8 @@
                         Session::put('message', null);
                     }
                     ?>
-                    <form action="{{URL::to('/login-client')}}" method="post">
-                        {{csrf_field()}}
+                    <form method="post" action="{{URL::to('/signUp')}}">
+                        {{ csrf_field() }}
                         <div class="error-item">
                             @foreach($errors->all() as $val)
                                 <ul class="errors">
@@ -101,19 +97,24 @@
                                 </ul>
                             @endforeach
                         </div>
-                        <input type="text" name="client_email" placeholder="Email Address">
+                        <input type="text" name="full_name" placeholder="Client name">
+                        <input type="text" name="email" placeholder="Email">
                         <input type="password" name="password" placeholder="Password">
-                        <small class="text-right">Forgot Password?</small>
+                        <input type="text" name="phone_number" placeholder="Phone number">
+                        <input type="text" name="address" placeholder="Address">
+                        <div class="d-flex">
+                            <input type="checkbox" class="checkbox" name="policy" value="">
+                            <label for="policy"> <small>By signing up, you agree to the <b>Terms of Service</b>
+                                    and <b>Privacy Policy</b></small></label>
+                        </div>
                         <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
                         <br/>
                         @if($errors->has('g-recaptcha-response'))
                             <span class="invalid-feedback" style="display:block">
-                        <strong>{{$errors->first('g-recaptcha-response')}}</strong>
-                    </span>
+                                <strong>{{$errors->first('g-recaptcha-response')}}</strong>
+                            </span>
                         @endif
-                        <button class="btn btn-dark" name="login">Sign Up</button>
-                        <small>By signing up, you agree to the <b>Terms of Service</b> and <b>Privacy
-                                Policy</b></small>
+                        <button type="submit" class="btn btn-dark">Sign Up</button>
                     </form>
                 </div>
             </div>

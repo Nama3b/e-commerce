@@ -18,10 +18,19 @@ class HomeController extends Controller
     use ProductResourceHelper;
 
     /**
+     * @param Request $request
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index(Request $request): View|Factory|Application
     {
+        dd($request->session()->all(),$request->session()->has('customers'));
+        if($request->session()->has('customers')) {
+            $data = $request->session()->all();
+        } else {
+            $data = $request->session()->get('key', 'default');
+        }
+        dd($data);
+
         $categories = ProductCategory::whereStatus(1)
             ->orderby('id', 'desc')->take(6)->get();
 
@@ -39,7 +48,8 @@ class HomeController extends Controller
         $news = $this->getNewsImage();
 
         return view('pages.home')
-            ->with(compact('products',
+            ->with(compact('data',
+                'products',
                 'categories',
                 'brand_all',
                 'brand_sneaker',

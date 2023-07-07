@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-3">
-                <img src="{{'../WebPage/img/home/project_name.png'}}" alt="" width="100%">
+                <a href="{{URL::to('/home')}}"><img src="{{'../WebPage/img/home/project_name.png'}}" alt="" width="100%"></a>
             </div>
             <hr>
         </div>
