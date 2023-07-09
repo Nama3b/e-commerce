@@ -37,13 +37,6 @@ class ProductCategoryController extends Controller
      */
     public function list(Request $request): mixed
     {
-        if($request->session()->has('members')) {
-            $data = $request->session()->all();
-        } else {
-            $data = $request->session()->get('key', 'default');
-        }
-        dd($data);
-
         list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
 
         $options = ProductCategory::STATUS;

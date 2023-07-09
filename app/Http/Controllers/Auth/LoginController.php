@@ -23,7 +23,12 @@ class LoginController extends Controller
     /**
      * @var string
      */
-    protected string $redirectTo = RouteServiceProvider::HOME;
+    protected string $redirectToHome = RouteServiceProvider::HOME;
+
+    /**
+     * @var string
+     */
+    protected string $redirectToDashboard = RouteServiceProvider::DASHBOARD;
 
     public function __construct()
     {
@@ -39,36 +44,17 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
 
-        $arr = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
-        if ($request->remember == trans('remember.Remember me')) {
-            $remember = true;
-        } else {
-            $remember = false;
-        }
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('customer')->attempt($arr)) {
+        if (Auth::guard('customer')->attempt($credentials)) {
             $request->session()->put('auth.password_confirmed_at', time());
 
-            $request->session()->regenerate();
-
-            $this->clearLoginAttempts($request);
-
-            if ($response = $this->authenticated($request, $this->guard()->user())) {
-                return $response;
-            }
-
-            return $request->wantsJson()
-                ? new JsonResponse([], 204)
-                : redirect()->intended('/home');
+            return $this->sendLoginResponse($request);
         } else {
             throw ValidationException::withMessages([
                 $this->username() => ['failed' => 'Email or password is incorrect!'],
             ]);
         }
-
     }
 
     /**
@@ -79,8 +65,6 @@ class LoginController extends Controller
     public function loginDashboard(LoginRequest $request): Response
     {
         $this->validateLogin($request);
-
-
 
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)) {
@@ -106,11 +90,18 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
+//    public function loggedOut(): Redirector|Application|RedirectResponse
+//    {
+//        Auth::logout();
+//
+//        return redirect('/login');
+//    }
+
     /**
      * @return Redirector|Application|RedirectResponse
      */
-    protected function loggedOutDashboard(): Redirector|Application|RedirectResponse
+    protected function loggedOut(): Redirector|Application|RedirectResponse
     {
-        return redirect('/dashboard/login');
+        return redirect('/home');
     }
 }

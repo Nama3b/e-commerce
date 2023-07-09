@@ -77,7 +77,12 @@
                                 <li><a href="#">My profile</a></li>
                                 <li><a href="#">Setting</a></li>
                                 <hr>
-                                <li><a href="">Logout</a></li>
+                                <li>
+                                    <form action="{{URL::to('/logout')}}" method="post">
+                                        {{ csrf_field() }}
+                                        <button type="submit">Logout</button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </ul>

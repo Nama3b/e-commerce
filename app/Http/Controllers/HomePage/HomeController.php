@@ -23,13 +23,12 @@ class HomeController extends Controller
      */
     public function index(Request $request): View|Factory|Application
     {
-        dd($request->session()->all(),$request->session()->has('customers'));
+//        dd(Auth()->user());
         if($request->session()->has('customers')) {
             $data = $request->session()->all();
         } else {
             $data = $request->session()->get('key', 'default');
         }
-        dd($data);
 
         $categories = ProductCategory::whereStatus(1)
             ->orderby('id', 'desc')->take(6)->get();

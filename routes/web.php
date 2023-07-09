@@ -36,8 +36,10 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::get('/login', function () {
     return view('auth.login');
 });
+Route::post('loginHome', [LoginController::class, 'loginHome']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::middleware('auth:customer')->group(function () {
-    Route::post('login', [LoginController::class, 'loginHome']);
     Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'myCart'])
         ->middleware(['checkManagerPermission:VIEW_CART']);
     Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout'])
@@ -62,7 +64,6 @@ Route::post('add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 
 Route::prefix('dashboard')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'loginDashboard']);
-    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 Route::middleware('auth:member')->prefix('dashboard')->group(function () {

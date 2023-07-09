@@ -72,7 +72,7 @@
                     <li>Setting</li>
                     <hr>
                     <li>
-                        <form action="{{URL::to('dashboard/logout')}}" method="post">
+                        <form action="{{URL::to('/logout')}}" method="post">
                             {{ csrf_field() }}
                             <button type="submit">Logout</button>
                         </form>

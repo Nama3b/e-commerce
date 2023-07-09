@@ -136,6 +136,13 @@ html, body {
     background: #313442 !important;
 }
 
+.dropdown-user button {
+    border-radius: 0;
+    background: none;
+    border: none;
+    height: 32px;
+}
+
 .dropdown-menu a {
     color: black;
 }
@@ -924,6 +931,7 @@ html, body {
 .post-main .post-item-type-1 .post-author {
     margin-top: 22px;
 }
+
 .post-main .post-item-type-1 .author-name {
     display: flex;
     align-items: center;
