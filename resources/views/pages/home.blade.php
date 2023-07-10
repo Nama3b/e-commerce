@@ -47,12 +47,11 @@
                                             class="fas fa-long-arrow-alt-right"></i></a></p>
                             </div>
                         </div>
-                        <form action="{{URL::to('/add-cart')}}" method="post">
-                            {{ csrf_field() }}
+                        <div class="form-product">
                             @foreach($product_best_seller as $key => $product_item)
                                 @include('pages.common.product_item')
                             @endforeach
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,14 +122,13 @@
                                             class="fas fa-long-arrow-alt-right"></i></a></p>
                             </div>
                         </div>
-                        <form action="{{URL::to('/add-cart')}}" method="post">
-                            {{ csrf_field() }}
+                        <div class="form-product">
                             @foreach($product_sneakers as $key => $product_item)
                                 @if($product_item['category_id'] == 1)
                                     @include('pages.common.product_item')
                                 @endif
                             @endforeach
-                        </form>
+                        </div>
                     </div>
                     <div class="brand-item">
                         <div class="row">
@@ -151,14 +149,13 @@
                                             class="fas fa-long-arrow-alt-right"></i></a></p>
                             </div>
                         </div>
-                        <form action="{{URL::to('/add-cart')}}" method="post">
-                            {{ csrf_field() }}
+                        <div class="form-product">
                             @foreach($product_clothes as $key => $product_item)
                                 @if($product_item['category_id'] == 2)
                                     @include('pages.common.product_item')
                                 @endif
                             @endforeach
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,7 +198,7 @@
                                             class="fas fa-long-arrow-alt-right"></i></a></p>
                             </div>
                         </div>
-                        <form action="{{URL::to('/add-cart')}}" method="post">
+                        <div class="form-product">
                             <div class="d-flex">
                                 {{ csrf_field() }}
                                 @foreach($product_watches as $key => $product_item)
@@ -210,7 +207,7 @@
                                     @endif
                                 @endforeach
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
 

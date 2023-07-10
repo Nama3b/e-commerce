@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="product-section">
-                            @foreach($searches as $key => $product_item)
+                            @foreach($searches as $product_item)
                                 <form action="{{URL::to('/add-cart')}}" method="post">
                                     {{ csrf_field() }}
                                     @include('pages.common.product_item')

@@ -55,7 +55,7 @@
                         Session::put('message', null);
                     }
                     ?>
-                    <form action="{{URL::to('/loginHome')}}" method="post">
+                    <form action="{{URL::to('/login')}}" method="post">
                         {{ csrf_field() }}
                         <div class="error-item">
                             @foreach($errors->all() as $val)

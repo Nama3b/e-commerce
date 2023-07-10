@@ -4,7 +4,7 @@
     </div>
     <div class="post-infor col-8">
         <div class="post-type">
-            <small><b>Topic</b> - <b>Fashion</b> - 4 mins</small>
+            <small><b>Topic</b> - <b>Fashion</b> - {{ date('d/m/Y', strtotime($post_item['created_at'])) }}</small>
         </div>
         <div class="post-title">
             <b><a href="">{{$post_item['title']}}</a></b>
@@ -13,9 +13,9 @@
             <p>{{$post_item['content']}}</p>
         </div>
         <div class="post-author">
-            <img src="{{'../WebPage/img/home/logo.jpg'}}" alt="">
+            <img src="{{$author_avatar}}" alt="">
             <div class="author-name">
-                <b>{{$post_item['author']}}</b>
+                <b>{{$author_name}}</b>
             </div>
         </div>
     </div>

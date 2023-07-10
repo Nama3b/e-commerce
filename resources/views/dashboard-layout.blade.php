@@ -59,6 +59,7 @@
                 <i class="fas fa-search" id="search-ic"></i>
             </div>
         </div>
+        @php ($member = Auth()->guard('member')->user())
         <div class="header-right col-6 d-flex">
             <a href="" class="noti-icon"><i class="material-icons">notifications_none</i></a>
             <div class="dropdown d-flex">
@@ -67,7 +68,11 @@
                 </button>
                 <i class="fas fa-caret-down d-none"></i>
                 <ul class="dropdown-menu dropdown-user">
-                    <li>Heyy mate!</li>
+                    @if ($member == null)
+                        <li><a href="">Heyy mate!</a></li>
+                    @else
+                        <li><a href="">Hey {{$member->full_name}} !</a></li>
+                    @endif
                     <li>My profile</li>
                     <li>Setting</li>
                     <hr>

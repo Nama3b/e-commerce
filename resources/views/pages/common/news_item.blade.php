@@ -7,8 +7,8 @@
     <div class="news-info">
         <a href="{{URL::to('news-detail'.'/'.$news_item['id'])}}"><h6><b>{{$news_item['title']}}</b></h6></a>
         <div class="d-flex">
-            <div class="col-6"><small><i class="fa fa-user-circle mr-2"></i>Michael H</small></div>
-            <div class="col-6 text-right"><small><i class="fa fa-calendar mr-2"></i>2-9-2000</small></div>
+            <div class="col-6"><small><i class="fa fa-user-circle mr-2"></i>{{ $author_name }}</small></div>
+            <div class="col-6 text-right"><small><i class="fa fa-calendar mr-2"></i>{{ date('d-m-Y', strtotime($news_item['created_at'])) }}</small></div>
         </div>
     </div>
 </div>
