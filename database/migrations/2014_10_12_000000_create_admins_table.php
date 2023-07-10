@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->timestamp('login_date')->nullable();
             $table->boolean('two_factor_authentication')->default('0');
+            $table->string('avatar')->default('../WebPage/img/home/logo.jpg')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

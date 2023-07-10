@@ -35,17 +35,17 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/login', function () {
     return view('auth.login');
-});
-Route::post('loginHome', [LoginController::class, 'loginHome']);
+})->name('loginHome');
+Route::post('login', [LoginController::class, 'loginHome']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware('auth:customer')->group(function () {
-    Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'myCart'])
-        ->middleware(['checkManagerPermission:VIEW_CART']);
-    Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout'])
-        ->middleware(['checkManagerPermission:VIEW_CHECKOUT']);
-    Route::get('/payment', [\App\Http\Controllers\HomePage\OrderController::class, 'payment'])
-        ->middleware(['checkManagerPermission:VIEW_PAYMENT']);
+    Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'index']);
+    Route::post('/add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
+    Route::patch('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);
+    Route::delete('/remove-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'removeFromCart']);
+    Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout']);
+    Route::get('/payment', [\App\Http\Controllers\HomePage\OrderController::class, 'payment']);
     Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
 });
 
@@ -82,13 +82,13 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('member/detail/{member}', [MemberController::class, 'detail'])
         ->name('member.detail')
         ->middleware(['checkManagerPermission:VIEW_MEMBER']);
-    Route::get('member/store', [MemberController::class, 'store'])
+    Route::post('member/store', [MemberController::class, 'store'])
         ->name('member.store')
         ->middleware(['checkManagerPermission:CREAT_MEMBER']);
-    Route::get('member/edit/{member}', [MemberController::class, 'edit'])
+    Route::post('member/edit/{member}', [MemberController::class, 'edit'])
         ->name('member.edit')
         ->middleware(['checkManagerPermission:EDIT_MEMBER']);
-    Route::get('member/delete/{member}', [MemberController::class, 'delete'])
+    Route::delete('member/delete/{member}', [MemberController::class, 'delete'])
         ->name('member.delete')
         ->middleware(['checkManagerPermission:DELETE_MEMBER']);
 
@@ -300,5 +300,4 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::delete('tag/delete/{tag}', [TagController::class, 'delete'])
         ->name('tag.delete')
         ->middleware(['checkManagerPermission:DELETE_TAG']);
-
 });

@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
+use App\Models\Member;
 use App\Models\Post;
-use App\Models\Tag;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
@@ -18,10 +19,21 @@ class PostController extends Controller
     use CategoryResourceHelper, BrandResourceHelper;
 
     /**
+     * @param Request $request
      * @return Application|Factory|View
      */
-    public function post(): Application|Factory|View
+    public function post(Request $request): Application|Factory|View
     {
+        if(Auth::guard('customer')->check()) {
+            $data = Auth::guard('customer')->user();
+        } else {
+            $data = $request->session()->get('key', 'default');
+        }
+
+        $author = Member::with('posts')->whereId(array_column($this->getAllPost(),'author'))->get()->toArray();
+        $author_name = implode((array_column($author,'full_name')));
+        $author_avatar = implode((array_column($author,'avatar')));
+
         $categories = $this->getAllCategory();
 
         $brand_all = $this->getAllBrand();
@@ -34,7 +46,9 @@ class PostController extends Controller
         $suggest_post = collect($this->getPostImage())->random(4)->take(4)->toArray();
 
         return view('pages.post')
-            ->with(compact(
+            ->with(compact('data',
+                'author_name',
+                'author_avatar',
                 'post_all',
                 'categories',
                 'brand_all',

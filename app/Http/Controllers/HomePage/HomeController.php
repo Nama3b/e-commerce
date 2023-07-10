@@ -4,6 +4,7 @@ namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Member;
 use App\Models\Post;
 use App\Models\ProductCategory;
 use App\Support\ResourceHelper\ProductResourceHelper;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,12 +25,14 @@ class HomeController extends Controller
      */
     public function index(Request $request): View|Factory|Application
     {
-//        dd(Auth()->user());
-        if($request->session()->has('customers')) {
-            $data = $request->session()->all();
+        if(Auth::guard('customer')->check()) {
+            $data = Auth::guard('customer')->user();
         } else {
             $data = $request->session()->get('key', 'default');
         }
+
+        $author = Member::with('posts')->whereId(array_column($this->getAllNews(),'author'))->get()->toArray();
+        $author_name = implode((array_column($author,'full_name')));
 
         $categories = ProductCategory::whereStatus(1)
             ->orderby('id', 'desc')->take(6)->get();
@@ -46,8 +50,11 @@ class HomeController extends Controller
 
         $news = $this->getNewsImage();
 
+        $cart = session('cart', []);
+
         return view('pages.home')
             ->with(compact('data',
+                'author_name',
                 'products',
                 'categories',
                 'brand_all',
@@ -57,7 +64,8 @@ class HomeController extends Controller
                 'product_clothes',
                 'product_watches',
                 'product_best_seller',
-                'news'));
+                'news',
+                'cart'));
     }
 
     /**
