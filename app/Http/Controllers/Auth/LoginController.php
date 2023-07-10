@@ -90,13 +90,6 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
-//    public function loggedOut(): Redirector|Application|RedirectResponse
-//    {
-//        Auth::logout();
-//
-//        return redirect('/login');
-//    }
-
     /**
      * @return Redirector|Application|RedirectResponse
      */
