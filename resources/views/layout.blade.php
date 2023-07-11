@@ -64,6 +64,7 @@
                     <li class="nav-item">
                         <div><a class="nav-link" href="{{URL::to('post')}}">Post</a></div>
                     </li>
+                    @php ($customer = Auth()->guard('customer')->user())
                     <div class="dropdown">
                         <button class="btn btn-outline-dark btn-noti" type="button" data-toggle="dropdown">
                             <i class="material-icons">notifications_none</i>
@@ -112,16 +113,16 @@
                             </div>
                         </ul>
                     </div>
-                    @if ($user == null)
+                    @if ($customer == null)
                         <button class="btn btn-dark btn-signup"><a href="{{URL::to('login')}}">Sign Up</a></button>
                     @else
                         <div class="dropdown">
                             <button class="btn btn-outline-dark btn-user" type="button" data-toggle="dropdown">
-                                <img src="{{$user->avatar}}" alt="" width="90%">
+                                <img src="{{$customer->avatar}}" alt="" width="90%">
                             </button>
                             <i class="fas fa-caret-down d-none"></i>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="">{{$user->full_name}}</a></li>
+                                <li><a href="">{{$customer->full_name}}</a></li>
                                 <li><a href="#">My profile</a></li>
                                 <li><a href="#">Setting</a></li>
                                 <hr>
