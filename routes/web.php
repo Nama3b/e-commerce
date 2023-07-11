@@ -3,8 +3,9 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Delivery\ShippingController;
-use App\Http\Controllers\HomePage\HomeController;
+use App\Http\Controllers\HomePage\CartController;
 use App\Http\Controllers\Order\OrderController;
+use App\Http\Controllers\HomePage\HomeController;
 use App\Http\Controllers\Order\OrderDetailController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Post\PostController;
@@ -39,13 +40,14 @@ Route::get('/login', function () {
 Route::post('login', [LoginController::class, 'loginHome']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::post('/add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
+Route::patch('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);
+Route::delete('/remove-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'removeFromCart']);
+
 Route::middleware('auth:customer')->group(function () {
     Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'index']);
-    Route::post('/add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
-    Route::patch('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);
-    Route::delete('/remove-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'removeFromCart']);
     Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout']);
-    Route::get('/payment', [\App\Http\Controllers\HomePage\OrderController::class, 'payment']);
+    Route::post('/checkout-action', [\App\Http\Controllers\HomePage\OrderController::class, 'checkoutAction']);
     Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
 });
 

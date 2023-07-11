@@ -24,7 +24,7 @@
                                 <div class="product-detail-title text-center">
                                     <h2><u>{{$detail_item['name']}}</u></h2>
                                     <div class="product-detail-selection">
-                                        <h2><b>${{$detail_item['price']}}</b></h2>
+                                        <h2><b>${{ number_format($detail_item['price'], 0, '', '.') }}</b></h2>
                                         <form action="{{URL::to('add-cart')}}" method="post">
                                             <div class="qty-select d-flex">
                                                 {{ csrf_field()}}
@@ -87,7 +87,7 @@
                                     </tr>
                                     <tr>
                                         <td>Retail Price</td>
-                                        <td>{{$detail_item['price']}}</td>
+                                        <td>${{ number_format($detail_item['price'], 0, '', '.') }}</td>
                                     </tr>
                                     <tr>
                                         <td>Release Date</td>

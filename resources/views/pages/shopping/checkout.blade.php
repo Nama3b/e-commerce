@@ -1,64 +1,73 @@
 @extends('layout')
 @section('content')
-
     <div class="checkout-body">
         <div class="container">
             <div class="row">
                 <div class="col-8 pl-0 pr-0">
                     <div class="product-cart">
-                        <h6><b>Product cart</b></h6>
+                        <h3><b>My cart</b></h3>
                         <table>
-{{--                            @foreach($content as $v_content)--}}
+                            @foreach($cart as $cart_item)
                                 <tr class="tbl-body">
-                                    <td><a href="{{URL::to('/del-cart').'/'}}"><i
-                                                class="fas fa-trash-alt"></i></a></td>
-                                    <td><img src="{{URL::to('public/uploads/product/'.'/')}}"
-                                             alt="" width="70px"></td>
-                                    <td><b>name</b></td>
-                                    <td>$1000</td>
+                                    <td><img src="{{ $cart_item['url'] }}" alt="" width="100px"></td>
+                                    <td><b></b></td>
+                                    <td>${{ number_format($cart_item['price'], 0, '', '.') }}</td>
                                     <td>
-                                        <form action="{{URL::to('/update-cart-qty')}}" method="post">
-                                            {{csrf_field()}}
+                                        <form action="{{URL::to('/update-cart')}}" method="post">
+                                            @csrf
+                                            @method('PATCH')
                                             <div class="d-flex">
-                                                <input type="number" name="cart_quantity" min="1"
-                                                       value="1" class="text-center"
-                                                       style="width: 55px">
-                                                <input type="hidden" class="form-control" name="rowId_cart"
-                                                       value="">
-                                                <input type="submit" class="btn btn-sm btn-dark" name="update_qty"
-                                                       value="Update" style="width: 80px">
+                                                <div class="col-8">
+                                                    x<input type="number" name="quantity" min="1" value="{{ $cart_item['quantity'] }}" class="text-center ml-2 mr-2" style="width: 55px">
+                                                    <input type="hidden" name="productId_hidden" value="{{ $cart_item['id'] }}">
+                                                    @php( $total = $cart_item['price'] * $cart_item['quantity'] )
+                                                    <b>= ${{ number_format($total, 0, '', '.') }}</b>
+                                                </div>
+                                                <div class="col-4">
+                                                    <input type="submit" class="btn btn-sm btn-dark ml-2" name="update_qty" value="Update">
+                                                </div>
                                             </div>
                                         </form>
                                     </td>
                                     <td>
-<!--                                            --><?php
-//                                            $subtotal = $v_content->price * $v_content->qty;
-//                                            echo '$' . number_format($subtotal, 0, ',', '.');
-//                                            ?>
+                                        <form action="{{ URL::to('/remove-cart') }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="hidden" name="productId_hidden" value="{{ $cart_item['id'] }}">
+                                            <button class="btn btn-sm" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
-{{--                            @endforeach--}}
+                            @endforeach
                         </table>
                     </div>
                 </div>
                 <div class="col-4 pl-0 pr-0">
-                    <form action="{{URL::to('checkout-action')}}" method="post">
+                    <form action="{{URL::to('/checkout-action')}}" method="post">
                         {{ csrf_field() }}
                         <div class="client-info">
-                            <h6><b>Client info</b></h6>
-                            <input type="text" name="email" placeholder="Email">
-                            <input type="text" name="client_name" placeholder="Full name">
-                            <input type="text" name="phonenumber" placeholder="Phonenumber">
-                            <input type="text" name="address" placeholder="Address">
-                            <textarea name="note" cols="29" rows="3" placeholder="Note"></textarea>
+                            <h6><b>Customer information</b></h6>
+                            <input type="text" name="email" placeholder="Email" value="{{ $user->email }}">
+                            <input type="text" name="name" placeholder="Full name" value="{{ $user->full_name }}">
+                            <input type="text" name="phone_number" placeholder="Phone number" value="{{ $user->phone_number }}">
+                            <input type="text" name="address" placeholder="Address" value="{{ $user->address }}">
+                            <textarea name="notice" cols="28" rows="3" placeholder="Note"></textarea>
                         </div>
                         <div class="checkout-section">
-                            <h6><b>Checkout</b></h6>
+                            <h6><b>Payment</b></h6>
                             <div class="item-price">
                                 <table>
                                     <tr>
-                                        <td>Total:</td>
-                                        <td>(price tolal)</td>
+                                        <td>Method:</td>
+                                        <td>
+                                            <select name="payment_method">
+                                                @php($i = 0)
+                                                @foreach($payment_method as $payment)
+                                                    @php($i++)
+                                                    <option value="{{ $i }}">{{ $payment }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Ship cost:</td>
@@ -66,15 +75,21 @@
                                     </tr>
                                     <tr>
                                         <td>Tax cost:</td>
-                                        <td>(tax)</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
-                                        <td>Total price:</td>
-                                        <td><b>(total)</b></td>
+                                        <td>Total:</td>
+                                        <td><b>
+                                                @php($total = 0)
+                                                @foreach($cart as $cart_item)
+                                                    @php($total += $cart_item['price'] * $cart_item['quantity'])
+                                                @endforeach
+                                                ${{ number_format($total, 0, '', '.') }}
+                                            </b></td>
                                     </tr>
                                 </table>
                             </div>
-                            <button type="submit" class="btn btn-dark" name="payment">Payment</button>
+                            <button type="submit" class="btn btn-dark">Payment</button>
                         </div>
                     </form>
                 </div>

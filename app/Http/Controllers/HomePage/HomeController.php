@@ -6,18 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Member;
 use App\Models\Post;
-use App\Models\ProductCategory;
+use App\Support\ResourceHelper\BrandResourceHelper;
+use App\Support\ResourceHelper\CartResourceHelper;
+use App\Support\ResourceHelper\CategoryResourceHelper;
 use App\Support\ResourceHelper\ProductResourceHelper;
+use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
 
-    use ProductResourceHelper;
+    use CategoryResourceHelper, BrandResourceHelper, ProductResourceHelper, CartResourceHelper, CustomerFromSessionResourceHelper;
 
     /**
      * @param Request $request
@@ -25,20 +27,18 @@ class HomeController extends Controller
      */
     public function index(Request $request): View|Factory|Application
     {
-        if(Auth::guard('customer')->check()) {
-            $data = Auth::guard('customer')->user();
-        } else {
-            $data = $request->session()->get('key', 'default');
-        }
+        $user = $this->customerFromSession($request);
+
+        $cart = $this->myCart();
+        $count_cart = $this->countCart();
 
         $author = Member::with('posts')->whereId(array_column($this->getAllNews(),'author'))->get()->toArray();
         $author_name = implode((array_column($author,'full_name')));
 
-        $categories = ProductCategory::whereStatus(1)
-            ->orderby('id', 'desc')->take(6)->get();
+        $categories = $this->getAllCategory();
+        $brand_all = $this->getAllBrand();
 
         $brands = Brand::whereStatus(1)->get();
-        $brand_all = $brands->where('type', 'ALL')->take(6);
         $brand_sneaker = $brands->where('type', 'SNEAKER')->take(6);
         $brand_clothes = $brands->where('type', 'CLOTHES')->take(6);
 
@@ -50,13 +50,10 @@ class HomeController extends Controller
 
         $news = $this->getNewsImage();
 
-        $cart = session('cart', []);
-
-        $cartItems = count($cart);
-//        dd($cartItems);
-
         return view('pages.home')
-            ->with(compact('data',
+            ->with(compact('user',
+                'cart',
+                'count_cart',
                 'author_name',
                 'products',
                 'categories',
@@ -67,8 +64,8 @@ class HomeController extends Controller
                 'product_clothes',
                 'product_watches',
                 'product_best_seller',
-                'news',
-                'cart'));
+                'news'
+            ));
     }
 
     /**

@@ -6,17 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\Post;
 use App\Support\ResourceHelper\BrandResourceHelper;
+use App\Support\ResourceHelper\CartResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
+use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    use CategoryResourceHelper, BrandResourceHelper;
+    use CategoryResourceHelper, BrandResourceHelper, CartResourceHelper, CustomerFromSessionResourceHelper;
 
     /**
      * @param Request $request
@@ -24,11 +25,10 @@ class PostController extends Controller
      */
     public function post(Request $request): Application|Factory|View
     {
-        if(Auth::guard('customer')->check()) {
-            $data = Auth::guard('customer')->user();
-        } else {
-            $data = $request->session()->get('key', 'default');
-        }
+        $user = $this->customerFromSession($request);
+
+        $cart = $this->myCart();
+        $count_cart = $this->countCart();
 
         $author = Member::with('posts')->whereId(array_column($this->getAllPost(),'author'))->get()->toArray();
         $author_name = implode((array_column($author,'full_name')));
@@ -46,7 +46,9 @@ class PostController extends Controller
         $suggest_post = collect($this->getPostImage())->random(4)->take(4)->toArray();
 
         return view('pages.post')
-            ->with(compact('data',
+            ->with(compact('user',
+                'cart',
+                'count_cart',
                 'author_name',
                 'author_avatar',
                 'post_all',

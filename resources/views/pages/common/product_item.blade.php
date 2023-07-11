@@ -1,7 +1,7 @@
 <div class="product">
     <a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}"><img src="{{'../'.$product_item['url']}}" alt=""></a>
     <div class="product-feature">
-        <button class="btn btn-sm btn-secondary">${{$product_item['price']}}</button>
+        <button class="btn btn-sm btn-secondary">${{ number_format($product_item['price'], 0, '', '.') }}</button>
         <form class="form-add-cart" action="{{ URL::to('/add-cart') }}" method="post">
             {{ csrf_field() }}
             <button class="btn btn-sm btn-outline-dark">

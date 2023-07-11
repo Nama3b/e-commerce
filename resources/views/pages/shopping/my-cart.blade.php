@@ -4,8 +4,8 @@
         <div class="container">
             <div class="row">
                 <div class="product-cart col-12">
-                    <h6><b>Product cart</b></h6>
-                    <table width="100%">
+                    <h3><b>My cart</b></h3>
+                    <table>
                         <tr class="tbl-header">
                             <td></td>
                             <td>Image</td>
@@ -14,42 +14,45 @@
                             <td>Quantity</td>
                             <td>Total</td>
                         </tr>
-{{--                        @foreach($carts as $cart_item)--}}
+                        @foreach($cart as $cart_item)
                             <tr class="tbl-body">
-                                <td><a href="{{URL::to('/del-cart').'/'}}"><i
-                                            class="fas fa-trash-alt"></i></a></td>
-                                <td><img src="{{URL::to('public/uploads/product/'.'/')}}"
-                                         alt="" width="90px"></td>
-                                <td><b>name</b></td>
-                                <td>$1000</td>
                                 <td>
-                                    <form action="{{URL::to('/update-cart-qty')}}" method="post">
-                                        {{csrf_field()}}
+                                    <form action="{{ URL::to('/remove-cart') }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="productId_hidden" value="{{ $cart_item['id'] }}">
+                                        <button class="btn btn-sm" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </td>
+                                <td><img src="{{ $cart_item['url'] }}" alt="" width="90px"></td>
+                                <td><b>{{ $cart_item['name'] }}</b></td>
+                                <td>${{ number_format($cart_item['price'], 0, '', '.') }}</td>
+                                <td>
+                                    <form action="{{URL::to('/update-cart')}}" method="post">
+                                        @csrf
+                                        @method('PATCH')
                                         <div class="d-flex">
-                                            <input type="number" name="cart_quantity" min="1"
-                                                   value="1" class="text-center" style="width: 55px">
-                                            <input type="hidden" class="form-control" name="rowId_cart"
-                                                   value="">
-                                            <input type="submit" class="btn btn-sm btn-dark" name="update_qty"
-                                                   value="Update" style="width: 80px">
+                                            <input type="number" name="quantity" min="1"
+                                                   value="{{ $cart_item['quantity'] }}" class="text-center">
+                                            <input type="hidden" name="productId_hidden" value="{{ $cart_item['id'] }}">
+                                            <input type="submit" class="btn btn-sm btn-dark ml-2"
+                                                    value="Update">
                                         </div>
                                     </form>
                                 </td>
                                 <td>
-                                        <?php
-//                                        $subtotal = $cart_item->price * $cart_item->qty;
-//                                        echo '$' . number_format($subtotal, 0, ',', '.');
-//                                        ?>
+                                    @php( $total = $cart_item['price'] * $cart_item['quantity'] )
+                                    ${{ number_format($total, 0, '', '.') }}
                                 </td>
                             </tr>
-{{--                        @endforeach--}}
+                        @endforeach
                     </table>
                 </div>
                 <a href="{{URL::to('product')}}">
-                    <button class="btn btn-dark mt-3 mr-3" name="">Keep shopping</button>
+                    <button class="btn btn-outline-dark mt-3 mr-3" name="">Keep shopping</button>
                 </a>
                 <a href="{{URL::to('checkout')}}">
-                    <button class="btn btn-outline-dark mt-3" name="">Checkout</button>
+                    <button class="btn btn-dark mt-3" name="">Checkout</button>
                 </a>
             </div>
         </div>

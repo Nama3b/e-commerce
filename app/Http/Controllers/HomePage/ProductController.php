@@ -4,7 +4,9 @@ namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
 use App\Support\ResourceHelper\BrandResourceHelper;
+use App\Support\ResourceHelper\CartResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
+use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
 use App\Support\ResourceHelper\ProductResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -14,13 +16,19 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
-    use ProductResourceHelper, CategoryResourceHelper, BrandResourceHelper;
+    use CategoryResourceHelper, BrandResourceHelper, ProductResourceHelper, CartResourceHelper, CustomerFromSessionResourceHelper;
 
     /**
+     * @param Request $request
      * @return View|Factory|Application
      */
-    public function products(): View|Factory|Application
+    public function products(Request $request): View|Factory|Application
     {
+        $user = $this->customerFromSession($request);
+
+        $cart = $this->myCart();
+        $count_cart = $this->countCart();
+
         $products = $this->getProductImage();
 
         $categories = $this->getAllCategory();
@@ -28,7 +36,14 @@ class ProductController extends Controller
         $brand_all = $this->getAllBrand();
 
         return view('pages.product')
-            ->with(compact('products', 'categories', 'brand_all'));
+            ->with(compact(
+                'user',
+                'cart',
+                'count_cart',
+                'products',
+                'categories',
+                'brand_all',
+            ));
     }
 
     /**
@@ -60,6 +75,9 @@ class ProductController extends Controller
      */
     public function productDetail($id): View|Factory|Application
     {
+        $cart = $this->myCart();
+        $count_cart = $this->countCart();
+
         $detail = collect($this->getProductImage())
             ->where('id', $id)
             ->take(1)->toArray();
@@ -75,6 +93,8 @@ class ProductController extends Controller
 
         return view('pages.product.product-detail')
             ->with(compact(
+                'cart',
+                'count_cart',
                 'detail',
                 'products_relate',
                 'categories',
@@ -83,11 +103,17 @@ class ProductController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param $brand
      * @return Factory|View|Application
      */
-    public function productByBrand($brand): Factory|View|Application
+    public function productByBrand(Request $request, $brand): Factory|View|Application
     {
+        $user = $this->customerFromSession($request);
+
+        $cart = $this->myCart();
+        $count_cart = $this->countCart();
+
         $products = collect($this->getProductImage())
             ->where('brand_id', $brand)
             ->take(32)->toArray();
@@ -98,6 +124,9 @@ class ProductController extends Controller
 
         return view('pages.product.product-by-brand')
             ->with(compact(
+                'user',
+                'cart',
+                'count_cart',
                 'products',
                 'categories',
                 'brand_all'
@@ -105,11 +134,17 @@ class ProductController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param $category
      * @return Factory|View|Application
      */
-    public function productByCategory($category): Factory|View|Application
+    public function productByCategory(Request $request, $category): Factory|View|Application
     {
+        $user = $this->customerFromSession($request);
+
+        $cart = $this->myCart();
+        $count_cart = $this->countCart();
+
         $products = collect($this->getProductImage())
             ->where('category_id', $category)
             ->take(32)->toArray();
@@ -120,6 +155,9 @@ class ProductController extends Controller
 
         return view('pages.product.product-by-category')
             ->with(compact(
+                'user',
+                'cart',
+                'count_cart',
                 'products',
                 'categories',
                 'brand_all'

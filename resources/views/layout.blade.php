@@ -64,11 +64,11 @@
                     <li class="nav-item">
                         <div><a class="nav-link" href="{{URL::to('post')}}">Post</a></div>
                     </li>
-                    @php ($customer = Auth()->guard('customer')->user())
                     <div class="dropdown">
                         <button class="btn btn-outline-dark btn-noti" type="button" data-toggle="dropdown">
                             <i class="material-icons">notifications_none</i>
                         </button>
+                        <p class="count-noti">9+</p>
                         <i class="fas fa-caret-down d-none"></i>
                         <ul class="dropdown-menu dropdown-noti">
                         </ul>
@@ -77,45 +77,57 @@
                         <button class="btn btn-outline-dark btn-cart" type="button" data-toggle="dropdown">
                             <i class="fa fa-shopping-cart"></i>
                         </button>
+                        <p class="count-cart">{{ $count_cart }}</p>
                         <i class="fas fa-caret-down d-none"></i>
                         <ul class="dropdown-menu dropdown-cart">
                             @foreach($cart as $cart_item)
-                            <li>
-                                <div class="d-flex">
-                                    <div class="cart-item-img">
-                                        <img src="{{ $cart_item['url'] }}" alt="">
+                                <li>
+                                    <div class="d-flex">
+                                        <div class="cart-item-img">
+                                            <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}"><img src="../{{ $cart_item['url'] }}" alt=""></a>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="cart-item-infor">
+                                                <p><a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}">{{ $cart_item['name'] }}</a></p>
+                                                <small>${{ number_format($cart_item['price'], 0, '', '.') }} x {{ $cart_item['quantity'] }}</small>
+                                            </div>
+                                            <div class="cart-item-remove">
+                                                <form action="{{ URL::to('/remove-cart') }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="productId_hidden" value="{{$cart_item['id']}}">
+                                                    <button class="btn btn-sm" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="cart-item-infor">
-                                        <p>{{ $cart_item['name'] }}</p>
-                                        <small>$ {{ $cart_item['price'] }}</small>
-                                    </div>
-                                </div>
-                            </li><hr>
+                                </li>
+                                <hr>
                             @endforeach
-                            <li>
-                                <div class="d-flex justify-content-center">
-                                    <button class="btn btn-sm btn-outline-dark mr-2">Cart</button>
-                                    <button class="btn btn-sm btn-dark">Checkout</button>
-                                </div>
-                            </li>
+                            <div class="d-flex">
+                                <a href="{{ URL::to('/my-cart') }}">
+                                    <button class="btn btn-sm btn-outline-dark ml-2">Cart</button>
+                                </a>
+                                <button class="btn btn-sm btn-dark ml-2">Checkout</button>
+                            </div>
                         </ul>
                     </div>
-                    @if ($customer == null)
+                    @if ($user == null)
                         <button class="btn btn-dark btn-signup"><a href="{{URL::to('login')}}">Sign Up</a></button>
                     @else
                         <div class="dropdown">
                             <button class="btn btn-outline-dark btn-user" type="button" data-toggle="dropdown">
-                                <img src="{{$customer->avatar}}" alt="" width="90%">
+                                <img src="{{$user->avatar}}" alt="" width="90%">
                             </button>
                             <i class="fas fa-caret-down d-none"></i>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="">{{$customer->full_name}}</a></li>
+                                <li><a href="">{{$user->full_name}}</a></li>
                                 <li><a href="#">My profile</a></li>
                                 <li><a href="#">Setting</a></li>
                                 <hr>
                                 <li>
                                     <form action="{{URL::to('/logout')}}" method="post">
-                                        {{ csrf_field() }}
+                                        @csrf
                                         <button type="submit">Logout</button>
                                     </form>
                                 </li>

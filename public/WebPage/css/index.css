@@ -66,7 +66,7 @@ html, body {
     position: relative;
 }
 
-.nav-right a:hover {
+.nav-right li.nav-item a:hover {
     color: #7d7b75;
     text-decoration: none;
     margin-bottom: -2px;
@@ -118,6 +118,20 @@ html, body {
     font-size: 17px !important;
 }
 
+.nav-right p.count-noti {
+    font-size: 11px;
+    font-weight: bold;
+    top: -3px;
+    right: 8px;
+    position: absolute;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 5px;
+    text-align: center;
+    width: fit-content;
+}
+
 .nav-right button.btn-cart i {
     font-size: 24px;
 }
@@ -126,23 +140,42 @@ html, body {
     color: white;
 }
 
+.nav-right p.count-cart {
+    font-size: 11px;
+    font-weight: bold;
+    top: -3px;
+    right: 17px;
+    position: absolute;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 5px;
+    text-align: center;
+    width: fit-content;
+}
+
 .nav-right .dropdown-cart {
-    margin-left: -140px !important;
+    margin-left: -210px !important;
     font-size: 14px !important;
+    width: 270px;
 }
 
 .nav-right .dropdown-cart li {
-    margin: 4px;
+    margin: 10px 5px;
+}
+
+.nav-right .dropdown-cart li:hover {
+    opacity: 0.7;
 }
 
 .nav-right .dropdown-cart img {
     border-radius: 0;
-    width: 55px;
+    width: 60px;
     height: 100%;
 }
 
 .nav-right .dropdown-cart .cart-item-infor {
-    margin-left: 4px;
+    margin-left: 10px;
 }
 
 .nav-right .dropdown-cart .cart-item-infor p {
@@ -152,6 +185,20 @@ html, body {
     -webkit-line-clamp: 1;
     line-clamp: 1;
     -webkit-box-orient: vertical;
+}
+
+.nav-right .dropdown-cart .cart-item-infor a:hover {
+    text-decoration: none;
+    color: grey;
+}
+
+.nav-right .dropdown-cart .cart-item-remove form {
+    position: absolute;
+    right: 8px;
+}
+
+.nav-right .dropdown-cart .cart-item-remove button {
+    background: none;
 }
 
 .navbar-nav {
@@ -183,10 +230,6 @@ html, body {
 
 .dropdown-user li a {
     color: black !important;
-}
-
-.dropdown-menu li:hover {
-    background: #313442 !important;
 }
 
 .dropdown-user button {
@@ -1037,64 +1080,76 @@ html, body {
 /* ====================================CART==================================== */
 
 .cart-body {
-    padding-top: 37px;
+    padding-top: 100px;
     padding-bottom: 100px;
     background: white;
+    min-height: 639px;
 }
 
-.product-cart {
+.cart-body .product-cart {
     margin-bottom: 29px;
 }
 
-.product-cart table {
+.cart-body .product-cart table {
+    width: 100%;
     border: 3px solid grey !important;
 }
 
-.product-cart .tbl-header {
+.cart-body .product-cart .tbl-header {
     background: grey;
     color: white;
 }
 
-.product-cart .tbl-header td {
-    border: 1px solid white;
+.cart-body table tr.tbl-body .d-flex input {
+    width: 55px;
 }
 
-.product-cart .tbl-body td {
+.cart-body table tr.tbl-body .d-flex input.btn-dark {
+    width: fit-content;
+}
+
+.cart-body .product-cart .tbl-header td {
+    border: 1px solid white;
+    padding: 0 10px;
+}
+
+.cart-body .product-cart .tbl-body td {
     border: 1px solid grey;
     margin-bottom: 29px;
+    padding: 0 10px;
 }
 
-.product-cart .tbl-body a {
+.cart-body .product-cart .tbl-body a {
     color: black;
 }
 
-.product-cart .tbl-body a:hover {
+.cart-body .product-cart .tbl-body a:hover {
     color: grey;
 }
 
 /* ====================================CHECKOUT==================================== */
 
 .checkout-body {
-    padding-top: 37px;
+    padding-top: 100px;
     padding-bottom: 100px;
     background: white;
 }
 
-.list-item {
+.checkout-body .list-item {
     margin-top: 29px;
     vertical-align: center;
 }
 
-.client-info {
+.checkout-body .client-info {
     margin: 0 20px 20px 20px;
 }
 
-.client-info {
+.checkout-body .client-info {
     border: 1px solid grey;
     padding: 15px;
 }
 
-.client-info input {
+.checkout-body .client-info input {
     width: 100%;
     background: none;
     border: 1px solid grey;
@@ -1103,35 +1158,42 @@ html, body {
 
 }
 
-.checkout-section {
+.checkout-body .checkout-section {
     border: 1px solid grey;
     padding: 15px;
     margin: 0 20px;
 }
 
-table tr {
+.checkout-body table tr.tbl-body {
+    border-bottom: 1px solid grey;
     margin: 15px 10px;
 }
 
-table td {
+.checkout-body table tr.tbl-body .d-flex {
+    align-items: center;
+}
+
+.checkout-body table tr.tbl-body .d-flex .col-8 input {
+    width: 55px;
+}
+
+.checkout-body table td {
     padding: 5px 15px;
 }
 
-.checkout-section select {
+.checkout-body .checkout-section select {
     padding: 4px 10px;
-    margin-left: 10px;
-    margin-top: -6px;
     width: 100%;
 }
 
-.checkout-section button {
+.checkout-body .checkout-section button {
     width: 100%;
 }
 
-/* ====================================PAYMENT==================================== */
+/* ====================================FINISH-PAYMENT==================================== */
 
 .payment-body {
-    padding-top: 37px;
+    padding-top: 200px;
     padding-bottom: 100px;
     background: white;
 }
