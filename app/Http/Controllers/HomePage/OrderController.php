@@ -48,7 +48,15 @@ class OrderController extends Controller
         $products = collect($this->getProductImage())->filter(function ($item) use ($id) {
             return false !== stristr($item['id'], $id);
         })->toArray();
-        $product_item = $products[implode((array_keys($products)))];
+        $product_key = array_keys($products);
+        $product_item = [];
+        $i = 0;
+        foreach ($product_key as $key) {
+            $i++;
+            $product_item[] = $products[$key];
+            dd($i);
+        }
+        dd($product_item[$i]);
 
         $cartItems = session('cart', []);
         $quantity = $request->input('quantity', 1);

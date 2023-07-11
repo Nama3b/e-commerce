@@ -52,6 +52,9 @@ class HomeController extends Controller
 
         $cart = session('cart', []);
 
+        $cartItems = count($cart);
+//        dd($cartItems);
+
         return view('pages.home')
             ->with(compact('data',
                 'author_name',
