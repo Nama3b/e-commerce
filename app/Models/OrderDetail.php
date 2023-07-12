@@ -18,7 +18,6 @@ use Illuminate\Support\Carbon;
  * @property int $product_id
  * @property float $price
  * @property int $quantity
- * @property float $total_price
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -35,7 +34,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|OrderDetail wherePrice($value)
  * @method static Builder|OrderDetail whereProductId($value)
  * @method static Builder|OrderDetail whereQuantity($value)
- * @method static Builder|OrderDetail whereTotalPrice($value)
  * @method static Builder|OrderDetail whereUpdatedAt($value)
  * @method static Builder|OrderDetail withTrashed()
  * @method static Builder|OrderDetail withoutTrashed()
@@ -65,7 +63,6 @@ class OrderDetail extends Model
         'product_id',
         'price',
         'quantity',
-        'total_price',
     ];
 
     /**
@@ -73,7 +70,7 @@ class OrderDetail extends Model
      */
     public function order(): BelongsTo
     {
-        return $this->BelongsTo(Customer::class,'id','order_id');
+        return $this->BelongsTo(Order::class,'id','order_id');
     }
 
     /**

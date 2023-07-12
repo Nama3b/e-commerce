@@ -21,7 +21,8 @@ trait CartResourceHelper
      */
     public function countCart(): int
     {
-        return count($this->myCart());
+        $cart = $this->myCart();
+        return array_sum(array_column($cart,'quantity'));
     }
 
 }

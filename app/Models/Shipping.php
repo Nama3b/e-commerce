@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
  * App\Models\Shipping
  *
  * @property int $id
+ * @property int $order_id
  * @property int $delivery_id
  * @property int $manager
  * @property string $shipping_code
@@ -38,6 +39,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Shipping whereCreatedAt($value)
  * @method static Builder|Shipping whereCustomerName($value)
  * @method static Builder|Shipping whereDeletedAt($value)
+ * @method static Builder|Shipping whereOrderId($value)
  * @method static Builder|Shipping whereDeliveryId($value)
  * @method static Builder|Shipping whereId($value)
  * @method static Builder|Shipping whereManager($value)
@@ -72,6 +74,7 @@ class Shipping extends Model
      * @var string[]
      */
     protected $fillable = [
+        'order_id',
         'delivery_id',
         'manager',
         'shipping_code',

@@ -18,7 +18,6 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property int $customer_id
- * @property int $shipping_id
  * @property string|null $name
  * @property string|null $email
  * @property string|null $address
@@ -46,7 +45,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Order whereName($value)
  * @method static Builder|Order whereNotice($value)
  * @method static Builder|Order wherePhoneNumber($value)
- * @method static Builder|Order whereShippingId($value)
  * @method static Builder|Order whereStatus($value)
  * @method static Builder|Order whereTotal($value)
  * @method static Builder|Order whereUpdatedAt($value)
@@ -58,7 +56,7 @@ class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const STATUS = ['WAITING', 'APPROVED', 'COMPLETED'];
+    const STATUS = ['PROCESSING', 'DELIVERING', 'COMPLETED', 'CANCELLED'];
     const CREATE = 'CREATE_ORDER';
     const VIEW = 'VIEW_ORDER';
     const EDIT = 'EDIT_ORDER';
@@ -76,7 +74,6 @@ class Order extends Model
      */
     protected $fillable = [
         'customer_id',
-        'shipping_id',
         'name',
         'email',
         'address',
@@ -96,18 +93,10 @@ class Order extends Model
     }
 
     /**
-     * @return BelongsTo
-     */
-    public function shippings(): BelongsTo
-    {
-        return $this->BelongsTo(Shipping::class, 'id', 'shipping_id');
-    }
-
-    /**
      * @return HasMany
      */
     public function orderdetails(): HasMany
     {
-        return $this->HasMany(Order::class, 'order_id', 'id');
+        return $this->HasMany(OrderDetail::class, 'order_id', 'id');
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Delivery\ShippingController;
 use App\Http\Controllers\HomePage\CartController;
+use App\Http\Controllers\HomePage\UserController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\HomePage\HomeController;
 use App\Http\Controllers\Order\OrderDetailController;
@@ -49,6 +50,8 @@ Route::middleware('auth:customer')->group(function () {
     Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout']);
     Route::post('/checkout-action', [\App\Http\Controllers\HomePage\OrderController::class, 'checkoutAction']);
     Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
+    Route::get('/order-status', [\App\Http\Controllers\HomePage\OrderController::class, 'orderStatus']);
+    Route::get('/customer-profile', [UserController::class, 'index']);
 });
 
 Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class, 'products']);
