@@ -1319,4 +1319,5 @@ html, body {
 
 .card-body .progress-bar {
     width: 80%;
+    background-color: black;
 }

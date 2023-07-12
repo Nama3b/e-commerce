@@ -106,7 +106,7 @@
                                     <p class="mb-4"><b>Active time</b></p>
                                     <p class="mb-1">July</p>
                                     <div class="progress rounded">
-                                        <div class="progress-bar" role="progressbar" style="width: 80%"
+                                        <div class="progress-bar" role="progressbar" style="width: 85%"
                                              aria-valuenow="80"
                                              aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
@@ -118,7 +118,7 @@
                                     </div>
                                     <p class="mt-4 mb-1">May</p>
                                     <div class="progress rounded">
-                                        <div class="progress-bar" role="progressbar" style="width: 89%"
+                                        <div class="progress-bar" role="progressbar" style="width: 80%"
                                              aria-valuenow="89"
                                              aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
@@ -155,13 +155,13 @@
                                     </div>
                                     <p class="mt-4 mb-1">Watches</p>
                                     <div class="progress rounded">
-                                        <div class="progress-bar" role="progressbar" style="width: 89%"
+                                        <div class="progress-bar" role="progressbar" style="width: 35%"
                                              aria-valuenow="89"
                                              aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <p class="mt-4 mb-1">Accessory</p>
                                     <div class="progress rounded">
-                                        <div class="progress-bar" role="progressbar" style="width: 55%"
+                                        <div class="progress-bar" role="progressbar" style="width: 60%"
                                              aria-valuenow="55"
                                              aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
