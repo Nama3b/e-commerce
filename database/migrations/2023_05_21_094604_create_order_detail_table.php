@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
+            $table->string('name');
             $table->float('price');
             $table->integer('quantity');
-            $table->float(' total_price');
+            $table->text('image');
             $table->timestamps();
             $table->softDeletes();
 

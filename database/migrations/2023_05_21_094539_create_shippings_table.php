@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('delivery_id');
             $table->unsignedBigInteger('manager');
             $table->string('shipping_code')->unique();
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('order_id')->references('id')->on('orders')->onUpdate('cascade');
             $table->foreign('delivery_id')->references('id')->on('delivery')->onUpdate('cascade');
             $table->foreign('manager')->references('id')->on('members')->onUpdate('cascade');
         });

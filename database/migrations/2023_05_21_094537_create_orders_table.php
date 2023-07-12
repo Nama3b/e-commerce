@@ -16,19 +16,17 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('customer_id');
-            $table->unsignedBigInteger('shipping_id');
-            $table->string('name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('address')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->text('notice');
+            $table->string('name');
+            $table->string('email');
+            $table->string('address');
+            $table->string('phone_number');
+            $table->text('notice')->nullable();
             $table->float('total');
-            $table->enum('status', ['WAITING', 'APPROVED', 'COMPLETED'])->default('WAITING');
+            $table->enum('status', ['PROCESSING', 'DELIVERING', 'COMPLETED', 'CANCELLED'])->default('PROCESSING');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade');
-            $table->foreign('shipping_id')->references('id')->on('shippings')->onUpdate('cascade');
         });
     }
 
