@@ -1268,3 +1268,41 @@ html, body {
 .order-status .tab-content .order-detail hr {
     margin: 10px 0;
 }
+
+.customer-profile ol.breadcrumb {
+    background: none !important;
+}
+
+.customer-profile .breadcrumb-item a {
+    color: black;
+    text-decoration: none;
+}
+
+.customer-profile .card-body p {
+    font-size: 16px;
+}
+
+.customer-profile .card-body li.list-group-item {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+
+}
+
+.customer-profile .card-body li.list-group-item a {
+    color: black;
+    text-decoration: none;
+}
+
+.customer-profile .card-body li.list-group-item a:hover {
+    font-weight: bold;
+}
+
+.card-body .progress {
+    height: 5px;
+}
+
+.card-body .progress-bar {
+    width: 80%;
+}

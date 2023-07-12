@@ -23,29 +23,49 @@
 
                 <div class="tab-content">
                     <div id="all" class="container tab-pane active"><br>
-                        @foreach ($order as $order_item)
-                            @include('pages.common.order_item')
-                        @endforeach
+                        @if ($order->toArray() != null)
+                            @foreach ($order as $order_item)
+                                @include('pages.common.order_item')
+                            @endforeach
+                        @else
+                            @include('pages.common.no-order-status')
+                        @endif
                     </div>
                     <div id="processing" class="container tab-pane fade"><br>
-                        @foreach ($order_processing as $order_item)
-                            @include('pages.common.order_item')
-                        @endforeach
+                        @if ($order_processing->toArray() != null)
+                            @foreach ($order_processing as $order_item)
+                                @include('pages.common.order_item')
+                            @endforeach
+                        @else
+                            @include('pages.common.no-order-status')
+                        @endif
                     </div>
                     <div id="delivering" class="container tab-pane fade"><br>
-                        @foreach ($order_delivering as $order_item)
-                            @include('pages.common.order_item')
-                        @endforeach
+                        @if ($order_delivering->toArray() != null)
+                            @foreach ($order_delivering as $order_item)
+                                @include('pages.common.order_item')
+                            @endforeach
+                        @else
+                            @include('pages.common.no-order-status')
+                        @endif
                     </div>
                     <div id="completed" class="container tab-pane fade"><br>
-                        @foreach ($order_completed as $order_item)
-                            @include('pages.common.order_item')
-                        @endforeach
+                        @if ($order_completed->toArray() != null)
+                            @foreach ($order_completed as $order_item)
+                                @include('pages.common.order_item')
+                            @endforeach
+                        @else
+                            @include('pages.common.no-order-status')
+                        @endif
                     </div>
                     <div id="cancelled" class="container tab-pane fade"><br>
-                        @foreach ($order_cancelled as $order_item)
-                            @include('pages.common.order_item')
-                        @endforeach
+                        @if ($order_cancelled->toArray() != null)
+                            @foreach ($order_cancelled as $order_item)
+                                @include('pages.common.order_item')
+                            @endforeach
+                        @else
+                            @include('pages.common.no-order-status')
+                        @endif
                     </div>
                 </div>
             </div>
