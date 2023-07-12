@@ -1269,13 +1269,27 @@ html, body {
     margin: 10px 0;
 }
 
+/* ====================================CUSTOMER-PROFILE==================================== */
+
+.customer-profile nav {
+    background: white !important;
+}
+
 .customer-profile ol.breadcrumb {
     background: none !important;
 }
 
-.customer-profile .breadcrumb-item a {
+.customer-profile .breadcrumb-item.active {
     color: black;
+}
+
+.customer-profile .breadcrumb-item a {
+    color: grey;
     text-decoration: none;
+}
+
+.customer-profile .breadcrumb-item a:hover {
+    color: black;
 }
 
 .customer-profile .card-body p {

@@ -52,8 +52,12 @@ class ProductController extends Controller
      */
     public function searchProduct(Request $request): Factory|View|Application
     {
-        $categories = $this->getAllCategory();
+        $user = $this->customerFromSession($request);
 
+        $cart = $this->myCart();
+        $count_cart = $this->countCart();
+
+        $categories = $this->getAllCategory();
         $brand_all = $this->getAllBrand();
 
         $keyword = $request->input('keyword_submit');
@@ -63,6 +67,9 @@ class ProductController extends Controller
 
         return view('pages.product.search-product')
             ->with(compact(
+                'user',
+                'cart',
+                'count_cart',
                 'searches',
                 'categories',
                 'brand_all'
