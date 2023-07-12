@@ -109,7 +109,9 @@
                                 <a href="{{ URL::to('/my-cart') }}">
                                     <button class="btn btn-sm btn-outline-dark ml-2">Cart</button>
                                 </a>
-                                <button class="btn btn-sm btn-dark ml-2">Checkout</button>
+                                <a href="{{URL::to('/checkout')}}">
+                                    <button class="btn btn-sm btn-dark ml-2">Checkout</button>
+                                </a>
                             </div>
                         </ul>
                     </div>
@@ -122,9 +124,9 @@
                             </button>
                             <i class="fas fa-caret-down d-none"></i>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="">{{$customer->full_name}}</a></li>
-                                <li><a href="#">My profile</a></li>
-                                <li><a href="#">Setting</a></li>
+                                <li><a href="{{ URL::to('customer-profile') }}">{{$customer->full_name}}</a></li>
+                                <li><a href="{{ URL::to('order-status') }}">Order status</a></li>
+                                <li><a href="">Setting</a></li>
                                 <hr>
                                 <li>
                                     <form action="{{URL::to('/logout')}}" method="post">

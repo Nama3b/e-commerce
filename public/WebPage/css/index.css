@@ -1203,3 +1203,68 @@ html, body {
     height: 17px;
 }
 
+/* ====================================ORDER-STATUS==================================== */
+
+.order-status {
+    margin: 50px 0;
+}
+
+.order-status .nav-pills {
+    justify-content: center;
+}
+
+.order-status .nav-pills .nav-item a {
+    color: black;
+    background: white;
+}
+
+.order-status .nav-pills .nav-link.active {
+    background-color: grey;
+    color: white;
+}
+
+.order-status .card-body .row-item {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-status .card-body p.text-muted {
+     overflow: hidden;
+     display: -webkit-box;
+     -webkit-line-clamp: 1;
+     line-clamp: 1;
+     -webkit-box-orient: vertical;
+ }
+
+.order-status .tab-content .order-detail {
+    font-size: 13px;
+}
+
+.order-status .tab-content .card-user {
+    padding: 20px !important;
+    background: white;
+    font-size: 16px;
+}
+
+.order-status .tab-content .card-user .client-info i {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.order-status .tab-content .card-user hr {
+    margin: 10px 0;
+}
+
+.order-status .tab-content .order-detail p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.order-status .tab-content .order-detail hr {
+    margin: 10px 0;
+}

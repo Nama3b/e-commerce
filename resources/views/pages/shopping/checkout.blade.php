@@ -43,14 +43,14 @@
                     </div>
                 </div>
                 <div class="col-4 pl-0 pr-0">
-                    <form action="{{URL::to('/checkout-action')}}" method="post">
+                    <form action="{{ URL::to('/checkout-action') }}" method="post">
                         {{ csrf_field() }}
                         <div class="client-info">
-                            <h6><b>Customer information</b></h6>
-                            <input type="text" name="email" placeholder="Email" value="{{ $user->email }}">
-                            <input type="text" name="name" placeholder="Full name" value="{{ $user->full_name }}">
-                            <input type="text" name="phone_number" placeholder="Phone number" value="{{ $user->phone_number }}">
-                            <input type="text" name="address" placeholder="Address" value="{{ $user->address }}">
+                            <h6><b>Ordering person</b></h6>
+                            <input type="email" name="email" placeholder="Email" value="{{ $user->email }}" required>
+                            <input type="text" name="name" placeholder="Full name" value="{{ $user->full_name }}" required>
+                            <input type="number" name="phone_number" placeholder="Phone number" value="{{ $user->phone_number }}" required>
+                            <input type="text" name="address" placeholder="Address" value="{{ $user->address }}" required>
                             <textarea name="notice" cols="28" rows="3" placeholder="Note"></textarea>
                         </div>
                         <div class="checkout-section">
@@ -75,21 +75,24 @@
                                     </tr>
                                     <tr>
                                         <td>Tax cost:</td>
-                                        <td></td>
+                                        <td>$0</td>
                                     </tr>
                                     <tr>
                                         <td>Total:</td>
-                                        <td><b>
+                                        <td>
+                                            <b>
                                                 @php($total = 0)
                                                 @foreach($cart as $cart_item)
                                                     @php($total += $cart_item['price'] * $cart_item['quantity'])
                                                 @endforeach
                                                 ${{ number_format($total, 0, '', '.') }}
-                                            </b></td>
+                                                <input type="hidden" name="total" value="{{ $total }}">
+                                            </b>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
-                            <button type="submit" class="btn btn-dark">Payment</button>
+                            <button type="submit" class="btn btn-dark mt-2">Order</button>
                         </div>
                     </form>
                 </div>
