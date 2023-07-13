@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('role_id')->default(3);
             $table->string('email')->unique();
             $table->string('password');
             $table->string('full_name');
             $table->string('address');
             $table->string('phone_number')->unique();
-            $table->string('birthday')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('avatar')->default('../WebPage/img/home/logo.jpg')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
