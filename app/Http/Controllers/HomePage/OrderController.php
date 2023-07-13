@@ -10,6 +10,7 @@ use App\Support\ResourceHelper\CartResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
 use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
 use App\Support\ResourceHelper\ProductResourceHelper;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -37,7 +38,7 @@ class OrderController extends Controller
         $categories = $this->getAllCategory();
         $brand_all = $this->getAllBrand();
 
-        return view('pages.shopping.my-cart')->nest('cart','pages.product')
+        return view('pages.shopping.my-cart')->nest('cart', 'pages.product')
             ->with(compact(
                 'user',
                 'cart',
@@ -76,7 +77,7 @@ class OrderController extends Controller
                 'id' => $product_item[$i]['id'],
                 'name' => $product_item[$i]['name'],
                 'price' => $product_item[$i]['price'],
-                'quantity' =>  $quantity,
+                'quantity' => $quantity,
                 'url' => $product_item[$i]['url']
             ];
         }
@@ -98,7 +99,7 @@ class OrderController extends Controller
 
         session(['cart' => $cartItems]);
 
-        return redirect()->back()->with('success', 'Cart updated successfully');
+        return redirect()->back()->with('success', 'Cart updated successfully!');
     }
 
     /**
@@ -116,7 +117,7 @@ class OrderController extends Controller
             session(['cart' => $cartItems]);
         }
 
-        return redirect()->back()->with('success', 'Product removed successfully');
+        return redirect()->back()->with('success', 'Product removed successfully!');
     }
 
     /**
@@ -167,6 +168,8 @@ class OrderController extends Controller
             'total' => 'required|integer',
         ]);
 
+        $time_now = Carbon::now();
+
         $order = [];
         $order['customer_id'] = Auth()->guard('customer')->user()->id;
         $order['name'] = $request->name;
@@ -175,6 +178,8 @@ class OrderController extends Controller
         $order['phone_number'] = $request->phone_number;
         $order['notice'] = $request->notice;
         $order['total'] = $request->total;
+        $order['created_at'] = $time_now;
+        $order['updated_at'] = $time_now;
         $order_id = DB::table('orders')->insertGetId($order);
 
         foreach ($cart as $cart_item) {
@@ -197,14 +202,15 @@ class OrderController extends Controller
                 'payment_method',
                 'categories',
                 'brand_all'
-            ));
+            ))->with('success', 'Order successfully!');
     }
 
     /**
      * @param Request $request
      * @return Factory|View|Application
      */
-    public function orderStatus(Request $request): Factory|View|Application
+    public
+    function orderStatus(Request $request): Factory|View|Application
     {
         $cart = $this->myCart();
         $count_cart = $this->countCart();

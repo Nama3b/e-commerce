@@ -5,6 +5,7 @@
             <div class="row">
                 <div class="product-cart col-12">
                     <h3><b>My cart</b></h3>
+                    @if ($cart != null)
                     <table>
                         <tr class="tbl-header">
                             <td></td>
@@ -16,7 +17,7 @@
                         </tr>
                         @foreach($cart as $cart_item)
                             <tr class="tbl-body">
-                                <td>
+                                <td style="width: 57px">
                                     <form action="{{ URL::to('/remove-cart') }}" method="post">
                                         @csrf
                                         @method('DELETE')
@@ -24,10 +25,10 @@
                                         <button class="btn btn-sm" type="submit"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
-                                <td><img src="{{ $cart_item['url'] }}" alt="" width="90px"></td>
+                                <td style="width: 200px"><img src="{{ $cart_item['url'] }}" alt="" width="100px"></td>
                                 <td><b>{{ $cart_item['name'] }}</b></td>
                                 <td>${{ number_format($cart_item['price'], 0, '', '.') }}</td>
-                                <td>
+                                <td style="width: 70px">
                                     <form action="{{URL::to('/update-cart')}}" method="post">
                                         @csrf
                                         @method('PATCH')
@@ -47,13 +48,18 @@
                             </tr>
                         @endforeach
                     </table>
+                    @else
+                        @include('pages.common.no-cart-product')
+                    @endif
                 </div>
                 <a href="{{URL::to('product')}}">
-                    <button class="btn btn-outline-dark mt-3 mr-3" name="">Keep shopping</button>
+                    <button class="btn btn-outline-dark mt-3 mr-3" name="">Back to home</button>
                 </a>
-                <a href="{{URL::to('checkout')}}">
-                    <button class="btn btn-dark mt-3" name="">Checkout</button>
-                </a>
+                @if($cart != null)
+                    <a href="{{URL::to('checkout')}}">
+                        <button class="btn btn-dark mt-3" name="">Checkout</button>
+                    </a>
+                @endif
             </div>
         </div>
     </div>

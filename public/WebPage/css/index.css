@@ -4,7 +4,7 @@ html, body {
     background-color: #efefef !important;
 }
 
-/* ======================LAYOUT====================== */
+/* ====================================LAYOUT==================================== */
 
 .header-section {
     padding-top: 10px;
@@ -111,6 +111,7 @@ html, body {
 
 .nav-right button.btn-signup a:hover {
     color: white;
+    text-decoration: none;
 }
 
 .nav-right .dropdown-noti {
@@ -254,7 +255,57 @@ html, body {
     font-weight: bold;
 }
 
-/* ======================HOME====================== */
+/* ====================================HOME==================================== */
+
+
+#popup {
+    position: fixed;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px 30px;
+    width: 300px;
+    text-align: center;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.popup-content span {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.popup-content i {
+    font-size: 22px;
+    color: green;
+    margin-left: 10px;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.fade {
+    opacity: 0;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.fade-in {
+    animation-name: fadeIn;
+}
+
+.fade-out {
+    animation-name: fadeOut;
+}
 
 .home-main .carousel-inner img {
     width: 100%;
@@ -640,8 +691,7 @@ html, body {
 .product-main .left-item {
     position: relative;
     display: grid;
-    justify-content: center;
-    padding: 15px 10px;
+    padding: 15px 0 15px 40px;
     margin: 29px 0;
     background: white;
 }
@@ -659,7 +709,7 @@ html, body {
 }
 
 .product-main .brand-item h5 {
-    margin-left: 37px;
+    margin-left: 20px;
     margin-top: -24px;
 }
 
@@ -1231,12 +1281,12 @@ html, body {
 }
 
 .order-status .card-body p.text-muted {
-     overflow: hidden;
-     display: -webkit-box;
-     -webkit-line-clamp: 1;
-     line-clamp: 1;
-     -webkit-box-orient: vertical;
- }
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
 
 .order-status .tab-content .order-detail {
     font-size: 13px;
@@ -1292,8 +1342,41 @@ html, body {
     color: black;
 }
 
+.customer-profile form.form-control {
+    background: none;
+    border: none;
+    height: 100%;
+    display: flex;
+}
+
+.customer-profile .card-body .row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.customer-profile .card-body .row p {
+    font-weight: bold;
+}
+
+.customer-profile .card-body .col-3 span {
+    color: red;
+}
+
+.customer-profile .card-body .col-9 input {
+    padding: 5px 15px;
+    background: none;
+    border: 1px solid grey;
+    font-size: 16px;
+}
+
 .customer-profile .card-body p {
     font-size: 16px;
+}
+
+.customer-profile .card-body img {
+    width: 150px;
 }
 
 .customer-profile .card-body li.list-group-item {
@@ -1321,3 +1404,4 @@ html, body {
     width: 80%;
     background-color: black;
 }
+

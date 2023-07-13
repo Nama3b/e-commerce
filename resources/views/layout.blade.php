@@ -85,19 +85,25 @@
                                 <li>
                                     <div class="d-flex">
                                         <div class="cart-item-img">
-                                            <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}"><img src="../{{ $cart_item['url'] }}" alt=""></a>
+                                            <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}"><img
+                                                    src="../{{ $cart_item['url'] }}" alt=""></a>
                                         </div>
                                         <div class="d-flex">
                                             <div class="cart-item-infor">
-                                                <p><a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}">{{ $cart_item['name'] }}</a></p>
-                                                <small>${{ number_format($cart_item['price'], 0, '', '.') }} x {{ $cart_item['quantity'] }}</small>
+                                                <p>
+                                                    <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}">{{ $cart_item['name'] }}</a>
+                                                </p>
+                                                <small>${{ number_format($cart_item['price'], 0, '', '.') }}
+                                                    x {{ $cart_item['quantity'] }}</small>
                                             </div>
                                             <div class="cart-item-remove">
                                                 <form action="{{ URL::to('/remove-cart') }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <input type="hidden" name="productId_hidden" value="{{$cart_item['id']}}">
-                                                    <button class="btn btn-sm" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                                    <input type="hidden" name="productId_hidden"
+                                                           value="{{$cart_item['id']}}">
+                                                    <button class="btn btn-sm" type="submit"><i
+                                                            class="fas fa-trash-alt"></i></button>
                                                 </form>
                                             </div>
                                         </div>
@@ -142,6 +148,12 @@
         </nav>
     </div>
 </header>
+
+<div id="popup">
+    <div class="popup-content">
+        <span id="popup-message"></span><i class="far fa-check-circle"></i>
+    </div>
+</div>
 
 @yield('content')
 
@@ -230,6 +242,34 @@
     </div>
 </footer>
 
+@if(session('success'))
+    <script>
+        var popup = document.getElementById("popup");
+        var popupMessage = document.getElementById("popup-message");
+        popupMessage.innerHTML = "{{ session('success') }}";
+
+        function showElement() {
+            popup.classList.add('fade-in');
+            popup.style.display = 'block';
+        }
+
+        function hideElement() {
+            popup.classList.remove('fade-in');
+            popup.classList.add('fade-out');
+            setTimeout(() => {
+                popup.style.display = 'none';
+                popup.classList.remove('fade-out');
+            }, 1000);
+        }
+
+        function showForDuration(duration) {
+            showElement();
+            setTimeout(hideElement, duration);
+        }
+
+        showForDuration(1500);
+    </script>
+@endif
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
@@ -242,7 +282,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-<script src="{{{'../WebPage/resources/js/index.js'}}}"></script>
+<script src="{{{'../WebPage/js/index.js'}}}"></script>
 
 </body>
 </html>

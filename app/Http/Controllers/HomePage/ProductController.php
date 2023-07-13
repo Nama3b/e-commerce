@@ -30,9 +30,7 @@ class ProductController extends Controller
         $count_cart = $this->countCart();
 
         $products = $this->getProductImage();
-
         $categories = $this->getAllCategory();
-
         $brand_all = $this->getAllBrand();
 
         return view('pages.product')

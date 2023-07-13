@@ -43,7 +43,7 @@
                                 <h6><i class="far fa-star mr-2"></i>Best seller</h6>
                             </div>
                             <div class="col-6 text-right">
-                                <p><a href="{{URL::to('/show-product-by-category'.'/')}}">See all <i
+                                <p><a href="{{URL::to('product')}}">See all <i
                                             class="fas fa-long-arrow-alt-right"></i></a></p>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                                 <h6><i class="far fa-star mr-2"></i>Popular sneakers</h6>
                             </div>
                             <div class="col-6 text-right">
-                                <p><a href="{{URL::to('/show-product-by-category'.'/')}}">See all <i
+                                <p><a href="{{URL::to('/product-by-category/1')}}">See all <i
                                             class="fas fa-long-arrow-alt-right"></i></a></p>
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                                 <h6><i class="far fa-star mr-2"></i>Popular clothes</h6>
                             </div>
                             <div class="col-6 text-right">
-                                <p><a href="{{URL::to('/show-product-by-category'.'/')}}">See all <i
+                                <p><a href="{{URL::to('/product-by-category/2')}}">See all <i
                                             class="fas fa-long-arrow-alt-right"></i></a></p>
                             </div>
                         </div>
@@ -194,7 +194,7 @@
                                 <h6><i class="far fa-star mr-2"></i>Popular watches</h6>
                             </div>
                             <div class="col-6 text-right">
-                                <p><a href="{{URL::to('/show-product-by-category'.'/')}}">See all <i
+                                <p><a href="{{URL::to('/product-by-category/3')}}">See all <i
                                             class="fas fa-long-arrow-alt-right"></i></a></p>
                             </div>
                         </div>

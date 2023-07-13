@@ -6,6 +6,7 @@
                 <div class="col-8 pl-0 pr-0">
                     <div class="product-cart">
                         <h3><b>My cart</b></h3>
+                        @if ($cart != null)
                         <table>
                             @foreach($cart as $cart_item)
                                 <tr class="tbl-body">
@@ -40,6 +41,9 @@
                                 </tr>
                             @endforeach
                         </table>
+                        @else
+                            @include('pages.common.no-cart-product')
+                        @endif
                     </div>
                 </div>
                 <div class="col-4 pl-0 pr-0">
@@ -92,7 +96,9 @@
                                     </tr>
                                 </table>
                             </div>
-                            <button type="submit" class="btn btn-dark mt-2">Order</button>
+                            @if($cart != null)
+                                <button type="submit" class="btn btn-dark mt-2">Order</button>
+                            @endif
                         </div>
                     </form>
                 </div>
