@@ -27,6 +27,7 @@ class HomeController extends Controller
      */
     public function index(Request $request): View|Factory|Application
     {
+        Auth()->guard('member')->logout();
         $user = $this->customerFromSession($request);
 
         $cart = $this->myCart();

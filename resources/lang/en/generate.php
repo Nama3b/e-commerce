@@ -159,7 +159,7 @@ return [
         'title' => 'Brand management',
         'modal_size' => 'md',
     ],
-    'Order' => [
+    'order' => [
         'filter' => [
             'name' => [
                 'title' => 'Customer',
@@ -235,7 +235,8 @@ return [
             'shipping_code' => [
                 'title' => 'Shipping Code',
                 'type' => 'include',
-                'include' => 'dashboard-pages.custom.input'
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2'
             ],
             'manager' => [
                 'title' => 'Manager',
@@ -318,6 +319,178 @@ return [
         'title' => 'Shipping management',
         'modal_size' => 'md',
     ],
+    'delivery' => [
+        'filter' => [
+            'service_name' => [
+                'title' => 'Service name',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2'
+            ],
+        ],
+        'editor' => [
+            'creator' => [
+                'label' => 'Creator',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_type',
+                'widget' => 'select2',
+                'required' => true,
+                'variable' => 'option1',
+                'disabled' => true
+
+            ],
+            'payment_option_id' => [
+                'label' => 'Payment option',
+                'type' => 'include',
+                'required' => true,
+                'include' => 'dashboard-pages.custom.select_type',
+                'widget' => 'select2',
+                'variable' => 'option2'
+            ],
+            'service_name' => [
+                'label' => 'Service name',
+                'type' => 'include',
+                'required' => true,
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select'
+            ],
+            'delivery_fee' => [
+                'label' => 'Delivery fee',
+                'type' => 'include',
+                'required' => true,
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select'
+
+            ],
+            'description' => [
+                'label' => 'Description',
+                'type' => 'include',
+                'required' => true,
+                'include' => 'dashboard-pages.custom.description',
+                'widget' => 'ckeditor',
+            ],
+        ],
+        'title' => 'Delivery management',
+        'modal_size' => 'md',
+    ],
+    'comment' => [
+        'filter' => [
+            'service_name' => [
+                'title' => 'content',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2'
+            ],
+            'comment_type' => [
+                'title' => 'Type',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_type_1',
+                'widget' => 'select2'
+            ],
+        ],
+        'editor' => [
+            'reference_id' => [
+                'label' => 'Name',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'disabled' => true
+            ],
+            'customer_id' => [
+                'label' => 'Creator',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'disabled' => true
+            ],
+            'content' => [
+                'label' => 'Content',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.description',
+                'widget' => 'ckeditor',
+                'disabled' => true
+            ],
+        ],
+        'title' => 'Comment management',
+        'modal_size' => 'md',
+    ],
+    'image' => [
+        'filter' => [
+            'image_type' => [
+                'title' => 'Type',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_type_1',
+                'widget' => 'select2',
+            ],
+        ],
+        'editor' => [
+            'reference_id' => [
+                'label' => 'Name',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'disabled' => true
+            ],
+            'url' => [
+                'label' => 'Creator',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'disabled' => true
+            ],
+            'sort_no' => [
+                'label' => 'Content',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.description',
+                'widget' => 'ckeditor',
+                'disabled' => true
+            ],
+        ],
+        'title' => 'Image management',
+        'modal_size' => 'md',
+    ],
+    'tag' => [
+        'filter' => [
+            'name' => [
+                'title' => 'Tag name',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2'
+            ],
+            'tag_type' => [
+                'title' => 'Type',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.select_type_1',
+                'widget' => 'select2'
+            ],
+        ],
+        'editor' => [
+            'reference_id' => [
+                'label' => 'Name',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'disabled' => true
+            ],
+            'creator' => [
+                'label' => 'Creator',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'disabled' => true
+            ],
+            'name' => [
+                'label' => 'Creator',
+                'type' => 'include',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
+                'required' => true
+            ],
+        ],
+        'title' => 'Tag management',
+        'modal_size' => 'md',
+    ],
+
     'translate' => [
         'news' => [
             'category_id' => '',

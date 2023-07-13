@@ -38,7 +38,7 @@ class DeliveryController extends Controller
     {
         list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
 
-        $option1 = Member::pluck('name', 'id');
+        $option1 = Member::pluck('full_name', 'id');
         $option2 = PaymentOption::pluck('name', 'id');
 
         $config = [

@@ -40,7 +40,6 @@ class DeliveryDataTable extends DataTable
                 return $delivery->service_name;
             })
             ->editColumn('creator', function (Delivery $delivery) {
-//                return $delivery->member::pluck('name', 'id');
                 return optional($delivery->member)->name;
             })
             ->editColumn('payment_option_id', function (Delivery $delivery) {

@@ -575,6 +575,10 @@ html, body {
     margin: 0 15px
 }
 
+.profit .col-4:hover {
+    background: #ececec;
+}
+
 .profit i {
     font-size: 66px;
     margin-bottom: 15px;

@@ -41,7 +41,7 @@
     <hr>
     <h5>Resources</h5>
     <a href="{{URL::to('dashboard/comment')}}" class="nav-item"><i class="far fa-comment-alt"></i> Manage Comment</a>
-    <a href="{{URL::to('dashboard/favorite')}}" class="nav-item"><i class="fas fa-hand-holding-heart"></i> Manage
+    <a href="" class="nav-item"><i class="fas fa-hand-holding-heart"></i> Manage
         Favorite</a>
     <a href="{{URL::to('dashboard/image')}}" class="nav-item"><i class="far fa-images"></i> Manage Image</a>
     <a href="{{URL::to('dashboard/tag')}}" class="nav-item"><i class="fas fa-tags"></i> Manage Tag</a>
