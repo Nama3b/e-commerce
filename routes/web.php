@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LoginHomeController;
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Delivery\ShippingController;
-use App\Http\Controllers\HomePage\CartController;
 use App\Http\Controllers\HomePage\UserController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\HomePage\HomeController;
@@ -35,9 +35,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('loginHome');
+Route::get('/login', [LoginHomeController::class, 'loginHome'])->name('loginHome');
 Route::post('login', [LoginController::class, 'loginHome']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -52,6 +50,7 @@ Route::middleware('auth:customer')->group(function () {
     Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
     Route::get('/order-status', [\App\Http\Controllers\HomePage\OrderController::class, 'orderStatus']);
     Route::get('/customer-profile', [UserController::class, 'index']);
+    Route::patch('/update-customer-profile/{id}', [UserController::class, 'updateCustomer']);
 });
 
 Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class, 'products']);
