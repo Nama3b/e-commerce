@@ -9,13 +9,29 @@
     </div>
     @include('dashboard-pages.common.filter')
     <div class="card-body pt-3">
-        {{$dataTable->table(['class' => 'table table-bordered table-hover dataTable dtr-inline text-wrap '], true)}}
+        {{$dataTable->table(['id' => 'table-content', 'class' => 'table table-bordered table-hover dataTable dtr-inline text-wrap '], true)}}
     </div>
 </div>
 
 @push('js')
-    {{$dataTable->scripts()}}
+
+    {{ $dataTable->scripts() }}
+
     <script>
+        $(document).ready(function() {
+            $('#table-content').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '/product_category',
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'status', name: 'status' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                ]
+            });
+        });
+
         const editor = <?= json_encode($editor, true) ?>;
         let routeName = <?= json_encode(request()->route()->getPrefix() . "/" . request()->route()->getName()) ?>;
         routeName = routeName.startsWith('/') ? routeName.slice(0) : routeName;
@@ -29,7 +45,7 @@
                 update: '<?= __('generate.translate.button.update'); ?>',
             },
             text: {
-                copy: "コピ",
+                copy: "Copy",
             }
         }
     </script>

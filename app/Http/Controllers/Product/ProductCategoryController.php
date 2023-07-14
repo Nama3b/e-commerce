@@ -14,10 +14,12 @@ use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\WithPaginationLimit;
 use App\Transformers\Product\DetailProductCategoryTransformer;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductCategoryController extends Controller
 {
@@ -34,6 +36,7 @@ class ProductCategoryController extends Controller
     /**
      * @param Request $request
      * @return mixed
+     * @throws Exception
      */
     public function list(Request $request): mixed
     {
@@ -46,8 +49,10 @@ class ProductCategoryController extends Controller
             "allowClear" => true
         ];
 
+        $data = DataTables::of(ProductCategory::all());
+
         return (new $instance)
-            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create', 'options'));
+            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create', 'options', 'data'));
     }
 
     /**

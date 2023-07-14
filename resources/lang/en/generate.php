@@ -112,6 +112,8 @@ return [
             'name' => [
                 'title' => 'Name',
                 'type' => 'data',
+                'include' => 'dashboard-pages.custom.input',
+                'widget' => 'select2',
             ],
         ],
         'editor' => [
