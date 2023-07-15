@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{{'../WebPage/resources/fontawesome/css/all.css'}}}">
     <link rel="stylesheet" href="{{{'../WebPage/resources/font-awesome-4.7.0/css/font-awesome.min.css'}}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 </head>
 <body>
 <div id="mySidebar" class="sidebar">
@@ -93,6 +95,7 @@
 </div>
 
 <script src="{{ asset('WebPage/js/index.js') }}"></script>
+
 <script>
     function openNav() {
         document.getElementById("mySidebar").style.width = "300px";
@@ -116,5 +119,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script src="{{ mix('Dashboard/js/app.js') }}"></script>
 
+{{--datatables--}}
+<script src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 </body>
