@@ -257,7 +257,6 @@ html, body {
 
 /* ====================================HOME==================================== */
 
-
 #popup {
     position: fixed;
     display: none;
@@ -267,7 +266,7 @@ html, body {
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 15px 30px;
-    width: 300px;
+    width: 500px;
     text-align: center;
     border-radius: 5px;
     z-index: 1;
@@ -318,6 +317,10 @@ html, body {
 
 .home-main .brand-section .brand {
     background: white;
+}
+
+.home-main .brand-section .brand a {
+    padding: 15px;
 }
 
 .home-main .brand-section .brand .d-flex {

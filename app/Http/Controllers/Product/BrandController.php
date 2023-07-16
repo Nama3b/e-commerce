@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Components\Brand\Creator;
-use App\Components\Brand\Editor;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\EditBrandRequest;
 use App\Http\Requests\Product\StoreBrandRequest;
 use App\Models\Brand;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
+use App\Support\ResourceHelper\ActionButtonResourceHelper;
 use App\Support\WithPaginationLimit;
-use App\Transformers\Product\DetailBrandTransformer;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BrandController extends Controller
 {
-    use WithPaginationLimit, HandleJsonResponses, HandleComponentError;
+    use WithPaginationLimit, HandleJsonResponses, HandleComponentError, ActionButtonResourceHelper;
 
     /**
      * @return RedirectResponse
@@ -29,83 +31,77 @@ class BrandController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return mixed
+     * @return Application|Factory|View
      */
-    public function list(Request $request): mixed
+    public function list(): Application|Factory|View
     {
-        list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
+        $data = Brand::where('type', 'ALL')->get()->toArray();
 
-        $options = Brand::STATUS;
+        $data_sneaker = Brand::where('type', 'SNEAKER')->get()->toArray();
+        $data_clothes = Brand::where('type', 'CLOTHES')->get()->toArray();
 
-        $config = [
-            "placeholder" => "Select multiple options..",
-            "allowClear" => true
-        ];
+        $status = Brand::STATUS;
 
-        return (new $instance)
-            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create', 'options'));
+        return view('dashboard-pages.brand')
+            ->with(compact(
+                'data',
+                'data_sneaker',
+                'data_clothes',
+                'status'
+            ));
     }
 
     /**
-     * @param StoreBrandRequest $request
-     * @return JsonResponse|mixed
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(StoreBrandRequest $request): mixed
+    public function store(Request $request): RedirectResponse
     {
-        return $this->withComponentErrorHandling(function () use ($request) {
-            $status = (new Creator($request))->create();
+        DB::table('brands')->insert([
+            'name' => $request->input('name'),
+            'thumbnail_image' => 'WebPage/img/brand/' . $request->input('thumbnail_image'),
+            'type' => $request->input('type'),
+            'status' => $request->input('status'),
+        ]);
 
-            return optional($status)->id ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
+        return redirect()->back()->with('success', 'Brand added successfully!');
     }
 
     /**
      * @param Brand $brand
      * @param EditBrandRequest $request
-     * @return JsonResponse|mixed
+     * @return RedirectResponse
      */
-    public function edit(Brand $brand, EditBrandRequest $request): mixed
+    public function edit(Request $request, $brand): RedirectResponse
     {
-        return $this->withComponentErrorHandling(function () use ($brand, $request) {
-            $status = (new Editor($request))->edit($brand);
+        $brand = Brand::findOrFail($brand);
+        $brand->name = $request->input('name');
+        if ($request->input('thumbnail_image1')) {
+            $brand->thumbnail_image = 'WebPage/img/brand/' . $request->input('thumbnail_image1');
+        } else {
+            $brand->thumbnail_image = $request->input('thumbnail_image');
+        }
+        $brand->status = $request->input('status');
+        $brand->save();
 
-            return $status ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
+        return redirect()->back()->with('success', 'Brand updated successfully!');
     }
 
     /**
      * @param Brand $brand
-     * @param Request $request
-     * @return JsonResponse|mixed
+     * @return RedirectResponse
      */
-    public function delete(Brand $brand, Request $request): mixed
+    public function delete($brand): RedirectResponse
     {
-        return $this->withComponentErrorHandling(function () use ($brand, $request) {
-            $status = $brand->delete();
+        $brand = Brand::find($brand);
 
-            return $status ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
+        if (!$brand) {
+            return redirect()->route('dashboard/brand')->with('error', 'Cannot find a record!');
+        }
+
+        $brand->delete();
+
+        return redirect()->back()->with('success', 'Brand deleted successfully!');
     }
 
-    /**
-     * @param Brand $brand
-     * @return JsonResponse|mixed
-     */
-    public function detail(Brand $brand): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($brand) {
-
-            return fractal()
-                ->item($brand)
-                ->transformWith(new DetailBrandTransformer())
-                ->respond();
-        });
-    }
 }

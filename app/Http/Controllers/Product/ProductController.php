@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Components\Product\Creator;
-use App\Components\Product\Editor;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\EditProductRequest;
-use App\Http\Requests\Product\StoreProductRequest;
 use App\Models\Product;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
+use App\Support\ResourceHelper\BrandResourceHelper;
+use App\Support\ResourceHelper\CategoryResourceHelper;
+use App\Support\ResourceHelper\ProductResourceHelper;
 use App\Support\WithPaginationLimit;
-use App\Transformers\Product\DetailProductTransformer;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class ProductController extends Controller
 {
-    use WithPaginationLimit, HandleJsonResponses, HandleComponentError;
+    use WithPaginationLimit, HandleJsonResponses, HandleComponentError, ProductResourceHelper, CategoryResourceHelper, BrandResourceHelper;
 
     /**
      * @return RedirectResponse
@@ -29,83 +31,82 @@ class ProductController extends Controller
     }
 
     /**
+     * @return Application|Factory|View
+     * @throws Exception
+     */
+    public function list(): Application|Factory|View
+    {
+        $data = $this->getProductImage();
+        $category = $this->getAllCategory();
+        $brand = $this->getAllBrand();
+
+        $status = Product::STATUS;
+
+        return view('dashboard-pages.product')
+            ->with(compact(
+                'data',
+                'category',
+                'brand',
+                'status'
+            ));
+    }
+
+    /**
      * @param Request $request
-     * @return mixed
+     * @return RedirectResponse
      */
-    public function list(Request $request): mixed
+    public function store(Request $request): RedirectResponse
     {
-        list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
+        DB::table('products')->insert([
+            'category_id' => $request->input('category_id'),
+            'brand_name' => $request->input('brand_id'),
+            'creator' => $request->input('creator'),
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'quantity' => $request->input('quantity'),
+            'status' => $request->input('status'),
+        ]);
 
-        $options = Product::STATUS;
-
-        $config = [
-            "placeholder" => "Select multiple options..",
-            "allowClear" => true
-        ];
-
-        return (new $instance)
-            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create', 'options'));
-    }
-
-    /**
-     * @param StoreProductRequest $request
-     * @return JsonResponse|mixed
-     */
-    public function store(StoreProductRequest $request): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($request) {
-            $status = (new Creator($request))->create();
-
-            return optional($status)->id ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
-    }
-
-    /**
-     * @param Product $product
-     * @param EditProductRequest $request
-     * @return JsonResponse|mixed
-     */
-    public function edit(Product $product, EditProductRequest $request): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($product, $request) {
-            $status = (new Editor($request))->edit($product);
-
-            return $status ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
+        return redirect()->back()->with('success', 'Product added successfully!');
     }
 
     /**
      * @param Product $product
      * @param Request $request
-     * @return JsonResponse|mixed
+     * @return RedirectResponse
      */
-    public function delete(Product $product, Request $request): mixed
+    public function edit($product, Request $request): RedirectResponse
     {
-        return $this->withComponentErrorHandling(function () use ($product, $request) {
-            $status = $product->delete();
+        $product = Product::findOrFail($product);
+        $product->name = $request->input('name');
+        $product->category_id = $request->input('category_id');
+        $product->brand_id = $request->input('brand_name');
+        $product->creator = $request->input('creator');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->quantity = $request->input('quantity');
+        $product->status = $request->input('status');
 
-            return $status ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
+        $product->save();
+
+        return redirect()->back()->with('success', 'Product updated successfully!');
     }
 
     /**
-     * @param Product $product
-     * @return JsonResponse|mixed
+     * @param $product
+     * @return RedirectResponse
      */
-    public function detail(Product $product): mixed
+    public function delete($product): RedirectResponse
     {
-        return $this->withComponentErrorHandling(function () use ($product) {
+        $product = Product::find($product);
 
-            return fractal()
-                ->item($product)
-                ->transformWith(new DetailProductTransformer())
-                ->respond();
-        });
+        if (!$product) {
+            return redirect()->route('dashboard/product')->with('error', 'Cannot find a record!');
+        }
+
+        $product->delete();
+
+        return redirect()->back()->with('success', 'Product deleted successfully!');
     }
 }

@@ -96,6 +96,56 @@ html, body {
     border-bottom: 1px solid grey;
 }
 
+#popup {
+    position: fixed;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1f2129;
+    color: white;
+    border: 1px solid #ccc;
+    padding: 15px 30px;
+    width: 500px;
+    text-align: center;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.popup-content span {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.popup-content i {
+    font-size: 22px;
+    color: green;
+    margin-left: 10px;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.fade {
+    opacity: 0;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.fade-in {
+    animation-name: fadeIn;
+}
+
+.fade-out {
+    animation-name: fadeOut;
+}
+
 #main {
     margin-left: 302px;
 }
@@ -126,6 +176,7 @@ html, body {
 
 .header-left .form-search i {
     position: absolute;
+    color: white;
     left: 107px;
     top: 10px;
 }
@@ -270,8 +321,33 @@ html, body {
     color: white;
 }
 
+.card .card-header {
+    background: #272934;
+}
+
+.card .card-body {
+    background: #1f2129;
+}
+
+.card .card-body .body-header {
+    display: flex;
+}
+
+.card .card-body .body-header button {
+    margin-left: 20px;
+}
+
+.card table {
+    background: #272934;
+}
+
 .card-body .text-alert {
     color: lightgreen;
+}
+
+.card-body th {
+    padding: 10px 15px !important;
+    vertical-align: middle !important;
 }
 
 .card-body .text-alert:hover {
@@ -302,3 +378,56 @@ html, body {
 .card-body hr {
     border-bottom: 1px solid grey;
 }
+
+.card-body th img {
+    height: 77px;
+}
+
+.modal-content {
+    color: white;
+    background: #272934 !important;
+}
+
+.modal-content .form-group label {
+    margin-right: 20px;
+}
+
+.modal-content .form-group input,
+.modal-content .form-group select {
+    border: 1px solid grey;
+    background: none;
+    padding: 4px 10px;
+}
+
+.modal-content .form-group option {
+    background: #272934 !important;
+}
+
+.modal-body .form-group img {
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+.modal-body .form-group input {
+    width: 70%;
+    float: right;
+    margin-right: 10px;
+}
+
+.modal-body .form-group select {
+    width: 70%;
+    float: right;
+    margin-right: 10px;
+}
+
+.modal-body .form-group textarea {
+    background: none;
+    color: white;
+}
+
+.modal-body .form-group input.image {
+    margin-left: 80px !important;
+}
+
+

@@ -131,13 +131,10 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('brand', [BrandController::class, 'list'])
         ->name('brand')
         ->middleware(['checkManagerPermission:VIEW_BRAND']);
-    Route::get('brand/detail/{brand}', [BrandController::class, 'detail'])
-        ->name('brand.detail')
-        ->middleware(['checkManagerPermission:VIEW_BRAND']);
     Route::post('brand/store', [BrandController::class, 'store'])
         ->name('brand.store')
         ->middleware(['checkManagerPermission:CREATE_BRAND']);
-    Route::post('brand/edit/{brand}', [BrandController::class, 'update'])
+    Route::patch('brand/edit/{brand}', [BrandController::class, 'edit'])
         ->name('brand.edit')
         ->middleware(['checkManagerPermission:EDIT_BRAND']);
     Route::delete('brand/delete/{brand}', [BrandController::class, 'delete'])
@@ -147,13 +144,10 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('product_category', [ProductCategoryController::class, 'list'])
         ->name('product_category')
         ->middleware(['checkManagerPermission:VIEW_PRODUCT_CATEGORY']);
-    Route::get('product_category/detail/{product_category}', [ProductCategoryController::class, 'detail'])
-        ->name('product_category.detail')
-        ->middleware(['checkManagerPermission:VIEW_PRODUCT_CATEGORY']);
     Route::post('product_category/store', [ProductCategoryController::class, 'store'])
         ->name('product_category.store')
         ->middleware(['checkManagerPermission:CREATE_PRODUCT_CATEGORY']);
-    Route::post('product_category/edit/{product_category}', [ProductCategoryController::class, 'update'])
+    Route::patch('product_category/edit/{product_category}', [ProductCategoryController::class, 'edit'])
         ->name('product_category.edit')
         ->middleware(['checkManagerPermission:EDIT_PRODUCT_CATEGORY']);
     Route::delete('product_category/delete/{product_category}', [ProductCategoryController::class, 'delete'])
@@ -162,9 +156,6 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
 
     Route::get('product', [ProductController::class, 'list'])
         ->name('product')
-        ->middleware(['checkManagerPermission:VIEW_PRODUCT']);
-    Route::get('product/detail/{product}', [ProductController::class, 'detail'])
-        ->name('product.detail')
         ->middleware(['checkManagerPermission:VIEW_PRODUCT']);
     Route::post('product/store', [ProductController::class, 'store'])
         ->name('product.store')
@@ -179,9 +170,6 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('delivery', [DeliveryController::class, 'list'])
         ->name('delivery')
         ->middleware(['checkManagerPermission:VIEW_DELIVERY']);
-    Route::get('delivery/detail/{delivery}', [DeliveryController::class, 'detail'])
-        ->name('delivery.detail')
-        ->middleware(['checkManagerPermission:VIEW_DELIVERY']);
     Route::post('delivery/store', [DeliveryController::class, 'store'])
         ->name('delivery.store')
         ->middleware(['checkManagerPermission:CREATE_DELIVERY']);
@@ -194,9 +182,6 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
 
     Route::get('shipping', [ShippingController::class, 'list'])
         ->name('shipping')
-        ->middleware(['checkManagerPermission:VIEW_SHIPPING']);
-    Route::get('shipping/detail/{shipping}', [ShippingController::class, 'detail'])
-        ->name('shipping.detail')
         ->middleware(['checkManagerPermission:VIEW_SHIPPING']);
     Route::post('shipping/store', [ShippingController::class, 'store'])
         ->name('shipping.store')
@@ -211,9 +196,6 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('order', [OrderController::class, 'list'])
         ->name('order')
         ->middleware(['checkManagerPermission:VIEW_ORDER']);
-    Route::get('order/detail/{order}', [OrderController::class, 'detail'])
-        ->name('order.detail')
-        ->middleware(['checkManagerPermission:VIEW_ORDER']);
     Route::post('order/store', [OrderController::class, 'store'])
         ->name('order.store')
         ->middleware(['checkManagerPermission:CREATE_ORDER']);
@@ -226,9 +208,6 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
 
     Route::get('order_detail', [OrderDetailController::class, 'list'])
         ->name('order_detail')
-        ->middleware(['checkManagerPermission:VIEW_ORDER_DETAIL']);
-    Route::get('order_detail/detail/{order_detail}', [OrderDetailController::class, 'detail'])
-        ->name('order_detail.detail')
         ->middleware(['checkManagerPermission:VIEW_ORDER_DETAIL']);
     Route::post('order_detail/store', [OrderDetailController::class, 'store'])
         ->name('order_detail.store')
@@ -243,9 +222,6 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('post', [PostController::class, 'list'])
         ->name('post')
         ->middleware(['checkManagerPermission:VIEW_NEWS']);
-    Route::get('post/detail/{post}', [PostController::class, 'detail'])
-        ->name('post.detail')
-        ->middleware(['checkManagerPermission:VIEW_POST']);
     Route::post('post/store', [PostController::class, 'store'])
         ->name('post.store')
         ->middleware(['checkManagerPermission:VIEW_POST']);
@@ -276,9 +252,6 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('image', [ImageController::class, 'list'])
         ->name('image')
         ->middleware(['checkManagerPermission:VIEW_IMAGE']);
-    Route::get('image/detail/{image}', [ImageController::class, 'detail'])
-        ->name('image.detail')
-        ->middleware(['checkManagerPermission:VIEW_IMAGE']);
     Route::post('image/store', [ImageController::class, 'store'])
         ->name('image.store')
         ->middleware(['checkManagerPermission:CREATE_IMAGE']);
@@ -291,9 +264,6 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
 
     Route::get('tag', [TagController::class, 'list'])
         ->name('tag')
-        ->middleware(['checkManagerPermission:VIEW_TAG']);
-    Route::get('tag/detail/{tag}', [TagController::class, 'detail'])
-        ->name('tag.detail')
         ->middleware(['checkManagerPermission:VIEW_TAG']);
     Route::post('tag/store', [TagController::class, 'store'])
         ->name('tag.store')
