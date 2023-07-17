@@ -72,7 +72,7 @@ ul li a:hover {
 }
 
 .error-item {
-    background: #ff9e9e;
+    background: red;
     border-radius: 10px;
 }
 
@@ -84,7 +84,7 @@ ul li a:hover {
 .error-item ul.errors li {
     display: block;
     text-align: left;
-    color: red;
+    color: white;
     font-weight: bold;
 }
 

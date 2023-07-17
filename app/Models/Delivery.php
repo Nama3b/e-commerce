@@ -76,7 +76,7 @@ class Delivery extends Model
      */
     public function member(): BelongsTo
     {
-        return $this->belongsTo(Member::class,'id','creator');
+        return $this->belongsTo(Member::class,'creator','id');
     }
 
     /**
@@ -84,6 +84,6 @@ class Delivery extends Model
      */
     public function payment(): BelongsTo
     {
-        return $this->BelongsTo(PaymentOption::class,'id', 'payment_option_id');
+        return $this->BelongsTo(PaymentOption::class,'payment_option_id', 'id');
     }
 }

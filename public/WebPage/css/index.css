@@ -315,7 +315,7 @@ html, body {
     margin: 50px 0;
 }
 
-.home-main .brand-section .brand {
+.shopping-section .brand-section .brand {
     background: white;
 }
 
@@ -358,6 +358,10 @@ html, body {
     background: url('../img/background.jpg') no-repeat fixed;
 }
 
+.home-main .shopping-section .brand-section .brand img:hover {
+    opacity: 0.6;
+}
+
 .home-main .shopping-section .col-6 a {
     color: black;
     transition: all 0.3s linear;
@@ -371,6 +375,10 @@ html, body {
 .home-main .section-item {
     background: white;
     padding: 5px 0;
+}
+
+.home-main .section-item .brand-banner img:hover {
+    opacity: 0.7;
 }
 
 .home-main .product img {
@@ -458,6 +466,10 @@ html, body {
 
 .home-main .sale-section img {
     width: 100%;
+}
+
+.home-main .sale-section img:hover {
+    opacity: 0.9;
 }
 
 .home-main .sale-top, .sale-bottom {
@@ -1299,6 +1311,10 @@ html, body {
     font-size: 13px;
 }
 
+.order-status .tab-content .card-order {
+    margin: 10px 0;
+}
+
 .order-status .tab-content .card-user {
     padding: 20px !important;
     background: white;
@@ -1324,6 +1340,11 @@ html, body {
 
 .order-status .tab-content .order-detail hr {
     margin: 10px 0;
+}
+
+.order-status .tab-content .track-order-status {
+    padding: 10px;
+    background: white;
 }
 
 /* ====================================CUSTOMER-PROFILE==================================== */

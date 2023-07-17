@@ -31,7 +31,7 @@
                             <div class="d-flex">
                                 @foreach($brand_all as $key => $brand_item)
                                     <div class="brand col-2">
-                                        <a href=""><img src="{{$brand_item->thumbnail_image}}" alt=""></a>
+                                        <a href="{{ URL::to('product-by-brand/'.$brand_item->id) }}"><img src="{{$brand_item->thumbnail_image}}" alt=""></a>
                                     </div>
                                 @endforeach
                             </div>

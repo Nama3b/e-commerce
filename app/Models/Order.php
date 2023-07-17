@@ -89,7 +89,7 @@ class Order extends Model
      */
     public function customer(): BelongsTo
     {
-        return $this->BelongsTo(Customer::class,'id','customer_id');
+        return $this->BelongsTo(Customer::class,'customer_id','id');
     }
 
     /**

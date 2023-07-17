@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('reference_id');
             $table->string('url');
-            $table->integer('sort_no');
+            $table->integer('sort_no')->nullable();
             $table->enum('image_type', ['PRODUCT', 'POST']);
             $table->timestamps();
             $table->softDeletes();

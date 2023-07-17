@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LoginHomeController;
+use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Delivery\ShippingController;
 use App\Http\Controllers\HomePage\UserController;
@@ -38,6 +39,7 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::get('/login', [LoginHomeController::class, 'loginHome'])->name('loginHome');
 Route::post('login', [LoginController::class, 'loginHome']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('signup', [SignupController::class, 'signupHome'])->name('signup');
 
 Route::post('/add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
 Route::patch('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);
@@ -160,7 +162,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::post('product/store', [ProductController::class, 'store'])
         ->name('product.store')
         ->middleware(['checkManagerPermission:CREATE_PRODUCT']);
-    Route::post('product/edit/{product}', [ProductController::class, 'update'])
+    Route::patch('product/edit/{product}', [ProductController::class, 'edit'])
         ->name('product.edit')
         ->middleware(['checkManagerPermission:EDIT_PRODUCT']);
     Route::delete('product/delete/{product}', [ProductController::class, 'delete'])
@@ -173,7 +175,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::post('delivery/store', [DeliveryController::class, 'store'])
         ->name('delivery.store')
         ->middleware(['checkManagerPermission:CREATE_DELIVERY']);
-    Route::post('delivery/edit/{delivery}', [DeliveryController::class, 'update'])
+    Route::patch('delivery/edit/{delivery}', [DeliveryController::class, 'edit'])
         ->name('delivery.edit')
         ->middleware(['checkManagerPermission:EDIT_DELIVERY']);
     Route::delete('delivery/delete/{delivery}', [DeliveryController::class, 'delete'])
@@ -186,7 +188,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::post('shipping/store', [ShippingController::class, 'store'])
         ->name('shipping.store')
         ->middleware(['checkManagerPermission:CREATE_SHIPPING']);
-    Route::post('shipping/edit/{shipping}', [ShippingController::class, 'update'])
+    Route::patch('shipping/edit/{shipping}', [ShippingController::class, 'edit'])
         ->name('shipping.edit')
         ->middleware(['checkManagerPermission:EDIT_SHIPPING']);
     Route::delete('shipping/delete/{shipping}', [ShippingController::class, 'delete'])
@@ -196,28 +198,9 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('order', [OrderController::class, 'list'])
         ->name('order')
         ->middleware(['checkManagerPermission:VIEW_ORDER']);
-    Route::post('order/store', [OrderController::class, 'store'])
-        ->name('order.store')
-        ->middleware(['checkManagerPermission:CREATE_ORDER']);
-    Route::post('order/edit/{order}', [OrderController::class, 'update'])
+    Route::patch('order/edit/{order}', [OrderController::class, 'edit'])
         ->name('order.edit')
         ->middleware(['checkManagerPermission:EDIT_ORDER']);
-    Route::delete('order/delete/{order}', [OrderController::class, 'delete'])
-        ->name('order.delete')
-        ->middleware(['checkManagerPermission:DELETE_ORDER']);
-
-    Route::get('order_detail', [OrderDetailController::class, 'list'])
-        ->name('order_detail')
-        ->middleware(['checkManagerPermission:VIEW_ORDER_DETAIL']);
-    Route::post('order_detail/store', [OrderDetailController::class, 'store'])
-        ->name('order_detail.store')
-        ->middleware(['checkManagerPermission:CREATE_ORDER_DETAIL']);
-    Route::post('order_detail/edit/{order_detail}', [OrderDetailController::class, 'update'])
-        ->name('order_detail.edit')
-        ->middleware(['checkManagerPermission:EDIT_ORDER_DETAIL']);
-    Route::delete('order_detail/delete/{order_detail}', [OrderDetailController::class, 'delete'])
-        ->name('order_detail.delete')
-        ->middleware(['checkManagerPermission:DELETE_ORDER_DETAIL']);
 
     Route::get('post', [PostController::class, 'list'])
         ->name('post')
@@ -225,7 +208,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::post('post/store', [PostController::class, 'store'])
         ->name('post.store')
         ->middleware(['checkManagerPermission:VIEW_POST']);
-    Route::post('post/edit/{post}', [PostController::class, 'update'])
+    Route::patch('post/edit/{post}', [PostController::class, 'edit'])
         ->name('post.edit')
         ->middleware(['checkManagerPermission:EDIT_POST']);
     Route::delete('post/delete/{post}', [PostController::class, 'delete'])
@@ -255,7 +238,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::post('image/store', [ImageController::class, 'store'])
         ->name('image.store')
         ->middleware(['checkManagerPermission:CREATE_IMAGE']);
-    Route::post('image/edit/{image}', [ImageController::class, 'update'])
+    Route::patch('image/edit/{image}', [ImageController::class, 'edit'])
         ->name('image.edit')
         ->middleware(['checkManagerPermission:EDIT_IMAGE']);
     Route::delete('image/delete/{image}', [ImageController::class, 'delete'])
@@ -268,7 +251,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::post('tag/store', [TagController::class, 'store'])
         ->name('tag.store')
         ->middleware(['checkManagerPermission:CREATE_TAG']);
-    Route::post('tag/edit/{tag}', [TagController::class, 'update'])
+    Route::patch('tag/edit/{tag}', [TagController::class, 'edit'])
         ->name('tag.edit')
         ->middleware(['checkManagerPermission:EDIT_TAG']);
     Route::delete('tag/delete/{tag}', [TagController::class, 'delete'])

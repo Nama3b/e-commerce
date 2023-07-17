@@ -28,6 +28,12 @@
     </div>
 </div>
 
+<div id="popup">
+    <div class="popup-content">
+        <span id="popup-message"></span><i class="far fa-check-circle"></i>
+    </div>
+</div>
+
 <div class="body">
     <div class="container d-flex justify-content-center">
         <div class="form-input col-5">
@@ -56,7 +62,7 @@
                     }
                     ?>
                     <form action="{{URL::to('/login')}}" method="post">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="error-item">
                             @foreach($errors->all() as $val)
                                 <ul class="errors">
@@ -87,8 +93,8 @@
                         Session::put('message', null);
                     }
                     ?>
-                    <form method="post" action="{{URL::to('/signUp')}}">
-                        {{ csrf_field() }}
+                    <form action="{{ URL::to('/signup') }}" method="post">
+                        @csrf
                         <div class="error-item">
                             @foreach($errors->all() as $val)
                                 <ul class="errors">
@@ -96,11 +102,14 @@
                                 </ul>
                             @endforeach
                         </div>
-                        <input type="text" name="full_name" placeholder="Client name">
-                        <input type="text" name="email" placeholder="Email">
-                        <input type="password" name="password" placeholder="Password">
-                        <input type="text" name="phone_number" placeholder="Phone number">
-                        <input type="text" name="address" placeholder="Address">
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="password" name="password_confirmation" placeholder="Password confirmation" required>
+                        <input type="text" name="full_name" placeholder="Full name" required>
+                        <input type="text" name="address" placeholder="Address" required>
+                        <input type="text" name="phone_number" placeholder="Phone number" required>
+                        <input type="date" name="birthday">
+                        <input type="file" name="avatar">
                         <div class="d-flex">
                             <input type="checkbox" class="checkbox" name="policy" value="">
                             <label for="policy"> <small>By signing up, you agree to the <b>Terms of Service</b>
@@ -120,6 +129,35 @@
         </div>
     </div>
 </div>
+
+@if(session('success'))
+    <script>
+        var popup = document.getElementById("popup");
+        var popupMessage = document.getElementById("popup-message");
+        popupMessage.innerHTML = "{{ session('success') }}";
+
+        function showElement() {
+            popup.classList.add('fade-in');
+            popup.style.display = 'block';
+        }
+
+        function hideElement() {
+            popup.classList.remove('fade-in');
+            popup.classList.add('fade-out');
+            setTimeout(() => {
+                popup.style.display = 'none';
+                popup.classList.remove('fade-out');
+            }, 1000);
+        }
+
+        function showForDuration(duration) {
+            showElement();
+            setTimeout(hideElement, duration);
+        }
+
+        showForDuration(1500);
+    </script>
+@endif
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

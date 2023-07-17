@@ -41,6 +41,44 @@
                             </div>
                         </th>
                     </tr>
+                    <div class="modal fade" id="editForm-{{ $item['id'] }}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <form action="{{ URL::to('/dashboard/product_category/edit/'.$item['id'])}}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit form category</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="">Name</label>
+                                            <input type="text" class="form-input" name="name" placeholder="Category name"
+                                                   value="{{ $item['name'] }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Status</label>
+                                            <select name="status">
+                                                @foreach ($status as $key => $option)
+                                                    <option
+                                                        value="{{ $key }}" {{ $option == $item['status'] ? 'selected' : '' }}>{{ $option }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-dark">Save changes</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 @endforeach
                 </tbody>
             </table>
@@ -82,46 +120,5 @@
                 </div>
             </form>
         </div>
-    </div>z`
-
-    <div class="modal fade" id="editForm-{{ $item['id'] }}" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form action="{{ URL::to('/dashboard/product_category/edit/'.$item['id'])}}" method="post">
-                @csrf
-                @method('PATCH')
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Edit form category</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="">Name</label>
-                            <input type="text" class="form-input" name="name" placeholder="Category name"
-                                   value="{{ $item['name'] }}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Status</label>
-                            @php($status_item = $item['status'])
-                            <select name="status">
-                                @foreach ($status as $key => $option)
-                                    <option
-                                        value="{{ $key }}" {{ $key = $status_item ? 'selected' : '' }}>{{ $option }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-dark">Save changes</button>
-                    </div>
-                </div>
-            </form>
-        </div>
     </div>
-
 @endsection

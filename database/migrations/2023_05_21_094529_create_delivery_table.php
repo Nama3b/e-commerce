@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('payment_option_id');
             $table->string('service_name');
             $table->float('delivery_fee');
-            $table->date('delivery_time');
+            $table->float('delivery_time');
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

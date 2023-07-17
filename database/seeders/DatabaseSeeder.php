@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             PermissionSeeder::class,
             RoleSeeder::class,
-            PermissionRoleSeeder::class
+            PermissionRoleSeeder::class,
+            DeliverySeeder::class
         ]);
     }
 }

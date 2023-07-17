@@ -1,4 +1,4 @@
-<div class="d-flex">
+<div class="card-order d-flex">
     <div class="col-8">
         @php($order_detail = $order_item->orderdetails)
         @foreach ($order_detail as $order_detail_item)
@@ -19,30 +19,49 @@
                             <p class="text-muted mb-0 small">x {{ $order_detail_item->quantity }}</p>
                         </div>
                         <div class="col-md-2 row-item">
-                            <p class="text-muted mb-0 small">${{ number_format($order_detail_item->price * $order_detail_item->quantity, 0, '', '.') }}</p>
-                        </div>
-                    </div>
-                    <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-md-2">
-                            <p class="text-muted mb-0 small">Track Order</p>
-                        </div>
-                        <div class="col-md-10">
-                            <div class="progress" style="height: 6px; border-radius: 16px;">
-                                <div class="progress-bar" role="progressbar"
-                                     style="width: 65%; border-radius: 16px; background-color: #a8729a;"
-                                     aria-valuenow="65"
-                                     aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="d-flex justify-content-around mb-1">
-                                <p class="text-muted mt-1 mb-0 small ms-xl-5">Out for delivary</p>
-                                <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
-                            </div>
+                            <p class="text-muted mb-0 small">
+                                ${{ number_format($order_detail_item->price * $order_detail_item->quantity, 0, '', '.') }}</p>
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
+
+        <div class="track-order-status shadow-0 border mb-1">
+            <div class="row d-flex align-items-center">
+                <div class="col-12">
+                    <div class="progress" style="height: 6px; border-radius: 16px;">
+                        @if ($order_item->status == 'PROCESSING')
+                            <div class="progress-bar" role="progressbar"
+                                 style="width: 25%; border-radius: 16px; background-color: grey;"
+                                 aria-valuenow="65"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        @elseif ($order_item->status == 'DELIVERING')
+                            <div class="progress-bar" role="progressbar"
+                                 style="width: 50%; border-radius: 16px; background-color: grey;"
+                                 aria-valuenow="65"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        @elseif ($order_item->status == 'COMPLETED')
+                            <div class="progress-bar" role="progressbar"
+                                 style="width: 75%; border-radius: 16px; background-color: grey;"
+                                 aria-valuenow="65"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        @else
+                            <div class="progress-bar" role="progressbar"
+                                 style="width: 100%; border-radius: 16px; background-color: grey;"
+                                 aria-valuenow="65"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        @endif
+                    </div>
+                    <div class="d-flex justify-content-around mb-1">
+                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Processing</p>
+                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivering</p>
+                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Completed</p>
+                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Cancelled</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="col-4">
@@ -59,16 +78,19 @@
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
-                    <p class="text-muted mb-0"><b><i class="fas fa-phone-alt"></i></b> {{ $order_item->phone_number }}</p>
+                    <p class="text-muted mb-0"><b><i class="fas fa-phone-alt"></i></b> {{ $order_item->phone_number }}
+                    </p>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
                     <p class="text-muted mb-0"><b><i class="fas fa-house-user"></i></b> {{ $order_item->address }}</p>
                 </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <p class="text-muted mb-0"><b><i class="far fa-file-alt"></i></b> {{ $order_item->notice }}</p>
-                </div>
+                @if ($order_item->notice)
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p class="text-muted mb-0"><b><i class="far fa-file-alt"></i></b> {{ $order_item->notice }}</p>
+                    </div>
+                @endif
             </div>
         </div>
         <div class="order-detail">
@@ -85,7 +107,7 @@
                 <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
             </div>
             <hr>
-            <div class="d-flex justify-content-between pt-2">
+            <div class="d-flex justify-content-between">
                 <p class="fw-bold mb-0">Total:</p>
                 <p class="text-muted mb-0">
                     @php($total = 0)

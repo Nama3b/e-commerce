@@ -18,9 +18,9 @@
                         <input type="text" class="form-input" name="name" placeholder="Brand name"
                                value="{{ $item['name'] }}" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-image">
                         <label for="">Image</label>
-                        <img src="../{{ $item['thumbnail_image'] }}" alt="" width="200px">
+                        <img src="../{{ $item['thumbnail_image'] }}" alt="" width="70%" class="form-img">
                         <input type="hidden" name="thumbnail_image" value="{{ $item['thumbnail_image'] }}">
                         <input type="file" name="thumbnail_image1" class="image">
                     </div>

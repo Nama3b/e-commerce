@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Post;
 
-use App\Components\Post\Creator;
-use App\Components\Post\Editor;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Post\EditPostRequest;
-use App\Http\Requests\Post\StorePostRequest;
+use App\Models\Image;
+use App\Models\Member;
 use App\Models\Post;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
+use App\Support\ResourceHelper\PostResourceHelper;
 use App\Support\WithPaginationLimit;
-use App\Transformers\Post\DetailPostTransformer;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    use WithPaginationLimit, HandleJsonResponses, HandleComponentError;
+    use WithPaginationLimit, HandleJsonResponses, HandleComponentError, PostResourceHelper;
 
     /**
      * @return RedirectResponse
@@ -29,84 +30,82 @@ class PostController extends Controller
     }
 
     /**
+     * @return Application|Factory|View
+     */
+    public function list(): Application|Factory|View
+    {
+        $data = $this->getPostImage();
+        $author = Member::with('posts')->whereId(array_column($this->getAllPost(),'author'))->get()->toArray();
+
+        $type = Post::POST_TYPE;
+        $status = Post::STATUS;
+
+        return view('dashboard-pages.post')
+            ->with(compact(
+                'data',
+                'author',
+                'type',
+                'status'
+            ));
+    }
+
+    /**
      * @param Request $request
-     * @return mixed
+     * @return RedirectResponse
      */
-    public function list(Request $request): mixed
+    public function store(Request $request): RedirectResponse
     {
-        list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
+        $post = [];
+        $post['author'] = $request->author;
+        $post['title'] = $request->title;
+        $post['content'] = $request->input('content');
+        $post['post_type'] = $request->post_type;
+        $post_id = DB::table('posts')->insertGetId($post);
 
-        $option1 = Post::STATUS;
-        $option2 = Post::POST_TYPE;
+        $image['reference_id'] = $post_id;
+        $image['url'] = $request->url;
+        $image['image_type'] = 'POST';
+        DB::table('images')->insert($image);
 
-        $config = [
-            "placeholder" => "Select multiple options..",
-            "allowClear" => true
-        ];
-
-        return (new $instance)
-            ->render('dashboard-pages.index', compact('option1', 'option2', 'config', 'filter', 'editor', 'modal_size', 'create'));
-    }
-
-    /**
-     * @param StorePostRequest $request
-     * @return JsonResponse|mixed
-     */
-    public function store(StorePostRequest $request): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($request) {
-            $status = (new Creator($request))->create();
-
-            return optional($status)->id ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
-    }
-
-    /**
-     * @param Post $post
-     * @param EditPostRequest $request
-     * @return JsonResponse|mixed
-     */
-    public function edit(Post $post, EditPostRequest $request): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($post, $request) {
-            $status = (new Editor($request))->edit($post);
-
-            return $status ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
+        return redirect()->back()->with('success', 'Post added successfully!');
     }
 
     /**
      * @param Post $post
      * @param Request $request
-     * @return JsonResponse|mixed
+     * @return RedirectResponse
      */
-    public function delete(Post $post, Request $request): mixed
+    public function edit($post, Request $request): RedirectResponse
     {
-        return $this->withComponentErrorHandling(function () use ($post, $request) {
-            $status = $post->delete();
+        $post = Post::findOrFail($post);
+        $post->author = $request->author;
+        $post->title = $request->title;
+        $post->content = $request->input('content');
+        $post->post_type = $request->post_type;
+        $post->status = $request->status;
+        $post->save();
 
-            return $status ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
+        $image['url'] = 'WebPage/img/post/'.$request->url;
+        $image['image_type'] = 'POST';
+        Image::whereReferenceId($request->id)->whereImageType('POST')->update($image);
+
+        return redirect()->back()->with('success', 'Post updated successfully!');
     }
 
     /**
      * @param Post $post
-     * @return JsonResponse|mixed
+     * @return RedirectResponse
      */
-    public function detail(Post $post): mixed
+    public function delete($post): RedirectResponse
     {
-        return $this->withComponentErrorHandling(function () use ($post) {
+        $post = Post::find($post);
 
-            return fractal()
-                ->item($post)
-                ->transformWith(new DetailPostTransformer())
-                ->respond();
-        });
+        if (!$post) {
+            return redirect()->route('dashboard/post')->with('error', 'Cannot find a record!');
+        }
+
+        $post->delete();
+
+        return redirect()->back()->with('success', 'Post deleted successfully!');
     }
 }

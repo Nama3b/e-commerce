@@ -196,6 +196,14 @@ html, body {
     padding: 8px 15px 0 0;
 }
 
+.header-right .dropdown-menu li a {
+    padding: 0;
+}
+
+.header-right .dropdown-menu li a:hover {
+    background: none;
+}
+
 .header-right .user-btn {
     border-radius: 50%;
     padding: 3px;
@@ -404,7 +412,6 @@ html, body {
 }
 
 .modal-body .form-group img {
-    margin: 15px 0;
     padding: 10px;
     border: 1px solid grey;
 }
@@ -426,8 +433,67 @@ html, body {
     color: white;
 }
 
+.modal-body .form-image {
+    display: inline-block;
+}
+
 .modal-body .form-group input.image {
     margin-left: 80px !important;
 }
 
+.modal-body .form-group img.form-img {
+    float: right;
+    width: 72%;
+    height: 200px;
+    margin-bottom: 10px;
+}
 
+.card .order-item {
+    padding: 15px;
+    margin-bottom: 30px;
+    background-color: rgb(39 41 52) !important;
+}
+
+.card .order-item table {
+    background: #191a21 !important;
+    width: 100%;
+}
+
+.card .order-item,
+.card .order-item .user-item {
+    display: flex;
+}
+
+.card .order-item .card-user {
+    padding: 20px;
+    font-size: 16px;
+    background: #191a21;
+}
+
+.card .order-item .card-user .client-info {
+    float: right;
+    right: 0;
+}
+
+.card .order-item .card-user .client-info i {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.card .order-item .card-user hr {
+    margin: 10px 0;
+}
+
+.card .order-item table tr {
+    border-bottom: 1px solid grey;
+}
+
+.card .order-item .order-status {
+    margin-top: 10px;
+}
+
+.card .order-item .order-status select {
+    background: none;
+    color: white;
+    padding: 8px 20px;
+}

@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Order;
 
-use App\Components\Order\Creator;
-use App\Components\Order\Editor;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Order\EditOrderRequest;
-use App\Http\Requests\Order\StoreOrderRequest;
-use App\Models\Customer;
 use App\Models\Order;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\WithPaginationLimit;
-use App\Transformers\Order\DetailOrderTransformer;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -30,82 +26,32 @@ class OrderController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return mixed
+     * @return Application|Factory|View
      */
-    public function list(Request $request): mixed
+    public function list(): Application|Factory|View
     {
-        list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
+        $data = Order::with(['customer', 'orderdetails'])->get()->toArray();
 
-        $options = Customer::pluck('full_name', 'id');
+        $status = Order::STATUS;
 
-        $config = [
-            "placeholder" => "Select multiple options..",
-            "allowClear" => true
-        ];
-        return (new $instance)
-            ->render('dashboard-pages.index', compact('options', 'config', 'filter', 'editor', 'modal_size', 'create'));
-    }
-
-    /**
-     * @param StoreOrderRequest $request
-     * @return JsonResponse|mixed
-     */
-    public function store(StoreOrderRequest $request): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($request) {
-            $status = (new Creator($request))->create();
-
-            return optional($status)->id ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
-    }
-
-    /**
-     * @param Order $order
-     * @param EditOrderRequest $request
-     * @return JsonResponse|mixed
-     */
-    public function edit(Order $order, EditOrderRequest $request): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($order, $request) {
-            $status = (new Editor($request))->edit($order);
-
-            return $status ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
+        return view('dashboard-pages.order')
+            ->with(compact(
+                'data',
+                'status'
+            ));
     }
 
     /**
      * @param Order $order
      * @param Request $request
-     * @return JsonResponse|mixed
+     * @return RedirectResponse
      */
-    public function delete(Order $order, Request $request): mixed
+    public function edit($order, Request $request): RedirectResponse
     {
-        return $this->withComponentErrorHandling(function () use ($order, $request) {
-            $status = $order->delete();
+        $order = Order::findOrFail($order);
+        $order->status = $request->status;
+        $order->save();
 
-            return $status ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
-    }
-
-    /**
-     * @param Order $order
-     * @return JsonResponse|mixed
-     */
-    public function detail(Order $order): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($order) {
-
-            return fractal()
-                ->item($order)
-                ->transformWith(new DetailOrderTransformer())
-                ->respond();
-        });
+        return redirect()->back()->with('success', 'Order status updated successfully!');
     }
 }

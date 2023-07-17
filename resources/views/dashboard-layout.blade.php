@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dashboard</title>
-    <link href="{{{'../Dashboard/img/tab_logo.png'}}}" rel="icon">
+{{--    <link href="{{{'../Dashboard/img/tab_logo.png'}}}" rel="icon">--}}
     <link rel="stylesheet" href="{{{'../Dashboard/css/dashboard.css'}}}">
 
     <link rel="stylesheet" href="{{'../WebPage/resources/boostrap/bootstrap.min.js'}}">
@@ -15,8 +15,6 @@
     <link rel="stylesheet" href="{{{'../WebPage/resources/fontawesome/css/all.css'}}}">
     <link rel="stylesheet" href="{{{'../WebPage/resources/font-awesome-4.7.0/css/font-awesome.min.css'}}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 </head>
 <body>
 <div id="mySidebar" class="sidebar">
@@ -38,15 +36,15 @@
     <hr>
     <h5>Order</h5>
     <a href="{{URL::to('dashboard/order')}}" class="nav-item"><i class="fas fa-money-check-alt"></i> Order</a>
-    <a href="{{URL::to('dashboard/shipping')}}" class="nav-item"><i class="fas fa-shipping-fast"></i> Shipping</a>
     <a href="{{URL::to('dashboard/delivery')}}" class="nav-item"><i class="fas fa-luggage-cart"></i> Delivery</a>
+    {{--    <a href="{{URL::to('dashboard/shipping')}}" class="nav-item"><i class="fas fa-shipping-fast"></i> Shipping</a>--}}
     <hr>
-    <h5>Resources</h5>
-    <a href="{{URL::to('dashboard/comment')}}" class="nav-item"><i class="far fa-comment-alt"></i> Manage Comment</a>
-    <a href="" class="nav-item"><i class="fas fa-hand-holding-heart"></i> Manage
-        Favorite</a>
-    <a href="{{URL::to('dashboard/image')}}" class="nav-item"><i class="far fa-images"></i> Manage Image</a>
-    <a href="{{URL::to('dashboard/tag')}}" class="nav-item"><i class="fas fa-tags"></i> Manage Tag</a>
+{{--    <h5>Resources</h5>--}}
+{{--    <a href="{{URL::to('dashboard/comment')}}" class="nav-item"><i class="far fa-comment-alt"></i> Manage Comment</a>--}}
+{{--    <a href="" class="nav-item"><i class="fas fa-hand-holding-heart"></i> Manage--}}
+{{--        Favorite</a>--}}
+{{--    <a href="{{URL::to('dashboard/image')}}" class="nav-item"><i class="far fa-images"></i> Manage Image</a>--}}
+{{--    <a href="{{URL::to('dashboard/tag')}}" class="nav-item"><i class="fas fa-tags"></i> Manage Tag</a>--}}
     <hr>
     <h5>User manager</h5>
     <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-user-shield"></i> Admin user</a>
@@ -70,11 +68,7 @@
                 </button>
                 <i class="fas fa-caret-down d-none"></i>
                 <ul class="dropdown-menu dropdown-user">
-                    @if ($member == null)
-                        <li><a href="">Heyy mate!</a></li>
-                    @else
-                        <li><a href="">Hey {{$member->full_name}} !</a></li>
-                    @endif
+                    <li><a href="">{{$member->full_name}} !</a></li>
                     <li>My profile</li>
                     <li>Setting</li>
                     <hr>
@@ -129,8 +123,6 @@
     </script>
 @endif
 
-<script src="{{ asset('WebPage/js/index.js') }}"></script>
-
 <script>
     function openNav() {
         document.getElementById("mySidebar").style.width = "300px";
@@ -154,9 +146,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+
+<script src="{{ asset('WebPage/js/index.js') }}"></script>
 <script src="{{ mix('Dashboard/js/app.js') }}"></script>
 
-{{--datatables--}}
-<script src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 </body>
