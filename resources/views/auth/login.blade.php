@@ -7,11 +7,12 @@
     <link href="{{{'../WebPage/img/home/tab_logo.png'}}}" rel="icon">
     <link rel="stylesheet" href="{{{'../WebPage/css/login.css'}}}">
 
+    <link rel="stylesheet" href="{{'../WebPage/resources/boostrap/bootstrap.min.js'}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{{{'public/front-end/assets/fontawesome/css/all.css'}}}">
+    <link rel="stylesheet" href="{{{'../WebPage/resources/fontawesome/css/all.css'}}}">
     <link rel="stylesheet" href="{{{'../WebPage/resources/font-awesome-4.7.0/css/font-awesome.min.css'}}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -43,15 +44,14 @@
             </ul>
             <a href="{{URL::to('login-google')}}">
                 <button class="btn btn-outline-dark mb-2">
-                    <i class="fab fa-google mr-2"></i>Continue with Google
+                    <i class="fab fa-google mr-2"></i><b>Continue with Google</b>
                 </button>
             </a>
             <a href="{{URL::to('login-facebook')}}">
-                <button class="btn btn-outline-dark mb-2">
-                    <i class="fab fa-facebook mr-2"></i>Continue with Facebook
+                <button class="btn btn-outline-primary mb-2">
+                    <i class="fab fa-facebook mr-2"></i><b>Continue with Facebook</b>
                 </button>
             </a>
-
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
                     <?php
@@ -102,14 +102,18 @@
                                 </ul>
                             @endforeach
                         </div>
-                        <input type="email" name="email" placeholder="Email" required>
+                        <div>
+                            <input type="email" name="email" placeholder="Email" required>
+                            <a href="{{ route('verification.verify') }}">Verify Email</a>
+                        </div>
                         <input type="password" name="password" placeholder="Password" required>
                         <input type="password" name="password_confirmation" placeholder="Password confirmation" required>
                         <input type="text" name="full_name" placeholder="Full name" required>
                         <input type="text" name="address" placeholder="Address" required>
                         <input type="text" name="phone_number" placeholder="Phone number" required>
                         <input type="date" name="birthday">
-                        <input type="file" name="avatar">
+{{--                        <input type="file" name="avatar">--}}
+                        <input type="hidden" name="avatar" value="../WebPage/img/home/logo.jpg">
                         <div class="d-flex">
                             <input type="checkbox" class="checkbox" name="policy" value="">
                             <label for="policy"> <small>By signing up, you agree to the <b>Terms of Service</b>

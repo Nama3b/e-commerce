@@ -122,7 +122,7 @@
                         </ul>
                     </div>
                     @if ($customer == null)
-                        <button class="btn btn-dark btn-signup"><a href="{{URL::to('login')}}">Sign Up</a></button>
+                        <button class="btn btn-dark btn-signup"><a href="{{URL::to('login')}}">Sign In</a></button>
                     @else
                         <div class="dropdown">
                             <button class="btn btn-outline-dark btn-user" type="button" data-toggle="dropdown">
