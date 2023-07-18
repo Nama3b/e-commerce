@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LoginHomeController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Delivery\ShippingController;
 use App\Http\Controllers\HomePage\UserController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Resource\TagController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\User\AdminController;
 use App\Http\Controllers\User\MemberController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +34,24 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes(['verify' => true]);
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/login')->with('success', 'Verify email successfully!');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
@@ -40,6 +59,16 @@ Route::get('/login', [LoginHomeController::class, 'loginHome'])->name('loginHome
 Route::post('login', [LoginController::class, 'loginHome']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('signup', [RegisterController::class, 'signupHome'])->name('signup');
+
+Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class, 'products']);
+Route::get('/product-by-brand/{brand}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByBrand']);
+Route::get('/product-by-category/{category}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByCategory']);
+Route::get('/product-detail/{id}', [\App\Http\Controllers\HomePage\ProductController::class, 'productDetail']);
+Route::get('/search-product', [\App\Http\Controllers\HomePage\ProductController::class, 'searchProduct']);
+
+Route::get('/post', [\App\Http\Controllers\HomePage\PostController::class, 'post']);
+Route::get('/post-detail/{id}', [\App\Http\Controllers\HomePage\PostController::class, 'postDetail']);
+Route::get('/search-post', [\App\Http\Controllers\HomePage\PostController::class, 'searchPost']);
 
 Route::post('/add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
 Route::patch('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);
@@ -54,18 +83,6 @@ Route::middleware('auth:customer')->group(function () {
     Route::get('/customer-profile', [UserController::class, 'index']);
     Route::patch('/update-customer-profile/{id}', [UserController::class, 'updateCustomer']);
 });
-
-Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class, 'products']);
-Route::get('/product-by-brand/{brand}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByBrand']);
-Route::get('/product-by-category/{category}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByCategory']);
-Route::get('/product-detail/{id}', [\App\Http\Controllers\HomePage\ProductController::class, 'productDetail']);
-Route::get('/search-product', [\App\Http\Controllers\HomePage\ProductController::class, 'searchProduct']);
-
-Route::get('/post', [\App\Http\Controllers\HomePage\PostController::class, 'post']);
-Route::get('/post-detail/{id}', [\App\Http\Controllers\HomePage\PostController::class, 'postDetail']);
-Route::get('/search-post', [\App\Http\Controllers\HomePage\PostController::class, 'searchPost']);
-
-Route::post('add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
 
 Route::prefix('dashboard')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

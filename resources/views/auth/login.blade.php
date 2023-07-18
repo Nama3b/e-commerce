@@ -73,13 +73,6 @@
                         <input type="text" name="email" placeholder="Email Address">
                         <input type="password" name="password" placeholder="Password">
                         <small class="text-right">Forgot Password?</small>
-                        <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
-                        <br/>
-                        @if($errors->has('g-recaptcha-response'))
-                            <span class="invalid-feedback" style="display:block">
-                                <strong>{{$errors->first('g-recaptcha-response')}}</strong>
-                            </span>
-                        @endif
                         <button type="submit" class="btn btn-dark" name="login">Sign In</button>
                         <label for="policy"> <small>By signing in, you agree to the <b>Terms of Service</b>
                                 and <b>Privacy Policy</b></small></label>
@@ -102,10 +95,8 @@
                                 </ul>
                             @endforeach
                         </div>
-                        <div>
-                            <input type="email" name="email" placeholder="Email" required>
-                            <a href="{{ route('verification.verify') }}">Verify Email</a>
-                        </div>
+                        <input type="email" name="email" placeholder="Email" required>
+
                         <input type="password" name="password" placeholder="Password" required>
                         <input type="password" name="password_confirmation" placeholder="Password confirmation" required>
                         <input type="text" name="full_name" placeholder="Full name" required>
@@ -114,19 +105,13 @@
                         <input type="date" name="birthday">
 {{--                        <input type="file" name="avatar">--}}
                         <input type="hidden" name="avatar" value="../WebPage/img/home/logo.jpg">
+                        <div class="g-recaptcha" id="feedback-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
                         <div class="d-flex">
-                            <input type="checkbox" class="checkbox" name="policy" value="">
+                            <input type="checkbox" class="checkbox" name="policy" checked>
                             <label for="policy"> <small>By signing up, you agree to the <b>Terms of Service</b>
                                     and <b>Privacy Policy</b></small></label>
                         </div>
-                        <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
-                        <br/>
-                        @if($errors->has('g-recaptcha-response'))
-                            <span class="invalid-feedback" style="display:block">
-                                <strong>{{$errors->first('g-recaptcha-response')}}</strong>
-                            </span>
-                        @endif
-                        <button type="submit" class="btn btn-dark">Sign Up</button>
+                        <a href="{{ route('verification.verify', ['id' , 'hash']) }}"><button type="submit" class="btn btn-dark">Sign Up</button></a>
                     </form>
                 </div>
             </div>
@@ -162,6 +147,8 @@
         showForDuration(1500);
     </script>
 @endif
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

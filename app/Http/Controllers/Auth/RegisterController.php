@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 
 use App\Models\Customer;
+use App\Rules\ValidRecaptcha;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Foundation\Auth\VerifiesEmails;
@@ -30,6 +31,7 @@ class RegisterController extends Controller
             'phone_number' => 'required|string|unique:customers,phone_number|max:13',
             'birthday' => 'nullable',
             'avatar' => 'nullable',
+            'g-recaptcha-response' => ['required', new ValidRecaptcha()],
         ]);
 
 //        $customer = DB::table('customers')->insert([
@@ -53,7 +55,7 @@ class RegisterController extends Controller
             'avatar' => $request->avatar,
     ]);
 
-//        event(new Registered($customer));
+        event(new Registered($customer));
 
         return redirect()->back()->with('success', 'Create user successfully!');
     }

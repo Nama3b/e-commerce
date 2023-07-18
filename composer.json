@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.0.2",
         "barryvdh/laravel-ide-helper": "^2.13",
+        "biscolab/laravel-recaptcha": "^6.0",
         "darryldecode/cart": "^4.2",
         "genealabs/laravel-model-caching": "^0.12.5",
         "guzzlehttp/guzzle": "^7.2",

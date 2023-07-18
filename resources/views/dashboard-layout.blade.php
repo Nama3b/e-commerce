@@ -48,7 +48,7 @@
     <hr>
     <h5>User manager</h5>
     <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-user-shield"></i> Admin user</a>
-    <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-users"></i> Client user</a>
+{{--    <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-users"></i> Client user</a>--}}
 </div>
 <div id="main">
     <div class="header-section">
