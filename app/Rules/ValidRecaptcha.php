@@ -28,20 +28,18 @@ class ValidRecaptcha implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        // Khởi tạo http client
         $client = new Client([
-            'base_uri' => 'https://google.com/recaptcha/api/'
+            'base_uri' => 'https://google.com/recaptcha/api/',
+            'time_out' => 2.0
         ]);
 
-        // Gửi dữ liệu đến cho google recaptcha xử lý
         $response = $client->post('siteverify', [
             'query' => [
-                'secret' => env('RECAPTCHA_SITE_KEY'),
+                'secret' => env('RECAPTCHA_SITE_SECRET'),
                 'response' => $value
             ]
         ]);
 
-        // Google reCaptcha trả về kết quả đúng/sai
         return json_decode($response->getBody())->success;
     }
 
@@ -52,6 +50,6 @@ class ValidRecaptcha implements Rule
      */
     public function message(): string
     {
-        return 'The validation error message.';
+        return 'Please ensure that you are a human.';
     }
 }

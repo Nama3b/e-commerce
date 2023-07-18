@@ -18,7 +18,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'customer',
+        'guard' => 'member',
         'passwords' => 'users',
         'email_verification' => true,
     ],

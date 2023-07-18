@@ -34,6 +34,9 @@ class RegisterController extends Controller
             'g-recaptcha-response' => ['required', new ValidRecaptcha()],
         ]);
 
+        $customer = $request->email;
+        event(new Registered($customer));
+
 //        $customer = DB::table('customers')->insert([
 //            'role_id' => 3,
 //            'email' => $request->email,
@@ -44,7 +47,7 @@ class RegisterController extends Controller
 //            'birthday' => $request->birthday,
 //            'avatar' => $request->avatar,
 //        ]);
-        $customer = Customer::create([
+        Customer::create([
             'role_id' => 3,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -53,9 +56,7 @@ class RegisterController extends Controller
             'phone_number' => $request->phone_number,
             'birthday' => $request->birthday,
             'avatar' => $request->avatar,
-    ]);
-
-        event(new Registered($customer));
+        ]);
 
         return redirect()->back()->with('success', 'Create user successfully!');
     }
