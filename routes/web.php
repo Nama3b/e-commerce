@@ -2,13 +2,12 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LoginHomeController;
-use App\Http\Controllers\Auth\SignupController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Delivery\ShippingController;
 use App\Http\Controllers\HomePage\UserController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\HomePage\HomeController;
-use App\Http\Controllers\Order\OrderDetailController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Product\BrandController;
@@ -33,13 +32,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['verify' => true]);
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/login', [LoginHomeController::class, 'loginHome'])->name('loginHome');
 Route::post('login', [LoginController::class, 'loginHome']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-Route::post('signup', [SignupController::class, 'signupHome'])->name('signup');
+Route::post('signup', [RegisterController::class, 'signupHome'])->name('signup');
 
 Route::post('/add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
 Route::patch('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);

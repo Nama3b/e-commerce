@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Eloquent;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
 /**
@@ -52,9 +54,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Customer withoutTrashed()
  * @mixin Eloquent
  */
-class Customer extends Authenticatable
+class Customer extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
 
     const CREATE = 'CREATE_CUSTOMER';
     const VIEW = 'VIEW_CUSTOMER';

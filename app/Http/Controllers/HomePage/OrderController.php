@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderSendMail;
 use App\Models\Order;
 use App\Models\PaymentOption;
 use App\Support\ResourceHelper\BrandResourceHelper;
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -191,6 +193,8 @@ class OrderController extends Controller
             $order_detail['image'] = $cart_item['url'];
             DB::table('order_detail')->insert($order_detail);
         }
+
+        Mail::to($order['email'])->send(new OrderSendMail($order));
 
         session()->forget('cart');
 
