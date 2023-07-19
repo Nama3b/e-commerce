@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dashboard</title>
-{{--    <link href="{{{'../Dashboard/img/tab_logo.png'}}}" rel="icon">--}}
+    <link href="{{{'../Dashboard/img/tab_logo.png'}}}" rel="icon">
     <link rel="stylesheet" href="{{{'../Dashboard/css/dashboard.css'}}}">
 
     <link rel="stylesheet" href="{{'../WebPage/resources/boostrap/bootstrap.min.js'}}">

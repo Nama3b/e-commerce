@@ -7,7 +7,7 @@
         <div class="card-body pt-3">
             <div class="body-header">
                 <div align="left">
-                    <h3>Section 1</h3>
+                    <h4>Section 1</h4>
                 </div>
                 <div align="right">
                     <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
@@ -53,7 +53,7 @@
         <div class="card-body pt-3">
             <div class="body-header">
                 <div align="left">
-                    <h3>Section 2</h3>
+                    <h4>Section 2</h4>
                 </div>
                 <div align="right">
                     <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
@@ -100,7 +100,7 @@
         <div class="card-body pt-3">
             <div class="body-header">
                 <div align="left">
-                    <h3>Section 3</h3>
+                    <h4>Section 3</h4>
                 </div>
                 <div align="right">
                     <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"

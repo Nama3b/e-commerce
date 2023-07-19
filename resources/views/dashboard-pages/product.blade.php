@@ -18,7 +18,6 @@
                     <th>Category</th>
                     <th>Brand</th>
                     <th>Name</th>
-                    <th>Description</th>
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Status</th>
@@ -34,8 +33,7 @@
                         <th>{{ $item['category']['name'] }}</th>
                         <th>{{ $item['brand']['name'] }}</th>
                         <th>{{ $item['name'] }}</th>
-                        <th>{{ $item['description'] }}</th>
-                        <th>{{ $item['price'] }}</th>
+                        <th>${{ $item['price'] }}</th>
                         <th>{{ $item['quantity'] }}</th>
                         <th>{{ $item['status'] }}</th>
                         <th>
@@ -99,7 +97,7 @@
                                             <textarea name="description" id="description" cols="30" rows="4" placeholder="Product description">{{ $item['description'] }}</textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Price</label>
+                                            <label for="">Price ($)</label>
                                             <input type="text" class="form-input" name="price" placeholder="Product price"
                                                    value="{{ $item['price'] }}" required>
                                         </div>
@@ -181,7 +179,7 @@
                             <textarea name="description" id="description" cols="30" rows="4" placeholder="Product description"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="">Price</label>
+                            <label for="">Price ($)</label>
                             <input type="text" class="form-input" name="price" placeholder="Product price" required>
                         </div>
                         <div class="form-group">
