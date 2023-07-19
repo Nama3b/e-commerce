@@ -331,6 +331,7 @@ html, body {
 
 .card .card-header {
     background: #272934;
+    color: white;
 }
 
 .card .card-body {
@@ -478,6 +479,12 @@ html, body {
 .card .order-item .card-user .client-info i {
     font-size: 20px;
     margin-right: 10px;
+}
+
+.card .order-item .order-detail p,
+.card .order-item .card-user h5,
+.card .order-item .card-user .client-info p {
+    color: white;
 }
 
 .card .order-item .card-user hr {

@@ -16,6 +16,6 @@ class LoginHomeController extends Controller
     public function loginHome(): Factory|View|Application
     {
         Auth()->guard('member')->logout();
-        return view('auth.login');
+        return view('pages.auth.login-body');
     }
 }

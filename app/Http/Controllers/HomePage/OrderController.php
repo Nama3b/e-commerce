@@ -5,6 +5,7 @@ namespace App\Http\Controllers\HomePage;
 use App\Http\Controllers\Controller;
 use App\Mail\OrderSendMail;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\PaymentOption;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CartResourceHelper;
@@ -59,8 +60,9 @@ class OrderController extends Controller
         $id = $request->productId_hidden;
 
         $products = collect($this->getProductImage())->filter(function ($item) use ($id) {
-            return false !== stristr($item['id'], $id);
+            return $item['id'] == $id;
         })->toArray();
+
         $product_key = array_keys($products);
         $product_item = [];
         $i = -1;
@@ -172,26 +174,27 @@ class OrderController extends Controller
 
         $time_now = Carbon::now();
 
-        $order = [];
-        $order['customer_id'] = Auth()->guard('customer')->user()->id;
-        $order['name'] = $request->name;
-        $order['email'] = $request->email;
-        $order['address'] = $request->address;
-        $order['phone_number'] = $request->phone_number;
-        $order['notice'] = $request->notice;
-        $order['total'] = $request->total;
-        $order['created_at'] = $time_now;
-        $order['updated_at'] = $time_now;
-        $order_id = DB::table('orders')->insertGetId($order);
+        $order = Order::create([
+            'customer_id' => Auth()->guard('customer')->user()->id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'notice' => $request->notice,
+            'total' => $request->total,
+            'created_at' => $time_now,
+            'updated_at' => $time_now,
+        ]);
 
         foreach ($cart as $cart_item) {
-            $order_detail['order_id'] = $order_id;
-            $order_detail['product_id'] = $cart_item['id'];
-            $order_detail['name'] = $cart_item['name'];
-            $order_detail['price'] = $cart_item['price'];
-            $order_detail['quantity'] = $cart_item['quantity'];
-            $order_detail['image'] = $cart_item['url'];
-            DB::table('order_detail')->insert($order_detail);
+            OrderDetail::create([
+                'order_id' => $order['id'],
+                'product_id' => $cart_item['id'],
+                'name' => $cart_item['name'],
+                'price' => $cart_item['price'],
+                'quantity' => $cart_item['quantity'],
+                'image' => $cart_item['url'],
+            ]);
         }
 
         Mail::to($order['email'])->send(new OrderSendMail($order));

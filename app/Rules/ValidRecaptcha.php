@@ -35,7 +35,7 @@ class ValidRecaptcha implements Rule
 
         $response = $client->post('siteverify', [
             'query' => [
-                'secret' => env('RECAPTCHA_SITE_SECRET'),
+                'secret' => '6LfHAjMnAAAAAE6UH8seiQFduo8lt76nKm2Uyymb',
                 'response' => $value
             ]
         ]);

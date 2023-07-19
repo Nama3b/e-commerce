@@ -34,19 +34,9 @@ class RegisterController extends Controller
             'g-recaptcha-response' => ['required', new ValidRecaptcha()],
         ]);
 
-        $customer = $request->email;
-        event(new Registered($customer));
+//        $customer = $request->email;
+//        event(new Registered($customer));
 
-//        $customer = DB::table('customers')->insert([
-//            'role_id' => 3,
-//            'email' => $request->email,
-//            'password' => Hash::make($request->password),
-//            'full_name' => $request->full_name,
-//            'address' => $request->address,
-//            'phone_number' => $request->phone_number,
-//            'birthday' => $request->birthday,
-//            'avatar' => $request->avatar,
-//        ]);
         Customer::create([
             'role_id' => 3,
             'email' => $request->email,

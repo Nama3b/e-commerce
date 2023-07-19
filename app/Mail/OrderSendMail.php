@@ -14,14 +14,20 @@ class OrderSendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public Order $order;
+    /**
+     * @var Order
+     */
+    protected Order $order;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param Order $order
      */
-    public function __construct(Order $order)
+    public function __construct
+    (
+        Order $order,
+    )
     {
         $this->order = $order;
     }
@@ -48,6 +54,16 @@ class OrderSendMail extends Mailable
     {
         return new Content(
             view: 'order-send-mail',
+            with: [
+                'name' => $this->order->name,
+                'email' => $this->order->email,
+                'address' => $this->order->address,
+                'phone_number' => $this->order->phone_number,
+                'notice' => $this->order->notice,
+                'total' => $this->order->total,
+                'created_date' => $this->order->created_at,
+                'order_detail' => $this->order->orderdetails,
+            ]
         );
     }
 

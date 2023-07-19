@@ -42,11 +42,9 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
     return redirect('/login')->with('success', 'Verify email successfully!');
 })->middleware(['auth', 'signed'])->name('verification.verify');
-
 Route::get('/email/verify', function () {
-    return view('auth.verify-email');
+    return view('pages.auth.verify');
 })->middleware('auth')->name('verification.notice');
-
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 

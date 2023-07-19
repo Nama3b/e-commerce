@@ -10,18 +10,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
+
 /**
  * App\Models\OrderDetail
  *
  * @property int $id
  * @property int $order_id
  * @property int $product_id
+ * @property string $name
  * @property float $price
  * @property int $quantity
+ * @property string $image
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Customer|null $order
+ * @property-read Order|null $order
  * @property-read Product|null $product
  * @method static Builder|OrderDetail newModelQuery()
  * @method static Builder|OrderDetail newQuery()
@@ -30,6 +33,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|OrderDetail whereCreatedAt($value)
  * @method static Builder|OrderDetail whereDeletedAt($value)
  * @method static Builder|OrderDetail whereId($value)
+ * @method static Builder|OrderDetail whereImage($value)
+ * @method static Builder|OrderDetail whereName($value)
  * @method static Builder|OrderDetail whereOrderId($value)
  * @method static Builder|OrderDetail wherePrice($value)
  * @method static Builder|OrderDetail whereProductId($value)
@@ -61,8 +66,10 @@ class OrderDetail extends Model
     protected $fillable = [
         'order_id',
         'product_id',
+        'name',
         'price',
         'quantity',
+        'image',
     ];
 
     /**
