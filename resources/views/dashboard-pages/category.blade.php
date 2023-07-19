@@ -7,7 +7,7 @@
         <div class="card-body pt-3">
             <div class="body-header">
                 <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
-                        data-target="#addForm"><i class="far fa-plus-square"></i> Add new
+                        data-target="#addForm" disabled><i class="far fa-plus-square"></i> Add new
                 </button>
             </div>
             <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
@@ -36,7 +36,7 @@
                                       method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-sm btn-dark"><i class="fas fa-trash-alt"></i></button>
+                                    <button type="submit" class="btn btn-sm btn-dark" disabled><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </div>
                         </th>

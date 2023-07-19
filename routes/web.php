@@ -78,6 +78,7 @@ Route::middleware('auth:customer')->group(function () {
     Route::post('/checkout-action', [\App\Http\Controllers\HomePage\OrderController::class, 'checkoutAction']);
     Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
     Route::get('/order-status', [\App\Http\Controllers\HomePage\OrderController::class, 'orderStatus']);
+    Route::patch('/order/edit/{order}', [\App\Http\Controllers\HomePage\OrderController::class, 'edit']);
     Route::get('/customer-profile', [UserController::class, 'index']);
     Route::patch('/update-customer-profile/{id}', [UserController::class, 'updateCustomer']);
 });
@@ -100,7 +101,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('member', [MemberController::class, 'list'])
         ->name('member')
         ->middleware(['checkManagerPermission:VIEW_MEMBER']);
-    Route::get('member/detail/{member}', [MemberController::class, 'detail'])
+    Route::get('member/detail', [MemberController::class, 'detail'])
         ->name('member.detail')
         ->middleware(['checkManagerPermission:VIEW_MEMBER']);
     Route::post('member/store', [MemberController::class, 'store'])

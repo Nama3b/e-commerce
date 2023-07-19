@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dashboard</title>
-    <link href="{{{'../Dashboard/img/tab_logo.png'}}}" rel="icon">
-    <link rel="stylesheet" href="{{{'../Dashboard/css/dashboard.css'}}}">
+    <link href="{{ asset('Dashboard/img/tab_logo.png') }}" rel="icon">
+    <link rel="stylesheet" href="{{ asset('Dashboard/css/dashboard.css') }}">
 
-    <link rel="stylesheet" href="{{'../WebPage/resources/boostrap/bootstrap.min.js'}}">
+    <link rel="stylesheet" href="{{ asset('WebPage/resources/boostrap/bootstrap.min.js') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{{{'../WebPage/resources/fontawesome/css/all.css'}}}">
-    <link rel="stylesheet" href="{{{'../WebPage/resources/font-awesome-4.7.0/css/font-awesome.min.css'}}}">
+    <link rel="stylesheet" href="{{ asset('WebPage/resources/fontawesome/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('WebPage/resources/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -21,7 +21,7 @@
     <div class="logo d-flex">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-angle-double-left"></i></a>
         <a href="{{URL::to('./home')}}" class="logo-img">
-            <img src="{{'../Dashboard/img/admin-logo.png'}}" alt="">
+            <img src="{{ asset('Dashboard/img/admin-logo.png') }}" alt="">
         </a>
     </div>
     <hr>
@@ -47,7 +47,7 @@
 {{--    <a href="{{URL::to('dashboard/tag')}}" class="nav-item"><i class="fas fa-tags"></i> Manage Tag</a>--}}
     <hr>
     <h5>User manager</h5>
-    <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-user-shield"></i> Admin user</a>
+    <a href="{{ URL::to('dashboard/member/detail') }}" class="nav-item"><i class="fas fa-user-shield"></i> Admin user</a>
 {{--    <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-users"></i> Client user</a>--}}
 </div>
 <div id="main">
@@ -64,12 +64,12 @@
             <a href="" class="noti-icon"><i class="material-icons">notifications_none</i></a>
             <div class="dropdown d-flex">
                 <button class="btn btn-outline-dark user-btn" type="button" data-toggle="dropdown">
-                    <img src="{{{'../Dashboard/img/user_logo.jpg'}}}" alt="" width="90%">
+                    <img src="{{ asset('Dashboard/img/user_logo.jpg') }}" alt="" width="90%">
                 </button>
                 <i class="fas fa-caret-down d-none"></i>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="">{{$member->full_name}} !</a></li>
-                    <li>My profile</li>
+                    <li><a href="{{ URL::to('dashboard/member/detail') }}">My profile</a></li>
                     <li>Setting</li>
                     <hr>
                     <li>

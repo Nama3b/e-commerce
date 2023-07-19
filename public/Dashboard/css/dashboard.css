@@ -310,6 +310,16 @@ html, body {
     margin-left: 300px;
 }
 
+.card .nav-pills .nav-item a {
+    color: white;
+    background: #272934;
+}
+
+.card .nav-pills .nav-link.active {
+    background-color: grey;
+    color: white;
+}
+
 .card {
     background: #1f2129 !important;
     color: #818181 !important;
@@ -502,5 +512,91 @@ html, body {
 .card .order-item .order-status select {
     background: none;
     color: white;
-    padding: 8px 20px;
+    padding: 6px 20px;
+}
+
+/* ====================================MEMBER-PROFILE==================================== */
+
+.member-profile nav {
+    background: #1f2129 !important;
+}
+
+.member-profile ol.breadcrumb {
+    background: none !important;
+}
+
+.member-profile .breadcrumb-item.active {
+    color: white;
+}
+
+.member-profile .breadcrumb-item a {
+    color: grey;
+    text-decoration: none;
+}
+
+.member-profile .breadcrumb-item a:hover {
+    color: black;
+}
+
+.member-profile form.form-control {
+    background: none;
+    border: none;
+    height: 100%;
+    display: flex;
+}
+
+.member-profile .card-body .row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.member-profile .card-body .row p {
+    font-weight: bold;
+}
+
+.member-profile .card-body .col-3 span {
+    color: red;
+}
+
+.member-profile .card-body .col-9 input {
+    padding: 5px 15px;
+    background: none;
+    border: 1px solid grey;
+    font-size: 16px;
+}
+
+.member-profile .card-body p {
+    font-size: 16px;
+}
+
+.member-profile .card-body img {
+    width: 150px;
+}
+
+.member-profile .card-body li.list-group-item {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+
+}
+
+.member-profile .card-body li.list-group-item a {
+    color: black;
+    text-decoration: none;
+}
+
+.member-profile .card-body li.list-group-item a:hover {
+    font-weight: bold;
+}
+
+.card-body .progress {
+    height: 5px;
+}
+
+.card-body .progress-bar {
+    width: 80%;
+    background-color: black;
 }

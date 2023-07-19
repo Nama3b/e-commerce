@@ -35,6 +35,8 @@ class PostController extends Controller
     public function list(): Application|Factory|View
     {
         $data = $this->getPostImage();
+        $data_news = collect($this->getPostImage())->where('post_type', '==', 'NEWS');
+        $data_blog = collect($this->getPostImage())->where('post_type', '==', 'BLOG');
         $author = Member::with('posts')->whereId(array_column($this->getAllPost(),'author'))->get()->toArray();
 
         $type = Post::POST_TYPE;
@@ -43,6 +45,8 @@ class PostController extends Controller
         return view('dashboard-pages.post')
             ->with(compact(
                 'data',
+                'data_news',
+                'data_blog',
                 'author',
                 'type',
                 'status'

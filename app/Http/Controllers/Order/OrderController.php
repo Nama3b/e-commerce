@@ -30,13 +30,21 @@ class OrderController extends Controller
      */
     public function list(): Application|Factory|View
     {
-        $data = Order::with(['customer', 'orderdetails'])->get()->toArray();
+        $data = $this->getOrder();
+        $data_processing = collect($this->getOrder())->where('status','==','PROCESSING')->toArray();
+        $data_delivering = collect($this->getOrder())->where('status','==','DELIVERING')->toArray();
+        $data_completed = collect($this->getOrder())->where('status','==','COMPLETED')->toArray();
+        $data_cancelled = collect($this->getOrder())->where('status','==','CANCELLED')->toArray();
 
         $status = Order::STATUS;
 
         return view('dashboard-pages.order')
             ->with(compact(
                 'data',
+                'data_processing',
+                'data_delivering',
+                'data_completed',
+                'data_cancelled',
                 'status'
             ));
     }
@@ -53,5 +61,13 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()->back()->with('success', 'Order status updated successfully!');
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrder(): array
+    {
+        return Order::with(['customer', 'orderdetails'])->get()->toArray();
     }
 }

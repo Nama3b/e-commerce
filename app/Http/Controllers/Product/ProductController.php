@@ -38,6 +38,9 @@ class ProductController extends Controller
     public function list(): Application|Factory|View
     {
         $data = $this->getProductImage();
+        $data_sneaker = collect($this->getProductImage())->where('category_id', '==', '1');
+        $data_clothes = collect($this->getProductImage())->where('category_id', '==', '2');;
+        $data_watches = collect($this->getProductImage())->where('category_id', '==', '3');;
         $category = $this->getAllCategory();
         $brand = $this->getAllBrand();
 
@@ -46,6 +49,9 @@ class ProductController extends Controller
         return view('dashboard-pages.product')
             ->with(compact(
                 'data',
+                'data_sneaker',
+                'data_clothes',
+                'data_watches',
                 'category',
                 'brand',
                 'status'

@@ -117,6 +117,13 @@
                     ${{ number_format($total, 0, '', '.') }}
                 </p>
             </div>
+            @if ($order_item->status == 'PROCESSING')
+                <form action="{{ URL::to('order/edit/'.$order_item->id) }}" method="post">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="btn btn-md btn-outline-danger w-100 mt-3"><b>Cancel Order</b></button>
+                </form>
+            @endif
         </div>
     </div>
 </div>

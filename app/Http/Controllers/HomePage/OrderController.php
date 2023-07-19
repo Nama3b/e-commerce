@@ -19,7 +19,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -49,6 +48,19 @@ class OrderController extends Controller
                 'categories',
                 'brand_all'
             ));
+    }
+
+    /**
+     * @param Order $order
+     * @return RedirectResponse
+     */
+    public function edit($order): RedirectResponse
+    {
+        $order = Order::findOrFail($order);
+        $order->status = 'CANCELLED';
+        $order->save();
+
+        return redirect()->back()->with('success', 'Order status updated successfully!');
     }
 
     /**
@@ -225,7 +237,7 @@ class OrderController extends Controller
         $categories = $this->getAllCategory();
         $brand_all = $this->getAllBrand();
 
-        $order = Order::with('orderdetails')->get();
+        $order = $this->getAllOrder();
         $order_processing = $this->getAllOrder()->where('status', 'PROCESSING');
         $order_delivering = $this->getAllOrder()->where('status', 'DELIVERING');
         $order_completed = $this->getAllOrder()->where('status', 'COMPLETED');

@@ -1,76 +1,4 @@
-{{--<h1>Order Confirmation</h1>--}}
-{{--<h3>Hi {{ $name }}!</h3>--}}
-{{--<p>Here is your order information. Please check again and contact us if got something is wrong.</p>--}}
-
-{{--<h4><b>Customer information</b></h4>--}}
-{{--<div class="user-item">--}}
-{{--    <div class="client-info">--}}
-{{--        <div class="d-flex justify-content-between pt-2">--}}
-{{--            <p class="text-muted mb-0"><b><i class="fas fa-user-circle"></i></b> {{ $name }}--}}
-{{--            </p>--}}
-{{--        </div>--}}
-{{--        <div class="d-flex justify-content-between">--}}
-{{--            <p class="text-muted mb-0"><b><i class="far fa-envelope"></i></b> {{ $email }}</p>--}}
-{{--        </div>--}}
-{{--        <div class="d-flex justify-content-between">--}}
-{{--            <p class="text-muted mb-0"><b><i class="fas fa-phone-alt"></i></b> {{ $address }}</p>--}}
-{{--        </div>--}}
-{{--        <div class="d-flex justify-content-between">--}}
-{{--            <p class="text-muted mb-0"><b><i class="fas fa-house-user"></i></b> {{ $phone_number }}</p>--}}
-{{--        </div>--}}
-{{--        @if ($notice)--}}
-{{--            <div class="d-flex justify-content-between">--}}
-{{--                <p class="text-muted mb-0"><b><i class="far fa-file-alt"></i></b> {{ $notice }}</p>--}}
-{{--            </div>--}}
-{{--        @endif--}}
-{{--    </div>--}}
-{{--</div>--}}
-{{--<hr>--}}
-{{--<h4><b>Product detail</b></h4>--}}
-{{--<table>--}}
-{{--    <thead>--}}
-{{--    <tr>--}}
-{{--        <th>Image</th>--}}
-{{--        <th>Name</th>--}}
-{{--        <th>Price</th>--}}
-{{--        <th>Quantity</th>--}}
-{{--    </tr>--}}
-{{--    </thead>--}}
-{{--    <tbody>--}}
-{{--    @foreach ($order_detail as $detail)--}}
-{{--        <tr>--}}
-{{--            <th><img src="{{ $detail->image }}" alt="" width="120px"></th>--}}
-{{--            <th>{{ $detail->name }}</th>--}}
-{{--            <th>{{ $detail->price }}</th>--}}
-{{--            <th>{{ $detail->quantity }}</th>--}}
-{{--        </tr>--}}
-{{--    @endforeach--}}
-{{--    </tbody>--}}
-{{--</table>--}}
-{{--<div class="order-detail">--}}
-{{--    <div class="d-flex justify-content-between pt-2">--}}
-{{--        <p class="text-muted mb-0">Payment method : 18KU-62IIK</p>--}}
-{{--        <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $0</p>--}}
-{{--    </div>--}}
-{{--    <div class="d-flex justify-content-between">--}}
-{{--        <p class="text-muted mb-0">Shipping code: 788152</p>--}}
-{{--        <p class="text-muted mb-0"><span class="fw-bold me-4">Shipping Fee</span> $0</p>--}}
-{{--    </div>--}}
-{{--    <div class="d-flex justify-content-between">--}}
-{{--        <p class="text-muted mb-0">Create Date : {{ $created_date }}</p>--}}
-{{--        <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>--}}
-{{--    </div>--}}
-{{--    <hr>--}}
-{{--    <div class="d-flex justify-content-between pt-2">--}}
-{{--        <p class="fw-bold mb-0">Total:</p>--}}
-{{--        <p class="text-muted mb-0">--}}
-{{--            ${{ number_format($total, 0, '', '.') }}--}}
-{{--        </p>--}}
-{{--    </div>--}}
-{{--</div>--}}
-{{--<h3>Thank you for your order! We are pleased to confirm that we have received your order.</h3>--}}
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title></title>
@@ -201,8 +129,8 @@
                                         @foreach($order_detail as $detail)
                                             <tr>
                                                 <td width="25%" align="left"
-                                                    style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                                                    <img src="{{ $detail->image }}" alt="">
+                                                    style="padding: 5px 10px;">
+                                                    <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/362134322_1001554391047840_546868903133636274_n.png?stp=dst-png_p296x100&_nc_cat=105&cb=99be929b-59f725be&ccb=1-7&_nc_sid=aee45a&_nc_ohc=Hsu7woNI9j4AX941tTq&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdS0ixn0mCbJ0eMouwAZ7gCp-HjmGIivu1_pq0iMVOTy7g&oe=64DF91A3" alt="" width="50%">
                                                 </td>
                                                 <td width="35%" align="left"
                                                     style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
@@ -210,7 +138,7 @@
                                                 </td>
                                                 <td width="25%" align="left"
                                                     style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-                                                    {{ $detail->price }}
+                                                    ${{ $detail->price }}
                                                 </td>
                                                 <td width="15%" align="left"
                                                     style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
@@ -228,11 +156,11 @@
                                         <tr>
                                             <td width="75%" align="left"
                                                 style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
-                                                TOTAL
+                                                TOTAL:
                                             </td>
                                             <td width="25%" align="left"
                                                 style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
-                                                {{ $total }}
+                                                ${{ $total }}
                                             </td>
                                         </tr>
                                     </table>
@@ -249,8 +177,7 @@
                                style="max-width:660px;">
                             <tr>
                                 <td align="center" valign="top" style="font-size:0;">
-                                    <div
-                                        style="display:inline-block; max-width:50%; min-width:240px; vertical-align:top; width:100%;">
+                                    <div style="display:inline-block; max-width:50%; min-width:240px; vertical-align:top; width:100%;">
 
                                         <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%"
                                                style="max-width:300px;">
