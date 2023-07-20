@@ -75,7 +75,7 @@ class ProductController extends Controller
         $product_id = DB::table('products')->insertGetId($product);
 
         $image['reference_id'] = $product_id;
-        $image['url'] = $request->url;
+        $image['url'] = 'WebPage/img/product/' . $request->url;
         $image['image_type'] = 'PRODUCT';
         DB::table('images')->insert($image);
 

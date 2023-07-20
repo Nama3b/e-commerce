@@ -40,6 +40,7 @@
                                     <i class="far fa-edit"></i>
                                 </button>
                                 <form action="{{ URL::to('/dashboard/brand/delete/'.$item['id']) }}" method="post">
+                                    @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm btn-dark"><i class="fas fa-trash-alt"></i></button>
                                 </form>
