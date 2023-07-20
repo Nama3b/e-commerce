@@ -1,4 +1,4 @@
-@extends('dashboard-layout')
+@extends('layout')
 @section('content')
     <div class="customer-profile">
         <div class="container py-5">

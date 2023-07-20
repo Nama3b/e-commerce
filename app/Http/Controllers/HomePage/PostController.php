@@ -35,7 +35,6 @@ class PostController extends Controller
         $author_avatar = implode((array_column($author,'avatar')));
 
         $categories = $this->getAllCategory();
-
         $brand_all = $this->getAllBrand();
 
         $tags = $this->getTags();
@@ -57,6 +56,43 @@ class PostController extends Controller
                 'popular_post',
                 'newest_post',
                 'suggest_post',
+                'tags'
+            ));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return Factory|View|Application
+     */
+    public function postDetail($id, Request $request): Factory|View|Application
+    {
+        $user = $this->customerFromSession($request);
+        $cart = $this->myCart();
+        $count_cart = $this->countCart();
+
+        $author = Member::with('posts')->whereId(array_column($this->getAllPost(),'author'))->get()->toArray();
+        $author_name = implode((array_column($author,'full_name')));
+        $author_avatar = implode((array_column($author,'avatar')));
+
+        $datas = collect($this->getPostImage())->where('id', $id)->toArray();
+        $data = array_shift($datas);
+        $data_latest = collect($this->getPostImage())->take(5)->toArray();
+        $tags = $this->getTags();
+
+        $categories = $this->getAllCategory();
+        $brand_all = $this->getAllBrand();
+
+        return view('pages.post.post-detail')
+            ->with(compact('user',
+                'cart',
+                'count_cart',
+                'author_name',
+                'author_avatar',
+                'data',
+                'data_latest',
+                'categories',
+                'brand_all',
                 'tags'
             ));
     }

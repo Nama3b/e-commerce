@@ -515,6 +515,13 @@ html, body {
     padding: 6px 20px;
 }
 
+@media (max-width: 1440px) {
+    .card .order-item .order-detail p,
+    .card .order-item .card-user .client-info p {
+        font-size: 12px !important;
+    }
+}
+
 /* ====================================MEMBER-PROFILE==================================== */
 
 .member-profile nav {

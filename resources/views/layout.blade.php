@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>eProject</title>
-    <link href="{{{'../WebPage/img/home/tab_logo.png'}}}" rel="icon">
-    <link rel="stylesheet" href="{{{'../WebPage/css/index.css'}}}">
+    <link href="{{ asset('WebPage/img/home/tab_logo.png') }}" rel="icon">
+    <link rel="stylesheet" href="{{ asset('WebPage/css/index.css') }}">
 
-    <link rel="stylesheet" href="{{'../WebPage/resources/boostrap/bootstrap.min.js'}}">
+    <link rel="stylesheet" href="{{ asset('WebPage/resources/boostrap/bootstrap.min.js') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{{{'../WebPage/resources/fontawesome/css/all.css'}}}">
-    <link rel="stylesheet" href="{{{'../WebPage/resources/font-awesome-4.7.0/css/font-awesome.min.css'}}}">
+    <link rel="stylesheet" href="{{ asset('WebPage/resources/fontawesome/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('WebPage/resources/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -22,7 +22,7 @@
         <nav class="navbar navbar-expand-sm navbar-fixed-top">
             <div class="nav-left col-6 fade-in">
                 <a class="navbar-brand" href="{{URL::to('home')}}">
-                    <img src="{{'../WebPage/img/home/project_name.png'}}" alt="">
+                    <img src="{{ asset('WebPage/img/home/project_name.png') }}" alt="">
                 </a>
                 <form class="form-search" method="get" action="{{URL::to('search-product')}}">
                     <label>
@@ -172,7 +172,7 @@
         </div>
         <div class="d-flex cre">
             <div class="col-3 d-flex justify-content-center align-items-center">
-                <img src="{{'../WebPage/img/home/project_name_sub.png'}}" alt="" width="70%">
+                <img src="{{ asset('WebPage/img/home/project_name_sub.png') }}" alt="" width="70%">
             </div>
             <div class="col-2">
                 <ul>
@@ -282,7 +282,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-<script src="{{{'../WebPage/js/index.js'}}}"></script>
+<script src="{{ asset('WebPage/js/index.js') }}"></script>
 
 </body>
 </html>

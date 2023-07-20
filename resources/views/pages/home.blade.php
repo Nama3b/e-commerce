@@ -59,12 +59,6 @@
             <div class="carousel-brand">
                 <div class="container">
                     <div id="carouselbanner" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselbanner" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselbanner" data-slide-to="1"></li>
-                            <li data-target="#carouselbanner" data-slide-to="2"></li>
-                            <li data-target="#carouselbanner" data-slide-to="4"></li>
-                        </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <a href=""><img class="d-block w-100"

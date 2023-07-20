@@ -103,7 +103,7 @@
                 <p class="text-muted mb-0"><span class="fw-bold me-4">Shipping Fee</span> $123</p>
             </div>
             <div class="d-flex justify-content-between">
-                <p class="text-muted mb-0">Create Date : 22 Dec,2019</p>
+                <p class="text-muted mb-0">Create Date :  {{ date('H:i:s d-m-Y', strtotime($order_item->created_at)) }}</p>
                 <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
             </div>
             <hr>

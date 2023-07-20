@@ -23,7 +23,7 @@
                         </form>
                     </div>
                     <div class="banner">
-                        <a href=""><img src="{{'WebPage/img/poster/poster1.jpg'}}" alt=""></a>
+                        <a href=""><img src="{{ asset('WebPage/img/poster/poster1.jpg') }}" alt=""></a>
                     </div>
                     <div class="tag-post">
                         @foreach($tags as $key => $tag_item)
@@ -31,7 +31,7 @@
                         @endforeach
                     </div>
                     <div class="banner">
-                        <a href=""><img src="{{'WebPage/img/poster/poster2.png'}}" alt=""></a>
+                        <a href=""><img src="{{ asset('WebPage/img/poster/poster2.jpg') }}" alt=""></a>
                     </div>
                 </div>
             </div>

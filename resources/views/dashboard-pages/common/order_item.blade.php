@@ -61,7 +61,7 @@
             <hr>
             <div class="user-item">
                 <div class="col-4">
-                    <img src="../{{ $item['customer']['avatar'] }}" alt="" width="120px">
+                    <img src="../{{ $item['customer']['avatar'] }}" alt="" width="100%">
                 </div>
                 <div class="client-info col-8">
                     <div class="d-flex justify-content-between pt-2">
@@ -104,8 +104,8 @@
                 <p class="text-muted mb-0"><span class="fw-bold me-4">Shipping Fee</span> $0</p>
             </div>
             <div class="d-flex justify-content-between">
-                <p class="text-muted mb-0">Create Date : {{ $item['created_at'] }}</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
+                <p class="text-muted mb-0">Create Date : {{ date('H:i:s d-m-Y', strtotime($item['created_at'])) }}</p>
+                <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery: </span> Free</p>
             </div>
             <hr>
             <div class="d-flex justify-content-between pt-2">
