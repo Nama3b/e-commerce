@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -63,10 +64,16 @@ class Brand extends Model
      */
     protected $fillable = [
         'name',
+        'category_id',
         'type',
         'thumbnail_image',
         'status'
     ];
+
+    public function category(): BelongsTo
+    {
+        return $this->BelongsTo(ProductCategory::class,'category_id', 'id');
+    }
 
     /**
      * @return HasMany

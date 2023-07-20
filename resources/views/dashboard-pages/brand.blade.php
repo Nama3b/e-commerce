@@ -26,10 +26,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @php($i = 1)
                 @foreach ($data as $item)
                     <tr>
-                        <th class="col-1">{{ $i++ }}</th>
+                        <th class="col-1">{{ $loop->iteration }}</th>
                         <th class="col-3"><img src="../{{ $item['thumbnail_image'] }}" alt="" width="120px"></th>
                         <th class="col-4">{{ $item['name'] }}</th>
                         <th class="col-2">{{ $item['status'] ? 'Active' : 'Inactive'}}</th>
@@ -73,11 +72,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                @php($i = 1)
                 @foreach ($data_sneaker as $item)
                     <tr>
-                        <th class="col-1">{{ $i++ }}</th>
-                        <th class="col-3"><img src="../{{ $item['thumbnail_image'] }}" alt="" width="120px"></th>
+                        <th class="col-1">{{ $loop->iteration }}</th>
+                        <th class="col-3"><img src="{{ asset($item['thumbnail_image']) }}" alt="" width="120px"></th>
                         <th class="col-4">{{ $item['name'] }}</th>
                         <th class="col-2">{{ $item['status'] ? 'Active' : 'Inactive'}}</th>
                         <th class="col-1">
@@ -120,10 +118,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @php($i = 1)
                 @foreach ($data_clothes as $item)
                     <tr>
-                        <th class="col-1">{{ $i++ }}</th>
+                        <th class="col-1">{{ $loop->iteration }}</th>
                         <th class="col-3"><img src="../{{ $item['thumbnail_image'] }}" alt="" width="120px"></th>
                         <th class="col-4">{{ $item['name'] }}</th>
                         <th class="col-2">{{ $item['status'] ? 'Active' : 'Inactive'}}</th>

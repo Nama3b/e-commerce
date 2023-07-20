@@ -40,7 +40,7 @@
                     <div class="product-item">
                         <div class="d-flex">
                             <div class="col-6">
-                                <h6><i class="far fa-star mr-2"></i>Best seller</h6>
+                                <h6><i class="far fa-star mr-2"></i>Newest product</h6>
                             </div>
                             <div class="col-6 text-right">
                                 <p><a href="{{URL::to('product')}}">See all <i

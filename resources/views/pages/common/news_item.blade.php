@@ -1,7 +1,7 @@
 <div class="news">
     <div class="news-img">
         <a href="{{URL::to('post-detail/'.$news_item['id'])}}">
-            <img src="{{'../'.$news_item['url']}}" width="100%" alt="">
+            <img src="{{ asset($news_item['url']) }}" width="100%" alt="">
         </a>
     </div>
     <div class="news-info">

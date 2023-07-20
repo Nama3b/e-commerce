@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\EditBrandRequest;
 use App\Models\Brand;
+use App\Models\Image;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\ResourceHelper\ActionButtonResourceHelper;
@@ -15,6 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
@@ -55,9 +57,16 @@ class BrandController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $image = $request->file('thumbnail_image');
+        dd($image);
+        $file_name = time() . '.' . $image->getClientOriginalExtension();
+
+        $img = Image::make($image->getRealPath());
+        $img->stream();
+
         DB::table('brands')->insert([
             'name' => $request->input('name'),
-            'thumbnail_image' => 'WebPage/img/brand/' . $request->input('thumbnail_image'),
+            'thumbnail_image' => Storage::disk('local')->put('uploads/'.'/'.$file_name, $img, 'public'),
             'type' => $request->input('type'),
             'status' => $request->input('status'),
         ]);

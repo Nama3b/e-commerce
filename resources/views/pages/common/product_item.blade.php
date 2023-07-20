@@ -1,5 +1,5 @@
 <div class="product">
-    <a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}"><img src="{{'../'.$product_item['url']}}" alt=""></a>
+    <a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}"><img src="{{ asset($product_item['url']) }}" alt=""></a>
     <div class="product-feature d-flex">
         <button class="btn btn-sm btn-secondary">${{ number_format($product_item['price'], 0, '', '.') }}</button>
         <form class="form-add-cart" action="{{ URL::to('/add-cart') }}" method="post">

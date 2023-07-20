@@ -61,7 +61,7 @@
             <hr>
             <div class="user-item">
                 <div class="col-4">
-                    <img src="../{{ $item['customer']['avatar'] }}" alt="" width="100%">
+                    <img src="{{ asset($item['customer']['avatar']) }}" alt="" width="100%">
                 </div>
                 <div class="client-info col-8">
                     <div class="d-flex justify-content-between pt-2">
