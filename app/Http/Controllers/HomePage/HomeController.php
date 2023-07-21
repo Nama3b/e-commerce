@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Member;
 use App\Models\Post;
+use App\Support\ResourceHelper\BannerResourceHelper;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CartResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
@@ -19,7 +21,12 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
-    use CategoryResourceHelper, BrandResourceHelper, ProductResourceHelper, CartResourceHelper, CustomerFromSessionResourceHelper;
+    use CategoryResourceHelper,
+        BannerResourceHelper,
+        BrandResourceHelper,
+        ProductResourceHelper,
+        CartResourceHelper,
+        CustomerFromSessionResourceHelper;
 
     /**
      * @param Request $request
@@ -39,9 +46,9 @@ class HomeController extends Controller
         $categories = $this->getAllCategory();
         $brand_all = $this->getAllBrand();
 
-        $brands = Brand::whereStatus(1)->get();
-        $brand_sneaker = $brands->where('type', 'SNEAKER')->take(6);
-        $brand_clothes = $brands->where('type', 'CLOTHES')->take(6);
+        $banner = Banner::all();
+        $banner_sneaker = $this->getSneakerBanner();
+        $banner_clothes = $this->getClothesBanner();
 
         $products = $this->getProductImage();
         $product_sneakers = collect($this->getProductImage())->where('category_id', 1)->take(5)->toArray();
@@ -59,8 +66,9 @@ class HomeController extends Controller
                 'products',
                 'categories',
                 'brand_all',
-                'brand_sneaker',
-                'brand_clothes',
+                'banner',
+                'banner_sneaker',
+                'banner_clothes',
                 'product_sneakers',
                 'product_clothes',
                 'product_watches',

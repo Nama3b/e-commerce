@@ -46,7 +46,6 @@ class Brand extends Model
     use HasFactory, SoftDeletes;
 
     const STATUS = ['INACTIVE', 'ACTIVE'];
-    const TYPE = ['ALL', 'SNEAKER', 'CLOTHES', 'WATCHES', 'ACCESSORIES'];
     const CREATE = 'CREATE_BRAND';
     const VIEW = 'VIEW_BRAND';
     const EDIT = 'EDIT_BRAND';

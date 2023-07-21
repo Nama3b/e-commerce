@@ -21,7 +21,12 @@ use Exception;
 
 class ProductController extends Controller
 {
-    use WithPaginationLimit, HandleJsonResponses, HandleComponentError, ProductResourceHelper, CategoryResourceHelper, BrandResourceHelper;
+    use WithPaginationLimit,
+        HandleJsonResponses,
+        HandleComponentError,
+        ProductResourceHelper,
+        CategoryResourceHelper,
+        BrandResourceHelper;
 
     /**
      * @return RedirectResponse
@@ -38,9 +43,6 @@ class ProductController extends Controller
     public function list(): Application|Factory|View
     {
         $data = $this->getProductImage();
-        $data_sneaker = collect($this->getProductImage())->where('category_id', '==', '1');
-        $data_clothes = collect($this->getProductImage())->where('category_id', '==', '2');;
-        $data_watches = collect($this->getProductImage())->where('category_id', '==', '3');;
         $category = $this->getAllCategory();
         $brand = $this->getAllBrand();
 
@@ -49,9 +51,6 @@ class ProductController extends Controller
         return view('dashboard-pages.product')
             ->with(compact(
                 'data',
-                'data_sneaker',
-                'data_clothes',
-                'data_watches',
                 'category',
                 'brand',
                 'status'
@@ -87,7 +86,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function edit($product, Request $request): RedirectResponse
+    public function edit(Product $product, Request $request): RedirectResponse
     {
         $product = Product::findOrFail($product);
         $product->name = $request->name;

@@ -9,24 +9,19 @@
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="pill" href="#all">All</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#sneaker">Sneaker</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#clothes">Clothes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#watches">Watches</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#accessory">Accessory</a>
-                </li>
+                @foreach ($category as $item)
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill"
+                           href="#category{{$loop->iteration}}">{{ $item['name'] }}</a>
+                    </li>
+                @endforeach
             </ul>
 
             <div class="tab-content">
                 <div id="all" class=" tab-pane active"><br>
                     <div class="body-header">
-                        <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
+                        <button type="button" name="create" id="create" class="btn btn-outline-light"
+                                data-toggle="modal"
                                 data-target="#addForm"><i class="far fa-plus-square"></i> Add new
                         </button>
                     </div>
@@ -45,95 +40,42 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @php($i = 1)
-                        @foreach ($data as $item)
+                        @foreach($data as $item)
                             @include('dashboard-pages.common.product_item')
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-                <div id="sneaker" class=" tab-pane fade"><br>
-                    <div class="body-header">
-                        <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
-                                data-target="#addForm"><i class="far fa-plus-square"></i> Add new
-                        </button>
+                @foreach($category as $cat_item)
+                    <div id="category{{ $cat_item['id'] }}" class=" tab-pane fade"><br>
+                        <div class="body-header">
+                            <button type="button" name="create" id="create" class="btn btn-outline-light"
+                                    data-toggle="modal"
+                                    data-target="#addForm"><i class="far fa-plus-square"></i> Add new
+                            </button>
+                        </div>
+                        <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Category</th>
+                                <th>Brand</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (collect($data)->where('category_id', $cat_item['id']) as $item)
+                                @include('dashboard-pages.common.product_item')
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Image</th>
-                            <th>Category</th>
-                            <th>Brand</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @php($i = 1)
-                        @foreach ($data_sneaker as $item)
-                            @include('dashboard-pages.common.product_item')
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div id="clothes" class=" tab-pane fade"><br>
-                    <div class="body-header">
-                        <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
-                                data-target="#addForm"><i class="far fa-plus-square"></i> Add new
-                        </button>
-                    </div>
-                    <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Image</th>
-                            <th>Category</th>
-                            <th>Brand</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($data_clothes as $item)
-                            @include('dashboard-pages.common.product_item')
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div id="watches" class=" tab-pane fade"><br>
-                    <div class="body-header">
-                        <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
-                                data-target="#addForm"><i class="far fa-plus-square"></i> Add new
-                        </button>
-                    </div>
-                    <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Image</th>
-                            <th>Category</th>
-                            <th>Brand</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($data_watches as $item)
-                            @include('dashboard-pages.common.product_item')
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                @endforeach
                 <div id="accessory" class=" tab-pane fade"><br>
                     <div class="container text-center">
                         <img src="{{ asset('WebPage/img/shopping/coming-soon.avif') }}" alt="">
@@ -178,11 +120,13 @@
                         </div>
                         <div class="form-group">
                             <label for="">Name</label>
-                            <input type="text" class="form-input align-right" name="name" placeholder="Product name" required>
+                            <input type="text" class="form-input align-right" name="name" placeholder="Product name"
+                                   required>
                         </div>
                         <div class="form-group">
                             <label for="" style="vertical-align: top">Description</label>
-                            <textarea name="description" id="description" cols="30" rows="4" placeholder="Product description"></textarea>
+                            <textarea name="description" id="description" cols="30" rows="4"
+                                      placeholder="Product description"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="">Price ($)</label>
@@ -190,7 +134,8 @@
                         </div>
                         <div class="form-group">
                             <label for="">Quantity</label>
-                            <input type="text" class="form-input" name="quantity" placeholder="Product quantity" required>
+                            <input type="text" class="form-input" name="quantity" placeholder="Product quantity"
+                                   required>
                         </div>
                         <div class="form-group">
                             <label for="">Image</label>

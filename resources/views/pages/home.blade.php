@@ -28,12 +28,18 @@
                 <div class="container">
                     <div class="brand-section">
                         <div class="row justify-content-center">
-                            <div class="d-flex">
-                                @foreach($brand_all as $key => $brand_item)
-                                    <div class="brand col-2">
-                                        <a href="{{ URL::to('product-by-brand/'.$brand_item->id) }}"><img src="{{$brand_item->thumbnail_image}}" alt=""></a>
-                                    </div>
-                                @endforeach
+                            <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+                                <div class="MultiCarousel-inner">
+                                    @foreach($brand_all as $item)
+                                        <div class="item">
+                                            <div class="pad15">
+                                                <a href="{{ URL::to('product-by-brand/'.$item->id) }}"><img src="{{$item->thumbnail_image}}" alt="" width="100%" height="130px"></a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <button class="btn btn-primary leftLst"><i class="fas fa-chevron-left"></i></button>
+                                <button class="btn btn-primary rightLst"><i class="fas fa-chevron-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -48,7 +54,7 @@
                             </div>
                         </div>
                         <div class="form-product">
-                            @foreach($product_best_seller as $key => $product_item)
+                            @foreach($product_best_seller as $product_item)
                                 @include('pages.common.product_item')
                             @endforeach
                         </div>
@@ -98,7 +104,7 @@
                     <div class="brand-item">
                         <div class="row justify-content-center">
                             <div class="d-flex">
-                                @foreach($brand_sneaker as $key => $brand_item)
+                                @foreach($banner_sneaker as $brand_item)
                                     <div class="brand-banner">
                                         @include('pages.common.brand_item')
                                     </div>
@@ -117,7 +123,7 @@
                             </div>
                         </div>
                         <div class="form-product">
-                            @foreach($product_sneakers as $key => $product_item)
+                            @foreach($product_sneakers as $product_item)
                                 @if($product_item['category_id'] == 1)
                                     @include('pages.common.product_item')
                                 @endif
@@ -127,7 +133,7 @@
                     <div class="brand-item">
                         <div class="row">
                             <div class="d-flex">
-                                @foreach($brand_clothes as $key => $brand_item)
+                                @foreach($banner_clothes as $brand_item)
                                     @include('pages.common.brand_item')
                                 @endforeach
                             </div>
@@ -144,7 +150,7 @@
                             </div>
                         </div>
                         <div class="form-product">
-                            @foreach($product_clothes as $key => $product_item)
+                            @foreach($product_clothes as $product_item)
                                 @if($product_item['category_id'] == 2)
                                     @include('pages.common.product_item')
                                 @endif
@@ -195,7 +201,7 @@
                         <div class="form-product">
                             <div class="d-flex">
                                 {{ csrf_field() }}
-                                @foreach($product_watches as $key => $product_item)
+                                @foreach($product_watches as $product_item)
                                     @if($product_item['category_id'] == 3)
                                         @include('pages.common.product_item')
                                     @endif
@@ -208,41 +214,18 @@
                 <div class="brand-section">
                     <div class="container">
                         <h4 class="text-center"><b>Popular brands</b></h4>
-                        <div id="brandCarousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <div class="row justify-content-center">
-                                        <div class="brand col-md-3">
-                                            <img src="{{{'WebPage/img/brand/jordan.webp'}}}" alt="">
-                                        </div>
-                                        <div class="brand col-md-3">
-                                            <img src="{{{'WebPage/img/brand/supreme_tile.webp'}}}" alt="">
-                                        </div>
-                                        <div class="brand col-md-3">
-                                            <img src="{{{'WebPage/img/brand/yzy.webp'}}}" alt="">
-                                        </div>
-                                        <div class="brand col-md-3">
-                                            <img src="{{{'WebPage/img/brand/ps4.webp'}}}" alt="">
+                        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+                            <div class="MultiCarousel-inner">
+                                @foreach($banner as $item)
+                                    <div class="item">
+                                        <div class="pad15">
+                                            <a href=""><img src="{{$item->thumbnail_image}}" alt="" width="100%" height="130px"></a>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="item">
-                                    <div class="row justify-content-center">
-                                        <div class="brand col-md-3">
-                                            <img src="{{{'WebPage/img/brand/jordan.webp'}}}" alt="">
-                                        </div>
-                                        <div class="brand col-md-3">
-                                            <img src="{{{'WebPage/img/brand/supreme_tile.webp'}}}" alt="">
-                                        </div>
-                                        <div class="brand col-md-3">
-                                            <img src="{{{'WebPage/img/brand/yzy.webp'}}}" alt="">
-                                        </div>
-                                        <div class="brand col-md-3">
-                                            <img src="{{{'WebPage/img/brand/ps4.webp'}}}" alt="">
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
+                            <button class=" leftLst"><i class="fas fa-chevron-left"></i></button>
+                            <button class=" rightLst"><i class="fas fa-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>

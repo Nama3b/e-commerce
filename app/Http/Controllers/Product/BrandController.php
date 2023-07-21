@@ -57,8 +57,8 @@ class BrandController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $image = $request->file('thumbnail_image');
-        dd($image);
+        $image = $request->thumbnail_image;
+        dd($image, $request);
         $file_name = time() . '.' . $image->getClientOriginalExtension();
 
         $img = Image::make($image->getRealPath());

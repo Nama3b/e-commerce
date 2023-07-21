@@ -17,93 +17,81 @@ class BrandSeeder extends Seeder
         DB::table('brands')->insert([
             [
                 'name' => 'Adidas',
-                'type' => 'ALL',
+                'category_id' => '[1, 2]',
+                'sort_no' => 1,
                 'thumbnail_image' => 'WebPage/img/brand/adidas.webp'
             ],
             [
                 'name' => 'Converse',
-                'type' => 'ALL',
+                'category_id' => '[1, 2]',
+                'sort_no' => 2,
                 'thumbnail_image' => 'WebPage/img/brand/converse.webp'
             ],
             [
                 'name' => 'New Balance',
-                'type' => 'ALL',
+                'category_id' => '[1, 2]',
+                'sort_no' => 3,
                 'thumbnail_image' => 'WebPage/img/brand/new-balance.png'
             ],
             [
                 'name' => 'Nike',
-                'type' => 'ALL',
+                'category_id' => '[1, 2]',
+                'sort_no' => 4,
                 'thumbnail_image' => 'WebPage/img/brand/nike.webp'
             ],
             [
                 'name' => 'Gucci',
-                'type' => 'ALL',
+                'category_id' => '[1, 2]',
+                'sort_no' => 5,
                 'thumbnail_image' => 'WebPage/img/brand/gucci.png'
             ],
             [
                 'name' => 'Supreme',
-                'type' => 'ALL',
+                'category_id' => '[1, 2]',
+                'sort_no' => 6,
                 'thumbnail_image' => 'WebPage/img/brand/supreme.png'
             ],
             [
+                'name' => 'Bape',
+                'category_id' => '[1, 2]',
+                'sort_no' => 7,
+                'thumbnail_image' => 'WebPage/img/brand/bape.png'
+            ],
+            [
                 'name' => 'Vans',
-                'type' => 'ALL',
+                'category_id' => '[1, 2]',
+                'sort_no' => 8,
                 'thumbnail_image' => 'WebPage/img/brand/vans.webp'
             ],
             [
-                'name' => 'Bape',
-                'type' => 'ALL',
-                'thumbnail_image' => 'WebPage/img/brand/adidas.webp'
+                'name' => 'Rolex',
+                'category_id' => '3',
+                'sort_no' => 9,
+                'thumbnail_image' => 'WebPage/img/brand/Rolex.png'
             ],
             [
-                'name' => 'adidas',
-                'type' => 'SNEAKER',
-                'thumbnail_image' => 'WebPage/img/brand/adidas-sneaker.webp'
+                'name' => 'Seiko',
+                'category_id' => '3',
+                'sort_no' => 10,
+                'thumbnail_image' => 'WebPage/img/brand/seiko.png'
             ],
             [
-                'name' => 'newbalance',
-                'type' => 'SNEAKER',
-                'thumbnail_image' => 'WebPage/img/brand/newbalance-sneaker.webp'
+                'name' => 'Patek Philippe',
+                'category_id' => '3',
+                'sort_no' => 11,
+                'thumbnail_image' => 'WebPage/img/brand/patek phillip.png'
             ],
             [
-                'name' => 'nike',
-                'type' => 'SNEAKER',
-                'thumbnail_image' => 'WebPage/img/brand/nike-sneaker.webp'
+                'name' => 'Omega',
+                'category_id' => '3',
+                'sort_no' => 12,
+                'thumbnail_image' => 'WebPage/img/brand/omega.png'
             ],
             [
-                'name' => 'jordan',
-                'type' => 'SNEAKER',
-                'thumbnail_image' => 'WebPage/img/brand/jordan-sneaker.webp'
-            ],
-            [
-                'name' => 'crocs',
-                'type' => 'SNEAKER',
-                'thumbnail_image' => 'WebPage/img/brand/crocs-sneaker.webp'
-            ],
-            [
-                'name' => 'bags',
-                'type' => 'CLOTHES',
-                'thumbnail_image' => 'WebPage/img/brand/bags-clothes.webp'
-            ],
-            [
-                'name' => 'shirts',
-                'type' => 'CLOTHES',
-                'thumbnail_image' => 'WebPage/img/brand/shirts-clothes.webp'
-            ],
-            [
-                'name' => 'shorts',
-                'type' => 'CLOTHES',
-                'thumbnail_image' => 'WebPage/img/brand/shorts-clothes.webp'
-            ],
-            [
-                'name' => 'shoes',
-                'type' => 'CLOTHES',
-                'thumbnail_image' => 'WebPage/img/brand/shoes-clothes.webp'
-            ],
-            [
-                'name' => 'sunglasses',
-                'type' => 'CLOTHES',
-                'thumbnail_image' => 'WebPage/img/brand/sunglasses-clothes.webp'
+                'name' => 'Cartier',
+                'category_id' => '3',
+                'sort_no' => 13,
+                'thumbnail_image' => 'WebPage/img/brand/cartier.webp'
             ],
         ]);
     }

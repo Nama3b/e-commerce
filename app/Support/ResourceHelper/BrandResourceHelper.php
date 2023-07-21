@@ -12,6 +12,6 @@ trait BrandResourceHelper
      */
     private function getAllBrand(): Collection|array
     {
-        return Brand::whereStatus(1)->whereType('ALL')->take(6)->get();
+        return Brand::whereStatus(1)->orderBy('sort_no')->get();
     }
 }

@@ -16,14 +16,12 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('category_id');
-            $table->enum('type', ['ALL', 'SNEAKER', 'CLOTHES', 'WATCHES', 'ACCESSORIES']);
+            $table->text('category_id');
             $table->string('thumbnail_image');
+            $table->integer('sort_no');
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('category_id')->references('id')->on('product_category')->onUpdate('cascade');
         });
     }
 

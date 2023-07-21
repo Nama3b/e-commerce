@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->id();
-            $table->integer('reference_id');
-            $table->string('url');
+            $table->string('name');
+            $table->string('thumbnail_image');
             $table->integer('sort_no');
-            $table->enum('image_type', ['PRODUCT', 'POST']);
+            $table->enum('type', ['SNEAKER', 'CLOTHES']);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('banners');
     }
 };

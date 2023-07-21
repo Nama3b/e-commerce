@@ -20,10 +20,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @php($i = 1)
                 @foreach ($data as $item)
                     <tr>
-                        <th class="col-1">{{ $i++ }}</th>
+                        <th class="col-1">{{ $loop->iteration }}</th>
                         <th class="col-5">{{ $item['name'] }}</th>
                         <th class="col-2">{{ $item['status'] ? 'Active' : 'Inactive'}}</th>
                         <th class="col-1">
