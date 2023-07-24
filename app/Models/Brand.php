@@ -7,19 +7,20 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+
 
 /**
  * App\Models\Brand
  *
  * @property int $id
  * @property string $name
- * @property string $type
+ * @property array $category_id
  * @property string $thumbnail_image
- * @property boolean $status
+ * @property int $sort_no
+ * @property int $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -29,13 +30,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Brand newQuery()
  * @method static Builder|Brand onlyTrashed()
  * @method static Builder|Brand query()
+ * @method static Builder|Brand whereCategoryId($value)
  * @method static Builder|Brand whereCreatedAt($value)
  * @method static Builder|Brand whereDeletedAt($value)
  * @method static Builder|Brand whereId($value)
  * @method static Builder|Brand whereName($value)
- * @method static Builder|Brand whereType($value)
- * @method static Builder|Brand whereThumbnailImage($value)
+ * @method static Builder|Brand whereSortNo($value)
  * @method static Builder|Brand whereStatus($value)
+ * @method static Builder|Brand whereThumbnailImage($value)
  * @method static Builder|Brand whereUpdatedAt($value)
  * @method static Builder|Brand withTrashed()
  * @method static Builder|Brand withoutTrashed()
@@ -61,6 +63,13 @@ class Brand extends Model
     /**
      * @var string[]
      */
+    protected $casts = [
+        'category_id' => 'array'
+    ];
+
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'name',
         'category_id',
@@ -68,11 +77,6 @@ class Brand extends Model
         'thumbnail_image',
         'status'
     ];
-
-    public function category(): BelongsTo
-    {
-        return $this->BelongsTo(ProductCategory::class,'category_id', 'id');
-    }
 
     /**
      * @return HasMany

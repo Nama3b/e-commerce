@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('category_id');
+            $table->json('category_id');
             $table->string('thumbnail_image');
             $table->integer('sort_no');
             $table->boolean('status')->default(1);

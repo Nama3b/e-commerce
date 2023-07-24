@@ -6,48 +6,17 @@
         </div>
         <div class="card-body pt-3">
             <ul class="nav nav-pills" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="pill" href="#section1">Section#1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="pill" href="#section2">Section#2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="pill" href="#section3">Section#3</a>
-                </li>
+                @foreach($category as $cat_item)
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill"
+                           href="#brand{{ $cat_item['id'] }}">{{ $cat_item['name'] }}</a>
+                    </li>
+                @endforeach
             </ul>
 
             <div class="tab-content">
-                <div id="all" class=" tab-pane active"><br>
-                    <div class="body-header">
-                        <button type="button" name="create" id="create" class="btn btn-outline-light"
-                                data-toggle="modal"
-                                data-target="#addForm"><i class="far fa-plus-square"></i> Add new
-                        </button>
-                    </div>
-                    <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Image</th>
-                            <th>Category</th>
-                            <th>Brand</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($data as $item)
-                            @include('dashboard-pages.common.product_item')
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
                 @foreach($category as $cat_item)
-                    <div id="category{{ $loop->iteration }}" class=" tab-pane fade"><br>
+                    <div id="brand{{ $cat_item['id'] }}" class=" tab-pane fade"><br>
                         <div class="body-header">
                             <button type="button" name="create" id="create" class="btn btn-outline-light"
                                     data-toggle="modal"
@@ -58,179 +27,29 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Image</th>
-                                <th>Category</th>
-                                <th>Brand</th>
                                 <th>Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
+                                <th>Image</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach (collect($data)->where('category_id', $cat_item['id']) as $item)
-                                @include('dashboard-pages.common.product_item')
+                            @foreach ($data as $item)
+                                @if(in_array($cat_item['id'], $item['category_id']))
+                                    @include('dashboard-pages.common.brand_item')
+                                @endif
                             @endforeach
                             </tbody>
                         </table>
                     </div>
                 @endforeach
-                <div id="accessory" class=" tab-pane fade"><br>
-                    <div class="container text-center">
-                        <img src="{{ asset('WebPage/img/shopping/coming-soon.avif') }}" alt="">
-                    </div>
-                </div>
             </div>
-
-            <div class="body-header">
-                <div align="left">
-                    <h4>Section 1</h4>
-                </div>
-                <div align="right">
-                    <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
-                            data-target="#addForm1"><i class="far fa-plus-square"></i> Add new
-                    </button>
-                </div>
-            </div>
-            <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Image</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($data as $item)
-                    <tr>
-                        <th class="col-1">{{ $loop->iteration }}</th>
-                        <th class="col-3"><img src="../{{ $item['thumbnail_image'] }}" alt="" width="120px"></th>
-                        <th class="col-4">{{ $item['name'] }}</th>
-                        <th class="col-2">{{ $item['status'] ? 'Active' : 'Inactive'}}</th>
-                        <th class="col-1">
-                            <div class="d-flex">
-                                <button class="btn btn-sm btn-outline-light mr-2" data-toggle="modal"
-                                        data-target="#editForm-{{ $item['id'] }}">
-                                    <i class="far fa-edit"></i>
-                                </button>
-                                <form action="{{ URL::to('/dashboard/brand/delete/'.$item['id']) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-dark"><i class="fas fa-trash-alt"></i></button>
-                                </form>
-                            </div>
-                        </th>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="card-body pt-3">
-            <div class="body-header">
-                <div align="left">
-                    <h4>Section 2</h4>
-                </div>
-                <div align="right">
-                    <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
-                            data-target="#addForm2"><i class="far fa-plus-square"></i> Add new
-                    </button>
-                </div>
-            </div>
-            <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Image</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($data_sneaker as $item)
-                    <tr>
-                        <th class="col-1">{{ $loop->iteration }}</th>
-                        <th class="col-3"><img src="{{ asset($item['thumbnail_image']) }}" alt="" width="120px"></th>
-                        <th class="col-4">{{ $item['name'] }}</th>
-                        <th class="col-2">{{ $item['status'] ? 'Active' : 'Inactive'}}</th>
-                        <th class="col-1">
-                            <div class="d-flex">
-                                <button class="btn btn-sm btn-outline-light mr-2" data-toggle="modal"
-                                        data-target="#editForm-{{ $item['id'] }}">
-                                    <i class="far fa-edit"></i>
-                                </button>
-                                <form action="{{ URL::to('/dashboard/brand/delete/'.$item['id']) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-dark"><i class="fas fa-trash-alt"></i></button>
-                                </form>
-                            </div>
-                        </th>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="card-body pt-3">
-            <div class="body-header">
-                <div align="left">
-                    <h4>Section 3</h4>
-                </div>
-                <div align="right">
-                    <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
-                            data-target="#addForm3"><i class="far fa-plus-square"></i> Add new
-                    </button>
-                </div>
-            </div>
-            <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Image</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($data_clothes as $item)
-                    <tr>
-                        <th class="col-1">{{ $loop->iteration }}</th>
-                        <th class="col-3"><img src="../{{ $item['thumbnail_image'] }}" alt="" width="120px"></th>
-                        <th class="col-4">{{ $item['name'] }}</th>
-                        <th class="col-2">{{ $item['status'] ? 'Active' : 'Inactive'}}</th>
-                        <th class="col-1">
-                            <div class="d-flex">
-                                <button class="btn btn-sm btn-outline-light mr-2" data-toggle="modal"
-                                        data-target="#editForm-{{ $item['id'] }}">
-                                    <i class="far fa-edit"></i>
-                                </button>
-                                <form action="{{ URL::to('/dashboard/brand/delete/'.$item['id']) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-dark"><i class="fas fa-trash-alt"></i></button>
-                                </form>
-                            </div>
-                        </th>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
         </div>
     </div>
 
     @include('dashboard-pages.common.brand_modal_add')
 
-    @foreach ($data as $item)
-        @include('dashboard-pages.common.brand_modal_edit')
-    @endforeach
-    @foreach ($data_sneaker as $item)
-        @include('dashboard-pages.common.brand_modal_edit')
-    @endforeach
-    @foreach ($data_clothes as $item)
+    @foreach($data as $item)
         @include('dashboard-pages.common.brand_modal_edit')
     @endforeach
 @endsection

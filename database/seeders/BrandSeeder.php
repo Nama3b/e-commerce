@@ -65,31 +65,31 @@ class BrandSeeder extends Seeder
             ],
             [
                 'name' => 'Rolex',
-                'category_id' => '3',
+                'category_id' => '[3]',
                 'sort_no' => 9,
                 'thumbnail_image' => 'WebPage/img/brand/Rolex.png'
             ],
             [
                 'name' => 'Seiko',
-                'category_id' => '3',
+                'category_id' => '[3]',
                 'sort_no' => 10,
                 'thumbnail_image' => 'WebPage/img/brand/seiko.png'
             ],
             [
                 'name' => 'Patek Philippe',
-                'category_id' => '3',
+                'category_id' => '[3]',
                 'sort_no' => 11,
                 'thumbnail_image' => 'WebPage/img/brand/patek phillip.png'
             ],
             [
                 'name' => 'Omega',
-                'category_id' => '3',
+                'category_id' => '[3]',
                 'sort_no' => 12,
                 'thumbnail_image' => 'WebPage/img/brand/omega.png'
             ],
             [
                 'name' => 'Cartier',
-                'category_id' => '3',
+                'category_id' => '[3]',
                 'sort_no' => 13,
                 'thumbnail_image' => 'WebPage/img/brand/cartier.webp'
             ],

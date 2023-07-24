@@ -1,6 +1,6 @@
 <tr>
     <th>{{ $loop->iteration }}</th>
-    <th><img src="../{{ $item['url'] }}" alt="" width="120px"></th>
+    <th><img src="{{ asset($item['url']) }}" alt="" width="120px"></th>
     <th>{{ $item['category']['name'] }}</th>
     <th>{{ $item['brand']['name'] }}</th>
     <th>{{ $item['name'] }}</th>
