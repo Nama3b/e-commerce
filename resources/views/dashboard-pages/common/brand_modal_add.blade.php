@@ -2,7 +2,7 @@
      aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form action="{{ URL::to('/dashboard/brand/store') }}" method="post">
+        <form action="{{ URL::to('/dashboard/brand/store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">

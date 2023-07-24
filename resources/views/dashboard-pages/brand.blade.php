@@ -52,4 +52,5 @@
     @foreach($data as $item)
         @include('dashboard-pages.common.brand_modal_edit')
     @endforeach
+
 @endsection

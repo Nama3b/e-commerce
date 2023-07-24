@@ -124,6 +124,19 @@
 @endif
 
 <script>
+    const image1 = document.getElementById("thumbnail_img_1");
+    const image2 = document.getElementById("thumbnail_img_2");
+    image1.addEventListener("load", function() {
+        document.getElementById("thumbnail_img_2").style.display = "none";
+    });
+    image2.addEventListener("load", function() {
+        document.getElementById("thumbnail_img_1").style.display = "none";
+
+    });
+</script>
+<script>
+
+
     function openNav() {
         document.getElementById("mySidebar").style.width = "300px";
         document.getElementById("main").style.marginLeft = "300px";

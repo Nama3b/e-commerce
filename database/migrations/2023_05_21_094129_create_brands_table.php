@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->json('category_id');
             $table->string('thumbnail_image');
-            $table->integer('sort_no');
+            $table->integer('sort_no')->default(1);
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

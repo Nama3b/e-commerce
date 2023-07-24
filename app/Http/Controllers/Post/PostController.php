@@ -60,14 +60,14 @@ class PostController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $post = [];
-        $post['author'] = $request->author;
-        $post['title'] = $request->title;
+        $post['author'] = $request->input('author');
+        $post['title'] = $request->input('title');
         $post['content'] = $request->input('content');
-        $post['post_type'] = $request->post_type;
+        $post['post_type'] = $request->input('post_type');
         $post_id = DB::table('posts')->insertGetId($post);
 
         $image['reference_id'] = $post_id;
-        $image['url'] = $request->url;
+        $image['url'] = $request->input('url');
         $image['image_type'] = 'POST';
         DB::table('images')->insert($image);
 
@@ -79,17 +79,17 @@ class PostController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function edit($post, Request $request): RedirectResponse
+    public function edit(Post $post, Request $request): RedirectResponse
     {
         $post = Post::findOrFail($post);
-        $post->author = $request->author;
-        $post->title = $request->title;
+        $post->author = $request->input('author');
+        $post->title = $request->input('title');
         $post->content = $request->input('content');
-        $post->post_type = $request->post_type;
-        $post->status = $request->status;
+        $post->post_type = $request->input('post_type');
+        $post->status = $request->input('status');
         $post->save();
 
-        $image['url'] = 'WebPage/img/post/'.$request->url;
+        $image['url'] = 'WebPage/img/post/'.$request->input('url');
         $image['image_type'] = 'POST';
         Image::whereReferenceId($request->id)->whereImageType('POST')->update($image);
 
@@ -100,7 +100,7 @@ class PostController extends Controller
      * @param Post $post
      * @return RedirectResponse
      */
-    public function delete($post): RedirectResponse
+    public function delete(Post $post): RedirectResponse
     {
         $post = Post::find($post);
 

@@ -51,7 +51,6 @@ class BrandController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        dd(111);
         $image_name = '';
         if($request->hasFile('thumbnail_image'))
         {
@@ -61,7 +60,7 @@ class BrandController extends Controller
             $request->file('thumbnail_image')->storeAs($destination_path, $image_name);
         }
 
-        DB::table('brands')->insert([
+        Brand::create([
             'name' => $request->input('name'),
             'category_id' => [$request->input('category_id')],
             'thumbnail_image' => $image_name,
