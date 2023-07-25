@@ -9,6 +9,7 @@ use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
+use App\Support\ResourceHelper\ImageHandlerResourceHelper;
 use App\Support\ResourceHelper\ProductResourceHelper;
 use App\Support\WithPaginationLimit;
 use Illuminate\Contracts\Foundation\Application;
@@ -26,7 +27,8 @@ class ProductController extends Controller
         HandleComponentError,
         ProductResourceHelper,
         CategoryResourceHelper,
-        BrandResourceHelper;
+        BrandResourceHelper,
+        ImageHandlerResourceHelper;
 
     /**
      * @return RedirectResponse
@@ -64,17 +66,17 @@ class ProductController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $product = [];
-        $product['category_id'] = $request->category_id;
-        $product['brand_id'] = $request->brand_id;
-        $product['creator'] = $request->creator;
-        $product['name'] = $request->name;
-        $product['description'] = $request->description;
-        $product['price'] = $request->price;
-        $product['quantity'] = $request->quantity;
+        $product['category_id'] = $request->input('category_id');
+        $product['brand_id'] = $request->input('brand_id');
+        $product['creator'] = $request->input('creator');
+        $product['name'] = $request->input('name');
+        $product['description'] = $request->input('description');
+        $product['price'] = $request->input('price');
+        $product['quantity'] = $request->input('quantity');
         $product_id = DB::table('products')->insertGetId($product);
 
         $image['reference_id'] = $product_id;
-        $image['image'] = 'WebPage/img/product/' . $request->image;
+        $image['image'] = $this->imageHandler($request);
         $image['image_type'] = 'PRODUCT';
         DB::table('images')->insert($image);
 
@@ -82,26 +84,29 @@ class ProductController extends Controller
     }
 
     /**
-     * @param Product $product
+     * @param $product
      * @param Request $request
      * @return RedirectResponse
      */
-    public function edit(Product $product, Request $request): RedirectResponse
+    public function edit($product, Request $request): RedirectResponse
     {
         $product = Product::findOrFail($product);
-        $product->name = $request->name;
-        $product->category_id = $request->category_id;
-        $product->brand_id = $request->brand_id;
-        $product->creator = $request->creator;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->quantity = $request->quantity;
-        $product->status = $request->status;
+        $product->name = $request->input('name');
+        $product->category_id = $request->input('category_id');
+        $product->brand_id = $request->input('brand_id');
+        $product->creator = $request->input('creator');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->quantity = $request->input('quantity');
+        $product->status = $request->input('status');
         $product->save();
 
-        $image['image'] = 'WebPage/img/product/'.$request->image;
+        if($request->hasFile('image'))
+        {
+            $image['image'] = $this->imageHandler($request);
+        }
         $image['image_type'] = 'PRODUCT';
-        Image::whereReferenceId($request->id)->whereImageType('PRODUCT')->update($image);
+        Image::whereReferenceId($request->input('id'))->whereImageType('PRODUCT')->update($image);
 
         return redirect()->back()->with('success', 'Product updated successfully!');
     }

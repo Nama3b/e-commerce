@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->float('price');
-            $table->string('quantity');
+            $table->string('quantity')->default(1);
             $table->enum('status', ['WAITING', 'STOCKOUT', 'STOCKING', 'BANNED'])->default('STOCKING');
             $table->timestamps();
             $table->softDeletes();

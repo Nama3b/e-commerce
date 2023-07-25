@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\DB;
 
 class ProductCategoryController extends Controller
 {
-    use WithPaginationLimit, HandleJsonResponses, HandleComponentError;
+    use WithPaginationLimit,
+        HandleJsonResponses,
+        HandleComponentError;
 
 
     /**
@@ -52,7 +54,7 @@ class ProductCategoryController extends Controller
     }
 
     /**
-     * @param ProductCategory $productCategory
+     * @param $productCategory
      * @param Request $request
      * @return RedirectResponse
      */

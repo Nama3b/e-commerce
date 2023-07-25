@@ -8,6 +8,7 @@ use App\Models\Member;
 use App\Models\Post;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
+use App\Support\ResourceHelper\ImageHandlerResourceHelper;
 use App\Support\ResourceHelper\PostResourceHelper;
 use App\Support\WithPaginationLimit;
 use Illuminate\Contracts\Foundation\Application;
@@ -19,7 +20,11 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    use WithPaginationLimit, HandleJsonResponses, HandleComponentError, PostResourceHelper;
+    use WithPaginationLimit,
+        HandleJsonResponses,
+        HandleComponentError,
+        PostResourceHelper,
+        ImageHandlerResourceHelper;
 
     /**
      * @return RedirectResponse
@@ -67,7 +72,7 @@ class PostController extends Controller
         $post_id = DB::table('posts')->insertGetId($post);
 
         $image['reference_id'] = $post_id;
-        $image['image'] = $request->input('image');
+        $image['image'] = $this->imageHandler($request);
         $image['image_type'] = 'POST';
         DB::table('images')->insert($image);
 
@@ -75,11 +80,11 @@ class PostController extends Controller
     }
 
     /**
-     * @param Post $post
+     * @param $post
      * @param Request $request
      * @return RedirectResponse
      */
-    public function edit(Post $post, Request $request): RedirectResponse
+    public function edit($post, Request $request): RedirectResponse
     {
         $post = Post::findOrFail($post);
         $post->author = $request->input('author');
@@ -89,18 +94,21 @@ class PostController extends Controller
         $post->status = $request->input('status');
         $post->save();
 
-        $image['image'] = 'WebPage/img/post/'.$request->input('url');
+        if($request->hasFile('image'))
+        {
+            $image['image'] = $this->imageHandler($request);
+        }
         $image['image_type'] = 'POST';
-        Image::whereReferenceId($request->id)->whereImageType('POST')->update($image);
+        Image::whereReferenceId($request->input('id'))->whereImageType('POST')->update($image);
 
         return redirect()->back()->with('success', 'Post updated successfully!');
     }
 
     /**
-     * @param Post $post
+     * @param $post
      * @return RedirectResponse
      */
-    public function delete(Post $post): RedirectResponse
+    public function delete($post): RedirectResponse
     {
         $post = Post::find($post);
 

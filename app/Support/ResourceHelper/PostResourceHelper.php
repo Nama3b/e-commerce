@@ -14,9 +14,7 @@ trait PostResourceHelper
         return Post::with(['customer', 'member', 'images' => function ($query) {
             $query->whereImageType('POST');
         }])
-            ->whereStatus('ACTIVE')
-            ->wherePostType('NEWS')
-            ->orderBy('created_at', 'desc')->take(8)->get()->toArray();
+            ->orderBy('created_at', 'desc')->get()->toArray();
     }
 
     /**
