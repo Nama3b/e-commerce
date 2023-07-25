@@ -20,9 +20,9 @@
                     </div>
                     <div class="form-group form-image">
                         <label for="">Image</label>
-                        <img src="{{ asset($item['thumbnail_image']) }}" alt="" width="70%" class="form-img">
-                        <input type="hidden" name="thumbnail_image" value="{{ $item['thumbnail_image'] }}">
-                        <input type="file" name="thumbnail_image1" class="image">
+                        <img src="{{ asset($item['image']) }}" alt="" width="70%" class="form-img">
+                        <input type="hidden" name="image" value="{{ $item['image'] }}">
+                        <input type="file" name="image1" class="image">
                     </div>
                     <div class="form-group">
                         <label for="">Status</label>

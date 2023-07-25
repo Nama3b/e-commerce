@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property int $reference_id
- * @property string $url
+ * @property string $image
  * @property int $sort_no
  * @property string $image_type
  * @property Carbon|null $created_at
@@ -34,7 +34,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Image whereReferenceId($value)
  * @method static Builder|Image whereSortNo($value)
  * @method static Builder|Image whereUpdatedAt($value)
- * @method static Builder|Image whereUrl($value)
+ * @method static Builder|Image whereImage($value)
  * @method static Builder|Image withTrashed()
  * @method static Builder|Image withoutTrashed()
  * @mixin Eloquent
@@ -62,7 +62,7 @@ class Image extends Model
     protected $fillable = [
         'image_type',
         'reference_id',
-        'url',
+        'image',
         'sort_no'
     ];
 

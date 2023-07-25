@@ -17,8 +17,7 @@ class DetailBrandTransformer extends TransformerAbstract
     {
         return [
             'name' => $brand->name,
-            'type' => $brand->type,
-            'thumbnail_image' => asset(Storage::url($brand->thumbnail_image)),
+            'image' => asset(Storage::url($brand->image)),
             'status' => $brand->status,
         ];
     }

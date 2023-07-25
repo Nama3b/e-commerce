@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $name
  * @property array $category_id
- * @property string $thumbnail_image
+ * @property string $image
  * @property int $sort_no
  * @property int $status
  * @property Carbon|null $created_at
@@ -37,7 +37,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Brand whereName($value)
  * @method static Builder|Brand whereSortNo($value)
  * @method static Builder|Brand whereStatus($value)
- * @method static Builder|Brand whereThumbnailImage($value)
+ * @method static Builder|Brand whereImage($value)
  * @method static Builder|Brand whereUpdatedAt($value)
  * @method static Builder|Brand withTrashed()
  * @method static Builder|Brand withoutTrashed()
@@ -74,7 +74,7 @@ class Brand extends Model
         'name',
         'category_id',
         'type',
-        'thumbnail_image',
+        'image',
         'status'
     ];
 

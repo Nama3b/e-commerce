@@ -18,7 +18,7 @@
                                     <a href="" class="">100% Authentic</a>
                                     <a href="" class="">Condition: New</a>
                                 </div>
-                                <img src="{{ asset($detail_item['url']) }}" alt="" width="80%">
+                                <img src="{{ asset($detail_item['image']) }}" alt="" width="80%">
                             </div>
                             <div class="col-6">
                                 <div class="product-detail-title text-center">

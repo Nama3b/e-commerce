@@ -98,14 +98,14 @@ class HomeController extends Controller
         $image = [];
         $images = array_column($this->getAllNews(), 'images');
         foreach ($images as $value) {
-            $image[] = array_column($value, 'url', 'reference_id');
+            $image[] = array_column($value, 'image', 'reference_id');
         }
 
         $news = [];
         foreach ($this->getAllNews() as $value1) {
             foreach ($image as $value2) {
                 if ($value1['id'] == (int)implode(array_keys($value2))) {
-                    $news[] = array_fill_keys(['url'], implode($value2)) + $value1;
+                    $news[] = array_fill_keys(['image'], implode($value2)) + $value1;
                 }
             }
         }

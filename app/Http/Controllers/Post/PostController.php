@@ -67,7 +67,7 @@ class PostController extends Controller
         $post_id = DB::table('posts')->insertGetId($post);
 
         $image['reference_id'] = $post_id;
-        $image['url'] = $request->input('url');
+        $image['image'] = $request->input('image');
         $image['image_type'] = 'POST';
         DB::table('images')->insert($image);
 
@@ -89,7 +89,7 @@ class PostController extends Controller
         $post->status = $request->input('status');
         $post->save();
 
-        $image['url'] = 'WebPage/img/post/'.$request->input('url');
+        $image['image'] = 'WebPage/img/post/'.$request->input('url');
         $image['image_type'] = 'POST';
         Image::whereReferenceId($request->id)->whereImageType('POST')->update($image);
 

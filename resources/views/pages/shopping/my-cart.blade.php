@@ -25,7 +25,7 @@
                                         <button class="btn btn-sm" type="submit"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
-                                <td style="width: 200px"><img src="{{ $cart_item['url'] }}" alt="" width="100px"></td>
+                                <td style="width: 200px"><img src="{{ $cart_item['image'] }}" alt="" width="100px"></td>
                                 <td><b>{{ $cart_item['name'] }}</b></td>
                                 <td>${{ number_format($cart_item['price'], 0, '', '.') }}</td>
                                 <td style="width: 70px">

@@ -1,6 +1,6 @@
 <div class="post-item-type-1">
     <div class="post-image col-4">
-        <a href="{{URL::to('post-detail/'.$post_item['id'])}}"><img src="{{ asset($post_item['url']) }}" alt=""></a>
+        <a href="{{URL::to('post-detail/'.$post_item['id'])}}"><img src="{{ asset($post_item['image']) }}" alt=""></a>
     </div>
     <div class="post-infor col-8">
         <div class="post-type">

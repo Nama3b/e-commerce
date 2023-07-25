@@ -1,6 +1,6 @@
 <tr>
     <th>{{ $loop->iteration }}</th>
-    <th><img src="../{{ $item['url'] }}" alt="" width="120px"></th>
+    <th><img src="../{{ $item['image'] }}" alt="" width="120px"></th>
     <th>{{ $item['member']['full_name'] }}</th>
     <th>{{ $item['title'] }}</th>
     <th>{{ $item['post_type'] }}</th>
@@ -58,8 +58,8 @@
                     </div>
                     <div class="form-group form-image">
                         <label for="">Image</label>
-                        <img src="../{{ $item['url'] }}" alt="" class="form-img">
-                        <input type="hidden" name="url" value="{{ $item['url'] }}">
+                        <img src="../{{ $item['image'] }}" alt="" class="form-img">
+                        <input type="hidden" name="url" value="{{ $item['image'] }}">
                         <input type="file" name="url" class="image">
                     </div>
                     <div class="form-group">

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->integer('reference_id');
-            $table->string('url');
+            $table->string('image');
             $table->integer('sort_no')->default(1);
             $table->enum('image_type', ['PRODUCT', 'POST']);
             $table->timestamps();

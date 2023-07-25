@@ -17,7 +17,7 @@ class DetailImageTransformer extends TransformerAbstract
     {
         return [
             'reference_id' => $image->reference_id,
-            'url' => asset(Storage::url($image->url)),
+            'image' => asset(Storage::url($image->image)),
             'tag_type' => $image->sort_no,
             'image_type' => $image->image_type,
         ];

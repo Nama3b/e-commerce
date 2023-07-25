@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $name
- * @property string $thumbnail_image
+ * @property string $image
  * @property int $sort_no
  * @property string $type
  * @property Carbon|null $created_at
@@ -29,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Banner whereId($value)
  * @method static Builder|Banner whereName($value)
  * @method static Builder|Banner whereSortNo($value)
- * @method static Builder|Banner whereThumbnailImage($value)
+ * @method static Builder|Banner whereImage($value)
  * @method static Builder|Banner whereType($value)
  * @method static Builder|Banner whereUpdatedAt($value)
  * @method static Builder|Banner withTrashed()

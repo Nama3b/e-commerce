@@ -27,14 +27,14 @@ trait ProductResourceHelper
         $image = [];
         $images = array_column($this->getAllProducts()->toArray(), 'images');
         foreach ($images as $value) {
-            $image[] = array_column($value, 'url', 'reference_id');
+            $image[] = array_column($value, 'image', 'reference_id');
         }
 
         $products = [];
         foreach ($this->getAllProducts() as $value1) {
             foreach ($image as $value2) {
                 if ($value1['id'] == (int)implode(array_keys($value2))) {
-                    $products[] = array_fill_keys(['url'], implode($value2)) + $value1->toArray();
+                    $products[] = array_fill_keys(['image'], implode($value2)) + $value1->toArray();
                 }
             }
         }

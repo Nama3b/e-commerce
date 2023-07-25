@@ -74,7 +74,7 @@ class ProductController extends Controller
         $product_id = DB::table('products')->insertGetId($product);
 
         $image['reference_id'] = $product_id;
-        $image['url'] = 'WebPage/img/product/' . $request->url;
+        $image['image'] = 'WebPage/img/product/' . $request->image;
         $image['image_type'] = 'PRODUCT';
         DB::table('images')->insert($image);
 
@@ -99,7 +99,7 @@ class ProductController extends Controller
         $product->status = $request->status;
         $product->save();
 
-        $image['url'] = 'WebPage/img/product/'.$request->url;
+        $image['image'] = 'WebPage/img/product/'.$request->image;
         $image['image_type'] = 'PRODUCT';
         Image::whereReferenceId($request->id)->whereImageType('PRODUCT')->update($image);
 

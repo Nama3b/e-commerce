@@ -52,18 +52,18 @@ class BrandController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $image_name = '';
-        if($request->hasFile('thumbnail_image'))
+        if($request->hasFile('image'))
         {
             $destination_path = 'public/uploads/img';
-            $image = $request->file('thumbnail_image');
+            $image = $request->file('image');
             $image_name = $image->getClientOriginalName();
-            $request->file('thumbnail_image')->storeAs($destination_path, $image_name);
+            $request->file('image')->storeAs($destination_path, $image_name);
         }
 
         Brand::create([
             'name' => $request->input('name'),
-            'category_id' => [$request->input('category_id')],
-            'thumbnail_image' => $image_name,
+            'category_id' => [(int)$request->input('category_id')],
+            'image' => $image_name,
             'sort_no' => 1,
             'status' => $request->input('status'),
         ]);
@@ -80,10 +80,10 @@ class BrandController extends Controller
     {
         $brand = Brand::findOrFail($brand);
         $brand->name = $request->input('name');
-        if ($request->input('thumbnail_image1')) {
-            $brand->thumbnail_image = 'WebPage/img/brand/' . $request->input('thumbnail_image1');
+        if ($request->input('image1')) {
+            $brand->image = 'WebPage/img/brand/' . $request->input('image');
         } else {
-            $brand->thumbnail_image = $request->input('thumbnail_image');
+            $brand->image = $request->input('image');
         }
         $brand->status = $request->input('status');
         $brand->save();

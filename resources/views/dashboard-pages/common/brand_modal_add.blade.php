@@ -16,9 +16,9 @@
                         <label for="">Name</label>
                         <input type="text" class="form-input" name="name" placeholder="Brand name" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: flow-root">
                         <label for="">Category</label>
-                        <select name="category_id">
+                        <select name="category_id[]" multiple>
                             @foreach ($category as $option)
                                 <option value="{{ $option['id'] }}">{{ $option['name'] }}</option>
                             @endforeach
@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Image</label>
-                        <input type="file" name="thumbnail_image" required>
+                        <input type="file" name="image" required>
                     </div>
                     <div class="form-group">
                         <label for="">Status</label>

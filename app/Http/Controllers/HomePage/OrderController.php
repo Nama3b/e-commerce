@@ -94,7 +94,7 @@ class OrderController extends Controller
                 'name' => $product_item[$i]['name'],
                 'price' => $product_item[$i]['price'],
                 'quantity' => $quantity,
-                'url' => $product_item[$i]['url']
+                'image' => $product_item[$i]['image']
             ];
         }
 
@@ -205,7 +205,7 @@ class OrderController extends Controller
                 'name' => $cart_item['name'],
                 'price' => $cart_item['price'],
                 'quantity' => $cart_item['quantity'],
-                'image' => $cart_item['url'],
+                'image' => $cart_item['image'],
             ]);
         }
 

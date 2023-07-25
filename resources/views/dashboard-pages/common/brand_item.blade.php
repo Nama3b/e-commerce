@@ -1,8 +1,12 @@
 <tr>
     <th>{{ $loop->iteration }}</th>
     <th>
-        <img src="{{ asset($item['thumbnail_image']) }}" alt="" width="120px" id="thumbnail_img_1">
-        <img src="{{ asset('/storage/public/uploads/img/'.$item['thumbnail_image']) }}" alt="" width="120px" id="thumbnail_img_2"></th>
+        @if(file_exists($item['image']))
+            <img src="{{ asset($item['image']) }}" alt="" width="120px">
+        @else
+            <img src="{{ asset('/storage/public/uploads/img/'.$item['image']) }}" alt="" width="120px">
+        @endif
+    </th>
     <th>{{ $item['name'] }}</th>
     <th>{{ $item['status'] ? 'Active' : 'Inactive'}}</th>
     <th>

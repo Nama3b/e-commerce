@@ -10,7 +10,7 @@
                         <table>
                             @foreach($cart as $cart_item)
                                 <tr class="tbl-body">
-                                    <td><img src="{{ $cart_item['url'] }}" alt="" width="100px"></td>
+                                    <td><img src="{{ $cart_item['image'] }}" alt="" width="100px"></td>
                                     <td><b></b></td>
                                     <td>${{ number_format($cart_item['price'], 0, '', '.') }}</td>
                                     <td>

@@ -33,7 +33,7 @@
                                     @foreach($brand_all as $item)
                                         <div class="item">
                                             <div class="pad15">
-                                                <a href="{{ URL::to('product-by-brand/'.$item->id) }}"><img src="{{$item->thumbnail_image}}" alt="" width="100%" height="130px"></a>
+                                                <a href="{{ URL::to('product-by-brand/'.$item->id) }}"><img src="{{$item->image}}" alt="" width="100%" height="130px"></a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -219,7 +219,7 @@
                                 @foreach($banner as $item)
                                     <div class="item">
                                         <div class="pad15">
-                                            <a href=""><img src="{{$item->thumbnail_image}}" alt="" width="100%" height="130px"></a>
+                                            <a href=""><img src="{{$item->image}}" alt="" width="100%" height="130px"></a>
                                         </div>
                                     </div>
                                 @endforeach

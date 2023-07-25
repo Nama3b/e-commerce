@@ -88,7 +88,7 @@
                                     <div class="d-flex">
                                         <div class="cart-item-img">
                                             <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}"><img
-                                                    src="../{{ $cart_item['url'] }}" alt=""></a>
+                                                    src="../{{ $cart_item['image'] }}" alt=""></a>
                                         </div>
                                         <div class="d-flex">
                                             <div class="cart-item-infor">

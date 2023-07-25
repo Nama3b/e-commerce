@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('thumbnail_image');
+            $table->string('image');
             $table->integer('sort_no');
             $table->enum('type', ['SNEAKER', 'CLOTHES']);
             $table->timestamps();
