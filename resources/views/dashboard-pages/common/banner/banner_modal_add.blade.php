@@ -18,7 +18,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">Image</label>
-                        <input type="file" name="image" required>
+                        <label for="file-upload" class="custom-file-upload">
+                            <i class="fa fa-cloud-upload"></i> Image Upload
+                        </label>
+                        <input id="file-upload" type="file" name="image" class="file-upload" required>
                     </div>
                     <div class="form-group">
                         <label for="">Type</label>

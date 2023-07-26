@@ -40,7 +40,10 @@
                         @else
                             <img src="{{ asset('/storage/public/uploads/img/'.$item['image']) }}" class="form-img">
                         @endif
-                        <input type="file" name="image" class="image">
+                        <label for="file-upload" class="custom-file-upload">
+                            <i class="fa fa-cloud-upload"></i> Image Upload
+                        </label>
+                        <input id="file-upload" type="file" name="image" class="file-upload">
                     </div>
                     <div class="form-group">
                         <label for="">Status</label>

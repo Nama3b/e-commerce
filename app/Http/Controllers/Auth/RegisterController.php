@@ -45,7 +45,7 @@ class RegisterController extends Controller
             'address' => $request->input('address'),
             'phone_number' => $request->input('phone_number'),
             'birthday' => $request->input('birthday'),
-            'image' => $request->input('image'),
+            'image' => 'WebPage/img/home/logo.jpg',
         ]);
 
         return redirect()->back()->with('success', 'Create user successfully!');
