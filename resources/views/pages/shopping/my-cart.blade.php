@@ -10,7 +10,7 @@
                         <tr class="tbl-header">
                             <td></td>
                             <td>Image</td>
-                            <td>Product name</td>
+                            <td>Product</td>
                             <td>Price</td>
                             <td>Quantity</td>
                             <td>Total</td>
@@ -25,7 +25,13 @@
                                         <button class="btn btn-sm" type="submit"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
-                                <td style="width: 200px"><img src="{{ $cart_item['image'] }}" alt="" width="100px"></td>
+                                <td style="width: 200px; padding: 5px">
+                                    @if(file_exists($cart_item['image']))
+                                        <img src="{{ $cart_item['image'] }}" alt="" width="110px" height="75px">
+                                    @else
+                                        <img src="{{ asset('/storage/public/uploads/img/'.$cart_item['image']) }}" alt="" width="110px" height="75px">
+                                    @endif
+                                </td>
                                 <td><b>{{ $cart_item['name'] }}</b></td>
                                 <td>${{ number_format($cart_item['price'], 0, '', '.') }}</td>
                                 <td style="width: 70px">

@@ -30,15 +30,15 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
                             <th>Image</th>
+                            <th>Name</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($data as $item)
-                            @include('dashboard-pages.common.brand_item')
+                            @include('dashboard-pages.common.brand.brand_item')
                         @endforeach
                         </tbody>
                     </table>
@@ -55,8 +55,8 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
                                 <th>Image</th>
+                                <th>Name</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -64,7 +64,7 @@
                             <tbody>
                             @foreach ($data as $item)
                                 @if(in_array($cat_item['id'], $item['category_id']))
-                                    @include('dashboard-pages.common.brand_item')
+                                    @include('dashboard-pages.common.brand.brand_item')
                                 @endif
                             @endforeach
                             </tbody>
@@ -75,10 +75,10 @@
         </div>
     </div>
 
-    @include('dashboard-pages.common.brand_modal_add')
+    @include('dashboard-pages.common.brand.brand_modal_add')
 
     @foreach($data as $item)
-        @include('dashboard-pages.common.brand_modal_edit')
+        @include('dashboard-pages.common.brand.brand_modal_edit')
     @endforeach
 
 @endsection

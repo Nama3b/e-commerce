@@ -9,46 +9,115 @@
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="pill" href="#all">All</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#processing">Processing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#delivering">Delivering</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#completed">Completed</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#cancelled">Cancelled</a>
-                </li>
+                @foreach ($status as $status_item)
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill"
+                           href="#status{{$loop->iteration}}">{{ $status_item }}</a>
+                    </li>
+                @endforeach
             </ul>
 
             <div class="tab-content">
-                <div id="all" class=" tab-pane active"><br>
-                    @foreach ($data as $item)
-                        @include('dashboard-pages.common.order_item')
+                <div id="all" class="tab-pane active">
+                    @foreach($data as $item)
+                        <h4>Order#</h4>
+                        <div class="order-item">
+                            <div class="col-8">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($item['orderdetails'] as $detail)
+                                        @include('dashboard-pages.common.order.order_item')
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                @if ($item['status'] != 'CANCELLED')
+                                    <form action="{{ URL::to('/dashboard/order/edit/'.$item['id']) }}" method="post"
+                                          class="order-status">
+                                        @csrf
+                                        @method('PATCH')
+                                        <select name="status">
+                                            @foreach ($status as $key => $option)
+                                                <option
+                                                    value="{{ $key+1 }}" {{ $option == $item['status'] ? 'selected' : '' }}>{{ $option }}</option>
+                                            @endforeach
+                                        </select>
+                                        <button type="submit" class="btn btn-sm btn-outline-success">Update status
+                                        </button>
+                                    </form>
+                                @else
+                                    <div class="order-status">
+                                        <select name="status">
+                                            <option value="4">{{ $item['status'] }}</option>
+                                        </select>
+                                    </div>
+                                @endif
+                            </div>
+                            @include('dashboard-pages.common.order.customer_info')
+                        </div>
                     @endforeach
                 </div>
-                <div id="processing" class=" tab-pane fade"><br>
-                    @foreach ($data_processing as $item)
-                        @include('dashboard-pages.common.order_item')
-                    @endforeach
-                </div>
-                <div id="delivering" class=" tab-pane fade"><br>
-                    @foreach ($data_delivering as $item)
-                        @include('dashboard-pages.common.order_item')
-                    @endforeach
-                </div>
-                <div id="completed" class=" tab-pane fade"><br>
-                    @foreach ($data_completed as $item)
-                        @include('dashboard-pages.common.order_item')
-                    @endforeach
-                </div>
-                <div id="cancelled" class=" tab-pane fade"><br>
-                    @foreach ($data_cancelled as $item)
-                        @include('dashboard-pages.common.order_item')
-                    @endforeach
-                </div>
+
+                @foreach ($status as $status_item)
+                    <div id="status{{ $loop->iteration }}" class="tab-pane active"><br>
+                        @foreach (collect($data)->where('status', $status_item) as $item)
+                            <h4>Order#{{ $loop->iteration }}</h4>
+                            <div class="order-item">
+                                <div class="col-8">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($item['orderdetails'] as $detail)
+                                            @include('dashboard-pages.common.order.order_item')
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                    @if ($item['status'] != 'CANCELLED')
+                                        <form action="{{ URL::to('/dashboard/order/edit/'.$item['id']) }}" method="post"
+                                              class="order-status">
+                                            @csrf
+                                            @method('PATCH')
+                                            <select name="status">
+                                                @foreach ($status as $key => $option)
+                                                    <option
+                                                        value="{{ $key+1 }}" {{ $option == $item['status'] ? 'selected' : '' }}>{{ $option }}</option>
+                                                @endforeach
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-outline-success">Update status
+                                            </button>
+                                        </form>
+                                    @else
+                                        <div class="order-status">
+                                            <select name="status">
+                                                <option value="4">{{ $item['status'] }}</option>
+                                            </select>
+                                        </div>
+                                    @endif
+                                </div>
+                                @include('dashboard-pages.common.order.customer_info')
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
             </div>
         </div>
+    </div>
 @endsection

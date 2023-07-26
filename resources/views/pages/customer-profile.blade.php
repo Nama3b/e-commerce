@@ -15,17 +15,25 @@
             </div>
 
             <div class="row">
-                <form action="{{ URL::to('update-customer-profile').'/'.$user->id }}" method="post" class="form-control">
-                    {{ csrf_field() }}
+                <form action="{{ URL::to('update-customer-profile').'/'.$user->id }}" method="post" class="form-control"
+                      enctype="multipart/form-data">
+                    @csrf
                     @method('PATCH')
                     <div class="col-4">
                         <div class="card mb-4">
                             <div class="card-body text-center">
-                                <img src="{{ $user->avatar }}"
-                                     alt="avatar"
-                                     class="rounded-circle img-fluid">
-                                <input type="hidden" name="avatar" value="{{ $user->avatar }}">
-                                <h5 class="my-3">{{ $user->full_name }}</h5>
+                                @if(file_exists($user->image))
+                                    <img src="{{ asset($user->image) }}" class="rounded-circle img-fluid">
+                                @else
+                                    <img src="{{ asset('/storage/public/uploads/img/'.$user->image) }}"
+                                         class="rounded-circle img-fluid">
+                                @endif
+                                <label for="file-upload" class="custom-file-upload">
+                                    <i class="fa fa-cloud-upload"></i> Avatar Upload
+                                </label>
+                                <input id="file-upload" type="file" name="image" class="file-upload">
+                                <input type="hidden" name="image" value="{{ $user->image }}">
+                                <h5 class="my-3"><b>{{ $user->full_name }}</b></h5>
                                 <p class="text-muted mb-1"><i class="fas fa-user-graduate mr-2"></i>Full Stack Developer
                                 </p>
                                 <p class="text-muted mb-4"><i class="fas fa-house-user mr-2"></i>{{ $user->address }}
@@ -73,7 +81,8 @@
                                         <p class="mb-0">Full Name <span>*</span></p>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-input" name="full_name" value="{{ $user->full_name }}" required>
+                                        <input type="text" class="form-input" name="full_name"
+                                               value="{{ $user->full_name }}" required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -81,7 +90,8 @@
                                         <p class="mb-0">Email <span>*</span></p>
                                     </div>
                                     <div class="col-9">
-                                        <input type="email" class="form-input" name="email" value="{{ $user->email }}" required>
+                                        <input type="email" class="form-input" name="email" value="{{ $user->email }}"
+                                               required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -89,7 +99,8 @@
                                         <p class="mb-0">Password <span>*</span></p>
                                     </div>
                                     <div class="col-9">
-                                        <input type="password" class="form-input" name="password" value="{{ $user->password }}" required>
+                                        <input type="password" class="form-input" name="password"
+                                               value="{{ $user->password }}" required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -97,7 +108,8 @@
                                         <p class="mb-0">Phone number <span>*</span></p>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-input" name="phone_number" value="{{ $user->phone_number }}" required>
+                                        <input type="text" class="form-input" name="phone_number"
+                                               value="{{ $user->phone_number }}" required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -105,7 +117,8 @@
                                         <p class="mb-0">Address <span>*</span></p>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-input" name="address" value="{{ $user->address }}" required>
+                                        <input type="text" class="form-input" name="address"
+                                               value="{{ $user->address }}" required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -113,7 +126,8 @@
                                         <p class="mb-0">Birthday </p>
                                     </div>
                                     <div class="col-9">
-                                        <input type="date" class="form-input" name="birthday" value="{{ $user->birthday }}">
+                                        <input type="date" class="form-input" name="birthday"
+                                               value="{{ $user->birthday }}">
                                     </div>
                                 </div>
                             </div>

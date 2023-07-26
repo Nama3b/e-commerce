@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image');
             $table->integer('sort_no');
-            $table->enum('type', ['SNEAKER', 'CLOTHES']);
+            $table->enum('type', ['SNEAKER', 'CLOTHES', 'WATCHES', 'ACCESSORY']);
             $table->timestamps();
             $table->softDeletes();
         });

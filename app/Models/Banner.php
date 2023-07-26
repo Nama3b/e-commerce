@@ -41,10 +41,10 @@ class Banner extends Model
     use HasFactory, SoftDeletes;
 
     const TYPE = ['SNEAKER', 'CLOTHES', 'WATCHES', 'ACCESSORY'];
-    const CREATE = 'CREATE_BRAND';
-    const VIEW = 'VIEW_BRAND';
-    const EDIT = 'EDIT_BRAND';
-    const DELETE = 'DELETE_BRAND';
+    const CREATE = 'CREATE_BANNER';
+    const VIEW = 'VIEW_BANNER';
+    const EDIT = 'EDIT_BANNER';
+    const DELETE = 'DELETE_BANNER';
 
     /**
      * The table associated with the model.
@@ -60,6 +60,6 @@ class Banner extends Model
         'name',
         'type',
         'sort_no',
-        'thumbnail_image',
+        'image',
     ];
 }

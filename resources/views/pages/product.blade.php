@@ -38,8 +38,8 @@
                     <div class="col-10">
                         <div class="feature-product">
                             <div class="d-flex">
-                                <div class="col-6">
-                                    <p>Home / Product</p>
+                                <div class="col-6 product-title">
+                                    <p><a href="{{ URL::to('home') }}">Home</a> / <a href="{{ URL::to('product') }}">Product</a></p>
                                 </div>
                                 <div class="col-6 text-right mb-3">
                                     <select name="sort" id="">
@@ -54,7 +54,7 @@
                         <div class="product-section">
                             @foreach($products as $key => $product_item)
                                 <form action="{{URL::to('/add-cart')}}" method="post">
-                                    {{ csrf_field() }}
+                                    @csrf
                                     @include('pages.common.product_item')
                                 </form>
                             @endforeach

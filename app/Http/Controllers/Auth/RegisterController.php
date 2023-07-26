@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Customer;
 use App\Rules\ValidRecaptcha;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +14,8 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers, VerifiesEmails;
+    use RegistersUsers,
+        VerifiesEmails;
 
     /**
      * @param Request $request
@@ -30,7 +30,7 @@ class RegisterController extends Controller
             'address' => 'required|string|max:255',
             'phone_number' => 'required|string|unique:customers,phone_number|max:13',
             'birthday' => 'nullable',
-            'avatar' => 'nullable',
+            'image' => 'nullable',
             'g-recaptcha-response' => ['required', new ValidRecaptcha()],
         ]);
 
@@ -39,13 +39,13 @@ class RegisterController extends Controller
 
         Customer::create([
             'role_id' => 3,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'full_name' => $request->full_name,
-            'address' => $request->address,
-            'phone_number' => $request->phone_number,
-            'birthday' => $request->birthday,
-            'avatar' => $request->avatar,
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+            'full_name' => $request->input('full_name'),
+            'address' => $request->input('address'),
+            'phone_number' => $request->input('phone_number'),
+            'birthday' => $request->input('birthday'),
+            'image' => $request->input('image'),
         ]);
 
         return redirect()->back()->with('success', 'Create user successfully!');

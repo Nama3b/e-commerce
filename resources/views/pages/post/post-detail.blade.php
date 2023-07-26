@@ -5,7 +5,12 @@
             <div class="col-md-9 mb40">
                 <article>
                     <div style="height: 450px; overflow: hidden;">
-                        <img src="{{ asset($data['images'][0]['image']) }}" alt="" class="img-fluid mb30"></div>
+                        @if(file_exists($data['images'][0]['image']))
+                            <img src="{{ asset($data['images'][0]['image']) }}" alt="" class="img-fluid mb30">
+                        @else
+                            <img src="{{ asset('/storage/public/uploads/img/'.$data['images'][0]['image']) }}" alt="" class="img-fluid mb30">
+                        @endif
+                    </div>
                     <div class="post-content">
                         <h3>{{ $data['title'] }}</h3>
                         <ul class="post-meta list-inline">
@@ -134,7 +139,11 @@
                         @foreach($data_latest as $item)
                             <li class="media">
                                 <a href="{{ URL::to('post-detail/'.$item['id']) }}">
-                                    <img class="d-flex mr-3 img-fluid" width="64" src="{{ asset($item['image']) }}">
+                                    @if(file_exists($item['image']))
+                                        <img class="d-flex mr-3 img-fluid" width="64" src="{{ asset($item['image']) }}">
+                                    @else
+                                        <img class="d-flex mr-3 img-fluid" width="64"  src="{{ asset('/storage/public/uploads/img/'.$item['image']) }}">
+                                    @endif
                                 </a>
                                 <div class="media-body">
                                     <h5 class="mt-0 mb-1"><a href="{{ URL::to('post-detail/'.$item['id']) }}">{{ $item['title'] }}</a></h5>

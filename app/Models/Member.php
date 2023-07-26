@@ -25,7 +25,7 @@ use Illuminate\Support\Carbon;
  * @property string $phone_number
  * @property string|null $birthday
  * @property string $identity_no
- * @property string|null $avatar
+ * @property string|null $image
  * @property int $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -46,7 +46,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Member onlyTrashed()
  * @method static Builder|Member query()
  * @method static Builder|Member whereAddress($value)
- * @method static Builder|Member whereAvatar($value)
+ * @method static Builder|Member whereImage($value)
  * @method static Builder|Member whereBirthday($value)
  * @method static Builder|Member whereCreatedAt($value)
  * @method static Builder|Member whereDeletedAt($value)
@@ -95,7 +95,7 @@ class Member extends Authenticatable
         'phone_number',
         'birthday',
         'identity_no',
-        'avatar',
+        'image',
         'status',
         'approver',
     ];

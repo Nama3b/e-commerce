@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProductCategory;
-use App\Support\HandleComponentError;
-use App\Support\HandleJsonResponses;
-use App\Support\WithPaginationLimit;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -17,10 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class ProductCategoryController extends Controller
 {
-    use WithPaginationLimit,
-        HandleJsonResponses,
-        HandleComponentError;
-
 
     /**
      * @return Application|Factory|View

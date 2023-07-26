@@ -13,6 +13,7 @@ use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Product\BrandController;
 use App\Http\Controllers\Product\ProductCategoryController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Resource\BannerController;
 use App\Http\Controllers\Resource\CommentController;
 use App\Http\Controllers\Resource\FavoriteController;
 use App\Http\Controllers\Resource\ImageController;
@@ -229,6 +230,20 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::delete('post/delete/{post}', [PostController::class, 'delete'])
         ->name('post.delete')
         ->middleware(['checkManagerPermission:DELETE_POST']);
+
+    Route::get('banner', [BannerController::class, 'list'])
+        ->name('banner')
+        ->middleware(['checkManagerPermission:VIEW_BANNER']);
+    Route::post('banner/store', [BannerController::class, 'store'])
+        ->name('banner.store')
+        ->middleware(['checkManagerPermission:CREATE_BANNER']);
+    Route::patch('banner/edit/{banner}', [BannerController::class, 'edit'])
+        ->name('banner.edit')
+        ->middleware(['checkManagerPermission:EDIT_BANNER']);
+    Route::delete('banner/delete/{banner}', [BannerController::class, 'delete'])
+        ->name('banner.delete')
+        ->middleware(['checkManagerPermission:DELETE_BANNER']);
+
 
     Route::get('comment', [CommentController::class, 'list'])
         ->name('comment')

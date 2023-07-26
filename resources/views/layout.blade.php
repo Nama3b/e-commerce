@@ -87,8 +87,13 @@
                                 <li>
                                     <div class="d-flex">
                                         <div class="cart-item-img">
-                                            <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}"><img
-                                                    src="../{{ $cart_item['image'] }}" alt=""></a>
+                                            <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}">
+                                                @if(file_exists($cart_item['image']))
+                                                    <img src="{{ asset($cart_item['image']) }}" alt="" height="45px">
+                                                @else
+                                                    <img src="{{ asset('/storage/public/uploads/img/'.$cart_item['image']) }}" alt="" height="45px">
+                                                @endif
+                                            </a>
                                         </div>
                                         <div class="d-flex">
                                             <div class="cart-item-infor">
@@ -128,7 +133,11 @@
                     @else
                         <div class="dropdown">
                             <button class="btn btn-outline-dark btn-user" type="button" data-toggle="dropdown">
-                                <img src="{{$customer->avatar}}" alt="" width="90%">
+                                @if(file_exists($customer->image))
+                                    <img src="{{ $customer->image }}" width="90%">
+                                @else
+                                    <img src="{{ asset('/storage/public/uploads/img/'.$customer->image) }}" width="90%">
+                                @endif
                             </button>
                             <i class="fas fa-caret-down d-none"></i>
                             <ul class="dropdown-menu dropdown-user">

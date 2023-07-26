@@ -1,6 +1,12 @@
 <div class="post-item-type-1">
     <div class="post-image col-4">
-        <a href="{{URL::to('post-detail/'.$post_item['id'])}}"><img src="{{ asset($post_item['image']) }}" alt=""></a>
+        <a href="{{URL::to('post-detail/'.$post_item['id'])}}">
+            @if(file_exists($post_item['image']))
+                <img src="{{ asset($post_item['image']) }}" alt="">
+            @else
+                <img src="{{ asset('/storage/public/uploads/img/'.$post_item['image']) }}" alt="">
+            @endif
+        </a>
     </div>
     <div class="post-infor col-8">
         <div class="post-type">

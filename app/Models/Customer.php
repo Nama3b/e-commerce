@@ -23,7 +23,7 @@ use Illuminate\Support\Carbon;
  * @property string $address
  * @property string $phone_number
  * @property string|null $birthday
- * @property string|null $avatar
+ * @property string|null $image
  * @property int $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -39,7 +39,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Customer onlyTrashed()
  * @method static Builder|Customer query()
  * @method static Builder|Customer whereAddress($value)
- * @method static Builder|Customer whereAvatar($value)
+ * @method static Builder|Customer whereImage($value)
  * @method static Builder|Customer whereBirthday($value)
  * @method static Builder|Customer whereCreatedAt($value)
  * @method static Builder|Customer whereDeletedAt($value)
@@ -80,7 +80,7 @@ class Customer extends Authenticatable implements MustVerifyEmail
         'address',
         'phone_number',
         'birthday',
-        'avatar',
+        'image',
         'status'
     ];
 

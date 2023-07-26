@@ -24,7 +24,11 @@ use Illuminate\Support\Facades\Mail;
 class OrderController extends Controller
 {
 
-    use CategoryResourceHelper, BrandResourceHelper, ProductResourceHelper, CartResourceHelper, CustomerFromSessionResourceHelper;
+    use CategoryResourceHelper,
+        BrandResourceHelper,
+        ProductResourceHelper,
+        CartResourceHelper,
+        CustomerFromSessionResourceHelper;
 
     /**
      * @param Request $request
@@ -51,7 +55,7 @@ class OrderController extends Controller
     }
 
     /**
-     * @param Order $order
+     * @param $order
      * @return RedirectResponse
      */
     public function edit($order): RedirectResponse
@@ -69,7 +73,7 @@ class OrderController extends Controller
      */
     public function addToCart(Request $request): RedirectResponse
     {
-        $id = $request->productId_hidden;
+        $id = $request->input('productId_hidden');
 
         $products = collect($this->getProductImage())->filter(function ($item) use ($id) {
             return $item['id'] == $id;
@@ -124,7 +128,7 @@ class OrderController extends Controller
      */
     public function removeFromCart(Request $request): RedirectResponse
     {
-        $id = $request->productId_hidden;
+        $id = $request->input('productId_hidden');
 
         $cartItems = $this->myCart();
 
@@ -188,12 +192,12 @@ class OrderController extends Controller
 
         $order = Order::create([
             'customer_id' => Auth()->guard('customer')->user()->id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'address' => $request->address,
-            'phone_number' => $request->phone_number,
-            'notice' => $request->notice,
-            'total' => $request->total,
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'address' => $request->input('address'),
+            'phone_number' => $request->input('phone_number'),
+            'notice' => $request->input('notice'),
+            'total' => $request->input('total'),
             'created_at' => $time_now,
             'updated_at' => $time_now,
         ]);
@@ -228,8 +232,7 @@ class OrderController extends Controller
      * @param Request $request
      * @return Factory|View|Application
      */
-    public
-    function orderStatus(Request $request): Factory|View|Application
+    public function orderStatus(Request $request): Factory|View|Application
     {
         $cart = $this->myCart();
         $count_cart = $this->countCart();
@@ -238,10 +241,7 @@ class OrderController extends Controller
         $brand_all = $this->getAllBrand();
 
         $order = $this->getAllOrder();
-        $order_processing = $this->getAllOrder()->where('status', 'PROCESSING');
-        $order_delivering = $this->getAllOrder()->where('status', 'DELIVERING');
-        $order_completed = $this->getAllOrder()->where('status', 'COMPLETED');
-        $order_cancelled = $this->getAllOrder()->where('status', 'CANCELLED');
+        $status = Order::STATUS;
 
         return view('pages.shopping.order-status')
             ->with(compact(
@@ -251,10 +251,7 @@ class OrderController extends Controller
                 'categories',
                 'brand_all',
                 'order',
-                'order_processing',
-                'order_delivering',
-                'order_completed',
-                'order_cancelled'
+                'status'
             ));
     }
 

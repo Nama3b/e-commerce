@@ -15,14 +15,13 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->integer('reference_id');
+            $table->json('reference_id')->nullable();
             $table->unsignedBigInteger('creator');
             $table->string('name');
-            $table->enum('tag_type', ['PRODUCT', 'POST']);
+            $table->enum('type', ['PRODUCT', 'POST']);
             $table->timestamps();
             $table->softDeletes();
 
-//            $table->foreign('reference_id')->references('id')->on('products')->on('posts')->onUpdate('cascade');
             $table->foreign('creator')->references('id')->on('members')->onUpdate('cascade');
         });
     }

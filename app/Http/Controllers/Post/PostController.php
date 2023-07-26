@@ -11,6 +11,7 @@ use App\Support\HandleJsonResponses;
 use App\Support\ResourceHelper\ImageHandlerResourceHelper;
 use App\Support\ResourceHelper\PostResourceHelper;
 use App\Support\WithPaginationLimit;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -64,11 +65,14 @@ class PostController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $time_now = Carbon::now();
+
         $post = [];
         $post['author'] = $request->input('author');
         $post['title'] = $request->input('title');
         $post['content'] = $request->input('content');
         $post['post_type'] = $request->input('post_type');
+        $post['created_at'] = $time_now;
         $post_id = DB::table('posts')->insertGetId($post);
 
         $image['reference_id'] = $post_id;

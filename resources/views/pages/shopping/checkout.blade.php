@@ -10,7 +10,13 @@
                         <table>
                             @foreach($cart as $cart_item)
                                 <tr class="tbl-body">
-                                    <td><img src="{{ $cart_item['image'] }}" alt="" width="100px"></td>
+                                    <td>
+                                        @if(file_exists($cart_item['image']))
+                                            <img src="{{ $cart_item['image'] }}" alt="" width="110px" height="75px">
+                                        @else
+                                            <img src="{{ asset('/storage/public/uploads/img/'.$cart_item['image']) }}" alt="" width="110px" height="75px">
+                                        @endif
+                                    </td>
                                     <td><b></b></td>
                                     <td>${{ number_format($cart_item['price'], 0, '', '.') }}</td>
                                     <td>

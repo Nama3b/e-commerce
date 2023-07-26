@@ -16,7 +16,11 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
-    use CategoryResourceHelper, BrandResourceHelper, ProductResourceHelper, CartResourceHelper, CustomerFromSessionResourceHelper;
+    use CategoryResourceHelper,
+        BrandResourceHelper,
+        ProductResourceHelper,
+        CartResourceHelper,
+        CustomerFromSessionResourceHelper;
 
     /**
      * @param Request $request
@@ -90,7 +94,7 @@ class ProductController extends Controller
         $products_relate = collect($this->getProductImage())
             ->where('category_id', '=', (int)implode(array_column($detail, 'category_id')))
             ->whereNotIn('id', $id)
-            ->take(5)->toArray();
+            ->random(5)->toArray();
 
         $categories = $this->getAllCategory();
 

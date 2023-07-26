@@ -7,18 +7,12 @@
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="pill" href="#all">All</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#processing">Processing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#delivering">Delivering</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#completed">Completed</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#cancelled">Cancelled</a>
-                    </li>
+                    @foreach($status as $status_item)
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="pill"
+                               href="#status{{ $loop->iteration }}">{{ $status_item }}</a>
+                        </li>
+                    @endforeach
                 </ul>
 
                 <div class="tab-content">
@@ -31,42 +25,17 @@
                             @include('pages.common.no-order-status')
                         @endif
                     </div>
-                    <div id="processing" class="container tab-pane fade"><br>
-                        @if ($order_processing->toArray() != null)
-                            @foreach ($order_processing as $order_item)
-                                @include('pages.common.order_item')
-                            @endforeach
-                        @else
-                            @include('pages.common.no-order-status')
-                        @endif
-                    </div>
-                    <div id="delivering" class="container tab-pane fade"><br>
-                        @if ($order_delivering->toArray() != null)
-                            @foreach ($order_delivering as $order_item)
-                                @include('pages.common.order_item')
-                            @endforeach
-                        @else
-                            @include('pages.common.no-order-status')
-                        @endif
-                    </div>
-                    <div id="completed" class="container tab-pane fade"><br>
-                        @if ($order_completed->toArray() != null)
-                            @foreach ($order_completed as $order_item)
-                                @include('pages.common.order_item')
-                            @endforeach
-                        @else
-                            @include('pages.common.no-order-status')
-                        @endif
-                    </div>
-                    <div id="cancelled" class="container tab-pane fade"><br>
-                        @if ($order_cancelled->toArray() != null)
-                            @foreach ($order_cancelled as $order_item)
-                                @include('pages.common.order_item')
-                            @endforeach
-                        @else
-                            @include('pages.common.no-order-status')
-                        @endif
-                    </div>
+                    @foreach($status as $status_item)
+                        <div id="status{{ $loop->iteration }}" class="container tab-pane fade"><br>
+                            @if ($order->toArray() != null)
+                                @foreach ($order->where('status', $status_item) as $order_item)
+                                    @include('pages.common.order_item')
+                                @endforeach
+                            @else
+                                @include('pages.common.no-order-status')
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

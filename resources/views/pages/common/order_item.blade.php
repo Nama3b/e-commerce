@@ -6,7 +6,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <img src="../{{ $order_detail_item->image }}" class="img-fluid" alt="Phone">
+                            @if(file_exists($order_detail_item->image))
+                                <img src="{{ asset($order_detail_item->image) }}" width="120px" height="80px">
+                            @else
+                                <img src="{{ asset('/storage/public/uploads/img/'.$order_detail_item->image) }}" width="120px" height="80px">
+                            @endif
                         </div>
                         <div class="col-md-4 row-item">
                             <p class="text-muted mb-0">{{ $order_detail_item->name }}</p>

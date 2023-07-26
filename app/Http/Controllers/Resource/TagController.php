@@ -2,108 +2,80 @@
 
 namespace App\Http\Controllers\Resource;
 
-use App\Components\Tag\Creator;
-use App\Components\Tag\Editor;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Resource\EditTagRequest;
-use App\Http\Requests\Resource\StoreTagRequest;
 use App\Models\Tag;
-use App\Support\HandleComponentError;
-use App\Support\HandleJsonResponses;
-use App\Support\WithPaginationLimit;
-use App\Transformers\Resource\DetailTagTransformer;
-use Illuminate\Http\JsonResponse;
+use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    use WithPaginationLimit, HandleJsonResponses, HandleComponentError;
 
     /**
+     * @return Application|Factory|View
+     */
+    public function list(): Application|Factory|View
+    {
+        $data = Tag::with('member')->get()->toArray();
+        $type = Tag::TYPE;
+
+        return view('dashboard-pages.tag')
+            ->with(compact(
+                'data',
+                'type'
+            ));
+    }
+
+    /**
+     * @param Request $request
      * @return RedirectResponse
      */
-    public function index(): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        return redirect()->route('tag');
+        $time_now = Carbon::now();
+        Tag::create([
+            'name' => $request->input('name'),
+            'creator' => Auth()->guard('member')->user()->id,
+            'type' => $request->input('type'),
+            'created_at' => $time_now
+        ]);
+
+        return redirect()->back()->with('success', 'Tag added successfully!');
     }
 
     /**
+     * @param $tag
      * @param Request $request
-     * @return mixed
+     * @return RedirectResponse
      */
-    public function list(Request $request): mixed
+    public function edit(Request $request, $tag): RedirectResponse
     {
-        list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
+        $tag = Tag::findOrFail($tag);
+        $tag->name = $request->input('name');
+        $tag->type = $request->input('type');
+        $tag->save();
 
-        $config = [
-            "placeholder" => "Select multiple options..",
-            "allowClear" => true
-        ];
-
-        return (new $instance)
-            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create'));
+        return redirect()->back()->with('success', 'Tag updated successfully!');
     }
 
     /**
-     * @param StoreTagRequest $request
-     * @return JsonResponse|mixed
+     * @param $tag
+     * @return RedirectResponse
      */
-    public function store(StoreTagRequest $request): mixed
+    public function delete($tag): RedirectResponse
     {
-        return $this->withComponentErrorHandling(function () use ($request) {
-            $status = (new Creator($request))->create();
+        $tag = Tag::find($tag);
 
-            return optional($status)->id ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
+        if (!$tag) {
+            return redirect()->route('dashboard/banner')->with('error', 'Cannot find a record!');
+        }
+
+        $tag->delete();
+
+        return redirect()->back()->with('success', 'Tag deleted successfully!');
     }
 
-    /**
-     * @param Tag $tag
-     * @param EditTagRequest $request
-     * @return JsonResponse|mixed
-     */
-    public function edit(Tag $tag, EditTagRequest $request): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($tag, $request) {
-            $status = (new Editor($request))->edit($tag);
-
-            return $status ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
-    }
-
-    /**
-     * @param Tag $tag
-     * @param Request $request
-     * @return JsonResponse|mixed
-     */
-    public function delete(Tag $tag, Request $request): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($tag, $request) {
-            $status = $tag->delete();
-
-            return $status ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
-    }
-
-    /**
-     * @param Tag $tag
-     * @return JsonResponse|mixed
-     */
-    public function detail(Tag $tag): mixed
-    {
-        return $this->withComponentErrorHandling(function () use ($tag) {
-
-            return fractal()
-                ->item($tag)
-                ->transformWith(new DetailTagTransformer())
-                ->respond();
-        });
-    }
 }

@@ -38,7 +38,7 @@
                         </thead>
                         <tbody>
                         @foreach ($data as $item)
-                            @include('dashboard-pages.common.post_item')
+                            @include('dashboard-pages.common.post.post_item')
                         @endforeach
                         </tbody>
                     </table>
@@ -63,7 +63,7 @@
                         </thead>
                         <tbody>
                         @foreach ($data_news as $item)
-                            @include('dashboard-pages.common.post_item')
+                            @include('dashboard-pages.common.post.post_item')
                         @endforeach
                         </tbody>
                     </table>
@@ -88,7 +88,7 @@
                         </thead>
                         <tbody>
                         @foreach ($data_blog as $item)
-                            @include('dashboard-pages.common.post_item')
+                            @include('dashboard-pages.common.post.post_item')
                         @endforeach
                         </tbody>
                     </table>
@@ -97,5 +97,5 @@
         </div>
     </div>
 
-    @include('dashboard-pages.common.post_modal_add')
+    @include('dashboard-pages.common.post.post_modal_add')
 @endsection

@@ -14,16 +14,14 @@ use Illuminate\Support\Carbon;
  * App\Models\Tag
  *
  * @property int $id
- * @property int $reference_id
+ * @property array|null $reference_id
  * @property int $creator
  * @property string $name
- * @property string $tag_type
+ * @property string $type
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Member|null $member
- * @property-read Post|null $posts
- * @property-read Product|null $products
+ * @property-read Member $member
  * @method static Builder|Tag newModelQuery()
  * @method static Builder|Tag newQuery()
  * @method static Builder|Tag onlyTrashed()
@@ -34,7 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Tag whereId($value)
  * @method static Builder|Tag whereName($value)
  * @method static Builder|Tag whereReferenceId($value)
- * @method static Builder|Tag whereTagType($value)
+ * @method static Builder|Tag whereType($value)
  * @method static Builder|Tag whereUpdatedAt($value)
  * @method static Builder|Tag withTrashed()
  * @method static Builder|Tag withoutTrashed()
@@ -44,7 +42,7 @@ class Tag extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const TAG_TYPE = ['PRODUCT', 'POST'];
+    const TYPE = ['PRODUCT', 'POST'];
     const CREATE = 'CREATE_TAG';
     const VIEW = 'VIEW_TAG';
     const EDIT = 'EDIT_TAG';
@@ -60,34 +58,25 @@ class Tag extends Model
     /**
      * @var string[]
      */
-    protected $fillable = [
-        'tag_type',
-        'reference_id',
-        'creator',
-        'name'
+    protected $casts = [
+        'reference_id' => 'array'
     ];
 
-//    /**
-//     * @return BelongsTo
-//     */
-//    public function products(): BelongsTo
-//    {
-//        return $this->BelongsTo(Product::class,'id','reference_id');
-//    }
-//
-//    /**
-//     * @return BelongsTo
-//     */
-//    public function posts(): BelongsTo
-//    {
-//        return $this->BelongsTo(Post::class,'id','reference_id');
-//    }
+    /**
+     * @var string[]
+     */
+    protected $fillable = [
+        'reference_id',
+        'creator',
+        'name',
+        'type'
+    ];
 
     /**
      * @return BelongsTo
      */
     public function member(): BelongsTo
     {
-        return $this->BelongsTo(Member::class,'id', 'creator');
+        return $this->BelongsTo(Member::class,'creator', 'id');
     }
 }

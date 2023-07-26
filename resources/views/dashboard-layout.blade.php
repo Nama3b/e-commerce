@@ -15,6 +15,13 @@
     <link rel="stylesheet" href="{{ asset('WebPage/resources/fontawesome/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('WebPage/resources/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        #cke_editor {
+            width: 100%;
+            margin-left: 33px;
+        }
+    </style>
 </head>
 <body>
 <div id="mySidebar" class="sidebar">
@@ -39,12 +46,13 @@
     <a href="{{URL::to('dashboard/delivery')}}" class="nav-item"><i class="fas fa-luggage-cart"></i> Delivery</a>
     {{--    <a href="{{URL::to('dashboard/shipping')}}" class="nav-item"><i class="fas fa-shipping-fast"></i> Shipping</a>--}}
     <hr>
-{{--    <h5>Resources</h5>--}}
+    <h5>Resources</h5>
 {{--    <a href="{{URL::to('dashboard/comment')}}" class="nav-item"><i class="far fa-comment-alt"></i> Manage Comment</a>--}}
 {{--    <a href="" class="nav-item"><i class="fas fa-hand-holding-heart"></i> Manage--}}
 {{--        Favorite</a>--}}
 {{--    <a href="{{URL::to('dashboard/image')}}" class="nav-item"><i class="far fa-images"></i> Manage Image</a>--}}
-{{--    <a href="{{URL::to('dashboard/tag')}}" class="nav-item"><i class="fas fa-tags"></i> Manage Tag</a>--}}
+    <a href="{{URL::to('dashboard/banner')}}" class="nav-item"><i class="far fa-images"></i> Banner</a>
+    <a href="{{URL::to('dashboard/tag')}}" class="nav-item"><i class="fas fa-tags"></i> Tag</a>
     <hr>
     <h5>User manager</h5>
     <a href="{{ URL::to('dashboard/member/detail') }}" class="nav-item"><i class="fas fa-user-shield"></i> Admin user</a>
@@ -124,6 +132,8 @@
 @endif
 
 <script>
+    CKEDITOR.replace( 'editor');
+
     function openNav() {
         document.getElementById("mySidebar").style.width = "300px";
         document.getElementById("main").style.marginLeft = "300px";
@@ -146,6 +156,5 @@
         crossorigin="anonymous"></script>
 
 <script src="{{ asset('WebPage/js/index.js') }}"></script>
-<script src="{{ mix('Dashboard/js/app.js') }}"></script>
-
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 </body>

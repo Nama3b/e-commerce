@@ -6,11 +6,9 @@
                 @foreach($detail as $key => $detail_item)
                     <div class="product-detail">
                         <div class="product-detail-title">
-                            <p>Home / <a
-                                    href="{{URL::to('product'.'/'.$detail_item['id'])}}">{{$detail_item['name']}}</a>
-                                /
-                                <a href="{{URL::to('product'.'/'.$detail_item['brand_id'])}}">{{$detail_item['brand']['name']}}</a>
-                                / {{$detail_item['name']}}</p>
+                            <p><a href="{{ URL::to('home') }}">Home</a>
+                                / <a href="{{ URL::to('product-by-brand/'.$detail_item['brand_id'])}}">{{$detail_item['brand']['name'] }}</a>
+                                / <a href="{{ URL::to('product-detail/'.$detail_item['id'])}}">{{$detail_item['name'] }}</a></p>
                         </div>
                         <div class="d-flex">
                             <div class="col-6 text-center">
@@ -18,7 +16,11 @@
                                     <a href="" class="">100% Authentic</a>
                                     <a href="" class="">Condition: New</a>
                                 </div>
-                                <img src="{{ asset($detail_item['image']) }}" alt="" width="80%">
+                                @if(file_exists($detail_item['image']))
+                                    <img src="{{ asset($detail_item['image']) }}" alt="" width="80%">
+                                @else
+                                    <img src="{{ asset('/storage/public/uploads/img/'.$detail_item['image']) }}" alt="" width="80%">
+                                @endif
                             </div>
                             <div class="col-6">
                                 <div class="product-detail-title text-center">
@@ -27,16 +29,16 @@
                                         <h2><b>${{ number_format($detail_item['price'], 0, '', '.') }}</b></h2>
                                         <form action="{{URL::to('add-cart')}}" method="post">
                                             <div class="qty-select d-flex">
-                                                {{ csrf_field()}}
+                                                @csrf
                                                 <div class="qty col-6 d-flex">
                                                     <p>Quantity: </p> <input type="number" name="qty" min="1" value="1">
                                                     <input type="hidden" name="productId_hidden"
-                                                           value="{{$detail_item['id']}}">
+                                                           value="{{ $detail_item['id'] }}">
                                                 </div>
                                                 <div class="col-6">
                                                     <select name="" id="">
                                                         <option value="">Size: All</option>
-                                                        <option value="">Size: 37</option>
+                                                        <option value="">Size: 43</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -44,14 +46,13 @@
                                                 <button class="btn btn-dark"><i class="mr-2"></i>Buy</button>
                                             </a>
                                             <div class="d-flex">
-                                                <button class="btn btn-outline-dark mr-2"><a
+                                                <button class="btn btn-outline-success mr-2"><a
                                                         href="{{URL::to('add-cart')}}"><i
                                                             class="fas fa-cart-plus"></i></a></button>
-                                                <button class="btn btn-outline-dark mr-2"><i class="fas fa-heart"></i>
+                                                <button class="btn btn-outline-danger mr-2"><i class="fas fa-heart"></i>
                                                 </button>
-                                                <button class="btn btn-outline-dark"><i class="fas fa-share-square"></i>
+                                                <button class="btn btn-outline-primary"><i class="fas fa-share-square"></i>
                                                 </button>
-                                                {{-- <div class="fb-share-button" data-href="http://localhost/laravel-project/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2Flaravel-project%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div> --}}
                                             </div>
                                         </form>
                                     </div>

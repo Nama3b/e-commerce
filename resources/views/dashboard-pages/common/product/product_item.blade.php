@@ -7,9 +7,11 @@
             <img src="{{ asset('/storage/public/uploads/img/'.$item['image']) }}" alt="" width="120px">
         @endif
     </th>
-    <th>{{ $item['member']['full_name'] }}</th>
-    <th>{{ $item['title'] }}</th>
-    <th>{{ $item['post_type'] }}</th>
+    <th>{{ $item['category']['name'] }}</th>
+    <th>{{ $item['brand']['name'] }}</th>
+    <th>{{ $item['name'] }}</th>
+    <th>${{ $item['price'] }}</th>
+    <th>{{ $item['quantity'] }}</th>
     <th>{{ $item['status'] }}</th>
     <th>
         <div class="d-flex">
@@ -17,7 +19,7 @@
                     data-target="#editForm-{{ $item['id'] }}">
                 <i class="far fa-edit"></i>
             </button>
-            <form action="{{ URL::to('/dashboard/post/delete/'.$item['id']) }}"
+            <form action="{{ URL::to('/dashboard/product/delete/'.$item['id']) }}"
                   method="post">
                 @csrf
                 @method('DELETE')
@@ -27,4 +29,4 @@
     </th>
 </tr>
 
-@include('dashboard-pages.common.post_modal_edit')
+@include('dashboard-pages.common.product.product_modal_edit')

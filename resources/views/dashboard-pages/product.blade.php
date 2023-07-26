@@ -41,7 +41,7 @@
                         </thead>
                         <tbody>
                         @foreach($data as $item)
-                            @include('dashboard-pages.common.product_item')
+                            @include('dashboard-pages.common.product.product_item')
                         @endforeach
                         </tbody>
                     </table>
@@ -70,7 +70,7 @@
                             </thead>
                             <tbody>
                             @foreach (collect($data)->where('category_id', $cat_item['id']) as $item)
-                                @include('dashboard-pages.common.product_item')
+                                @include('dashboard-pages.common.product.product_item')
                             @endforeach
                             </tbody>
                         </table>
@@ -85,5 +85,5 @@
         </div>
     </div>
 
-    @include('dashboard-pages.common.product_modal_add')
+    @include('dashboard-pages.common.product.product_modal_add')
 @endsection

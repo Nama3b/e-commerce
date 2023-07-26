@@ -21,7 +21,7 @@ class DetailMemberTransformer extends TransformerAbstract
             'address' => $member->address,
             'phone_number' => $member->phone_number,
             'birthday' => $member->birthday,
-            'avatar' => asset(Storage::url($member->avatar)),
+            'image' => asset(Storage::url($member->image)),
             'status' => $member->status,
         ];
     }

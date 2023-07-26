@@ -19,10 +19,8 @@
                 <div class="col-4">
                     <div class="card mb-4">
                         <div class="card-body text-center">
-                            <img src="{{ asset('WebPage/img/home/logo.jpg') }}"
-                                 alt="avatar"
-                                 class="rounded-circle img-fluid">
-                            <input type="hidden" name="avatar" value="{{ $member->avatar }}">
+                            <img src="{{ asset('WebPage/img/home/logo.jpg') }}" class="rounded-circle img-fluid">
+                            <input type="hidden" name="image" value="{{ $member->image }}">
                             <h5 class="my-3">{{ $member->full_name }}</h5>
                             <p class="text-muted mb-1"><i class="fas fa-user-graduate mr-2"></i>Full Stack Developer
                             </p>

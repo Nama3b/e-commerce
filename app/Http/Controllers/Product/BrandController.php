@@ -4,13 +4,9 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
-use App\Support\HandleComponentError;
-use App\Support\HandleJsonResponses;
-use App\Support\ResourceHelper\ActionButtonResourceHelper;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
 use App\Support\ResourceHelper\ImageHandlerResourceHelper;
-use App\Support\WithPaginationLimit;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,11 +15,7 @@ use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    use WithPaginationLimit,
-        HandleJsonResponses,
-        HandleComponentError,
-        ActionButtonResourceHelper,
-        BrandResourceHelper,
+    use BrandResourceHelper,
         CategoryResourceHelper,
         ImageHandlerResourceHelper;
 

@@ -413,9 +413,11 @@ html, body {
 
 .modal-content .form-group input,
 .modal-content .form-group select {
+    width: 72%;
     border: 1px solid grey;
     background: none;
     padding: 4px 10px;
+    float: right;
 }
 
 .modal-content .form-group option {
@@ -425,18 +427,6 @@ html, body {
 .modal-body .form-group img {
     padding: 10px;
     border: 1px solid grey;
-}
-
-.modal-body .form-group input {
-    width: 70%;
-    float: right;
-    margin-right: 10px;
-}
-
-.modal-body .form-group select {
-    width: 70%;
-    float: right;
-    margin-right: 10px;
 }
 
 .modal-body .form-group textarea {

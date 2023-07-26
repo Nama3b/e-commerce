@@ -8,6 +8,7 @@ use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CartResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
 use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
+use App\Support\ResourceHelper\ImageHandlerResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,7 +18,11 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    use CategoryResourceHelper, BrandResourceHelper, CartResourceHelper, CustomerFromSessionResourceHelper;
+    use CategoryResourceHelper,
+        BrandResourceHelper,
+        CartResourceHelper,
+        CustomerFromSessionResourceHelper,
+        ImageHandlerResourceHelper;
 
     /**
      * @param Request $request
@@ -57,7 +62,9 @@ class UserController extends Controller
         $customer->address = $request->input('address');
         $customer->phone_number = $request->input('phone_number');
         $customer->birthday = $request->input('birthday');
-        $customer->avatar = $request->input('avatar');
+        if ($request->hasFile('image')) {
+            $customer->image = $this->imageHandler($request);
+        }
         $customer->save();
 
         return redirect()->back()->with('success', 'Customer profile updated successfully');

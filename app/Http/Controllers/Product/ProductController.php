@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\Product;
-use App\Support\HandleComponentError;
-use App\Support\HandleJsonResponses;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
 use App\Support\ResourceHelper\ImageHandlerResourceHelper;
 use App\Support\ResourceHelper\ProductResourceHelper;
-use App\Support\WithPaginationLimit;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -22,10 +20,7 @@ use Exception;
 
 class ProductController extends Controller
 {
-    use WithPaginationLimit,
-        HandleJsonResponses,
-        HandleComponentError,
-        ProductResourceHelper,
+    use ProductResourceHelper,
         CategoryResourceHelper,
         BrandResourceHelper,
         ImageHandlerResourceHelper;
@@ -65,6 +60,7 @@ class ProductController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $time_now = Carbon::now();
         $product = [];
         $product['category_id'] = $request->input('category_id');
         $product['brand_id'] = $request->input('brand_id');
@@ -73,6 +69,7 @@ class ProductController extends Controller
         $product['description'] = $request->input('description');
         $product['price'] = $request->input('price');
         $product['quantity'] = $request->input('quantity');
+        $product['created_at'] = $time_now;
         $product_id = DB::table('products')->insertGetId($product);
 
         $image['reference_id'] = $product_id;

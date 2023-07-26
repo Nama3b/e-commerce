@@ -35,7 +35,7 @@ class PostController extends Controller
 
         $author = Member::with('posts')->whereId(array_column($this->getAllPost(),'author'))->get()->toArray();
         $author_name = implode((array_column($author,'full_name')));
-        $author_avatar = implode((array_column($author,'avatar')));
+        $author_avatar = implode((array_column($author,'image')));
 
         $categories = $this->getAllCategory();
         $brand_all = $this->getAllBrand();
@@ -78,7 +78,7 @@ class PostController extends Controller
 
         $author = Member::with('posts')->whereId(array_column($this->getAllPost(),'author'))->get()->toArray();
         $author_name = implode((array_column($author,'full_name')));
-        $author_avatar = implode((array_column($author,'avatar')));
+        $author_avatar = implode((array_column($author,'image')));
 
         $categories = $this->getAllCategory();
         $brand_all = $this->getAllBrand();

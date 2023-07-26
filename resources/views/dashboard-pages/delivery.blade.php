@@ -39,7 +39,7 @@
                                         data-target="#editForm-{{ $loop->iteration }}">
                                     <i class="far fa-edit"></i>
                                 </button>
-                                <form action="{{ URL::to('/dashboard/product_category/delete/'.$item['id']) }}"
+                                <form action="{{ URL::to('/dashboard/delivery/delete/'.$item['id']) }}"
                                       method="post">
                                     @csrf
                                     @method('DELETE')
