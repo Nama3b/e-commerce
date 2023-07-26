@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone_number')->unique();
             $table->date('birthday')->nullable();
-            $table->string('image')->default('../WebPage/img/home/logo.jpg')->nullable();
+            $table->string('image')->default('WebPage/img/home/logo.jpg')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

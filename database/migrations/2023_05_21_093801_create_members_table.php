@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->string('birthday')->nullable();
             $table->string('identity_no')->unique();
-            $table->string('image')->default('../WebPage/img/home/logo.jpg')->nullable();
+            $table->string('image')->default('WebPage/img/home/logo.jpg')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

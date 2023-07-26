@@ -5,7 +5,7 @@
         <form action="{{ URL::to('/dashboard/post/edit/'.$item['id'])}}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
-            <div class="modal-content" style="width: 120%">
+            <div class="modal-content" >
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Edit form post</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

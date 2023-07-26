@@ -19,7 +19,7 @@
     <style>
         #cke_editor {
             width: 100%;
-            margin-left: 33px;
+            margin-left: 6px;
         }
     </style>
 </head>
@@ -132,8 +132,6 @@
 @endif
 
 <script>
-    CKEDITOR.replace( 'editor');
-
     function openNav() {
         document.getElementById("mySidebar").style.width = "300px";
         document.getElementById("main").style.marginLeft = "300px";
@@ -157,4 +155,8 @@
 
 <script src="{{ asset('WebPage/js/index.js') }}"></script>
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+
+<script>
+    CKEDITOR.replace( 'editor');
+</script>
 </body>

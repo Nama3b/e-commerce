@@ -302,7 +302,6 @@
             ResCarouselSize();
         });
 
-        //this function define the size of the items
         function ResCarouselSize() {
             let incno = 0;
             const dataItems = ("data-items");
