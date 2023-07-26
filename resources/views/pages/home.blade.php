@@ -28,18 +28,22 @@
                 <div class="container">
                     <div class="brand-section">
                         <div class="row justify-content-center">
-                            <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+                            <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"
+                                 data-interval="1000">
                                 <div class="MultiCarousel-inner">
                                     @foreach($brand_all as $item)
                                         <div class="item">
                                             <div class="pad15">
-                                                <a href="{{ URL::to('product-by-brand/'.$item->id) }}"><img src="{{$item->image}}" alt="" width="100%" height="130px"></a>
+                                                <a href="{{ URL::to('product-by-brand/'.$item->id) }}"><img
+                                                        src="{{$item->image}}" alt="" width="90%" height="120px"></a>
                                             </div>
                                         </div>
                                     @endforeach
                                 </div>
-                                <button class="btn btn-primary leftLst"><i class="fas fa-chevron-left"></i></button>
-                                <button class="btn btn-primary rightLst"><i class="fas fa-chevron-right"></i></button>
+                                <button class="btn btn-outline-dark leftLst"><i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="btn btn-outline-dark rightLst"><i class="fas fa-chevron-right"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -104,9 +108,9 @@
                     <div class="brand-item">
                         <div class="row justify-content-center">
                             <div class="d-flex">
-                                @foreach($banner_sneaker as $brand_item)
+                                @foreach($banner_sneaker as $item)
                                     <div class="brand-banner">
-                                        @include('pages.common.brand_item')
+                                        @include('pages.common.branner_item')
                                     </div>
                                 @endforeach
                             </div>
@@ -133,8 +137,8 @@
                     <div class="brand-item">
                         <div class="row">
                             <div class="d-flex">
-                                @foreach($banner_clothes as $brand_item)
-                                    @include('pages.common.brand_item')
+                                @foreach($banner_clothes as $item)
+                                    @include('pages.common.branner_item')
                                 @endforeach
                             </div>
                         </div>
@@ -213,8 +217,8 @@
 
                 <div class="brand-section">
                     <div class="container">
-                        <h4 class="text-center"><b>Popular brands</b></h4>
-                        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+                        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"
+                             data-interval="1000">
                             <div class="MultiCarousel-inner">
                                 @foreach($banner as $item)
                                     <div class="item">

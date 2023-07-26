@@ -1790,20 +1790,20 @@ html, body {
     position: absolute;
     top: calc(50% - 20px);
     border: none;
-    background: #3f3f3f;
-    color: white;
+    background: none;
+    color: black;
     font-size: 30px;
 }
 
 .MultiCarousel .leftLst {
-    left: 0;
+    left: -15px;
 }
 
 .MultiCarousel .rightLst {
-    right: 0;
+    right: -15px;
 }
 
 .MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over {
     pointer-events: none;
-    background: #ccc;
+    background: none;
 }

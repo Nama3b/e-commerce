@@ -5,11 +5,11 @@
             <h2 class="card-title my-2">{{ __('generate.'.Request::segment(2).'.title') }}</h2>
         </div>
         <div class="card-body pt-3">
-            {{--            <div class="body-header">--}}
-            {{--                <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"--}}
-            {{--                        data-target="#addForm"><i class="far fa-plus-square"></i> Add new--}}
-            {{--                </button>--}}
-            {{--            </div>--}}
+            <div class="body-header">
+                <button type="button" name="create" id="create" class="btn btn-outline-light" data-toggle="modal"
+                        data-target="#addForm" disabled><i class="far fa-plus-square"></i> Add new
+                </button>
+            </div>
             <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
                 <thead>
                 <tr>
@@ -39,6 +39,12 @@
                                         data-target="#editForm-{{ $loop->iteration }}">
                                     <i class="far fa-edit"></i>
                                 </button>
+                                <form action="{{ URL::to('/dashboard/product_category/delete/'.$item['id']) }}"
+                                      method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-dark" disabled><i class="fas fa-trash-alt"></i></button>
+                                </form>
                             </div>
                         </th>
                     </tr>
@@ -87,7 +93,8 @@
                                         @if ($item['description'])
                                             <div class="form-group">
                                                 <label for="" style="vertical-align: top">Description</label>
-                                                <textarea name="description" id="description" cols="30" rows="4">{{ $item['description'] }}</textarea>
+                                                <textarea name="description" id="description" cols="30"
+                                                          rows="4">{{ $item['description'] }}</textarea>
                                             </div>
                                         @endif
                                     </div>

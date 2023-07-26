@@ -275,12 +275,12 @@
 
 <script>
     $(document).ready(function () {
-        var itemsMainDiv = ('.MultiCarousel');
-        var itemsDiv = ('.MultiCarousel-inner');
-        var itemWidth = "";
+        const itemsMainDiv = ('.MultiCarousel');
+        const itemsDiv = ('.MultiCarousel-inner');
+        let itemWidth = "";
 
         $('.leftLst, .rightLst').click(function () {
-            var condition = $(this).hasClass("leftLst");
+            const condition = $(this).hasClass("leftLst");
             if (condition)
                 click(0, this);
             else
@@ -288,9 +288,6 @@
         });
 
         ResCarouselSize();
-
-
-
 
         $(window).resize(function () {
             ResCarouselSize();
@@ -313,24 +310,20 @@
                 itemsSplit = btnParentSb.split(',');
                 $(this).parent().attr("id", "MultiCarousel" + id);
 
-
                 if (bodyWidth >= 1200) {
                     incno = itemsSplit[3];
                     itemWidth = sampwidth / incno;
-                }
-                else if (bodyWidth >= 992) {
+                } else if (bodyWidth >= 992) {
                     incno = itemsSplit[2];
                     itemWidth = sampwidth / incno;
-                }
-                else if (bodyWidth >= 768) {
+                } else if (bodyWidth >= 768) {
                     incno = itemsSplit[1];
                     itemWidth = sampwidth / incno;
-                }
-                else {
+                } else {
                     incno = itemsSplit[0];
                     itemWidth = sampwidth / incno;
                 }
-                $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+                $(this).css({'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers});
                 $(this).find(itemClass).each(function () {
                     $(this).outerWidth(itemWidth);
                 });
@@ -356,8 +349,7 @@
                     translateXval = 0;
                     $(el + ' ' + leftBtn).addClass("over");
                 }
-            }
-            else if (e === 1) {
+            } else if (e === 1) {
                 const itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
                 translateXval = parseInt(xds) + parseInt(itemWidth * s);
                 $(el + ' ' + leftBtn).removeClass("over");
@@ -370,18 +362,14 @@
             $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
         }
 
-        //It is used to get some elements from btn
         function click(ell, ee) {
             const Parent = "#" + $(ee).parent().attr("id");
             const slide = $(Parent).attr("data-slide");
             ResCarousel(ell, Parent, slide);
         }
-
     });
 </script>
 
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
