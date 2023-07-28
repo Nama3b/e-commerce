@@ -1,7 +1,11 @@
 <div class="news">
     <div class="news-img">
         <a href="{{URL::to('post-detail/'.$news_item['id'])}}">
-            <img src="{{ asset($news_item['image']) }}" width="100%" alt="">
+            @if(file_exists($news_item['image']))
+                <img src="{{ asset($news_item['image']) }}" width="100%" alt="">
+            @else
+                <img src="{{ asset('/storage/public/uploads/img/'.$news_item['image']) }}" alt="" width="100px">
+            @endif
         </a>
     </div>
     <div class="news-info">

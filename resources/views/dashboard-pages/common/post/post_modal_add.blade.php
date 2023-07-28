@@ -18,8 +18,8 @@
                         <input type="text" class="form-input" name="title" placeholder="Post title" required>
                     </div>
                     <div class="form-group">
-                        <label for="" style="vertical-align: top; margin-right: 51px">Content</label>
-                        <textarea name="content" id="editor" cols="30" rows="4" placeholder="Post content"></textarea>
+                        <label for="" style="vertical-align: top; margin-right: 49px">Content</label>
+                        <textarea name="content" id="editor" cols="31" rows="4" placeholder="Post content"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="">Type</label>

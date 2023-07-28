@@ -47,16 +47,17 @@
     {{--    <a href="{{URL::to('dashboard/shipping')}}" class="nav-item"><i class="fas fa-shipping-fast"></i> Shipping</a>--}}
     <hr>
     <h5>Resources</h5>
-{{--    <a href="{{URL::to('dashboard/comment')}}" class="nav-item"><i class="far fa-comment-alt"></i> Manage Comment</a>--}}
-{{--    <a href="" class="nav-item"><i class="fas fa-hand-holding-heart"></i> Manage--}}
-{{--        Favorite</a>--}}
-{{--    <a href="{{URL::to('dashboard/image')}}" class="nav-item"><i class="far fa-images"></i> Manage Image</a>--}}
+    {{--    <a href="{{URL::to('dashboard/comment')}}" class="nav-item"><i class="far fa-comment-alt"></i> Manage Comment</a>--}}
+    {{--    <a href="" class="nav-item"><i class="fas fa-hand-holding-heart"></i> Manage--}}
+    {{--        Favorite</a>--}}
+    {{--    <a href="{{URL::to('dashboard/image')}}" class="nav-item"><i class="far fa-images"></i> Manage Image</a>--}}
     <a href="{{URL::to('dashboard/banner')}}" class="nav-item"><i class="far fa-images"></i> Banner</a>
     <a href="{{URL::to('dashboard/tag')}}" class="nav-item"><i class="fas fa-tags"></i> Tag</a>
     <hr>
     <h5>User manager</h5>
-    <a href="{{ URL::to('dashboard/member/detail') }}" class="nav-item"><i class="fas fa-user-shield"></i> Admin user</a>
-{{--    <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-users"></i> Client user</a>--}}
+    <a href="{{ URL::to('dashboard/member/detail') }}" class="nav-item"><i class="fas fa-user-shield"></i> Admin
+        user</a>
+    {{--    <a href="{{URL::to('')}}" class="nav-item"><i class="fas fa-users"></i> Client user</a>--}}
 </div>
 <div id="main">
     <div class="header-section">
@@ -76,7 +77,7 @@
                 </button>
                 <i class="fas fa-caret-down d-none"></i>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="">{{$member->full_name}} !</a></li>
+                    <li><a href=""><b>{{ $member->full_name }}</b></a></li>
                     <li><a href="{{ URL::to('dashboard/member/detail') }}">My profile</a></li>
                     <li>Setting</li>
                     <hr>
@@ -157,6 +158,6 @@
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
 <script>
-    CKEDITOR.replace( 'editor');
+    CKEDITOR.replace('editor');
 </script>
 </body>
