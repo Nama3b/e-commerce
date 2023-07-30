@@ -20,9 +20,9 @@ html, body {
     border-radius: 5px;
 }
 
-input[type="file"] {
-    display: none !important;
-}
+/*input[type="file"] {*/
+/*    display: none !important;*/
+/*}*/
 .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;

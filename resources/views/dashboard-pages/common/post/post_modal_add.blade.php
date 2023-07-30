@@ -32,19 +32,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">Image</label>
-                        <label for="file-upload" class="custom-file-upload">
-                            <i class="fa fa-cloud-upload"></i> Image Upload
-                        </label>
+{{--                        <label for="file-upload" class="custom-file-upload">--}}
+{{--                            <i class="fa fa-cloud-upload"></i> Image Upload--}}
+{{--                        </label>--}}
                         <input id="file-upload" type="file" name="image" class="file-upload" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Status</label>
-                        <select name="status">
-                            @foreach ($status as $key => $option)
-                                <option
-                                    value="{{ $key+1 }}">{{ $option }}</option>
-                            @endforeach
-                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -74,6 +74,26 @@
                         <p class="count-noti">9+</p>
                         <i class="fas fa-caret-down d-none"></i>
                         <ul class="dropdown-menu dropdown-noti">
+                            <li>
+                                <div class="d-flex">
+                                    <div class="noti-item-img">
+                                        <a href="">
+                                            <img src="../WebPage/img/home/logo.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="noti-item-infor">
+                                            <a href="">E Project</a>
+                                            <p>Welcome to our shop!</p>
+                                            <small>Now</small>
+                                        </div>
+                                        <div class="noti-item-remove">
+                                            <a href=""><i class="fa fa-close"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <hr>
                         </ul>
                     </div>
                     <div class="dropdown">
@@ -83,41 +103,50 @@
                         <p class="count-cart">{{ $count_cart }}</p>
                         <i class="fas fa-caret-down d-none"></i>
                         <ul class="dropdown-menu dropdown-cart">
-                            @foreach($cart as $cart_item)
-                                <li>
-                                    <div class="d-flex">
-                                        <div class="cart-item-img">
-                                            <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}">
-                                                @if(file_exists($cart_item['image']))
-                                                    <img src="{{ asset($cart_item['image']) }}" alt="" height="45px">
-                                                @else
-                                                    <img src="{{ asset('/storage/public/uploads/img/'.$cart_item['image']) }}" alt="" height="45px">
-                                                @endif
-                                            </a>
-                                        </div>
+                            @if($cart)
+                                @foreach($cart as $cart_item)
+                                    <li>
                                         <div class="d-flex">
-                                            <div class="cart-item-infor">
-                                                <p>
-                                                    <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}">{{ $cart_item['name'] }}</a>
-                                                </p>
-                                                <small>${{ number_format($cart_item['price'], 0, '', '.') }}
-                                                    x {{ $cart_item['quantity'] }}</small>
+                                            <div class="cart-item-img">
+                                                <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}">
+                                                    @if(file_exists($cart_item['image']))
+                                                        <img src="{{ asset($cart_item['image']) }}" alt="" height="45px">
+                                                    @else
+                                                        <img src="{{ asset('/storage/public/uploads/img/'.$cart_item['image']) }}" alt="" height="45px">
+                                                    @endif
+                                                </a>
                                             </div>
-                                            <div class="cart-item-remove">
-                                                <form action="{{ URL::to('/remove-cart') }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="productId_hidden"
-                                                           value="{{$cart_item['id']}}">
-                                                    <button class="btn btn-sm" type="submit"><i
-                                                            class="fas fa-trash-alt"></i></button>
-                                                </form>
+                                            <div class="d-flex">
+                                                <div class="cart-item-infor">
+                                                    <p>
+                                                        <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}">{{ $cart_item['name'] }}</a>
+                                                    </p>
+                                                    <small>${{ number_format($cart_item['price'], 0, '', '.') }}
+                                                        x {{ $cart_item['quantity'] }}</small>
+                                                </div>
+                                                <div class="cart-item-remove">
+                                                    <form action="{{ URL::to('/remove-cart') }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <input type="hidden" name="productId_hidden"
+                                                               value="{{$cart_item['id']}}">
+                                                        <button class="btn btn-sm" type="submit"><i
+                                                                class="fas fa-trash-alt"></i></button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <hr>
-                            @endforeach
+                                    </li>
+                                    <hr>
+                                @endforeach
+                            @else
+                                <div class="container d-flex justify-content-center align-item-center pt-3">
+                                    <img src="../WebPage/img/shopping/no-order.png" alt="" style="height: 70px">
+                                </div>
+                                <div class="h-100 d-flex justify-content-center align-item-center pt-3">
+                                    <h6><b>Don't have product yet</b></h6>
+                                </div>
+                            @endif
                             <div class="d-flex">
                                 <a href="{{ URL::to('/my-cart') }}">
                                     <button class="btn btn-sm btn-outline-dark ml-2">Cart</button>

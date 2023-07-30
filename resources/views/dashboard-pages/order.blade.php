@@ -18,9 +18,9 @@
             </ul>
 
             <div class="tab-content">
-                <div id="all" class="tab-pane active">
+                <div id="all" class="tab-pane active"><br>
                     @foreach($data as $item)
-                        <h4>Order#</h4>
+                        <h4>Order#{{ $loop->iteration }}</h4>
                         <div class="order-item">
                             <div class="col-8">
                                 <table>
@@ -68,7 +68,7 @@
                 </div>
 
                 @foreach ($status as $status_item)
-                    <div id="status{{ $loop->iteration }}" class="tab-pane active"><br>
+                    <div id="status{{ $loop->iteration }}" class="tab-pane fade"><br>
                         @foreach (collect($data)->where('status', $status_item) as $item)
                             <h4>Order#{{ $loop->iteration }}</h4>
                             <div class="order-item">

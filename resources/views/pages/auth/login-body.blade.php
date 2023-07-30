@@ -35,8 +35,11 @@
                                     </ul>
                                 @endforeach
                             </div>
-                            <input type="text" name="email" placeholder="Email Address">
-                            <input type="password" name="password" placeholder="Password">
+                            <input type="text" name="email" placeholder="Email Address" required>
+                            <div class="password-input">
+                                <input type="password" id="password" name="password" placeholder="Password" required>
+                                <a onclick="myFunction()" title="Show Password"><i class="far fa-eye"></i></a>
+                            </div>
                             <small class="text-right">Forgot Password?</small>
                             <button type="submit" class="btn btn-dark" name="login">Sign In</button>
                             <label for="policy"> <small>By signing in, you agree to the <b>Terms of Service</b>
@@ -61,7 +64,6 @@
                                 @endforeach
                             </div>
                             <input type="email" name="email" placeholder="Email" required>
-
                             <input type="password" name="password" placeholder="Password" required>
                             <input type="password" name="password_confirmation" placeholder="Password confirmation" required>
                             <input type="text" name="full_name" placeholder="Full name" required>
