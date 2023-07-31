@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\Resource;
 
-use App\Components\Favorite\Creator;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Resource\StoreFavoriteRequest;
+use App\Models\Brand;
+use App\Models\Favorite;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\WithPaginationLimit;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FavoriteController extends Controller
 {
-    use WithPaginationLimit, HandleJsonResponses, HandleComponentError;
+    use WithPaginationLimit,
+        HandleJsonResponses,
+        HandleComponentError;
 
     /**
      * @return RedirectResponse
@@ -30,30 +33,37 @@ class FavoriteController extends Controller
      */
     public function list(Request $request): mixed
     {
-        list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
 
-        $config = [
-            "placeholder" => "Select multiple options..",
-            "allowClear" => true
-        ];
-
-        return (new $instance)
-            ->render('dashboard-pages.index', compact('config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**
-     * @param StoreFavoriteRequest $request
-     * @return JsonResponse|mixed
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(StoreFavoriteRequest $request): mixed
+    public function store(Request $request): RedirectResponse
     {
-        return $this->withComponentErrorHandling(function () use ($request) {
-            $status = (new Creator($request))->create();
 
-            return optional($status)->id ?
-                $this->respondOk() :
-                $this->respondBadRequest();
-        });
+        Favorite::create([
+            'reference_id' => $request->input('id'),
+            'customer_id' => Auth()->guard('customer')->user()->id,
+            'favorite_type' => $request->input('type'),
+        ]);
+
+        return redirect()->back()->with('success', 'Favorite added successfully!');
+
     }
 
+    /**
+     * @param $favorite
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function edit($favorite, Request $request): RedirectResponse
+    {
+        $favorite = Favorite::findOrFail($favorite);
+        $favorite->status = $request->input('status');
+        $favorite->save();
+
+        return redirect()->back()->with('success', 'Favorite updated successfully!');
+    }
 }

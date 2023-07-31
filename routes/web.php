@@ -261,6 +261,9 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::post('favorite/store', [FavoriteController::class, 'store'])
         ->name('favorite.store')
         ->middleware(['checkManagerPermission:CREATE_FAVORITE']);
+    Route::post('favorite/edit/{favorite}', [FavoriteController::class, 'edit'])
+        ->name('favorite.edit')
+        ->middleware(['checkManagerPermission:EDIT_FAVORITE']);
 
     Route::get('image', [ImageController::class, 'list'])
         ->name('image')

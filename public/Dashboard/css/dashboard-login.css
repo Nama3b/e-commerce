@@ -97,3 +97,17 @@ ul li a:hover {
     color: #818181;
 }
 
+.password-input {
+    position: relative;
+}
+
+.password-input button {
+    border: none;
+    background: none;
+}
+
+.password-input i {
+    position: absolute;
+    right: 10px;
+    top: 21px;
+}

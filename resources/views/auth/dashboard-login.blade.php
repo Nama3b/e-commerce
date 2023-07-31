@@ -42,7 +42,10 @@
                 }
                 ?>
                 <input type="text" name="email" placeholder="Username">
-                <input type="password" name="password" placeholder="Password">
+                <div class="password-input">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <a onclick="myFunction()" title="Show Password"><i class="far fa-eye"></i></a>
+                </div>
                 <small class="text-right">Forgot Password?</small>
                 <button class="btn btn-dark" type="submit" name="login">Sign Up</button>
                 <small>By signing up, you agree to the <b>Terms of Service</b> and <b>Privacy Policy</b></small>
@@ -51,3 +54,14 @@
     </div>
 </div>
 </body>
+
+<script>
+    function myFunction() {
+        const x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

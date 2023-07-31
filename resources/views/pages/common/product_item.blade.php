@@ -16,7 +16,7 @@
                 <input type="hidden" name="productId_hidden" value="{{$product_item['id']}}">
             </button>
          </form>
-        <button class="btn btn-sm btn-outline-dark"><i class="fas fa-heartbeat"></i></button>
+        <button class="btn btn-sm btn-outline-dark"><i class="far fa-heart"></i></button>
     </div>
     <div class="product-info">
         <small>
