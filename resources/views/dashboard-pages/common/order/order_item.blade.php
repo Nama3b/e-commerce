@@ -1,5 +1,11 @@
 <tr>
-    <th><img src="{{ asset($detail['image']) }}" alt="" width="120px"></th>
+    <th>
+        @if(file_exists($detail['image']))
+            <img src="{{ asset($detail['image']) }}" alt="" width="120px">
+        @else
+            <img src="{{ asset('/storage/public/uploads/img/'.$detail['image']) }}" width="120px">
+        @endif
+    </th>
     <th>{{ $detail['name'] }}</th>
     <th>${{ number_format($detail['price'], 0, '', '.') }}</th>
     <th>{{ $detail['quantity'] }}</th>
