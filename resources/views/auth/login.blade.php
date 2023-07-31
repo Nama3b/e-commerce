@@ -37,6 +37,17 @@
 
 @yield('content')
 
+<script>
+    function myFunction() {
+        const x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+
 @if(session('success'))
     <script>
         var popup = document.getElementById("popup");

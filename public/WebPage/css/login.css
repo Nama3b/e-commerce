@@ -137,3 +137,17 @@ ul li a:hover {
     font-weight: bold;
 }
 
+.password-input {
+    position: relative;
+}
+
+.password-input button {
+    border: none;
+    background: none;
+}
+
+.password-input i {
+    position: absolute;
+    right: 10px;
+    top: 21px;
+}

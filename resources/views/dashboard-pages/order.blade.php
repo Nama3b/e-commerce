@@ -18,7 +18,7 @@
             </ul>
 
             <div class="tab-content">
-                <div id="all" class="tab-pane active">
+                <div id="all" class="tab-pane active"><br>
                     @foreach($data as $item)
                         <h4>Order#{{ $loop->iteration }}</h4>
                         <div class="order-item">

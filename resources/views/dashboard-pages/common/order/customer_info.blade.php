@@ -5,9 +5,9 @@
         <div class="user-item">
             <div class="col-4">
                 @if(file_exists($item['customer']['image']))
-                    <img src="{{ asset($item['customer']['image']) }}" alt="" width="100%">
+                    <img src="{{ asset($item['customer']['image']) }}" alt="" width="100px" height="100px">
                 @else
-                    <img src="{{ asset('/storage/public/uploads/img/'.$item['customer']['image']) }}" alt="" width="100px">
+                    <img src="{{ asset('/storage/public/uploads/img/'.$item['customer']['image']) }}" width="100%" height="100px">
                 @endif
             </div>
             <div class="client-info col-8">

@@ -16,24 +16,23 @@
                                     <a href="" class="">100% Authentic</a>
                                     <a href="" class="">Condition: New</a>
                                 </div>
-                                @if(file_exists($detail_item['image']))
-                                    <img src="{{ asset($detail_item['image']) }}" alt="" width="80%">
-                                @else
-                                    <img src="{{ asset('/storage/public/uploads/img/'.$detail_item['image']) }}" alt="" width="80%">
-                                @endif
+                                <div class="img-detail">
+                                    @if(file_exists($detail_item['image']))
+                                        <img src="{{ asset($detail_item['image']) }}" alt="" width="100%">
+                                    @else
+                                        <img src="{{ asset('/storage/public/uploads/img/'.$detail_item['image']) }}" alt="" width="100%">
+                                    @endif
+                                </div>
                             </div>
                             <div class="col-6">
                                 <div class="product-detail-title text-center">
                                     <h2><u>{{$detail_item['name']}}</u></h2>
                                     <div class="product-detail-selection">
                                         <h2><b>${{ number_format($detail_item['price'], 0, '', '.') }}</b></h2>
-                                        <form action="{{URL::to('add-cart')}}" method="post">
+                                        <div class="product-detail-feature">
                                             <div class="qty-select d-flex">
-                                                @csrf
                                                 <div class="qty col-6 d-flex">
-                                                    <p>Quantity: </p> <input type="number" name="qty" min="1" value="1">
-                                                    <input type="hidden" name="productId_hidden"
-                                                           value="{{ $detail_item['id'] }}">
+                                                    <p>Quantity: </p> <input type="text" name="qty" min="1" value="1">
                                                 </div>
                                                 <div class="col-6">
                                                     <select name="" id="">
@@ -42,19 +41,23 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <a href="{{URL::to('checkout')}}">
-                                                <button class="btn btn-dark"><i class="mr-2"></i>Buy</button>
-                                            </a>
+                                            <form action="{{ URL::to('add-cart') }}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-dark"><i class="mr-2"></i>Buy</button>
+                                                <input type="hidden" name="qty" value="1">
+                                                <input type="hidden" name="productId_hidden"
+                                                       value="{{ $detail_item['id'] }}">
+                                            </form>
                                             <div class="d-flex">
                                                 <button class="btn btn-outline-success mr-2"><a
-                                                        href="{{URL::to('add-cart')}}"><i
-                                                            class="fas fa-cart-plus"></i></a></button>
+                                                        href="{{ URL::to('my-cart') }}"><i
+                                                            class="fas fa-shopping-cart"></i></a></button>
                                                 <button class="btn btn-outline-danger mr-2"><i class="fas fa-heart"></i>
                                                 </button>
                                                 <button class="btn btn-outline-primary"><i class="fas fa-share-square"></i>
                                                 </button>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
