@@ -11,9 +11,17 @@ trait PostResourceHelper
      */
     public function getAllPost(): mixed
     {
-        return Post::with(['customer', 'member', 'images' => function ($query) {
-            $query->whereImageType('POST');
-        }])
+        return Post::with(['customer', 'member',
+            'favorites' => function ($query) {
+                $query->whereType('POST');
+                if (Auth()->guard('customer')->user()) {
+                    $query->whereCustomerId(Auth()->guard('customer')->user()->id);
+                }
+            },
+            'images' => function ($query) {
+                $query->whereImageType('POST');
+            }
+        ])
             ->orderBy('created_at', 'desc')->get()->toArray();
     }
 

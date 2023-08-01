@@ -7,28 +7,28 @@
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="pill" href="#all">All</a>
                     </li>
-                    @foreach($status as $status_item)
+                    @foreach($type as $type_item)
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="pill"
-                               href="#status{{ $loop->iteration }}">{{ $status_item }}</a>
+                               href="#status{{ $loop->iteration }}">{{ $type_item }}</a>
                         </li>
                     @endforeach
                 </ul>
                 <div class="tab-content">
                     <div id="all" class="container tab-pane active"><br>
-                        @if ($order->toArray())
-                            @foreach ($order as $order_item)
-                                @include('pages.common.order_item')
+                        @if ($data)
+                            @foreach ($data as $post_item)
+                                @include('pages.common.post_item_1')
                             @endforeach
                         @else
                             @include('pages.common.no-order-status')
                         @endif
                     </div>
-                    @foreach($status as $status_item)
+                    @foreach($type as $type_item)
                         <div id="status{{ $loop->iteration }}" class="container tab-pane fade"><br>
-                            @if ($order->toArray() AND implode(array_column($order->toArray(),'status')) == $status_item)
-                                @foreach ($order->where('status', $status_item) as $order_item)
-                                    @include('pages.common.order_item')
+                            @if ($data AND implode(array_column($data, 'type')) == $type_item)
+                                @foreach ($data->where('status', $type_item) as $post_item)
+                                    @include('pages.common.post_item_1')
                                 @endforeach
                             @else
                                 @include('pages.common.no-order-status')

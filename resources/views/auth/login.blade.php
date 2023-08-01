@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="{{ asset('WebPage/resources/fontawesome/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('WebPage/resources/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </head>
 <body>
 <div class="header">
@@ -36,17 +35,6 @@
 </div>
 
 @yield('content')
-
-<script>
-    function myFunction() {
-        const x = document.getElementById("password");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-    }
-</script>
 
 @if(session('success'))
     <script>
@@ -90,6 +78,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-<script src="{{ asset('WebPage/resources/js/index.js') }}"></script>
+<script src="{{ asset('index.js') }}"></script>
 
 </body>

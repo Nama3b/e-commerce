@@ -91,7 +91,6 @@ class PostController extends Controller
         $data_latest = $post->take(5)->toArray();
         $tags = $this->getTags();
 
-
         return view('pages.post.post-detail')
             ->with(compact('user',
                 'cart',
@@ -113,9 +112,7 @@ class PostController extends Controller
     public function searchPost(Request $request): Factory|View|Application
     {
         $categories = $this->getAllCategory();
-
         $brand_all = $this->getAllBrand();
-
         $tags = $this->getTags();
 
         $keyword = $request->input('keyword_submit');

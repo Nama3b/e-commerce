@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
 use App\Models\Favorite;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\WithPaginationLimit;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class FavoriteController extends Controller
 {
@@ -42,27 +39,28 @@ class FavoriteController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-
         Favorite::create([
-            'reference_id' => $request->input('id'),
+            'reference_id' => $request->input('id_hidden'),
             'customer_id' => Auth()->guard('customer')->user()->id,
-            'favorite_type' => $request->input('type'),
+            'type' => $request->input('type'),
         ]);
 
         return redirect()->back()->with('success', 'Favorite added successfully!');
-
     }
 
     /**
      * @param $favorite
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function edit($favorite, Request $request): RedirectResponse
+    public function edit($favorite): RedirectResponse
     {
-        $favorite = Favorite::findOrFail($favorite);
-        $favorite->status = $request->input('status');
-        $favorite->save();
+        $favorite = Favorite::find($favorite);
+
+        if (!$favorite) {
+            return redirect()->back()->with('error', 'Cannot find a record!');
+        }
+
+        $favorite->delete();
 
         return redirect()->back()->with('success', 'Favorite updated successfully!');
     }

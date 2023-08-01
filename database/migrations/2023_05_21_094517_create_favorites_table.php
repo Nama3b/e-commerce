@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('reference_id');
             $table->unsignedBigInteger('customer_id');
-            $table->enum('favorite_type', ['COMMENT', 'PRODUCT', 'POST']);
+            $table->enum('type', ['COMMENT', 'PRODUCT', 'POST']);
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade');
         });

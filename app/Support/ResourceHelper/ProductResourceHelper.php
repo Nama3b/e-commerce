@@ -12,9 +12,17 @@ trait ProductResourceHelper
      */
     public function getAllProducts(): Collection|array
     {
-        return Product::with(['category', 'brand', 'member', 'images' => function ($query) {
-            $query->whereImageType('PRODUCT');
-        }])
+        return Product::with(['category', 'brand', 'member',
+            'favorites' => function ($query) {
+                $query->whereType('PRODUCT');
+                if (Auth()->guard('customer')->user()) {
+                    $query->whereCustomerId(Auth()->guard('customer')->user()->id);
+                }
+            },
+            'images' => function ($query) {
+                $query->whereImageType('PRODUCT');
+            }
+        ])
             ->where('status', 'STOCKING')
             ->orderby('created_at', 'desc')->get();
     }

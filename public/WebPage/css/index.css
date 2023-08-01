@@ -1069,6 +1069,17 @@ footer .cre .col-2 li a:hover {
     background-color: white;
 }
 
+.product-detail-main .product-detail .feature {
+    margin-top: 15px;
+}
+
+.product-detail-main .product-detail .feature i {
+    color: black;
+    font-weight: bold;
+    font-size: 27px;
+    margin: 0 5px;
+}
+
 
 /* ====================================POST==================================== */
 
@@ -1089,7 +1100,7 @@ footer .cre .col-2 li a:hover {
     margin: 50px 0;
 }
 
-.post-main .popular-post form {
+.post-main .popular-post .form {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
@@ -1127,6 +1138,11 @@ footer .cre .col-2 li a:hover {
     -webkit-box-orient: vertical;
 }
 
+.post-main .post-infor .col-5,
+.post-main .post-infor .col-7 {
+    padding: 0;
+}
+
 .post-main .post-author {
     display: flex;
 }
@@ -1134,6 +1150,15 @@ footer .cre .col-2 li a:hover {
 .post-main .post-author img {
     border-radius: 50%;
     width: 37px;
+}
+
+.post-main .post-feature {
+    display: flex;
+    align-items: end;
+}
+
+.post-main .post-feature button {
+    margin: 0 2px;
 }
 
 .post-main .post-item form {

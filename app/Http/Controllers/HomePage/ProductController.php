@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CartResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
@@ -87,6 +88,9 @@ class ProductController extends Controller
         $cart = $this->myCart();
         $count_cart = $this->countCart();
 
+        $categories = $this->getAllCategory();
+        $brand_all = $this->getAllBrand();
+
         $detail = collect($this->getProductImage())
             ->where('id', $id)
             ->take(1)->toArray();
@@ -96,18 +100,17 @@ class ProductController extends Controller
             ->whereNotIn('id', $id)
             ->random(5)->toArray();
 
-        $categories = $this->getAllCategory();
-
-        $brand_all = $this->getAllBrand();
+        $favorites = Product::with(['favorites'])->where('id', $id)->get()->toArray();
 
         return view('pages.product.product-detail')
             ->with(compact(
                 'cart',
                 'count_cart',
+                'categories',
+                'brand_all',
                 'detail',
                 'products_relate',
-                'categories',
-                'brand_all'
+                'favorites'
             ));
     }
 

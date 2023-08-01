@@ -7,6 +7,7 @@ use App\Mail\OrderSendMail;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\PaymentOption;
+use App\Models\Product;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CartResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
@@ -23,7 +24,6 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-
     use CategoryResourceHelper,
         BrandResourceHelper,
         ProductResourceHelper,
@@ -60,7 +60,14 @@ class OrderController extends Controller
      */
     public function edit($order): RedirectResponse
     {
-        $order = Order::findOrFail($order);
+        $order = Order::with(['orderdetails'])->findOrFail($order);
+        foreach ($order->toArray()['orderdetails'] as $item)
+        {
+            $product = Product::findOrFail($item['product_id']);
+            $product->quantity = $product->quantity + $item['quantity'];
+            $product->save();
+        }
+
         $order->status = 'CANCELLED';
         $order->save();
 
@@ -211,6 +218,10 @@ class OrderController extends Controller
                 'quantity' => $cart_item['quantity'],
                 'image' => $cart_item['image'],
             ]);
+
+            $product = Product::findOrFail($cart_item['id']);
+            $product->quantity = $product->quantity - $cart_item['quantity'];
+            $product->save();
         }
 
         Mail::to($order['email'])->send(new OrderSendMail($order));

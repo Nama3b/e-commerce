@@ -38,7 +38,7 @@
                             <input type="text" name="email" placeholder="Email Address" required>
                             <div class="password-input">
                                 <input type="password" id="password" name="password" placeholder="Password" required>
-                                <a onclick="myFunction()" title="Show Password"><i class="far fa-eye"></i></a>
+                                <a onclick="showPassword()" title="Show Password"><i class="far fa-eye"></i></a>
                             </div>
                             <small class="text-right">Forgot Password?</small>
                             <button type="submit" class="btn btn-dark" name="login">Sign In</button>
@@ -64,8 +64,14 @@
                                 @endforeach
                             </div>
                             <input type="email" name="email" placeholder="Email" required>
-                            <input type="password" name="password" placeholder="Password" required>
-                            <input type="password" name="password_confirmation" placeholder="Password confirmation" required>
+                            <div class="password-input">
+                                <input type="password" id="password_signup" name="password" placeholder="Password" required>
+                                <a onclick="showPasswordSignup()" title="Show Password"><i class="far fa-eye"></i></a>
+                            </div>
+                            <div class="password-input">
+                                <input type="password" id="password_repeat" name="password_confirmation" placeholder="Password confirmation" required>
+                                <a onclick="showPasswordRepeat()" title="Show Password"><i class="far fa-eye"></i></a>
+                            </div>
                             <input type="text" name="full_name" placeholder="Full name" required>
                             <input type="text" name="address" placeholder="Address" required>
                             <input type="text" name="phone_number" placeholder="Phone number" required>

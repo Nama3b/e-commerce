@@ -23,6 +23,19 @@
                                         <img src="{{ asset('/storage/public/uploads/img/'.$detail_item['image']) }}" alt="" width="100%">
                                     @endif
                                 </div>
+                                <div class="feature d-flex">
+                                    <div class="col-6">
+                                        <div class="d-flex">
+                                            Share with:
+                                            <a href=""><i class="fab fa-facebook-square"></i></a>
+                                            <a href=""><i class="fab fa-instagram"></i></a>
+                                            <a href=""><i class="fab fa-twitter-square"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <i class="fas fa-heart"></i> Liked ({{ count(array_column($favorites,'favorites')[0]) }})
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-6">
                                 <div class="product-detail-title text-center">
@@ -49,13 +62,28 @@
                                                        value="{{ $detail_item['id'] }}">
                                             </form>
                                             <div class="d-flex">
-                                                <button class="btn btn-outline-success mr-2"><a
-                                                        href="{{ URL::to('my-cart') }}"><i
-                                                            class="fas fa-shopping-cart"></i></a></button>
-                                                <button class="btn btn-outline-danger mr-2"><i class="fas fa-heart"></i>
+                                                <button class="btn btn-outline-success mr-2">
+                                                    <a href="{{ URL::to('my-cart') }}"><i class="fas fa-shopping-cart"></i></a>
                                                 </button>
-                                                <button class="btn btn-outline-primary"><i class="fas fa-share-square"></i>
-                                                </button>
+                                                @if(Auth()->guard('customer')->user())
+                                                    @if($detail_item['favorites'])
+                                                        <form action="{{ URL::to('update-favorite').'/'.(int)implode(array_column($detail_item['favorites'],'id')) }}" method="post" class="mr-2" style="width: 120%">
+                                                            @method('PATCH')
+                                                            @csrf
+                                                            <button class="btn btn-outline-danger"><i class="fas fa-heart"></i></button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ URL::to('add-favorite') }}" method="post" class="mr-2" style="width: 120%">
+                                                            @csrf
+                                                            <input type="hidden" name="id_hidden" value="{{$detail_item['id']}}">
+                                                            <input type="hidden" name="type" value="PRODUCT">
+                                                            <button class="btn btn-outline-danger"><i class="far fa-heart"></i></button>
+                                                        </form>
+                                                    @endif
+                                                @else
+                                                    <button class="btn btn-outline-danger" onclick="signup()"><i class="far fa-heart"></i></button>
+                                                @endif
+                                                <button class="btn btn-outline-primary"><i class="fas fa-share-square"></i></button>
                                             </div>
                                         </div>
                                     </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\Resource\BannerController;
 use App\Http\Controllers\Resource\CommentController;
 use App\Http\Controllers\Resource\FavoriteController;
 use App\Http\Controllers\Resource\ImageController;
+use App\Http\Controllers\Resource\PostSavedController;
 use App\Http\Controllers\Resource\TagController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\User\AdminController;
@@ -72,6 +73,10 @@ Route::post('/add-cart', [\App\Http\Controllers\HomePage\OrderController::class,
 Route::patch('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);
 Route::delete('/remove-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'removeFromCart']);
 
+Route::post('add-favorite', [FavoriteController::class, 'store']);
+Route::patch('update-favorite/{favorite}', [FavoriteController::class, 'edit']);
+Route::post('save-post', [PostSavedController::class, 'store']);
+
 Route::middleware('auth:customer')->group(function () {
     Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'index']);
     Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout']);
@@ -81,6 +86,7 @@ Route::middleware('auth:customer')->group(function () {
     Route::patch('/order/edit/{order}', [\App\Http\Controllers\HomePage\OrderController::class, 'edit']);
     Route::get('/customer-profile', [UserController::class, 'index']);
     Route::patch('/update-customer-profile/{id}', [UserController::class, 'updateCustomer']);
+    Route::get('/saved-post', [PostSavedController::class, 'list']);
 });
 
 Route::prefix('dashboard')->group(function () {
@@ -258,12 +264,6 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::get('favorite', [FavoriteController::class, 'list'])
         ->name('favorite')
         ->middleware(['checkManagerPermission:VIEW_FAVORITE']);
-    Route::post('favorite/store', [FavoriteController::class, 'store'])
-        ->name('favorite.store')
-        ->middleware(['checkManagerPermission:CREATE_FAVORITE']);
-    Route::post('favorite/edit/{favorite}', [FavoriteController::class, 'edit'])
-        ->name('favorite.edit')
-        ->middleware(['checkManagerPermission:EDIT_FAVORITE']);
 
     Route::get('image', [ImageController::class, 'list'])
         ->name('image')

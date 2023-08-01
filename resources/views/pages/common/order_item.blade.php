@@ -1,4 +1,4 @@
-<div class="card-order d-flex">
+<div class="card-order d-flex mb-4">
     <div class="col-8">
         @php($order_detail = $order_item->orderdetails)
         @foreach ($order_detail as $order_detail_item)
@@ -7,9 +7,13 @@
                     <div class="row">
                         <div class="col-md-3">
                             @if(file_exists($order_detail_item->image))
-                                <img src="{{ asset($order_detail_item->image) }}" width="120px" height="80px">
+                                <a href="{{ URL::to('product-detail/'.$order_detail_item->product_id) }}">
+                                    <img src="{{ asset($order_detail_item->image) }}" width="120px" height="80px">
+                                </a>
                             @else
-                                <img src="{{ asset('/storage/public/uploads/img/'.$order_detail_item->image) }}" width="120px" height="80px">
+                                <a href="{{ URL::to('product-detail/'.$order_detail_item->id) }}">
+                                    <img src="{{ asset('/storage/public/uploads/img/'.$order_detail_item->image) }}" width="120px" height="80px">
+                                </a>
                             @endif
                         </div>
                         <div class="col-md-4 row-item">

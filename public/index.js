@@ -61,31 +61,32 @@
 //   });
 // });
 
+// fade anmation
 const wrapper = document.querySelector('.wrapper')
 let isMouseDown = false
 let startX, scrollLeft
 
 wrapper.addEventListener('mousedown', (e) => {
-  isMouseDown = true
-  startX = e.pageX - wrapper.offsetLeft
-  scrollLeft = wrapper.scrollLeft
+    isMouseDown = true
+    startX = e.pageX - wrapper.offsetLeft
+    scrollLeft = wrapper.scrollLeft
 })
 
 wrapper.addEventListener('mouseleave', () => {
-  isMouseDown = false
+    isMouseDown = false
 })
 
 wrapper.addEventListener('mouseup', () => {
-  isMouseDown = false
+    isMouseDown = false
 })
 
 wrapper.addEventListener('mousemove', (e) => {
-  if (!isMouseDown) return
+    if (!isMouseDown) return
 
-  const x = e.pageX - wrapper.offsetLeft
-  // 3 là tốc độ scroll
-  const walk = (x - startX) * 3
-  wrapper.scrollLeft = scrollLeft - walk
+    const x = e.pageX - wrapper.offsetLeft
+    // 3 là tốc độ scroll
+    const walk = (x - startX) * 3
+    wrapper.scrollLeft = scrollLeft - walk
 })
 
 // Instantiate the Bootstrap carousel
@@ -97,12 +98,12 @@ $('.multi-item-carousel').carousel({
 // Do the same for the next, next item.
 
 $(document).ready(function () {
-    var itemsMainDiv = ('.MultiCarousel');
-    var itemsDiv = ('.MultiCarousel-inner');
-    var itemWidth = "";
+    const itemsMainDiv = ('.MultiCarousel');
+    const itemsDiv = ('.MultiCarousel-inner');
+    let itemWidth = "";
 
     $('.leftLst, .rightLst').click(function () {
-        var condition = $(this).hasClass("leftLst");
+        const condition = $(this).hasClass("leftLst");
         if (condition)
             click(0, this);
         else
@@ -111,14 +112,10 @@ $(document).ready(function () {
 
     ResCarouselSize();
 
-
-
-
     $(window).resize(function () {
         ResCarouselSize();
     });
 
-    //this function define the size of the items
     function ResCarouselSize() {
         let incno = 0;
         const dataItems = ("data-items");
@@ -135,24 +132,20 @@ $(document).ready(function () {
             itemsSplit = btnParentSb.split(',');
             $(this).parent().attr("id", "MultiCarousel" + id);
 
-
             if (bodyWidth >= 1200) {
                 incno = itemsSplit[3];
                 itemWidth = sampwidth / incno;
-            }
-            else if (bodyWidth >= 992) {
+            } else if (bodyWidth >= 992) {
                 incno = itemsSplit[2];
                 itemWidth = sampwidth / incno;
-            }
-            else if (bodyWidth >= 768) {
+            } else if (bodyWidth >= 768) {
                 incno = itemsSplit[1];
                 itemWidth = sampwidth / incno;
-            }
-            else {
+            } else {
                 incno = itemsSplit[0];
                 itemWidth = sampwidth / incno;
             }
-            $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+            $(this).css({'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers});
             $(this).find(itemClass).each(function () {
                 $(this).outerWidth(itemWidth);
             });
@@ -178,8 +171,7 @@ $(document).ready(function () {
                 translateXval = 0;
                 $(el + ' ' + leftBtn).addClass("over");
             }
-        }
-        else if (e === 1) {
+        } else if (e === 1) {
             const itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
             translateXval = parseInt(xds) + parseInt(itemWidth * s);
             $(el + ' ' + leftBtn).removeClass("over");
@@ -192,11 +184,60 @@ $(document).ready(function () {
         $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
     }
 
-    //It is used to get some elements from btn
     function click(ell, ee) {
         const Parent = "#" + $(ee).parent().attr("id");
         const slide = $(Parent).attr("data-slide");
         ResCarousel(ell, Parent, slide);
     }
+});
 
+//display password in login webpage
+function showPassword() {
+    const x = document.getElementById("password");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+function showPasswordSignup() {
+    const x = document.getElementById("password_signup");
+
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+function showPasswordRepeat() {
+    const x = document.getElementById("password_repeat");
+
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+//display password in login dashboard
+function myFunction() {
+    const x = document.getElementById("password");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+// reload without refresh
+$(function() {
+    $.ajaxSetup({
+        cache: false
+    });
+
+    $("#favorite-event").click(function() {
+        $("#post-feature").load('#post-feature');
+    });
 });

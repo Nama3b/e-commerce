@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+
 
 
 /**
@@ -27,9 +29,13 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Brand|null $brand
- * @property-read ProductCategory|null $category
- * @property-read Member|null $member
+ * @property-read Brand $brand
+ * @property-read ProductCategory $category
+ * @property-read Collection<int, Favorite> $favorites
+ * @property-read int|null $favorites_count
+ * @property-read Collection<int, Image> $images
+ * @property-read int|null $images_count
+ * @property-read Member $member
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
  * @method static Builder|Product onlyTrashed()
@@ -111,5 +117,13 @@ class Product extends Model
     public function images(): HasMany
     {
         return $this->HasMany(Image::class, 'reference_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function favorites(): HasMany
+    {
+        return $this->HasMany(Favorite::class, 'reference_id', 'id');
     }
 }

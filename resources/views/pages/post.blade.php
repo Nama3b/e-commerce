@@ -34,11 +34,11 @@
                                     class="fas fa-long-arrow-alt-right"></i></a></p>
                     </div>
                 </div>
-                <form action="{{URL::to('/save')}}" method="post">
+                <div class="form">
                     @foreach($popular_post as $key => $post_item)
                         @include('pages.common.post_item_1')
                     @endforeach
-                </form>
+                </div>
             </div>
 
             <div class="carousel-post">
