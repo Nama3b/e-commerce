@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-    <div class="h-100 order-status">
+    <div class="h-100 saved-post">
         <div class="container py-5 h-100">
             <div class="row d-block justify-content-center align-items-center h-100">
                 <ul class="nav nav-pills" role="tablist">
@@ -21,17 +21,17 @@
                                 @include('pages.common.post_item_1')
                             @endforeach
                         @else
-                            @include('pages.common.no-order-status')
+                            @include('pages.common.no-post')
                         @endif
                     </div>
                     @foreach($type as $type_item)
                         <div id="status{{ $loop->iteration }}" class="container tab-pane fade"><br>
-                            @if ($data AND implode(array_column($data, 'type')) == $type_item)
-                                @foreach ($data->where('status', $type_item) as $post_item)
+                            @if ($data AND in_array($type_item, array_column($data, 'post_type')))
+                                @foreach (collect($data)->where('post_type', $type_item) as $post_item)
                                     @include('pages.common.post_item_1')
                                 @endforeach
                             @else
-                                @include('pages.common.no-order-status')
+                                @include('pages.common.no-post')
                             @endif
                         </div>
                     @endforeach

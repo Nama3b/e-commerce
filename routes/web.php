@@ -36,6 +36,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/config-clear', function() {
+    Artisan::call('config:clear');
+    return 'Configuration cache cleared!';
+});
+Route::get('/config-cache', function() {
+    Artisan::call('config:cache');
+    return 'Configuration cache cleared! Configuration cached successfully!';
+});
+Route::get('/cache-clear', function() {
+    Artisan::call('cache:clear');
+    return 'Application cache cleared!';
+});
+Route::get('/view-cache', function() {
+    Artisan::call('view:cache');
+    return 'Compiled views cleared! Blade templates cached successfully!';
+});
+Route::get('/view-clear', function() {
+    Artisan::call('view:clear');
+    return 'Compiled views cleared!';
+});
+Route::get('/route-cache', function() {
+    Artisan::call('route:cache');
+    return 'Route cache cleared! Routes cached successfully!';
+});
+Route::get('/route-clear', function() {
+    Artisan::call('route:clear');
+    return 'Route cache cleared!';
+});
+Route::get('/storage-link', function() {
+    Artisan::call('storage:link');
+    return 'The links have been created.';
+});
+
 Auth::routes(['verify' => true]);
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
@@ -76,6 +109,7 @@ Route::delete('/remove-cart', [\App\Http\Controllers\HomePage\OrderController::c
 Route::post('add-favorite', [FavoriteController::class, 'store']);
 Route::patch('update-favorite/{favorite}', [FavoriteController::class, 'edit']);
 Route::post('save-post', [PostSavedController::class, 'store']);
+Route::patch('unsave-post/{post}', [PostSavedController::class, 'edit']);
 
 Route::middleware('auth:customer')->group(function () {
     Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'index']);

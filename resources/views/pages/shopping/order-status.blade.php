@@ -21,17 +21,17 @@
                                 @include('pages.common.order_item')
                             @endforeach
                         @else
-                            @include('pages.common.no-order-status')
+                            @include('pages.common.no-post')
                         @endif
                     </div>
                     @foreach($status as $status_item)
                         <div id="status{{ $loop->iteration }}" class="container tab-pane fade"><br>
-                            @if ($order->toArray() AND implode(array_column($order->toArray(),'status')) == $status_item)
-                                @foreach ($order->where('status', $status_item) as $order_item)
+                            @if ($order->toArray() AND in_array($status_item, array_column($order->toArray(), 'status')))
+                                @foreach (collect($order)->where('status', $status_item)->toArray() as $order_item)
                                     @include('pages.common.order_item')
                                 @endforeach
                             @else
-                                @include('pages.common.no-order-status')
+                                @include('pages.common.no-post')
                             @endif
                         </div>
                     @endforeach

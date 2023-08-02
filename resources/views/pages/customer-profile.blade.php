@@ -40,7 +40,7 @@
                                 </p>
                                 <div class="d-flex justify-content-center mb-2">
                                     <button type="button" class="btn btn-outline-dark ms-1">Message</button>
-                                    <button type="submit" class="btn btn-dark ml-2">Edit profile</button>
+                                    <button type="submit" class="btn btn-dark ml-2">Update profile</button>
                                 </div>
                             </div>
                         </div>

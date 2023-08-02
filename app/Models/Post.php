@@ -108,4 +108,12 @@ class Post extends Model
     {
          return $this->HasMany(Favorite::class, 'reference_id', 'id');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function postsaved(): HasMany
+    {
+        return $this->HasMany(PostSaved::class, 'reference_id', 'id');
+    }
 }

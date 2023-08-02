@@ -18,6 +18,11 @@ trait PostResourceHelper
                     $query->whereCustomerId(Auth()->guard('customer')->user()->id);
                 }
             },
+            'postsaved' => function ($query) {
+                if (Auth()->guard('customer')->user()) {
+                    $query->whereCustomerId(Auth()->guard('customer')->user()->id);
+                }
+            },
             'images' => function ($query) {
                 $query->whereImageType('POST');
             }

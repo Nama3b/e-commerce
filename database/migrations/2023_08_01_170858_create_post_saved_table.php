@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('post_saved', function (Blueprint $table) {
             $table->id();
+            $table->integer('reference_id');
+            $table->unsignedBigInteger('customer_id');
+            $table->enum('type', ['BLOG', 'NEWS']);
             $table->timestamps();
+
+            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade');
         });
     }
 

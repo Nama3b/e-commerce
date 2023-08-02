@@ -40,26 +40,48 @@
             @endforeach
             </tbody>
         </table>
-        @if ($item['status'] != 'CANCELLED')
-            <form action="{{ URL::to('/dashboard/order/edit/'.$item['id']) }}" method="post"
-                  class="order-status">
-                @csrf
-                @method('PATCH')
-                <select name="status">
-                    @foreach ($status as $key => $option)
-                        <option
-                            value="{{ $key+1 }}" {{ $option == $item['status'] ? 'selected' : '' }}>{{ $option }}</option>
-                    @endforeach
-                </select>
-                <button type="submit" class="btn btn-sm btn-outline-success">Update status
-                </button>
-            </form>
-        @else
+
+        @if ($item['status'] == 'CANCELLED')
             <div class="order-status">
                 <select name="status">
                     <option value="4">{{ $item['status'] }}</option>
                 </select>
             </div>
+        @elseif($item['status'] == 'DELIVERING')
+            <form action="{{ URL::to('/dashboard/order/edit/'.$item['id']) }}" method="post"
+                  class="order-status">
+                @csrf
+                @method('PATCH')
+                <select name="status">
+                    <option value="2" selected>DELIVERING</option>
+                    <option value="3">COMPLETED</option>
+                    <option value="4">CANCELLED</option>
+                </select>
+                <button type="submit" class="btn btn-sm btn-outline-success">Update status
+                </button>
+            </form>
+        @elseif($item['status'] == 'PROCESSING')
+            <form action="{{ URL::to('/dashboard/order/edit/'.$item['id']) }}" method="post"
+                  class="order-status">
+                @csrf
+                @method('PATCH')
+                <select name="status">
+                    <option value="1" selected>PROCESSING</option>
+                    <option value="2">DELIVERING</option>
+                    <option value="4">CANCELLED</option>
+                </select>
+                <button type="submit" class="btn btn-sm btn-outline-success">Update status
+                </button>
+            </form>
+        @else
+            <form action="{{ URL::to('/dashboard/order/edit/'.$item['id']) }}" method="post"
+                  class="order-status">
+                @csrf
+                @method('PATCH')
+                <select name="status">
+                    <option value="3">COMPLETED</option>
+                </select>
+            </form>
         @endif
     </div>
     @include('dashboard-pages.common.order.customer_info')

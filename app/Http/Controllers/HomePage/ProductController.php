@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CartResourceHelper;
@@ -100,7 +101,12 @@ class ProductController extends Controller
             ->whereNotIn('id', $id)
             ->random(5)->toArray();
 
-        $favorites = Product::with(['favorites'])->where('id', $id)->get()->toArray();
+        $favorites = Product::with(['favorites' => function ($query) {
+            $query->whereType('PRODUCT');
+        }])
+            ->where('id', $id)->get()->toArray();
+
+        $count = OrderDetail::where('product_id', $id)->count('quantity');
 
         return view('pages.product.product-detail')
             ->with(compact(
@@ -110,7 +116,8 @@ class ProductController extends Controller
                 'brand_all',
                 'detail',
                 'products_relate',
-                'favorites'
+                'favorites',
+                'count'
             ));
     }
 

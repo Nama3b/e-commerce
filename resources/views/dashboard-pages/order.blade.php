@@ -30,7 +30,7 @@
 
                 @foreach ($status as $status_item)
                     <div id="status{{ $loop->iteration }}" class="tab-pane fade"><br>
-                        @if ($data AND implode(array_column($data, 'status')) == $status_item)
+                        @if ($data AND in_array($status_item, array_column($data, 'status')))
                             @foreach (collect($data)->where('status', $status_item) as $item)
                                 @include('dashboard-pages.common.order.order_item')
                             @endforeach

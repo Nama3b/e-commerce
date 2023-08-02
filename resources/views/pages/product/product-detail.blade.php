@@ -7,8 +7,11 @@
                     <div class="product-detail">
                         <div class="product-detail-title">
                             <p><a href="{{ URL::to('home') }}">Home</a>
-                                / <a href="{{ URL::to('product-by-brand/'.$detail_item['brand_id'])}}">{{$detail_item['brand']['name'] }}</a>
-                                / <a href="{{ URL::to('product-detail/'.$detail_item['id'])}}">{{$detail_item['name'] }}</a></p>
+                                / <a
+                                    href="{{ URL::to('product-by-brand/'.$detail_item['brand_id'])}}">{{$detail_item['brand']['name'] }}</a>
+                                / <a
+                                    href="{{ URL::to('product-detail/'.$detail_item['id'])}}">{{$detail_item['name'] }}</a>
+                            </p>
                         </div>
                         <div class="d-flex">
                             <div class="col-6 text-center">
@@ -20,7 +23,8 @@
                                     @if(file_exists($detail_item['image']))
                                         <img src="{{ asset($detail_item['image']) }}" alt="" width="100%">
                                     @else
-                                        <img src="{{ asset('/storage/public/uploads/img/'.$detail_item['image']) }}" alt="" width="100%">
+                                        <img src="{{ asset('/storage/public/uploads/img/'.$detail_item['image']) }}"
+                                             alt="" width="100%">
                                     @endif
                                 </div>
                                 <div class="feature d-flex">
@@ -33,7 +37,8 @@
                                         </div>
                                     </div>
                                     <div class="col-6 text-right">
-                                        <i class="fas fa-heart"></i> Liked ({{ count(array_column($favorites,'favorites')[0]) }})
+                                        <i class="fas fa-heart"></i> Liked
+                                        ({{ count(array_column($favorites, 'favorites')[0]) }})
                                     </div>
                                 </div>
                             </div>
@@ -56,34 +61,64 @@
                                             </div>
                                             <form action="{{ URL::to('add-cart') }}" method="post">
                                                 @csrf
-                                                <button type="submit" class="btn btn-dark"><i class="mr-2"></i>Buy</button>
+                                                <button type="submit" class="btn btn-dark"><i class="mr-2"></i>Buy
+                                                </button>
                                                 <input type="hidden" name="qty" value="1">
                                                 <input type="hidden" name="productId_hidden"
                                                        value="{{ $detail_item['id'] }}">
                                             </form>
                                             <div class="d-flex">
                                                 <button class="btn btn-outline-success mr-2">
-                                                    <a href="{{ URL::to('my-cart') }}"><i class="fas fa-shopping-cart"></i></a>
+                                                    <a href="{{ URL::to('my-cart') }}"><i
+                                                            class="fas fa-shopping-cart"></i></a>
                                                 </button>
                                                 @if(Auth()->guard('customer')->user())
                                                     @if($detail_item['favorites'])
-                                                        <form action="{{ URL::to('update-favorite').'/'.(int)implode(array_column($detail_item['favorites'],'id')) }}" method="post" class="mr-2" style="width: 120%">
+                                                        <form
+                                                            action="{{ URL::to('update-favorite').'/'.(int)implode(array_column($detail_item['favorites'],'id')) }}"
+                                                            method="post" class="mr-2" style="width: 120%">
                                                             @method('PATCH')
                                                             @csrf
-                                                            <button class="btn btn-outline-danger"><i class="fas fa-heart"></i></button>
+                                                            <button class="btn btn-outline-danger mr-2"><i
+                                                                    class="fas fa-heart"></i></button>
                                                         </form>
                                                     @else
-                                                        <form action="{{ URL::to('add-favorite') }}" method="post" class="mr-2" style="width: 120%">
+                                                        <form action="{{ URL::to('add-favorite') }}" method="post"
+                                                              class="mr-2" style="width: 120%">
                                                             @csrf
-                                                            <input type="hidden" name="id_hidden" value="{{$detail_item['id']}}">
+                                                            <input type="hidden" name="id_hidden"
+                                                                   value="{{$detail_item['id']}}">
                                                             <input type="hidden" name="type" value="PRODUCT">
-                                                            <button class="btn btn-outline-danger"><i class="far fa-heart"></i></button>
+                                                            <button class="btn btn-outline-danger mr-2"><i
+                                                                    class="far fa-heart"></i></button>
                                                         </form>
                                                     @endif
                                                 @else
-                                                    <button class="btn btn-outline-danger" onclick="signup()"><i class="far fa-heart"></i></button>
+                                                    <button class="btn btn-outline-danger mr-2" onclick="signup()"><i
+                                                            class="far fa-heart"></i></button>
                                                 @endif
-                                                <button class="btn btn-outline-primary"><i class="fas fa-share-square"></i></button>
+                                                <button class="btn btn-outline-primary"><i
+                                                        class="fas fa-share-square"></i></button>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-8 text-left">
+                                                    <small>{{ $detail_item['quantity'] }}
+                                                        @if($detail_item['quantity'] > 1)
+                                                            items
+                                                        @else
+                                                            item
+                                                        @endif
+                                                        already had in storage</small>
+                                                </div>
+                                                <div class="col-4 text-right">
+                                                    <small>{{ $count }}
+                                                        @if($count > 1)
+                                                            items
+                                                        @else
+                                                            item
+                                                        @endif
+                                                        sold</small>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
