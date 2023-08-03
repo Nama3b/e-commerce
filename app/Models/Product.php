@@ -126,4 +126,12 @@ class Product extends Model
     {
         return $this->HasMany(Favorite::class, 'reference_id', 'id');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function carts(): HasMany
+    {
+        return $this->HasMany(Cart::class,'product_id', 'id');
+    }
 }

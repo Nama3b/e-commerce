@@ -35,10 +35,10 @@ class PostSaved extends Model
     use HasFactory;
 
     const TYPE = ['BLOG', 'NEWS'];
-    const CREATE = 'CREATE_FAVORITE';
-    const VIEW = 'VIEW_FAVORITE';
-    const EDIT = 'EDIT_FAVORITE';
-    const DELETE = 'DELETE_FAVORITE';
+    const CREATE = 'CREATE_POST_SAVED';
+    const VIEW = 'VIEW_POST_SAVED';
+    const EDIT = 'EDIT_POST_SAVED';
+    const DELETE = 'DELETE_POST_SAVED';
 
     /**
      * The table associated with the model.

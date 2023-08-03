@@ -108,7 +108,7 @@
                                     <li>
                                         <div class="d-flex">
                                             <div class="cart-item-img">
-                                                <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}">
+                                                <a href="{{ URL::to('/product-detail/'.$cart_item['id']) }}">
                                                     @if(file_exists($cart_item['image']))
                                                         <img src="{{ asset($cart_item['image']) }}" alt="" height="45px">
                                                     @else

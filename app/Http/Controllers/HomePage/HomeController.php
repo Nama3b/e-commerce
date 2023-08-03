@@ -4,7 +4,6 @@ namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
-use App\Models\Brand;
 use App\Models\Member;
 use App\Models\Post;
 use App\Support\ResourceHelper\BannerResourceHelper;
@@ -40,8 +39,8 @@ class HomeController extends Controller
         $cart = $this->myCart();
         $count_cart = $this->countCart();
 
-        $author = Member::with('posts')->whereId(array_column($this->getAllNews(),'author'))->get()->toArray();
-        $author_name = implode((array_column($author,'full_name')));
+        $author = Member::with('posts')->whereId(array_column($this->getAllNews(), 'author'))->get()->toArray();
+        $author_name = implode((array_column($author, 'full_name')));
 
         $categories = $this->getAllCategory();
         $brand_all = $this->getAllBrand();

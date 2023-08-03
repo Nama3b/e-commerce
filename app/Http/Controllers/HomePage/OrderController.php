@@ -4,6 +4,7 @@ namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
 use App\Mail\OrderSendMail;
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\PaymentOption;
@@ -120,11 +121,9 @@ class OrderController extends Controller
      */
     public function updateCart(Request $request): RedirectResponse
     {
-        $cartItems = $this->myCart();
-
-        $cartItems[$request->productId_hidden]['quantity'] = $request->input('quantity');
-
-        session(['cart' => $cartItems]);
+        $cartItems = Cart::findOrFail($request->input('productId_hidden'));
+        $cartItems->quantity = $request->input('quantity');
+        $cartItems->save();
 
         return redirect()->back()->with('success', 'Cart updated successfully!');
     }
@@ -135,13 +134,21 @@ class OrderController extends Controller
      */
     public function removeFromCart(Request $request): RedirectResponse
     {
-        $id = $request->input('productId_hidden');
+        if (Auth()->guard('customer')->user()) {
+            $cart = Cart::find($request->input('productId_hidden'));
+            if (!$cart) {
+                return redirect()->route('/home')->with('error', 'Cannot find a record!');
+            }
 
-        $cartItems = $this->myCart();
+            $cart->delete();
+        } else {
+            $id = $request->input('productId_hidden');
+            $cartItems = $this->myCart();
 
-        if (isset($cartItems[$id])) {
-            unset($cartItems[$id]);
-            session(['cart' => $cartItems]);
+            if (isset($cartItems[$id])) {
+                unset($cartItems[$id]);
+                session(['cart' => $cartItems]);
+            }
         }
 
         return redirect()->back()->with('success', 'Product removed successfully!');
@@ -196,7 +203,6 @@ class OrderController extends Controller
         ]);
 
         $time_now = Carbon::now();
-
         $order = Order::create([
             'customer_id' => Auth()->guard('customer')->user()->id,
             'name' => $request->input('name'),
@@ -218,14 +224,12 @@ class OrderController extends Controller
                 'quantity' => $cart_item['quantity'],
                 'image' => $cart_item['image'],
             ]);
-
             $product = Product::findOrFail($cart_item['id']);
             $product->quantity = $product->quantity - $cart_item['quantity'];
             $product->save();
         }
 
         Mail::to($order['email'])->send(new OrderSendMail($order));
-
         session()->forget('cart');
 
         return view('pages.shopping.finish-payment')

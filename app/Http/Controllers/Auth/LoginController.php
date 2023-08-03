@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Cart;
 use App\Models\Member;
+use App\Models\Product;
 use App\Providers\RouteServiceProvider;
+use App\Support\ResourceHelper\CartResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +19,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
+    use AuthenticatesUsers,
+        CartResourceHelper;
 
     /**
      * @var string
@@ -45,9 +49,32 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('customer')->attempt($credentials)) {
+            if (session('cart', [])) {
+                $cart = $this->myCart();
+                foreach ($cart as $cart_item) {
+//                    Cart::query()->upsert([
+//                        'customer_id' => Auth()->guard('customer')->user()->id,
+//                        'product_id' => $cart_item['id'],
+//                        'quantity' => $cart_item['quantity'],
+//                    ], ['customer_id', 'product_id'], ['quantity']);
+//                    Cart::create([
+//                        'customer_id' => Auth()->guard('customer')->user()->id,
+//                        'product_id' => $cart_item['id'],
+//                        'quantity' => $cart_item['quantity'],
+//                    ]);
+                    Cart::updateOrCreate([
+                        'customer_id' => Auth()->guard('customer')->user()->id,
+                        'product_id' => $cart_item['id'],
+                    ],[
+                        'quantity' => $cart_item['quantity'],
+                    ]);
+                }
+            }
+
             $request->session()->put('auth.password_confirmed_at', time());
 
             return $this->sendLoginResponse($request);
+
         } else {
             throw ValidationException::withMessages([
                 $this->username() => ['failed' => 'Email or password is incorrect!'],
