@@ -241,3 +241,15 @@ $(function() {
         $("#post-feature").load('#post-feature');
     });
 });
+
+// blocking father form doing action in my cart page
+document.getElementById('updateForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    document.getElementById('updateForm').submit();
+});
+document.getElementById('deleteForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    document.getElementById('deleteForm').submit();
+});

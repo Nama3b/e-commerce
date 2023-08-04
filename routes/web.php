@@ -103,24 +103,27 @@ Route::get('/post-detail/{id}', [\App\Http\Controllers\HomePage\PostController::
 Route::get('/search-post', [\App\Http\Controllers\HomePage\PostController::class, 'searchPost']);
 
 Route::post('/add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
-Route::patch('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);
 Route::delete('/remove-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'removeFromCart']);
-
-Route::post('add-favorite', [FavoriteController::class, 'store']);
-Route::patch('update-favorite/{favorite}', [FavoriteController::class, 'edit']);
-Route::post('save-post', [PostSavedController::class, 'store']);
-Route::patch('unsave-post/{post}', [PostSavedController::class, 'edit']);
 
 Route::middleware('auth:customer')->group(function () {
     Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'index']);
-    Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout']);
+    Route::post('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);
+    Route::post('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout']);
     Route::post('/checkout-action', [\App\Http\Controllers\HomePage\OrderController::class, 'checkoutAction']);
     Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
+
     Route::get('/order-status', [\App\Http\Controllers\HomePage\OrderController::class, 'orderStatus']);
     Route::patch('/order/edit/{order}', [\App\Http\Controllers\HomePage\OrderController::class, 'edit']);
+
     Route::get('/customer-profile', [UserController::class, 'index']);
     Route::patch('/update-customer-profile/{id}', [UserController::class, 'updateCustomer']);
+
+    Route::post('add-favorite', [FavoriteController::class, 'store']);
+    Route::patch('update-favorite/{favorite}', [FavoriteController::class, 'edit']);
+
     Route::get('/saved-post', [PostSavedController::class, 'list']);
+    Route::post('save-post', [PostSavedController::class, 'store']);
+    Route::patch('unsave-post/{post}', [PostSavedController::class, 'edit']);
 });
 
 Route::prefix('dashboard')->group(function () {

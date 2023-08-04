@@ -36,16 +36,18 @@ trait CartResourceHelper
                 }
                 $quantity = $item['quantity'];
                 $id = $item['id'];
+                $status = $item['status'];
                 foreach ($products as $value1) {
                     foreach ($image as $value2) {
                         if ($value1['id'] == (int)implode(array_keys($value2))) {
-                            $id = array_fill_keys(['id'], $id);
+                            $id = array_fill_keys(['cart_id'], $id);
                             $qty = array_fill_keys(['quantity'], $quantity);
+                            $status = array_fill_keys(['status'], $status);
                             $img = array_fill_keys(['image'], implode($value2)) + $value1;
-                            unset($img['id']);
                             unset($img['quantity']);
+                            unset($img['status']);
 
-                            $cart[] = array_merge($id, $qty, $img);
+                            $cart[] = array_merge($id, $status, $qty, $img);
                         }
                     }
                 }

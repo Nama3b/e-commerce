@@ -20,13 +20,12 @@
                                     <td><b></b></td>
                                     <td>${{ number_format($cart_item['price'], 0, '', '.') }}</td>
                                     <td>
-                                        <form action="{{URL::to('/update-cart')}}" method="post">
+                                        <form action="{{URL::to('/update-cart')}}" method="post" id="updateForm">
                                             @csrf
-                                            @method('PATCH')
                                             <div class="d-flex">
                                                 <div class="col-8">
                                                     x<input type="number" name="quantity" min="1" value="{{ $cart_item['quantity'] }}" class="text-center ml-2 mr-2" style="width: 55px">
-                                                    <input type="hidden" name="productId_hidden" value="{{ $cart_item['id'] }}">
+                                                    <input type="hidden" name="productId_hidden" value="{{ $cart_item['cart_id'] }}">
                                                     @php( $total = $cart_item['price'] * $cart_item['quantity'] )
                                                     <b>= ${{ number_format($total, 0, '', '.') }}</b>
                                                 </div>
@@ -37,9 +36,9 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <form action="{{ URL::to('/remove-cart') }}" method="post">
+                                        <form action="{{ URL::to('/remove-cart') }}" method="post" id="deleteForm">
                                             @csrf
-                                            @method('DELETE')
+                                             @method('DELETE')
                                             <input type="hidden" name="productId_hidden" value="{{ $cart_item['id'] }}">
                                             <button class="btn btn-sm" type="submit"><i class="fas fa-trash-alt"></i></button>
                                         </form>

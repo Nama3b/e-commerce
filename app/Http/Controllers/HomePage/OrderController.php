@@ -137,7 +137,7 @@ class OrderController extends Controller
         if (Auth()->guard('customer')->user()) {
             $cart = Cart::find($request->input('productId_hidden'));
             if (!$cart) {
-                return redirect()->route('/home')->with('error', 'Cannot find a record!');
+                return redirect()->back()->with('error', 'Cannot find a record!');
             }
 
             $cart->delete();
@@ -162,7 +162,30 @@ class OrderController extends Controller
     {
         $user = $this->customerFromSession($request);
 
-        $cart = $this->myCart();
+        $products = [];
+        if ($request->has('selected')) {
+            $select_product = $request->input('selected');
+            foreach ($select_product as $product) {
+                $products[] = $product;
+            }
+        }
+        $carts = $this->myCart();
+
+        $searchKey = "id";
+        $searchValue = $products;
+
+        $cart = [];
+        $cart_item = [];
+        foreach ($searchValue as $value) {
+            $cart_item[] = array_values(array_filter($carts, function($subArray) use ($searchKey, $value) {
+                return isset($subArray[$searchKey]) && $subArray[$searchKey] == $value;
+            }));
+        }
+
+        foreach ($cart_item as $item){
+            $cart[] = array_shift($item);
+        }
+
         $count_cart = $this->countCart();
         $payment_method = PaymentOption::pluck('name', 'id')->toArray();
 
@@ -176,7 +199,8 @@ class OrderController extends Controller
                 'count_cart',
                 'payment_method',
                 'categories',
-                'brand_all'
+                'brand_all',
+                'products'
             ));
     }
 
@@ -230,7 +254,8 @@ class OrderController extends Controller
         }
 
         Mail::to($order['email'])->send(new OrderSendMail($order));
-        session()->forget('cart');
+
+
 
         return view('pages.shopping.finish-payment')
             ->with(compact(
