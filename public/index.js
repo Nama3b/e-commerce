@@ -253,3 +253,8 @@ document.getElementById('deleteForm').addEventListener('submit', function (event
 
     document.getElementById('deleteForm').submit();
 });
+document.getElementById('backToProduct').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    document.getElementById('backToProduct').submit();
+});

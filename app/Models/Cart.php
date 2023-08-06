@@ -17,7 +17,6 @@ use Illuminate\Support\Carbon;
  * @property int $customer_id
  * @property int $product_id
  * @property int $quantity
- * @property string $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Customer $customers
@@ -30,7 +29,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Cart whereId($value)
  * @method static Builder|Cart whereProductId($value)
  * @method static Builder|Cart whereQuantity($value)
- * @method static Builder|Cart whereStatus($value)
  * @method static Builder|Cart whereUpdatedAt($value)
  * @mixin Eloquent
  */
@@ -57,7 +55,6 @@ class Cart extends Model
         'customer_id',
         'product_id',
         'quantity',
-        'status'
     ];
 
     /**

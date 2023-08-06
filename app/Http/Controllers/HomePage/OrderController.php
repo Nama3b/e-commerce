@@ -81,7 +81,7 @@ class OrderController extends Controller
      */
     public function addToCart(Request $request): RedirectResponse
     {
-        $id = $request->input('productId_hidden');
+        $id = (int)$request->input('productId_hidden');
 
         $products = collect($this->getProductImage())->filter(function ($item) use ($id) {
             return $item['id'] == $id;
@@ -98,19 +98,39 @@ class OrderController extends Controller
         $cartItems = $this->myCart();
         $quantity = $request->input('quantity', 1);
 
-        if (isset($cartItems[$id])) {
-            $cartItems[$id]['quantity'] += $quantity;
+        $user = Auth()->guard('customer')->user();
+        if ($user) {
+
+            $searches = collect($cartItems)->filter(function ($item) use ($id) {
+                return $item['id'] == $id;
+            })->toArray();
+            if ($searches) {
+                $cart = Cart::findOrFail((int)implode(array_column($searches, 'cart_id')));
+                $cart->quantity += $quantity;
+                $cart->save();
+            } else {
+                Cart::create([
+                    'customer_id' => Auth()->guard('customer')->user()->id,
+                    'product_id' => $product_item[$i]['id'],
+                    'quantity' => $quantity
+                ]);
+            }
         } else {
-            $cartItems[$id] = [
-                'id' => $product_item[$i]['id'],
-                'name' => $product_item[$i]['name'],
-                'price' => $product_item[$i]['price'],
-                'quantity' => $quantity,
-                'image' => $product_item[$i]['image']
-            ];
+            if (isset($cartItems[$id])) {
+                $cartItems[$id]['quantity'] += $quantity;
+            } else {
+                $cartItems[$id] = [
+                    'id' => $product_item[$i]['id'],
+                    'name' => $product_item[$i]['name'],
+                    'price' => $product_item[$i]['price'],
+                    'quantity' => $quantity,
+                    'image' => $product_item[$i]['image']
+                ];
+            }
+
+            session(['cart' => $cartItems]);
         }
 
-        session(['cart' => $cartItems]);
 
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
@@ -156,35 +176,31 @@ class OrderController extends Controller
 
     /**
      * @param Request $request
+     * @return RedirectResponse
+     */
+    public function productSelectedCheckout(Request $request): RedirectResponse
+    {
+        $checkout = [];
+        foreach ($this->selectedProduct($request) as $item){
+            $checkout[] = array_shift($item);
+        }
+
+        session(['checkout' => $checkout]);
+
+        return redirect('/checkout');
+    }
+
+    /**
+     * @param Request $request
      * @return Factory|View|Application
      */
     public function checkout(Request $request): Factory|View|Application
     {
         $user = $this->customerFromSession($request);
 
-        $products = [];
-        if ($request->has('selected')) {
-            $select_product = $request->input('selected');
-            foreach ($select_product as $product) {
-                $products[] = $product;
-            }
-        }
-        $carts = $this->myCart();
+        $cart = $this->myCart();
 
-        $searchKey = "id";
-        $searchValue = $products;
-
-        $cart = [];
-        $cart_item = [];
-        foreach ($searchValue as $value) {
-            $cart_item[] = array_values(array_filter($carts, function($subArray) use ($searchKey, $value) {
-                return isset($subArray[$searchKey]) && $subArray[$searchKey] == $value;
-            }));
-        }
-
-        foreach ($cart_item as $item){
-            $cart[] = array_shift($item);
-        }
+        $checkout = session('checkout', []);
 
         $count_cart = $this->countCart();
         $payment_method = PaymentOption::pluck('name', 'id')->toArray();
@@ -196,12 +212,36 @@ class OrderController extends Controller
             ->with(compact(
                 'user',
                 'cart',
+                'checkout',
                 'count_cart',
                 'payment_method',
                 'categories',
                 'brand_all',
-                'products'
             ));
+    }
+
+    public function updateCheckout(Request $request): RedirectResponse
+    {
+        $checkoutItems = session('checkout', []);
+
+        $checkoutItems[$request->input('productId_hidden')]['quantity'] = $request->input('quantity');
+
+        session(['checkout' => $checkoutItems]);
+
+        return redirect()->back()->with('success', 'Checkout updated successfully!');
+    }
+
+    public function removeFromCheckout(Request $request): RedirectResponse
+    {
+        $id = $request->input('productId_hidden');
+        $checkoutItems = session('checkout', []);
+
+        if (isset($checkoutItems[$id])) {
+            unset($checkoutItems[$id]);
+            session(['checkout' => $checkoutItems]);
+        }
+
+        return redirect()->back()->with('success', 'Product removed successfully!');
     }
 
     /**
@@ -239,22 +279,27 @@ class OrderController extends Controller
             'updated_at' => $time_now,
         ]);
 
-        foreach ($cart as $cart_item) {
+        $checkout = session('checkout', []);
+
+        foreach ($checkout as $checkout_item) {
             OrderDetail::create([
                 'order_id' => $order['id'],
-                'product_id' => $cart_item['id'],
-                'name' => $cart_item['name'],
-                'price' => $cart_item['price'],
-                'quantity' => $cart_item['quantity'],
-                'image' => $cart_item['image'],
+                'product_id' => $checkout_item['id'],
+                'name' => $checkout_item['name'],
+                'price' => $checkout_item['price'],
+                'quantity' => $checkout_item['quantity'],
+                'image' => $checkout_item['image'],
             ]);
-            $product = Product::findOrFail($cart_item['id']);
-            $product->quantity = $product->quantity - $cart_item['quantity'];
+            $product = Product::findOrFail($checkout_item['id']);
+            $product->quantity = $product->quantity - $checkout_item['quantity'];
             $product->save();
+
+            Cart::destroy($checkout_item['cart_id']);
         }
 
         Mail::to($order['email'])->send(new OrderSendMail($order));
 
+        session()->forget('checkout');
 
 
         return view('pages.shopping.finish-payment')

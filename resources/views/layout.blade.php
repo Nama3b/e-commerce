@@ -128,8 +128,11 @@
                                                     <form action="{{ URL::to('/remove-cart') }}" method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <input type="hidden" name="productId_hidden"
-                                                               value="{{$cart_item['id']}}">
+                                                        @if ($customer)
+                                                            <input type="hidden" name="productId_hidden" value="{{ $cart_item['cart_id'] }}">
+                                                        @else
+                                                            <input type="hidden" name="productId_hidden" value="{{ $cart_item['id'] }}">
+                                                        @endif
                                                         <button class="btn btn-sm" type="submit"><i
                                                                 class="fas fa-trash-alt"></i></button>
                                                     </form>
@@ -150,9 +153,6 @@
                             <div class="d-flex">
                                 <a href="{{ URL::to('/my-cart') }}">
                                     <button class="btn btn-sm btn-outline-dark ml-2">Cart</button>
-                                </a>
-                                <a href="{{URL::to('/checkout')}}">
-                                    <button class="btn btn-sm btn-dark ml-2">Checkout</button>
                                 </a>
                             </div>
                         </ul>

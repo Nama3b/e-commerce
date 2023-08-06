@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity')->default(1);
-            $table->enum('status', ['CART', 'CHECKOUT'])->default('CART');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade');

@@ -108,7 +108,10 @@ Route::delete('/remove-cart', [\App\Http\Controllers\HomePage\OrderController::c
 Route::middleware('auth:customer')->group(function () {
     Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'index']);
     Route::post('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);
-    Route::post('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout']);
+    Route::post('/product-selected-checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'productSelectedCheckout']);
+    Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout']);
+    Route::post('/update-checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCheckout']);
+    Route::delete('/remove-checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'removeFromCheckout']);
     Route::post('/checkout-action', [\App\Http\Controllers\HomePage\OrderController::class, 'checkoutAction']);
     Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
 

@@ -36,18 +36,15 @@ trait CartResourceHelper
                 }
                 $quantity = $item['quantity'];
                 $id = $item['id'];
-                $status = $item['status'];
                 foreach ($products as $value1) {
                     foreach ($image as $value2) {
                         if ($value1['id'] == (int)implode(array_keys($value2))) {
                             $id = array_fill_keys(['cart_id'], $id);
                             $qty = array_fill_keys(['quantity'], $quantity);
-                            $status = array_fill_keys(['status'], $status);
                             $img = array_fill_keys(['image'], implode($value2)) + $value1;
                             unset($img['quantity']);
-                            unset($img['status']);
 
-                            $cart[] = array_merge($id, $status, $qty, $img);
+                            $cart[] = array_merge($id, $qty, $img);
                         }
                     }
                 }
@@ -66,6 +63,34 @@ trait CartResourceHelper
     {
         $cart = $this->myCart();
         return array_sum(array_column($cart,'quantity'));
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public function selectedProduct($request): array
+    {
+        $products = [];
+        if ($request->has('selected')) {
+            $select_product = $request->input('selected');
+            foreach ($select_product as $product) {
+                $products[] = $product;
+            }
+        }
+        $carts = $this->myCart();
+
+        $searchKey = "id";
+        $searchValue = $products;
+
+        $cart_item = [];
+        foreach ($searchValue as $value) {
+            $cart_item[] = array_values(array_filter($carts, function($subArray) use ($searchKey, $value) {
+                return isset($subArray[$searchKey]) && $subArray[$searchKey] == $value;
+            }));
+        }
+
+        return $cart_item;
     }
 
 }
