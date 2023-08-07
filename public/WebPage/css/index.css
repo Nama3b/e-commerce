@@ -578,6 +578,10 @@ a {
     padding: 0 20px 0 20px;
 }
 
+.home-main .brand-item .brands {
+    display: flex;
+}
+
 .news-section {
     display: grid;
     grid-template-columns: repeat(4, 265px);
@@ -673,6 +677,10 @@ footer {
     border-top: 1px solid grey;
 }
 
+footer .footer-top {
+    display: flex;
+}
+
 footer p {
     margin-bottom: 0;
 }
@@ -686,15 +694,21 @@ footer li.footer-title {
     margin-bottom: 5px;
 }
 
-footer .col-7 button {
+footer .footer-top .col-lg-5,
+footer .footer-top .col-lg-7 {
+    display: flex;
+    align-items: center;
+}
+
+footer .footer-top .col-lg-7 button {
     margin: 0 7px;
 }
 
-footer .col-5 {
+footer .footer-top .col-lg-5 {
     justify-content: right
 }
 
-footer .col-5 a {
+footer .footer-top .col-lg-5 a {
     color: black;
     font-weight: bold;
 }
@@ -706,9 +720,17 @@ footer .col-5 a:hover {
 
 footer .cre {
     margin: 20px 0;
+    display: flex;
 }
 
-footer .cre .col-2 {
+footer .cres {
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 300px) !important;
+}
+
+footer .cre .cre-item {
+    padding-left: 10px;
     border-left: 2px solid grey;
     height: fit-content;
 }
@@ -721,6 +743,11 @@ footer .cre ul {
 footer .cre ul li {
     display: block;
     font-size: 15px;
+}
+
+footer .footer-bottom {
+    text-align: center;
+    display: flex;
 }
 
 footer .col-4 h6 {
@@ -747,23 +774,16 @@ footer hr {
     border-bottom: 2px solid black;
 }
 
-footer .cre .col-2 li a:hover {
+footer .cre .cre-item li a:hover {
     color: black;
     text-decoration: none;
     cursor: no-drop;
 }
 
-@media (max-width: 768px) {
-    .navbar-brand img {
-        display: none !important;
-    }
-
-    .news-section {
-        display: grid;
-        grid-template-columns: repeat(2, 265px) !important;
-        grid-template-rows: repeat(2, fit-content()) !important;
-        gap: 16px;
-    }
+footer .footer-desc {
+    display: flex;
+    text-align: center;
+    margin-top: 5px;
 }
 
 /* ====================================PRODUCT==================================== */
@@ -802,6 +822,10 @@ footer .cre .col-2 li a:hover {
 .product-main .category-item h5 {
     margin-left: 20px;
     margin-top: -24px;
+}
+
+.product-main .brand-item .brands {
+    display: flex;
 }
 
 .product-main .brand-item h5 {

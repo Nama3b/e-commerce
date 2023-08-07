@@ -112,7 +112,7 @@
                 <div class="container">
                     <div class="brand-item">
                         <div class="row justify-content-center">
-                            <div class="d-flex">
+                            <div class="brands">
                                 @foreach($banner_sneaker as $item)
                                     <div class="brand-banner">
                                         @include('pages.common.branner_item')
@@ -141,7 +141,7 @@
                     </div>
                     <div class="brand-item">
                         <div class="row">
-                            <div class="d-flex">
+                            <div class="brands">
                                 @foreach($banner_clothes as $item)
                                     @include('pages.common.branner_item')
                                 @endforeach
@@ -208,14 +208,12 @@
                             </div>
                         </div>
                         <div class="form-product">
-                            <div class="d-flex">
-                                {{ csrf_field() }}
+                                @csrf
                                 @foreach($product_watches as $product_item)
                                     @if($product_item['category_id'] == 3)
                                         @include('pages.common.product_item')
                                     @endif
                                 @endforeach
-                            </div>
                         </div>
                     </div>
                 </div>
