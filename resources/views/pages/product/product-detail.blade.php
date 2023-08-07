@@ -113,11 +113,9 @@
                                                         already had in storage</small>
                                                 </div>
                                                 <div class="col-4 text-right">
-                                                    <small>{{ $count }}
-                                                        @if($count > 1)
+                                                    <small>{{ $count }}@if($count > 1)
                                                             items
-                                                        @else
-                                                            item
+                                                        @else item
                                                         @endif
                                                         sold</small>
                                                 </div>
@@ -132,7 +130,7 @@
                     <div class="product-detail-info">
                         <h4>Product Details</h4>
                         <div class="product-description">
-                            <div class="col-6">
+                            <div class="col-xs-12 col-lg-6">
                                 <p>{{$detail_item['description']}}
                                     Our product Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
                                     reprehenderit nisi harum illum nihil nesciunt soluta commodi fugit officia. Non
@@ -144,7 +142,7 @@
                                     omnis, optio.
                                 </p>
                             </div>
-                            <div class="col-6 table-info">
+                            <div class="col-xs-12 col-lg-6 table-info">
                                 <table>
                                     <tr>
                                         <td>Style</td>
