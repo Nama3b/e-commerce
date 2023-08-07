@@ -13,8 +13,8 @@
                                     href="{{ URL::to('product-detail/'.$detail_item['id'])}}">{{$detail_item['name'] }}</a>
                             </p>
                         </div>
-                        <div class="d-flex">
-                            <div class="col-6 text-center">
+                        <div class="product-main">
+                            <div class="col-xs-12 col-lg-6 text-center">
                                 <div class="tag text-left">
                                     <a href="" class="">100% Authentic</a>
                                     <a href="" class="">Condition: New</a>
@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-xs-12 col-lg-6">
                                 <div class="product-detail-title text-center">
                                     <h2><u>{{$detail_item['name']}}</u></h2>
                                     <div class="product-detail-selection">
@@ -131,7 +131,7 @@
 
                     <div class="product-detail-info">
                         <h4>Product Details</h4>
-                        <div class="d-flex">
+                        <div class="product-description">
                             <div class="col-6">
                                 <p>{{$detail_item['description']}}
                                     Our product Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente

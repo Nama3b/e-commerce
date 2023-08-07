@@ -985,6 +985,14 @@ footer .footer-desc {
     color: lightgreen;
 }
 
+product-detail-main .product-main {
+    display: flex;
+}
+
+.product-detail-info .product-description {
+    display: flex;
+}
+
 .product-detail-main .product-detail-selection {
     position: relative;
     background: white;

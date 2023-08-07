@@ -1,4 +1,6 @@
-@media (max-width: 768px) {
+@media (max-width: 425px) {
+
+    /*home*/
     .home-main .carousel-section .carousel-item img {
         height: 200px;
     }
@@ -15,25 +17,27 @@
         display: none !important;
     }
 
-    .home-main .brand-item .brands {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(129px, 1fr));
+    .home-main .product img {
+        width: 100%;
     }
 
     .home-main .shopping-section .product-item .form-product {
         display: grid;
         grid-template-columns: repeat(2, minmax(129px, 1fr));
-        gap: 16px;
+    }
+
+    .home-main .brand-item .brands {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(129px, 1fr));
     }
 
     .home-main .news-section {
         display: grid;
-        grid-template-columns: repeat(2, 190px) !important;
-        gap: 16px;
+        grid-template-columns: repeat(2, 164px) !important;
     }
 
     .home-main .profit {
-        width: 367px;
+        width: 317px;
     }
 
     .home-main .profit .col-4 {
@@ -42,9 +46,12 @@
         margin: 0 5px;
     }
 
-    .home-main .profit h4,
-    .home-main .profit h6 {
+    .home-main .profit h4 {
         font-size: 14px;
+    }
+
+    .home-main .profit h6 {
+        display: none;
     }
 
     .home-main .profit i {
@@ -56,7 +63,7 @@
     }
 
     footer .footer-top button {
-        font-size: 12px;
+        font-size: 9px;
     }
 
     footer .footer-top .col-lg-5 {
@@ -76,7 +83,7 @@
     footer .cres {
         margin-bottom: 10px;
         display: grid;
-        grid-template-columns: repeat(4, 100px) !important;
+        grid-template-columns: repeat(4, 86px) !important;
     }
 
     footer .cre-item,
@@ -85,7 +92,7 @@
     }
 
     footer .cre .cre-item li {
-        font-size: 10px;
+        font-size: 9px;
     }
 
     footer .cre .col-4 {
@@ -103,5 +110,18 @@
     footer .footer-desc p,
     footer .footer-desc h6 {
         font-size: 12px;
+    }
+
+    /*product-detail*/
+    .product-detail-main .product-main {
+        display: contents;
+    }
+
+    .product-detail-selection {
+        width: 100%;
+    }
+
+    .product-detail-info .product-description {
+        display: block;
     }
 }
