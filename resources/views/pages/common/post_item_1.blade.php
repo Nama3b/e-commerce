@@ -81,12 +81,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function signup1() {
-        alert("Please sign in to add favorite!");
-    }
-    function signup2() {
-        alert("Please sign in to save post!");
-    }
-</script>

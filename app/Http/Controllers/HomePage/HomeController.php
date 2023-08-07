@@ -34,7 +34,6 @@ class HomeController extends Controller
     public function index(Request $request): View|Factory|Application
     {
         Auth()->guard('member')->logout();
-        $user = $this->customerFromSession($request);
 
         $cart = $this->myCart();
         $count_cart = $this->countCart();
@@ -58,8 +57,7 @@ class HomeController extends Controller
         $news = $this->getNewsImage();
 
         return view('pages.home')
-            ->with(compact('user',
-                'cart',
+            ->with(compact('cart',
                 'count_cart',
                 'author_name',
                 'products',

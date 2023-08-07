@@ -79,7 +79,7 @@
                             @include('pages.common.no-cart-product')
                         @endif
                     </div>
-                    <form action="{{ URL::to('/product') }}" id="backToProduct">
+                    <form action="{{ URL::to('/home') }}" id="backToProduct">
                         <button type="submit" class="btn btn-outline-dark mt-3 mr-3">Back to home</button>
                     </form>
                     <a href="">

@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-9 mb40">
                 <article>
-                    <div style="height: 450px; overflow: hidden;">
+                    <div class="post-img">
                         @if(file_exists($data['images'][0]['image']))
                             <img src="{{ asset($data['images'][0]['image']) }}" alt="" class="img-fluid mb30">
                         @else
@@ -40,72 +40,87 @@
                             ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
                             consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
                             arcu. In enim justo, </p>
-                        <ul class="list-inline share-buttons">
-                            <li class="list-inline-item">Share Post:</li>
-                            <li class="list-inline-item">
-                                <a href="#" class="social-icon-sm si-dark si-colored-facebook si-gray-round">
-                                    <button class="btn btn-sm btn-outline-primary"><i class="fa fa-facebook"></i>
-                                    </button>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="social-icon-sm si-dark si-colored-twitter si-gray-round">
-                                    <button class="btn btn-sm btn-outline-primary"><i class="fa fa-twitter"></i>
-                                    </button>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="social-icon-sm si-dark si-colored-linkedin si-gray-round">
-                                    <button class="btn btn-sm btn-outline-primary"><i class="fa fa-linkedin"></i>
-                                    </button>
-                                </a>
-                            </li>
-                        </ul>
+                        <div class="post-feature col-5" id="post-feature">
+                            @if(Auth()->guard('customer')->user())
+                                @if($data['favorites'])
+                                    <form
+                                        action="{{ URL::to('update-favorite').'/'.(int)implode(array_column($data['favorites'],'id')) }}"
+                                        method="post">
+                                        @method('PATCH')
+                                        @csrf
+                                        <button id="favorite-event" class="btn btn-sm btn-outline-danger"><i
+                                                class="fas fa-heart"></i></button>
+                                    </form>
+                                @else
+                                    <form action="{{ URL::to('add-favorite') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="id_hidden" value="{{ $data['id'] }}">
+                                        <input type="hidden" name="type" value="POST">
+                                        <button id="favorite-event" class="btn btn-sm btn-outline-danger"><i
+                                                class="far fa-heart"></i></button>
+                                    </form>
+                                @endif
+                            @else
+                                <form action=""><button id="favorite-event" class="btn btn-sm btn-outline-danger" onclick="signup()"><i
+                                        class="far fa-heart" onclick="signup1()"></i></button></form>
+                            @endif
+                            @if(Auth()->guard('customer')->user())
+                                @if($data['postsaved'])
+                                    <form
+                                        action="{{ URL::to('unsave-post').'/'.(int)implode(array_column($data['postsaved'],'id')) }}"
+                                        method="post">
+                                        @method('PATCH')
+                                        @csrf
+                                        <button class="btn btn-sm btn-outline-success"><i class="fas fa-bookmark"></i></button>
+                                    </form>
+                                @else
+                                    <form action="{{ URL::to('save-post') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="id_hidden" value="{{ $data['id'] }}">
+                                        <input type="hidden" name="type" value="{{ $data['post_type'] }}">
+                                        <button class="btn btn-sm btn-outline-success"><i class="far fa-bookmark"></i></button>
+                                    </form>
+                                @endif
+                            @else
+                                <form><button class="btn btn-sm btn-outline-success" onclick="signup2()"><i class="far fa-bookmark"></i></button></form>
+                            @endif
+                            <div class="fb-share-button" data-href="{{ URL::to('/post-detail/'.$data['id']) }}" data-layout="" data-size="">
+                                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Fhome&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></a>
+                            </div>
+                        </div>
                         <hr class="mb40">
-                        <h4 class="mb40 text-uppercase font500">About Author</h4>
+                        <h4 class="mb40 text-uppercase font400"><b>About Author</b></h4>
                         <div class="media mb40">
-                            <img src="{{ $author_avatar }}" alt="" width="100px" class="author-img">
+                            <img src="{{ asset($author_avatar) }}" alt="" width="80px" class="author-img">
                             <div class="media-body ml-3">
-                                <h5 class="mt-0 font700">{{ $author_name }}</h5> Cras sit amet nibh libero, in gravida
+                                <h5 class="mt-0 font500">{{ $author_name }}</h5> Cras sit amet nibh libero, in gravida
                                 nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in
                                 vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
                                 Donec lacinia congue felis in faucibus.
                             </div>
                         </div>
                         <hr class="mb40">
-                        <h4 class="mb40 text-uppercase font500">Comments</h4>
+                        <h5 class="mb40 text-uppercase font400"><b>Comments</b></h5>
                         <div class="media mb40">
-                            <i class="d-flex mr-3 fa fa-user-circle-o fa-3x"></i>
+                            <i class="d-flex mr-3 fa fa-user-circle-o fa-2x"></i>
                             <div class="media-body">
-                                <h5 class="mt-0 font400 clearfix">
+                                <h5 class="font400 clearfix">
                                     <a href="#" class="float-right">Reply</a>
                                     Marcus Rashford</h5> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
                                 aut commodi cumque deleniti distinctio, dolorum eum incidunt laudantium maxime molestiae
                                 nisi optio perspiciatis provident quibusdam reiciendis repellat sequi sint voluptatum?
                             </div>
                         </div>
-                        <div class="media mb40">
-                            <i class="d-flex mr-3 fa fa-user-circle-o fa-3x"></i>
-                            <div class="media-body">
-                                <h5 class="mt-0 font400 clearfix">
-                                    <a href="#" class="float-right">Reply</a>
-                                    Antony Martial</h5> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
-                                aspernatur at culpa, deleniti dolore ipsa magnam maxime nam praesentium voluptates?
-                            </div>
-                        </div>
                         <hr class="mb40">
-                        <h5 class="mb40 text-uppercase font500">Post a comment</h5>
+                        <h5 class="mb40 text-uppercase font400"><b>Post a comment</b></h5>
                         <form role="form">
                             <div class="form-group">
-                                <label>Name</label>
                                 <input type="text" class="form-control" placeholder="You name">
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
                                 <input type="email" class="form-control" placeholder="Email">
                             </div>
                             <div class="form-group">
-                                <label>Comment</label>
                                 <textarea class="form-control" rows="5" placeholder="Comment"></textarea>
                             </div>
                             <div class="clearfix float-right">
@@ -134,19 +149,19 @@
                     @endforeach
                 </div>
                 <div>
-                    <h4 class="sidebar-title">Latest News</h4>
+                    <h5>Newest post</h5>
                     <ul class="list-unstyled">
                         @foreach($data_latest as $item)
                             <li class="media">
                                 <a href="{{ URL::to('post-detail/'.$item['id']) }}">
                                     @if(file_exists($item['image']))
-                                        <img class="d-flex mr-3 img-fluid" width="64" src="{{ asset($item['image']) }}">
+                                        <img class="d-flex mr-2 img-fluid" src="{{ asset($item['image']) }}">
                                     @else
-                                        <img class="d-flex mr-3 img-fluid" width="64"  src="{{ asset('/storage/public/uploads/img/'.$item['image']) }}">
+                                        <img class="d-flex mr-2 img-fluid" src="{{ asset('/storage/public/uploads/img/'.$item['image']) }}">
                                     @endif
                                 </a>
                                 <div class="media-body">
-                                    <h5 class="mt-0 mb-1"><a href="{{ URL::to('post-detail/'.$item['id']) }}">{{ $item['title'] }}</a></h5>
+                                    <h5><a href="{{ URL::to('post-detail/'.$item['id']) }}">{{ $item['title'] }}</a></h5>
                                     <small><i class="fa fa-calendar-o mr-2"></i>{{ date('d/m/Y', strtotime($item['created_at'])) }}</small>
                                 </div>
                             </li>

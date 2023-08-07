@@ -56,8 +56,6 @@ class ProductController extends Controller
      */
     public function searchProduct(Request $request): Factory|View|Application
     {
-        $user = $this->customerFromSession($request);
-
         $cart = $this->myCart();
         $count_cart = $this->countCart();
 
@@ -70,9 +68,7 @@ class ProductController extends Controller
         });
 
         return view('pages.product.search-product')
-            ->with(compact(
-                'user',
-                'cart',
+            ->with(compact('cart',
                 'count_cart',
                 'searches',
                 'categories',

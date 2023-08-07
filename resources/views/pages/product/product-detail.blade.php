@@ -31,9 +31,11 @@
                                     <div class="col-6">
                                         <div class="d-flex">
                                             Share with:
-                                            <a href=""><i class="fab fa-facebook-square"></i></a>
                                             <a href=""><i class="fab fa-instagram"></i></a>
                                             <a href=""><i class="fab fa-twitter-square"></i></a>
+                                            <div class="fb-share-button" data-href="{{ URL::to('/product-detail/'.$detail_item['id']) }}" data-layout="" data-size="">
+                                                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Fhome&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></a>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-6 text-right">

@@ -258,3 +258,11 @@ document.getElementById('backToProduct').addEventListener('submit', function (ev
 
     document.getElementById('backToProduct').submit();
 });
+
+// sign in to save post
+function signup1() {
+    alert("Please sign in to add favorite!");
+}
+function signup2() {
+    alert("Please sign in to save post!");
+}

@@ -19,6 +19,7 @@ trait CartResourceHelper
             $cart = [];
             $carts = Cart::with(['customers', 'products'])
                 ->where('customer_id', Auth()->guard('customer')->user()->id)
+                ->orderBy('created_at', 'DESC')
                 ->get()->toArray();
             foreach ($carts as $item) {
                 $products = Product::with([
@@ -34,6 +35,7 @@ trait CartResourceHelper
                 foreach ($images as $value) {
                     $image[] = array_column($value, 'image', 'reference_id');
                 }
+
                 $quantity = $item['quantity'];
                 $id = $item['id'];
                 foreach ($products as $value1) {

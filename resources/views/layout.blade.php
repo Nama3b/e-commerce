@@ -26,7 +26,7 @@
                 <a class="navbar-brand" href="{{URL::to('home')}}">
                     <img src="{{ asset('WebPage/img/home/project_name.png') }}" alt="">
                 </a>
-                <form class="form-search" method="get" action="{{URL::to('search-product')}}">
+                <form class="form-search" method="get" action="{{ URL::to('search-product') }}">
                     <label>
                         <input class="form-control" name="keyword_submit" type="text" placeholder="Search product..">
                     </label>
@@ -36,17 +36,17 @@
             <div class="nav-right col-6 fade-in slide-in collapse navbar-collapse">
                 <ul class="navbar-nav slide-in">
                     <li class="nav-item active">
-                        <div><a class="nav-link" href="{{URL::to('home')}}">Home</a></div>
+                        <div><a class="nav-link" href="{{ URL::to('home') }}">Home</a></div>
                     </li>
                     <li class="nav-item">
                         <div class="dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="dropdownProduct" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">Product</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownProduct">
-                                <a class="dropdown-item" href="{{URL::to('product')}}">All</a>
-                                @foreach($categories as $key => $category_item)
+                                <a class="dropdown-item" href="{{ URL::to('product') }}">All</a>
+                                @foreach($categories as $item)
                                     <a class="dropdown-item"
-                                       href="{{URL::to('product-by-category'.'/'.$category_item->id)}}">{{$category_item->name}}</a>
+                                       href="{{ URL::to('product-by-category'.'/'.$item->id) }}">{{ $item->name }}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -56,15 +56,15 @@
                             <a class="nav-link dropdown-toggle" href="" id="dropdownBrand" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">Brand</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownBrand">
-                                @foreach($brand_all as $key => $brand_item)
+                                @foreach($brand_all as $item)
                                     <a class="dropdown-item"
-                                       href="{{URL::to('product-by-brand'.'/'.$brand_item->id)}}">{{$brand_item->name}}</a>
+                                       href="{{ URL::to('product-by-brand/'.$item->id) }}">{{ $item->name }}</a>
                                 @endforeach
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div><a class="nav-link" href="{{URL::to('post')}}">Post</a></div>
+                        <div><a class="nav-link" href="{{ URL::to('post') }}">Post</a></div>
                     </li>
                     @php ($customer = Auth()->guard('customer')->user())
                     <div class="dropdown">
@@ -78,7 +78,7 @@
                                 <div class="d-flex">
                                     <div class="noti-item-img">
                                         <a href="">
-                                            <img src="../WebPage/img/home/logo.jpg" alt="">
+                                            <img src="{{ asset('WebPage/img/home/logo.jpg') }}" alt="">
                                         </a>
                                     </div>
                                     <div class="d-flex">
@@ -104,47 +104,53 @@
                         <i class="fas fa-caret-down d-none"></i>
                         <ul class="dropdown-menu dropdown-cart">
                             @if($cart)
-                                @foreach($cart as $cart_item)
-                                    <li>
-                                        <div class="d-flex">
-                                            <div class="cart-item-img">
-                                                <a href="{{ URL::to('/product-detail/'.$cart_item['id']) }}">
-                                                    @if(file_exists($cart_item['image']))
-                                                        <img src="{{ asset($cart_item['image']) }}" alt="" height="45px">
-                                                    @else
-                                                        <img src="{{ asset('/storage/public/uploads/img/'.$cart_item['image']) }}" alt="" height="45px">
-                                                    @endif
-                                                </a>
-                                            </div>
+                                <div class="carts">
+                                    @foreach($cart as $cart_item)
+                                        <li>
                                             <div class="d-flex">
-                                                <div class="cart-item-infor">
+                                                <div class="cart-item-img col-3">
+                                                    <a href="{{ URL::to('/product-detail/'.$cart_item['id']) }}">
+                                                        @if(file_exists($cart_item['image']))
+                                                            <img src="{{ asset($cart_item['image']) }}" alt=""
+                                                                 height="45px">
+                                                        @else
+                                                            <img
+                                                                src="{{ asset('/storage/public/uploads/img/'.$cart_item['image']) }}"
+                                                                alt="" height="45px">
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                                <div class="cart-item-infor col-7">
                                                     <p>
                                                         <a href="{{ URL::to('/product-detail'.'/'.$cart_item['id']) }}">{{ $cart_item['name'] }}</a>
                                                     </p>
                                                     <small>${{ number_format($cart_item['price'], 0, '', '.') }}
                                                         x {{ $cart_item['quantity'] }}</small>
                                                 </div>
-                                                <div class="cart-item-remove">
+                                                <div class="cart-item-remove col-2">
                                                     <form action="{{ URL::to('/remove-cart') }}" method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         @if ($customer)
-                                                            <input type="hidden" name="productId_hidden" value="{{ $cart_item['cart_id'] }}">
+                                                            <input type="hidden" name="productId_hidden"
+                                                                   value="{{ $cart_item['cart_id'] }}">
                                                         @else
-                                                            <input type="hidden" name="productId_hidden" value="{{ $cart_item['id'] }}">
+                                                            <input type="hidden" name="productId_hidden"
+                                                                   value="{{ $cart_item['id'] }}">
                                                         @endif
                                                         <button class="btn btn-sm" type="submit"><i
                                                                 class="fas fa-trash-alt"></i></button>
                                                     </form>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <hr>
-                                @endforeach
+                                        </li>
+                                        <hr>
+                                    @endforeach
+                                </div>
                             @else
                                 <div class="container d-flex justify-content-center align-item-center pt-3">
-                                    <img src="../WebPage/img/shopping/no-order.png" alt="" style="height: 70px">
+                                    <img src="{{ asset('WebPage/img/shopping/no-order.png') }}" alt=""
+                                         style="height: 70px">
                                 </div>
                                 <div class="h-100 d-flex justify-content-center align-item-center pt-3">
                                     <h6><b>Don't have product yet</b></h6>
@@ -157,9 +163,7 @@
                             </div>
                         </ul>
                     </div>
-                    @if ($customer == null)
-                        <button class="btn btn-dark btn-signup"><a href="{{URL::to('login')}}">Sign In</a></button>
-                    @else
+                    @if ($customer)
                         <div class="dropdown">
                             <button class="btn btn-outline-dark btn-user" type="button" data-toggle="dropdown">
                                 @if(file_exists($customer->image))
@@ -170,19 +174,21 @@
                             </button>
                             <i class="fas fa-caret-down d-none"></i>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="{{ URL::to('customer-profile') }}">{{$customer->full_name}}</a></li>
+                                <li><a href="{{ URL::to('customer-profile') }}">{{ $customer->full_name }}</a></li>
                                 <li><a href="{{ URL::to('order-status') }}">Order status</a></li>
                                 <li><a href="{{ URL::to('saved-post') }}">Saved post</a></li>
                                 <li><a href="">Setting</a></li>
                                 <hr>
                                 <li>
-                                    <form action="{{URL::to('/logout')}}" method="post">
+                                    <form action="{{ URL::to('/logout') }}" method="post">
                                         @csrf
                                         <button type="submit">Logout</button>
                                     </form>
                                 </li>
                             </ul>
                         </div>
+                    @else
+                        <button class="btn btn-dark btn-signup"><a href="{{ URL::to('login') }}">Sign In</a></button>
                     @endif
                 </ul>
             </div>
@@ -207,50 +213,49 @@
     <div class="container-fluid">
         <div class="d-flex">
             <div class="col-7 d-flex">
-                <button class="btn btn-outline-dark favorite" name="favorite">Sneaker</button>
-                <button class="btn btn-outline-dark">Clothes</button>
-                <button class="btn btn-outline-dark">Watches</button>
-                <button class="btn btn-outline-dark">Accessory</button>
+                @foreach($categories as $item)
+                    <button class="btn btn-outline-dark">{{ $item->name }}</button>
+                @endforeach
             </div>
             <div class="col-5 d-flex">
                 <a href="" class="mr-2">FORUM</a> | <a href="" class="ml-2">ABOUT</a>
             </div>
         </div>
         <div class="d-flex cre">
-            <div class="col-3 d-flex justify-content-center align-items-center">
-                <img src="{{ asset('WebPage/img/home/project_name_sub.png') }}" alt="" width="70%">
+            <div class="col-4 d-flex justify-content-center align-items-center">
+                <img src="{{ asset('WebPage/img/home/project_name_sub.png') }}" alt="" width="50%">
             </div>
             <div class="col-2">
                 <ul>
-                    <li>Lorem ipsum dolor sit.</li>
-                    <li>Venam blandis reprehderit, assumeda.</li>
-                    <li>Obcaecati ure quaerat?</li>
-                    <li>Voluptate adipisci stiae vel.</li>
+                    <li class="footer-title">Customer care</li>
+                    <li>Help center</li>
+                    <li>Shopping guide</li>
+                    <li>Return & refunds</li>
                 </ul>
             </div>
             <div class="col-2">
                 <ul>
-                    <li>Lorem ipsum dolor sit.</li>
-                    <li>Deleniti possmus volptate, repuandae.</li>
-                    <li><a href="{{URL::to('dashboard/login')}}" style="color:black">Qui</a> officia architecto nobis?
+                    <li class="footer-title">About E-project</li>
+                    <li>About us</li>
+                    <li><a href="{{ URL::to('dashboard/login') }}" style="color:black">E-project</a> terms
                     </li>
-                    <li>Dignissimos fuga vitae sit!</li>
+                    <li>Contact media</li>
                 </ul>
             </div>
             <div class="col-2">
                 <ul>
-                    <li>Lorem ipsum dolor sit.</li>
-                    <li>Optio, ipsam quos nobis?</li>
-                    <li>Atque aspernatur maiores voluptas.</li>
-                    <li>Aperiam vitae cum iste!</li>
+                    <li class="footer-title">Our policy</li>
+                    <li>Privacy policy</li>
+                    <li>Recruitment</li>
+                    <li>Affiliate Program</li>
                 </ul>
             </div>
             <div class="col-2">
                 <ul>
-                    <li>Lorem ipsum dolor sit.</li>
-                    <li>Reprehedeit voluptate perspiatis ut.</li>
-                    <li>Est pariatur ipsam, ad.</li>
-                    <li>Itaque, tempore officis!</li>
+                    <li class="footer-title">Discount rule</li>
+                    <li>Flash sale</li>
+                    <li>Seller channels</li>
+                    <li>Transport</li>
                 </ul>
             </div>
         </div>
@@ -361,6 +366,7 @@
         $(window).resize(function () {
             ResCarouselSize();
         });
+
         function ResCarouselSize() {
             let incno = 0;
             const dataItems = ("data-items");
@@ -397,6 +403,7 @@
                 $(".rightLst").removeClass("over");
             });
         }
+
         function ResCarousel(e, el, s) {
             const leftBtn = ('.leftLst');
             const rightBtn = ('.rightLst');
@@ -422,6 +429,7 @@
             }
             $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
         }
+
         function click(ell, ee) {
             const Parent = "#" + $(ee).parent().attr("id");
             const slide = $(Parent).attr("data-slide");
@@ -429,7 +437,8 @@
         }
     });
 </script>
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0&appId=773430333349175&autoLogAppEvents=1" nonce="2zx4socu"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
