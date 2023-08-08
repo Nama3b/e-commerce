@@ -24,13 +24,13 @@
             <p>{{ $post_item['content'] }}</p>
         </div>
         <div class="d-flex">
-            <div class="post-author col-7">
+            <div class="post-author col-xs-12 col-lg-7">
                 <img src="{{ $author_avatar }}" alt="">
                 <div class="author-name">
                     <b>{{ $author_name }}</b>
                 </div>
             </div>
-            <div class="post-feature col-5" id="post-feature">
+            <div class="post-feature col-lg-5" id="post-feature">
                 @if(Auth()->guard('customer')->user())
                     @if($post_item['favorites'])
                         <form

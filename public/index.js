@@ -266,3 +266,8 @@ function signup1() {
 function signup2() {
     alert("Please sign in to save post!");
 }
+
+// sign in to like product
+function signup() {
+    alert("Please sign in to add favorite!");
+}

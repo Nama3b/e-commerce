@@ -2,7 +2,7 @@
 @section('content')
     <div class="post-detail container pb50">
         <div class="row">
-            <div class="col-md-9 mb40">
+            <div class="col-lg-9 mb40">
                 <article>
                     <div class="post-img">
                         @if(file_exists($data['images'][0]['image']))
@@ -131,7 +131,7 @@
                 </article>
 
             </div>
-            <div class="col-md-3 mb40">
+            <div class="col-xs-12 col-lg-3 mb40">
                 <div class="search-post">
                     <form class="form-search" method="post" action="{{URL::to('search-post')}}">
                         <label>
@@ -169,7 +169,7 @@
                     </ul>
                 </div>
                 <div class="banner mt-3">
-                    <a href=""><img src="{{ asset('WebPage/img/poster/poster2.jpg') }}" alt=""></a>
+                    <a href=""><img src="{{ asset('WebPage/img/poster/poster2.png') }}" alt=""></a>
                 </div>
             </div>
         </div>

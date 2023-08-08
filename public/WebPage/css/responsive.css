@@ -31,9 +31,30 @@
         grid-template-columns: repeat(2, minmax(129px, 1fr));
     }
 
+    .home-main .fashion-news h6 {
+        font-size: 15px;
+    }
+
     .home-main .news-section {
         display: grid;
-        grid-template-columns: repeat(2, 164px) !important;
+        grid-template-columns: repeat(2, 170px) !important;
+        gap: 7px;
+    }
+
+    .home-main .news-section .news-img {
+        height: 150px;
+    }
+
+    .home-main .news-section .news-info h6 {
+        font-size: 13px;
+    }
+
+    .home-main .news-section .news-info small {
+        font-size: 10px;
+    }
+
+    .home-main .news-section .news-created {
+        display: none;
     }
 
     .home-main .profit {
@@ -42,7 +63,7 @@
 
     .home-main .profit .col-4 {
         width: 100px;
-        padding: 10px;
+        padding: 20px 10px;
         margin: 0 5px;
     }
 
@@ -109,8 +130,50 @@
 
     footer .footer-desc p,
     footer .footer-desc h6 {
-        font-size: 12px;
+        font-size: 11px;
     }
+
+    /*product-main*/
+    .product-main .banner-product {
+        padding: 10px;
+    }
+
+    .product-main .banner-product h1 {
+        font-size: 20px;
+    }
+
+    .product-main .banner-product p {
+        font-size: 13px;
+    }
+
+    .product-main .cat-ele,
+    .product-main .brand-ele {
+        display: grid !important;
+        max-height: 171px;
+        overflow: scroll;
+    }
+
+    .product-main .feature-product {
+        display: inline-grid;
+    }
+
+    .product-main .product-section {
+        grid-template-columns: repeat(2, 170px) !important;
+        gap: 7px;
+    }
+
+    .product-main .product-section .product {
+        padding: 20px 7px 5px 7px;
+    }
+
+    .product-main .product-section .product-feature button {
+        font-size: 11px;
+    }
+
+    .product-main .product-section .product-info a {
+        font-size: 13px;
+    }
+
 
     /*product-detail*/
     .product-detail-main .product-main {
@@ -138,13 +201,13 @@
 
     .product-detail-main .related-product {
         padding: 37px 0;
-        grid-template-columns: repeat(3, 111px);
-        gap: 2px;
+        grid-template-columns: repeat(2, 172px);
+        gap: 10px;
     }
 
     .product-detail-main .related-product .product {
+        padding: 15px 10px;
         margin: 0;
-        padding: 0;
     }
 
     .product-detail-main .related-product .product img {
@@ -153,7 +216,7 @@
     }
 
     .product-detail-main .related-product .product .product-feature button {
-        font-size: 7px;
+        font-size: 14px;
     }
 
     .product-detail-main .product-main .feature i {
@@ -174,6 +237,149 @@
 
     .product-detail-main .product .product-info small,
     .product-detail-main .product .product-info a {
+        font-size: 13px;
+    }
+
+    .product-detail-info h4,
+    .related-product h4 {
+        font-size: 20px;
+    }
+
+    /*post-main*/
+    .post-main .carousel-section .carousel-item img,
+    .post-main .carousel-post .carousel-item img {
+        height: 150px;
+    }
+
+    .post-main .newest-post .news-section,
+    .post-main .suggest-post .news-section {
+        grid-template-columns: repeat(2, 165px);
+        gap: 10px;
+    }
+
+    .post-main .body-post {
+        display: block;
+    }
+
+    .post-main .post-item-type-1 .post-image {
+        display: flex;
+        align-items: center;
+    }
+
+    .post-main .post-item-type-1 .post-infor small {
+        font-size: 11px;
+    }
+
+    .post-main .post-item-type-1 .post-infor .post-title a {
+        font-size: 13px;
+    }
+
+    .post-main .post-item-type-1 .post-infor .post-author {
+        margin-top: 0;
+    }
+
+    .post-main .post-item-type-1 .post-infor .post-author img {
+        width: 25px;
+    }
+
+    .post-main .post-item-type-1 .post-infor .post-author .author-name b {
+        font-size: 13px;
+    }
+
+    .post-main .post-item-type-1 .post-infor .post-feature {
+        display: none;
+    }
+
+    .post-main .body-post .post-item-type-1 .post-description p {
+        font-size: 12px;
+    }
+
+    .post-main .body-post .post-image img {
+        width: 100%;
+        height: 80%;
+    }
+
+    .post-main .post-item-type-1 .col-xs-12 {
+        padding: 0;
+    }
+
+    .post-main .post-item-type-1 .post-type .col-9 {
+        padding: 0;
+    }
+
+    .post-main .post-item-type-1 .post-type .col-3 {
+        padding-left: 0;
+    }
+
+    .post-main .news-section {
+        display: grid;
+        grid-template-columns: repeat(2, 170px) !important;
+        gap: 7px;
+    }
+
+    .post-main .news-section .news-img {
+        height: 150px;
+    }
+
+    .post-main .news-section .news-info h6 {
+        font-size: 13px;
+    }
+
+    .post-main .news-section .news-info small {
         font-size: 10px;
+    }
+
+    .post-main .news-section .news-created {
+        display: none;
+    }
+
+    /*post-detail*/
+    .post-detail .post-img {
+        height: fit-content;
+    }
+
+    .post-detail .post-meta li {
+        font-size: 14px;
+    }
+
+    .post-detail .post-content p {
+        font-size: 13px;
+    }
+
+    .post-detail .post-feature button {
+        font-size: 10px;
+    }
+
+    .post-detail .fb-share-button {
+        margin: 0 0 0 5px;
+    }
+
+    .post-detail .post-content h4 {
+        font-size: 20px;
+    }
+
+    .post-detail .post-content h5 {
+        font-size: 15px;
+    }
+
+    .post-detail .media img.author-img {
+        width: 50px;
+    }
+
+    .post-detail .media-body {
+        font-size: 11px;
+    }
+
+    .post-detail .media i {
+        font-size:20px;
+    }
+
+    .post-detail .form-group input,
+    .post-detail .form-group textarea {
+        font-size: 13px;
+    }
+
+    .post-detail .clearfix button {
+        font-size: 13px;
     }
 }

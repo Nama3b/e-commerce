@@ -34,11 +34,9 @@
                                     class="fas fa-long-arrow-alt-right"></i></a></p>
                     </div>
                 </div>
-                <div class="form">
                     @foreach($popular_post as $key => $post_item)
                         @include('pages.common.post_item_1')
                     @endforeach
-                </div>
             </div>
 
             <div class="carousel-post">
@@ -110,7 +108,7 @@
             </div>
             <hr>
             <div class="body-post">
-                <div class="col-9">
+                <div class="col-xs-12 col-lg-9">
                     <div class="nav-tab">
                         @foreach($post_all as $key => $post_item)
                             @include('pages.common.post_item_1')
@@ -120,7 +118,7 @@
 
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-xs-12 col-lg-3">
                     <div class="search-post">
                         <form class="form-search" method="get" action="{{URL::to('search-post')}}">
                             <label>

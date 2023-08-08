@@ -42,9 +42,3 @@
         <a href="{{URL::to('product-detail'.'/'.$product_item['id'])}}">{{$product_item['name']}}</a>
     </div>
 </div>
-
-<script>
-    function signup() {
-        alert("Please sign in to add favorite!");
-    }
-</script>

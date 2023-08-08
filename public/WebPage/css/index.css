@@ -828,6 +828,11 @@ footer .footer-desc {
     display: flex;
 }
 
+.product-main .category-item .cat-ele,
+.product-main .brand-item .brand-ele {
+    display: contents;
+}
+
 .product-main .brand-item h5 {
     margin-left: 20px;
     margin-top: -24px;
@@ -843,6 +848,10 @@ footer .footer-desc {
     color: grey;
     text-decoration: none;
     width: fit-content;
+}
+
+.product-main .feature-product {
+    display: flex;
 }
 
 .product-main .feature-product select {
@@ -985,12 +994,13 @@ footer .footer-desc {
     color: lightgreen;
 }
 
-product-detail-main .product-main {
+.product-detail-main .product-main {
     display: flex;
 }
 
 .product-detail-info .product-description {
     display: flex;
+    margin-top: 40px;
 }
 
 .product-detail-main .product-detail-selection {
