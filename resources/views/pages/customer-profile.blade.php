@@ -19,7 +19,7 @@
                       enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
-                    <div class="col-4">
+                    <div class="col-xs-12 col-lg-4">
                         <div class="card mb-4">
                             <div class="card-body text-center">
                                 @if(file_exists($user->image))
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-8">
+                    <div class="col-xs-12 col-lg-8">
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="row">

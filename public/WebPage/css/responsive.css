@@ -92,7 +92,7 @@
     }
 
     footer .footer-top a {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     footer .cre {
@@ -142,7 +142,8 @@
         font-size: 20px;
     }
 
-    .product-main .banner-product p {
+    .product-main .banner-product p,
+    .product-main .product-section .product-info a {
         font-size: 13px;
     }
 
@@ -168,10 +169,6 @@
 
     .product-main .product-section .product-feature button {
         font-size: 11px;
-    }
-
-    .product-main .product-section .product-info a {
-        font-size: 13px;
     }
 
 
@@ -270,7 +267,9 @@
         font-size: 11px;
     }
 
-    .post-main .post-item-type-1 .post-infor .post-title a {
+    .post-main .post-item-type-1 .post-infor .post-title a,
+    .post-main .post-item-type-1 .post-infor .post-author .author-name b,
+    .post-main .news-section .news-info h6 {
         font-size: 13px;
     }
 
@@ -280,10 +279,6 @@
 
     .post-main .post-item-type-1 .post-infor .post-author img {
         width: 25px;
-    }
-
-    .post-main .post-item-type-1 .post-infor .post-author .author-name b {
-        font-size: 13px;
     }
 
     .post-main .post-item-type-1 .post-infor .post-feature {
@@ -321,10 +316,6 @@
         height: 150px;
     }
 
-    .post-main .news-section .news-info h6 {
-        font-size: 13px;
-    }
-
     .post-main .news-section .news-info small {
         font-size: 10px;
     }
@@ -340,10 +331,6 @@
 
     .post-detail .post-meta li {
         font-size: 14px;
-    }
-
-    .post-detail .post-content p {
-        font-size: 13px;
     }
 
     .post-detail .post-feature button {
@@ -374,12 +361,155 @@
         font-size:20px;
     }
 
+    .post-detail .post-content p,
     .post-detail .form-group input,
-    .post-detail .form-group textarea {
-        font-size: 13px;
-    }
-
+    .post-detail .form-group textarea,
     .post-detail .clearfix button {
         font-size: 13px;
     }
+
+    /*checkout*/
+    .checkout-body table {
+        margin: 0 10px;
+    }
+
+    .checkout-body .tbl-body,
+    .checkout-body .client-info input,
+    .checkout-body .checkout-section,
+    .checkout-body a.back-to-cart button {
+        font-size: 13px;
+    }
+
+    .checkout-body .tbl-body img {
+        width: 80px;
+        height: 60px;
+    }
+
+    .checkout-body .tbl-body td {
+        padding: 0 5px;
+    }
+
+    .checkout-body .tbl-body .col-8,
+    .checkout-body .tbl-body .col-4 {
+        padding: 0;
+    }
+
+    .checkout-body .tbl-body input[type="number"] {
+        width: 30px !important;
+    }
+
+    .checkout-body .tbl-body input[type="submit"] {
+        font-size: 9px;
+    }
+
+    .checkout-body .tbl-body form button {
+        font-size: 9px;
+    }
+
+    .checkout-body .client-info {
+        margin-top: 20px;
+    }
+
+    /*finish-payment*/
+    .payment-body h1 {
+        font-size: 20px;
+    }
+
+    .payment-body h4,
+    .payment-body h5 {
+        font-size: 13px;
+    }
+
+    .payment-body button {
+        font-size: 13px;
+        margin: 50px 0 0 15px;
+    }
+
+    /*customer-profile*/
+    .customer-profile nav .breadcrumb li,
+    .customer-profile .card-body button,
+    .customer-profile .card-body input {
+        font-size: 13px !important;
+    }
+
+    .customer-profile form.form-control {
+        display: block;
+    }
+
+    .customer-profile .col-3 {
+        padding: 0;
+    }
+
+    .customer-profile .card-body p {
+        font-size: 10px;
+    }
+
+
+    .customer-profile .col-6 .card-body p {
+        margin: 10px 0 !important;
+    }
+
+    /*saved-post*/
+    .saved-post .py-5 {
+        padding: 20px 0 0 0 !important;
+    }
+
+    .saved-post li.nav-item a {
+        font-size: 15px;
+    }
+
+    .saved-post .post-item-type-1 .post-image {
+        display: flex;
+        align-items: center;
+    }
+
+    .saved-post .post-item-type-1 .post-infor small {
+        font-size: 11px;
+    }
+
+    .saved-post .post-item-type-1 .post-infor .post-title a,
+    .saved-post .post-item-type-1 .post-infor .post-author .author-name b {
+        font-size: 13px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+
+    .saved-post .post-item-type-1 .post-infor .post-author {
+        margin-top: 0;
+    }
+
+    .saved-post .post-item-type-1 .post-infor .post-author img {
+        width: 25px;
+    }
+
+    .saved-post .post-item-type-1 .post-infor .post-feature {
+        display: none;
+    }
+
+    .saved-post .post-item-type-1 .post-description p {
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .saved-post .post-item-type-1 .col-4 {
+        padding: 5px 5px 5px 0;
+    }
+
+    .saved-post .post-item-type-1 .post-image img {
+        width: 100px;
+        height: 95px;
+    }
+
+    .saved-post .post-item-type-1 .col-xs-12,
+    .saved-post .post-item-type-1 .post-type .col-9 {
+        padding: 0;
+    }
+
+    .saved-post .post-item-type-1 .post-type .col-3 {
+        padding-left: 0;
+    }
+
 }

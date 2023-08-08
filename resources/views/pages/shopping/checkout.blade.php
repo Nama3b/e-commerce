@@ -3,7 +3,7 @@
     <div class="checkout-body">
         <div class="container">
             <div class="row">
-                <div class="col-8 pl-0 pr-0">
+                <div class="col-xs-12 col-lg-8 pl-0 pr-0">
                     <div class="product-cart">
                         <h3><b>My cart</b></h3>
                         @if ($checkout)
@@ -12,14 +12,16 @@
                                     <tr class="tbl-body">
                                         <td>
                                             @if(file_exists($cart_item['image']))
-                                                <img src="{{ $cart_item['image'] }}" alt="" width="110px" height="75px">
+                                                <a href="{{ URL::to('product-detail/'.$cart_item['id']) }}">
+                                                    <img src="{{ $cart_item['image'] }}" alt="" width="110px" height="75px">
+                                                </a>
                                             @else
-                                                <img
-                                                    src="{{ asset('/storage/public/uploads/img/'.$cart_item['image']) }}"
+                                                <a href="{{ URL::to('product-detail/'.$cart_item['id']) }}">
+                                                    <img src="{{ asset('/storage/public/uploads/img/'.$cart_item['image']) }}"
                                                     alt="" width="110px" height="75px">
+                                                </a>
                                             @endif
                                         </td>
-                                        <td><b></b></td>
                                         <td>${{ number_format($cart_item['price'], 0, '', '.') }}</td>
                                         <td>
                                             <fieldset>
@@ -63,9 +65,8 @@
                             @include('pages.common.no-cart-product')
                         @endif
                     </div>
-                    <a href="{{ URL::to('/my-cart') }}"><button class="btn btn-dark mt-5">Back to cart</button></a>
                 </div>
-                <div class="col-4 pl-0 pr-0">
+                <div class="col-xs-12 col-lg-4 pl-0 pr-0">
                     <form action="{{ URL::to('/checkout-action') }}" method="post">
                         @csrf
                         <div class="client-info">
@@ -126,6 +127,7 @@
                         </div>
                     </form>
                 </div>
+                <a href="{{ URL::to('/my-cart') }}" class="back-to-cart"><button class="btn btn-dark mt-3 ml-3">Back to cart</button></a>
             </div>
         </div>
     </div>

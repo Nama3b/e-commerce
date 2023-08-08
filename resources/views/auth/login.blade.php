@@ -20,7 +20,7 @@
 <div class="header">
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-3">
+            <div class="col-xs-6 col-lg-3">
                 <a href="{{URL::to('/home')}}"><img src="{{ asset('WebPage/img/home/project_name.png') }}" alt="" width="100%"></a>
             </div>
             <hr>

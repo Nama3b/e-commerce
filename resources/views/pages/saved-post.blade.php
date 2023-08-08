@@ -15,7 +15,7 @@
                     @endforeach
                 </ul>
                 <div class="tab-content">
-                    <div id="all" class="container tab-pane active"><br>
+                    <div id="all" class="container tab-pane active">
                         @if ($data)
                             @foreach ($data as $post_item)
                                 @include('pages.common.post_item_1')

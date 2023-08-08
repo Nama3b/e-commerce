@@ -2,17 +2,17 @@
 @section('content')
     <div class="body">
         <div class="container d-flex justify-content-center">
-            <div class="form-input col-5">
+            <div class="form-input col-8 col-lg-5">
                 <ul class="nav nav-tabs mb-3 mt-2 d-flex">
                     <li class="active col-6 text-center"><a data-toggle="tab" href="#home">Sign In</a></li>
                     <li class="col-6 text-center"><a data-toggle="tab" href="#menu1">Sign Up</a></li>
                 </ul>
-                <a href="{{URL::to('login-google')}}">
+                <a href="{{ URL::to('login-google') }}">
                     <button class="btn btn-outline-dark mb-2">
                         <i class="fab fa-google mr-2"></i><b>Continue with Google</b>
                     </button>
                 </a>
-                <a href="{{URL::to('login-facebook')}}">
+                <a href="{{ URL::to('login-facebook') }}">
                     <button class="btn btn-outline-primary mb-2">
                         <i class="fab fa-facebook mr-2"></i><b>Continue with Facebook</b>
                     </button>
@@ -26,7 +26,7 @@
                             Session::put('message', null);
                         }
                         ?>
-                        <form action="{{URL::to('/login')}}" method="post">
+                        <form action="{{ URL::to('/login') }}" method="post">
                             @csrf
                             <div class="error-item">
                                 @foreach($errors->all() as $val)
