@@ -1,11 +1,11 @@
-<div class="card-order d-flex mb-4">
-    <div class="col-8">
+<div class="card-order mb-4">
+    <div class="col-xs-12 col-lg-8">
         @php($order_detail = $order_item['orderdetails'])
         @foreach ($order_detail as $order_detail_item)
             <div class="card shadow-0 border mb-1">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-3">
                             @if(file_exists($order_detail_item['image']))
                                 <a href="{{ URL::to('product-detail/'.$order_detail_item['product_id']) }}">
                                     <img src="{{ asset($order_detail_item['image']) }}" width="120px" height="80px">
@@ -16,17 +16,17 @@
                                 </a>
                             @endif
                         </div>
-                        <div class="col-md-4 row-item">
+                        <div class="col-4 row-item">
                             <p class="text-muted mb-0">{{ $order_detail_item['name'] }}</p>
                         </div>
-                        <div class="col-md-2 row-item">
+                        <div class="col-2 row-item">
                             <p class="text-muted mb-0 small">
                                 ${{ number_format($order_detail_item['price'], 0, '', '.') }}</p>
                         </div>
-                        <div class="col-md-1 row-item">
+                        <div class="col-1 row-item">
                             <p class="text-muted mb-0 small">x {{ $order_detail_item['quantity'] }}</p>
                         </div>
-                        <div class="col-md-2 row-item">
+                        <div class="col-2 row-item">
                             <p class="text-muted mb-0 small">
                                 ${{ number_format($order_detail_item['price'] * $order_detail_item['quantity'], 0, '', '.') }}</p>
                         </div>
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <div class="col-4">
+    <div class="col-xs-12 col-lg-4">
         <div class="card-user shadow-0">
             <div class="client-info">
                 <h6><b>Ordering person</b></h6>

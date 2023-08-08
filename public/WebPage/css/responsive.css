@@ -512,4 +512,35 @@
         padding-left: 0;
     }
 
+    /*order-status*/
+    .order-status li.nav-item a {
+        font-size: 8px;
+    }
+
+    .order-status .tab-content .card-order {
+        display: block;
+    }
+
+    .order-status .tab-content .card-order .col-lg-4 {
+        margin: 10px 0;
+    }
+
+    .order-status .card-order .card-body img {
+        width: 80px;
+        height: 50px;
+    }
+
+    .order-status .card-order .card-body .row-item p,
+    .order-status .track-order-status p,
+    .order-status .card-user .client-info p {
+        font-size: 13px;
+    }
+
+    .order-status .card-body .col-1,
+    .order-status .card-body .col-2,
+    .order-status .card-body .col-3,
+    .order-status .card-body .col-4{
+        padding: 0 !important;
+    }
+
 }

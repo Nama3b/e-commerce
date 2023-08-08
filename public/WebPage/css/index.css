@@ -1574,6 +1574,7 @@ td .container input {
 
 .order-status .tab-content .card-order {
     margin: 10px 0;
+    display: flex;
 }
 
 .order-status .tab-content .card-user {
