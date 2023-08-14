@@ -36,6 +36,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ *  Running Routes
+ */
 Route::get('/config-clear', function() {
     Artisan::call('config:clear');
     return 'Configuration cache cleared!';
@@ -69,11 +72,12 @@ Route::get('/storage-link', function() {
     return 'The links have been created.';
 });
 
+/**
+ * Verification Routes
+ */
 Auth::routes(['verify' => true]);
-
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-
     return redirect('/login')->with('success', 'Verify email successfully!');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 Route::get('/email/verify', function () {
@@ -81,10 +85,12 @@ Route::get('/email/verify', function () {
 })->middleware('auth')->name('verification.notice');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+/**
+ * Home page Routes
+ */
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/login', [LoginHomeController::class, 'loginHome'])->name('loginHome');
@@ -92,49 +98,83 @@ Route::post('login', [LoginController::class, 'loginHome']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('signup', [RegisterController::class, 'signupHome'])->name('signup');
 
+/**
+ * Product page Routes
+ */
 Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class, 'products']);
 Route::get('/product-by-brand/{brand}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByBrand']);
 Route::get('/product-by-category/{category}', [\App\Http\Controllers\HomePage\ProductController::class, 'productByCategory']);
 Route::get('/product-detail/{id}', [\App\Http\Controllers\HomePage\ProductController::class, 'productDetail']);
 Route::get('/search-product', [\App\Http\Controllers\HomePage\ProductController::class, 'searchProduct']);
 
+/**
+ * Post page Routes
+ */
 Route::get('/post', [\App\Http\Controllers\HomePage\PostController::class, 'post']);
 Route::get('/post-detail/{id}', [\App\Http\Controllers\HomePage\PostController::class, 'postDetail']);
 Route::get('/search-post', [\App\Http\Controllers\HomePage\PostController::class, 'searchPost']);
 
+/**
+ * Cart function Routes
+ */
 Route::post('/add-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'addToCart']);
 Route::delete('/remove-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'removeFromCart']);
 
 Route::middleware('auth:customer')->group(function () {
+    /**
+     * Cart function Routes
+     */
     Route::get('/my-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'index']);
     Route::post('/update-cart', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCart']);
     Route::post('/product-selected-checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'productSelectedCheckout']);
+
+    /**
+     * Checkout function Routes
+     */
     Route::get('/checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'checkout']);
     Route::post('/update-checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'updateCheckout']);
     Route::delete('/remove-checkout', [\App\Http\Controllers\HomePage\OrderController::class, 'removeFromCheckout']);
     Route::post('/checkout-action', [\App\Http\Controllers\HomePage\OrderController::class, 'checkoutAction']);
     Route::get('/finish-payment', [\App\Http\Controllers\HomePage\OrderController::class, 'finishPayment']);
 
+    /**
+     * Order feature Routes
+     */
     Route::get('/order-status', [\App\Http\Controllers\HomePage\OrderController::class, 'orderStatus']);
     Route::patch('/order/edit/{order}', [\App\Http\Controllers\HomePage\OrderController::class, 'edit']);
 
+    /**
+     * Customer profile function Routes
+     */
     Route::get('/customer-profile', [UserController::class, 'index']);
     Route::patch('/update-customer-profile/{id}', [UserController::class, 'updateCustomer']);
 
+    /**
+     * Favorite function Routes
+     */
     Route::post('add-favorite', [FavoriteController::class, 'store']);
     Route::patch('update-favorite/{favorite}', [FavoriteController::class, 'edit']);
 
+    /**
+     * Saved post function Routes
+     */
     Route::get('/saved-post', [PostSavedController::class, 'list']);
     Route::post('save-post', [PostSavedController::class, 'store']);
     Route::patch('unsave-post/{post}', [PostSavedController::class, 'edit']);
 });
 
+/**
+ * Login dashboard Routes
+ */
 Route::prefix('dashboard')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'loginDashboard']);
 });
 
 Route::middleware('auth:member')->prefix('dashboard')->group(function () {
+    /**
+     * Dashboard home Routes
+     */
     Route::get('/home', function () {
         return view('dashboard-pages.main');
     });

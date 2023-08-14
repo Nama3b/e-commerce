@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 trait CustomerFromSessionResourceHelper
 {
     /**
+     * Get customer information in session
+     *
      * @return Application|SessionManager|Store|mixed
      */
     public function customerFromSession($request): mixed

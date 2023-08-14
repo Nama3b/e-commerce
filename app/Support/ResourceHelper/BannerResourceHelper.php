@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 trait BannerResourceHelper
 {
     /**
+     * Get banner with type sneaker
+     *
      * @return Collection|array
      */
     private function getSneakerBanner(): Collection|array
@@ -16,6 +18,8 @@ trait BannerResourceHelper
     }
 
     /**
+     * Get banner with type clothes
+     *
      * @return Collection|array
      */
     private function getClothesBanner(): Collection|array

@@ -28,6 +28,8 @@ trait ProductResourceHelper
     }
 
     /**
+     * Get product with image
+     *
      * @return array
      */
     public function getProductImage(): array

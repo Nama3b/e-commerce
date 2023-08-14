@@ -38,6 +38,8 @@ class LoginController extends Controller
     }
 
     /**
+     * Login home handle
+     *
      * @param LoginRequest $request
      * @return Response
      * @throws ValidationException
@@ -73,6 +75,8 @@ class LoginController extends Controller
     }
 
     /**
+     * Login dashboard handle
+     *
      * @param LoginRequest $request
      * @return Response
      * @throws ValidationException

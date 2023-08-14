@@ -28,10 +28,11 @@ class HomeController extends Controller
         CustomerFromSessionResourceHelper;
 
     /**
-     * @param Request $request
+     * Show home page
+     *
      * @return Application|Factory|View
      */
-    public function index(Request $request): View|Factory|Application
+    public function index(): View|Factory|Application
     {
         Auth()->guard('member')->logout();
 
@@ -110,7 +111,11 @@ class HomeController extends Controller
         return $news;
     }
 
-    public function seo(Request $request)
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function SEO(Request $request)
     {
         $meta_desc = "PRO.N - Buy the hottest sneakers including Adidas Yeezy and Retro Jordans, Supreme clothes, trading cards, collectibles, designer handbags and luxury ...";
         $meta_keywords = "sneaker, clothes, watches, buy sneaker, buy watches";

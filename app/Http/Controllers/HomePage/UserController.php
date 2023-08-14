@@ -25,6 +25,8 @@ class UserController extends Controller
         ImageHandlerResourceHelper;
 
     /**
+     * Show customer profile
+     *
      * @param Request $request
      * @return Factory|View|Application
      */

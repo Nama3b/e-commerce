@@ -24,6 +24,8 @@ class PostController extends Controller
         PostResourceHelper;
 
     /**
+     * Show post home
+     *
      * @param Request $request
      * @return Application|Factory|View
      */

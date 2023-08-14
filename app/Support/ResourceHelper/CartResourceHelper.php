@@ -11,6 +11,8 @@ use Illuminate\Session\Store;
 trait CartResourceHelper
 {
     /**
+     * Get cart before login and after login
+     *
      * @return Application|SessionManager|Store|mixed
      */
     public function myCart(): mixed
@@ -59,6 +61,8 @@ trait CartResourceHelper
     }
 
     /**
+     * Counting product in cart
+     *
      * @return int
      */
     public function countCart(): int
@@ -68,6 +72,8 @@ trait CartResourceHelper
     }
 
     /**
+     * Handle select product in cart
+     *
      * @param $request
      * @return array
      */

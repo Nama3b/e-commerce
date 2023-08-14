@@ -31,6 +31,8 @@ trait PostResourceHelper
     }
 
     /**
+     * Get post with image
+     *
      * @return array
      */
     public function getPostImage(): array

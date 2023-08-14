@@ -11,6 +11,8 @@ use Illuminate\Contracts\View\View;
 class LoginHomeController extends Controller
 {
     /**
+     * Destroy member session after move out dashboard
+     *
      * @return Factory|View|Application
      */
     public function loginHome(): Factory|View|Application

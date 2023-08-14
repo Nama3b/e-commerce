@@ -6,6 +6,8 @@ trait ImageHandlerResourceHelper
 {
 
     /**
+     * Handle upload image
+     *
      * @param $request
      * @return string
      */

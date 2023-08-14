@@ -25,6 +25,8 @@ class ProductController extends Controller
         CustomerFromSessionResourceHelper;
 
     /**
+     * Show product home
+     *
      * @param Request $request
      * @return View|Factory|Application
      */

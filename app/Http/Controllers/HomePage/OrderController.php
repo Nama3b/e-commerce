@@ -32,6 +32,8 @@ class OrderController extends Controller
         CustomerFromSessionResourceHelper;
 
     /**
+     * Show list cart
+     *
      * @param Request $request
      * @return Factory|View|Application
      */
@@ -56,6 +58,8 @@ class OrderController extends Controller
     }
 
     /**
+     * Update product quantity after cancelled status order
+     *
      * @param $order
      * @return RedirectResponse
      */
@@ -131,11 +135,12 @@ class OrderController extends Controller
             session(['cart' => $cartItems]);
         }
 
-
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
 
     /**
+     * Update quantity
+     *
      * @param Request $request
      * @return RedirectResponse
      */
@@ -175,6 +180,8 @@ class OrderController extends Controller
     }
 
     /**
+     * Product select from cart to check out
+     *
      * @param Request $request
      * @return RedirectResponse
      */
@@ -220,6 +227,10 @@ class OrderController extends Controller
             ));
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function updateCheckout(Request $request): RedirectResponse
     {
         $checkoutItems = session('checkout', []);
@@ -231,6 +242,10 @@ class OrderController extends Controller
         return redirect()->back()->with('success', 'Checkout updated successfully!');
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function removeFromCheckout(Request $request): RedirectResponse
     {
         $id = $request->input('productId_hidden');
@@ -245,6 +260,8 @@ class OrderController extends Controller
     }
 
     /**
+     * Checkout handle
+     *
      * @param Request $request
      * @return Factory|View|Application
      */
@@ -314,6 +331,8 @@ class OrderController extends Controller
     }
 
     /**
+     * Show order status list
+     *
      * @param Request $request
      * @return Factory|View|Application
      */
