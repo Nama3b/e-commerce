@@ -168,7 +168,7 @@ a {
 }
 
 .dropdown-cart .carts {
-    height: 275px;
+    max-height: 275px;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -293,8 +293,6 @@ a {
     font-weight: bold;
 }
 
-/* ====================================HOME==================================== */
-
 #popup_success,
 #popup_error {
     position: fixed;
@@ -350,6 +348,8 @@ a {
 .fade-out {
     animation-name: fadeOut;
 }
+
+/* ====================================HOME==================================== */
 
 .home-main .carousel-inner img {
     width: 100%;

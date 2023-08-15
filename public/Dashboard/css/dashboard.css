@@ -20,6 +20,62 @@ html, body {
     border-radius: 5px;
 }
 
+#popup_success,
+#popup_error {
+    position: fixed;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px 30px;
+    width: 500px;
+    text-align: center;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.popup-content span {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+#popup_success .popup-content i {
+    font-size: 22px;
+    color: green;
+    margin-left: 10px;
+}
+
+#popup_error .popup-content i {
+    font-size: 22px;
+    color: red;
+    margin-left: 10px;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.fade {
+    opacity: 0;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.fade-in {
+    animation-name: fadeIn;
+}
+
+.fade-out {
+    animation-name: fadeOut;
+}
+
 /*input[type="file"] {*/
 /*    display: none !important;*/
 /*}*/
@@ -106,56 +162,6 @@ html, body {
 .sidebar hr {
     margin: 0;
     border-bottom: 1px solid grey;
-}
-
-#popup {
-    position: fixed;
-    display: none;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #1f2129;
-    color: white;
-    border: 1px solid #ccc;
-    padding: 15px 30px;
-    width: 500px;
-    text-align: center;
-    border-radius: 5px;
-    z-index: 1;
-}
-
-.popup-content span {
-    margin-top: 5px;
-    font-weight: bold;
-}
-
-.popup-content i {
-    font-size: 22px;
-    color: green;
-    margin-left: 10px;
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-.fade {
-    opacity: 0;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-}
-
-.fade-in {
-    animation-name: fadeIn;
-}
-
-.fade-out {
-    animation-name: fadeOut;
 }
 
 #main {

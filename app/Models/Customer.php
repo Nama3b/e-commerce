@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent;
+use   Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
