@@ -61,7 +61,7 @@
 //   });
 // });
 
-// fade anmation
+<!-- fade animation -->
 const wrapper = document.querySelector('.wrapper')
 let isMouseDown = false
 let startX, scrollLeft
@@ -191,7 +191,7 @@ $(document).ready(function () {
     }
 });
 
-//display password in login webpage
+<!-- display password in login webpage -->
 function showPassword() {
     const x = document.getElementById("password");
     if (x.type === "password") {
@@ -221,7 +221,7 @@ function showPasswordRepeat() {
     }
 }
 
-//display password in login dashboard
+<!-- display password in login dashboard -->
 function myFunction() {
     const x = document.getElementById("password");
     if (x.type === "password") {
@@ -231,7 +231,7 @@ function myFunction() {
     }
 }
 
-// reload without refresh
+<!-- reload without refresh -->
 $(function() {
     $.ajaxSetup({
         cache: false
@@ -242,7 +242,7 @@ $(function() {
     });
 });
 
-// blocking father form doing action in my cart page
+<!-- blocking father form doing action in my cart page -->
 document.getElementById('updateForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -259,7 +259,7 @@ document.getElementById('backToProduct').addEventListener('submit', function (ev
     document.getElementById('backToProduct').submit();
 });
 
-// sign in to save post
+<!-- sign in to save post -->
 function signup1() {
     alert("Please sign in to add favorite!");
 }
@@ -267,7 +267,8 @@ function signup2() {
     alert("Please sign in to save post!");
 }
 
-// sign in to like product
+<!-- sign in to like product -->
 function signup() {
     alert("Please sign in to add favorite!");
 }
+

@@ -5,28 +5,34 @@
             <h2 class="card-title my-2">BANNER MANAGEMENT</h2>
         </div>
         <div class="card-body pt-3">
-            <ul class="nav nav-pills" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill"
-                       href="#banner">All</a>
-                </li>
-                @foreach($type as $key => $type_item)
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill"
-                           href="#banner{{ $key }}">{{ $type_item }}</a>
-                    </li>
-                @endforeach
-            </ul>
-
-            <div class="tab-content">
-                <div id="banner" class="tab-pane active"><br>
-                    <div class="body-header">
+            <div class="d-flex">
+                <div class="col-6">
+                    <ul class="nav nav-pills" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="pill"
+                               href="#banner">All</a>
+                        </li>
+                        @foreach($type as $key => $type_item)
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="pill"
+                                   href="#banner{{ $key }}">{{ $type_item }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <div class="body-header justify-content-end">
                         <button type="button" name="create" id="create" class="btn btn-outline-light"
                                 data-toggle="modal"
                                 data-target="#addForm"><i class="far fa-plus-square"></i> Add new
                         </button>
                     </div>
-                    <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
+                </div>
+            </div>
+
+            <div class="tab-content">
+                <div id="banner" class="tab-pane active"><br>
+                    <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3" id="datatables">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -45,13 +51,7 @@
                 </div>
                 @foreach($type as $key => $type_item)
                     <div id="banner{{ $key }}" class="tab-pane fade"><br>
-                        <div class="body-header">
-                            <button type="button" name="create" id="create" class="btn btn-outline-light"
-                                    data-toggle="modal"
-                                    data-target="#addForm"><i class="far fa-plus-square"></i> Add new
-                            </button>
-                        </div>
-                        <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
+                        <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3" id="datatables_{{ $loop->iteration }}">
                             <thead>
                             <tr>
                                 <th>ID</th>

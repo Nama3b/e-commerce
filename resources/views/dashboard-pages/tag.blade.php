@@ -10,7 +10,7 @@
                         data-target="#addForm"><i class="far fa-plus-square"></i> Add new
                 </button>
             </div>
-            <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3">
+            <table class="table table-bordered table-hover dataTable dtr-inline text-wrap mt-3" id="datatables">
                 <thead>
                 <tr>
                     <th>ID</th>

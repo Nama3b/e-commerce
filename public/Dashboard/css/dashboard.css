@@ -328,6 +328,49 @@ html, body {
     margin-left: 300px;
 }
 
+.dataTables_wrapper {
+    display: block !important;
+}
+
+.dataTables_length {
+    margin-top: 10px;
+    display: flex;
+}
+
+.dataTables_length select {
+    margin: 0 10px;
+    height: 40px !important;
+}
+
+.dataTables_filter {
+    display: flex !important;
+    justify-content: end;
+}
+
+.dataTables_filter input {
+    height: fit-content;
+    margin-left: 10px !important;
+}
+
+.dataTables_paginate .pagination li {
+    background: none;
+    border: none;
+    padding: 0 !important;
+    font-weight: bold;
+}
+
+.dataTables_paginate .pagination a {
+    background-color: #585858 !important;
+    border-color: #585858 !important;
+    color: white !important;
+}
+
+.dataTables_paginate .pagination .active a,
+.dataTables_paginate .pagination .active a:focus {
+    background-color: #323232 !important;
+    border-color: #323232 !important;
+}
+
 .card .nav-pills .nav-item a {
     color: white;
     background: #272934;
