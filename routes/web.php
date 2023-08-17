@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LoginHomeController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Delivery\ShippingController;
 use App\Http\Controllers\HomePage\UserController;
@@ -76,17 +77,10 @@ Route::get('/storage-link', function() {
  * Verification Routes
  */
 Auth::routes(['verify' => true]);
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/login')->with('success', 'Verify email successfully!');
-})->middleware(['auth', 'signed'])->name('verification.verify');
-Route::get('/email/verify', function () {
-    return view('pages.auth.verify');
-})->middleware('auth')->name('verification.notice');
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::post('/email/verify', [VerificationController::class, 'show']);
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 /**
  * Home page Routes

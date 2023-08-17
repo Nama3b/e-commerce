@@ -4,7 +4,8 @@ html, body {
     background-color: #efefef !important;
 }
 
-#popup {
+#popup_success,
+#popup_error {
     position: fixed;
     display: none;
     top: 50%;
@@ -24,9 +25,15 @@ html, body {
     font-weight: bold;
 }
 
-.popup-content i {
+#popup_success .popup-content i {
     font-size: 22px;
     color: green;
+    margin-left: 10px;
+}
+
+#popup_error .popup-content i {
+    font-size: 22px;
+    color: red;
     margin-left: 10px;
 }
 

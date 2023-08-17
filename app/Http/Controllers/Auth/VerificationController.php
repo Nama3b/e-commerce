@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EmailVerify;
+use App\Mail\OrderSendMail;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 
 class VerificationController extends Controller
 {
@@ -23,22 +29,37 @@ class VerificationController extends Controller
     use VerifiesEmails, RedirectsUsers;
 
     /**
-     * Where to redirect users after verification.
-     *
-     * @var string
-     */
-    protected string $redirectTo = RouteServiceProvider::HOME;
-
-    /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
+    /**
+     * Show the email verification notice.
+     *
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
+    public function show(Request $request): View|RedirectResponse
+    {
+        Mail::to($request->input('email'))->send(new EmailVerify());
+
+        return view('pages.auth.notice', [
+                'pageTitle' => __('Email Verification')
+            ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function resend(Request $request): RedirectResponse
+    {
+        return redirect()->back()->with('success', 'Resend email successfully!');
+    }
 }

@@ -28,42 +28,9 @@
     </div>
 </div>
 
-<div id="popup">
-    <div class="popup-content">
-        <span id="popup-message"></span><i class="far fa-check-circle"></i>
-    </div>
-</div>
+@include('partials.popup')
 
 @yield('content')
-
-@if(session('success'))
-    <script>
-        var popup = document.getElementById("popup");
-        var popupMessage = document.getElementById("popup-message");
-        popupMessage.innerHTML = "{{ session('success') }}";
-
-        function showElement() {
-            popup.classList.add('fade-in');
-            popup.style.display = 'block';
-        }
-
-        function hideElement() {
-            popup.classList.remove('fade-in');
-            popup.classList.add('fade-out');
-            setTimeout(() => {
-                popup.style.display = 'none';
-                popup.classList.remove('fade-out');
-            }, 1000);
-        }
-
-        function showForDuration(duration) {
-            showElement();
-            setTimeout(hideElement, duration);
-        }
-
-        showForDuration(1500);
-    </script>
-@endif
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
