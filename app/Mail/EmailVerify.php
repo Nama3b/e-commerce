@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\URL;
 
 class EmailVerify extends Mailable
 {
@@ -41,6 +42,9 @@ class EmailVerify extends Mailable
     {
         return new Content(
             view: 'pages.auth.email-verify',
+            with: ['url' => URL::temporarySignedRoute(
+                'verification.register', now()->addMinutes(30), ['user' => 1]
+            )],
         );
     }
 

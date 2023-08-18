@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\EmailVerify;
 use App\Mail\OrderSendMail;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\RedirectResponse;
@@ -47,19 +49,42 @@ class VerificationController extends Controller
      */
     public function show(Request $request): View|RedirectResponse
     {
-        Mail::to($request->input('email'))->send(new EmailVerify());
+        $success = '';
+        $email = $request->input('email');
+
+        session(['email_verify' => $email]);
+
+        Mail::to($email)->send(new EmailVerify());
 
         return view('pages.auth.notice', [
                 'pageTitle' => __('Email Verification')
-            ]);
+            ])->with(compact('email', 'success'));
     }
 
     /**
      * @param Request $request
-     * @return RedirectResponse
+     * @return Application|Factory|\Illuminate\Contracts\View\View
      */
-    public function resend(Request $request): RedirectResponse
+    public function resend(Request $request): Application|Factory|\Illuminate\Contracts\View\View
     {
-        return redirect()->back()->with('success', 'Resend email successfully!');
+        $email = $request->input('hidden_email');
+        Mail::to($email)->send(new EmailVerify());
+
+        return view('pages.auth.notice', [
+            'pageTitle' => __('Email Verification')
+            ])
+            ->with('email', $email)
+            ->with('success', 'Resend email successfully!');
+    }
+
+    /**
+     * @param Request $request
+     * @return Factory|\Illuminate\Contracts\View\View|Application
+     */
+    public function register(Request $request): \Illuminate\Contracts\View\View|Factory|Application
+    {
+        $email = session('email_verify', []);
+
+        return view('pages.auth.register')->with(compact('email'));
     }
 }

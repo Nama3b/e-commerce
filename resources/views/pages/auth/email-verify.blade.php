@@ -58,7 +58,7 @@
                                 <h4>Hello!</h4>
                                 <p>Please click the button below to verify your email address:</p>
                                 <div class="d-flex justify-content-center">
-                                    <a href="">
+                                    <a href="{{ $url }}">
                                         <button class="btn btn-md btn-dark">Verify email address</button>
                                     </a>
                                 </div>
@@ -73,7 +73,7 @@
                                     the
                                     URL below into your web browser:
                                 </p>
-                                <a href="" class="text-decoration-none"></a>
+                                <a href="{{ $url }}" class="text-decoration-none">{{ $url }}</a>
                             </div>
                         </div>
                     </div>

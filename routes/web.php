@@ -81,6 +81,7 @@ Auth::routes(['verify' => true]);
 Route::post('/email/verify', [VerificationController::class, 'show']);
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+Route::get('/email/register', [VerificationController::class, 'register'])->name('verification.register');
 
 /**
  * Home page Routes
