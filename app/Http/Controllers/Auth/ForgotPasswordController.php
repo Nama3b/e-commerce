@@ -31,7 +31,7 @@ class ForgotPasswordController extends Controller
      * @param ResetPasswordRequest $request
      * @return JsonResponse
      */
-    public function sendResetLinkEmail(ResetPasswordRequest $request): JsonResponse
+    public function verify(ResetPasswordRequest $request): JsonResponse
     {
         try {
             $status = (new PasswordReset($request))->code();

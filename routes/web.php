@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LoginHomeController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -74,14 +75,20 @@ Route::get('/storage-link', function() {
 });
 
 /**
- * Verification Routes
+ * Verification email Routes
  */
 Auth::routes(['verify' => true]);
-
 Route::post('/email/verify', [VerificationController::class, 'show']);
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
-Route::get('/email/register', [VerificationController::class, 'register'])->name('verification.register');
+Route::get('/email/register', [VerificationController::class, 'register'])->name('verification.register')->middleware('signed');
+
+/**
+ * Password forgot Routes
+ */
+Route::get('/password/forgot', [ForgotPasswordController::class, 'index'])->name('password.forgot');
+Route::post('/customer/verify', [ForgotPasswordController::class, 'verify'])->name('password.verify');
+Route::post('/password/reset', [ForgotPasswordController::class, 'reset'])->name('password.reset');
 
 /**
  * Home page Routes
@@ -174,6 +181,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
         return view('dashboard-pages.main');
     });
 
+
     Route::get('admin/new', [AdminController::class, 'new']);
     Route::post('admin/profile/update', [AdminController::class, 'updateProfile'])->name('profile-update');
     Route::get('admin/change-password', [AdminController::class, 'password'])->name('change-pass');
@@ -195,6 +203,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
         ->name('member.delete')
         ->middleware(['checkManagerPermission:DELETE_MEMBER']);
 
+
     Route::get('role', [RoleController::class, 'list'])
         ->name('role')
         ->middleware(['checkManagerPermission:VIEW_ROLE']);
@@ -210,6 +219,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::delete('role/delete/{role}', [RoleController::class, 'delete'])
         ->name('role.delete')
         ->middleware(['checkManagerPermission:DELETE_ROLE']);
+
 
     Route::get('permission', [PermissionController::class, 'list'])
         ->name('permission')
@@ -227,6 +237,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
         ->name('permission.delete')
         ->middleware(['checkManagerPermission:DELETE_PERMISSION']);
 
+
     Route::get('brand', [BrandController::class, 'list'])
         ->name('brand')
         ->middleware(['checkManagerPermission:VIEW_BRAND']);
@@ -239,6 +250,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::delete('brand/delete/{brand}', [BrandController::class, 'delete'])
         ->name('brand.delete')
         ->middleware(['checkManagerPermission:DELETE_BRAND']);
+
 
     Route::get('product_category', [ProductCategoryController::class, 'list'])
         ->name('product_category')
@@ -253,6 +265,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
         ->name('product_category.delete')
         ->middleware(['checkManagerPermission:DELETE_PRODUCT_CATEGORY']);
 
+
     Route::get('product', [ProductController::class, 'list'])
         ->name('product')
         ->middleware(['checkManagerPermission:VIEW_PRODUCT']);
@@ -265,6 +278,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::delete('product/delete/{product}', [ProductController::class, 'delete'])
         ->name('product.delete')
         ->middleware(['checkManagerPermission:DELETE_PRODUCT']);
+
 
     Route::get('delivery', [DeliveryController::class, 'list'])
         ->name('delivery')
@@ -279,6 +293,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
         ->name('delivery.delete')
         ->middleware(['checkManagerPermission:DELETE_DELIVERY']);
 
+
     Route::get('shipping', [ShippingController::class, 'list'])
         ->name('shipping')
         ->middleware(['checkManagerPermission:VIEW_SHIPPING']);
@@ -292,12 +307,14 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
         ->name('shipping.delete')
         ->middleware(['checkManagerPermission:DELETE_SHIPPING']);
 
+
     Route::get('order', [OrderController::class, 'list'])
         ->name('order')
         ->middleware(['checkManagerPermission:VIEW_ORDER']);
     Route::patch('order/edit/{order}', [OrderController::class, 'edit'])
         ->name('order.edit')
         ->middleware(['checkManagerPermission:EDIT_ORDER']);
+
 
     Route::get('post', [PostController::class, 'list'])
         ->name('post')
@@ -311,6 +328,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::delete('post/delete/{post}', [PostController::class, 'delete'])
         ->name('post.delete')
         ->middleware(['checkManagerPermission:DELETE_POST']);
+
 
     Route::get('banner', [BannerController::class, 'list'])
         ->name('banner')
@@ -336,9 +354,11 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
         ->name('comment.delete')
         ->middleware(['checkManagerPermission:DELETE_COMMENT']);
 
+
     Route::get('favorite', [FavoriteController::class, 'list'])
         ->name('favorite')
         ->middleware(['checkManagerPermission:VIEW_FAVORITE']);
+
 
     Route::get('image', [ImageController::class, 'list'])
         ->name('image')
@@ -352,6 +372,7 @@ Route::middleware('auth:member')->prefix('dashboard')->group(function () {
     Route::delete('image/delete/{image}', [ImageController::class, 'delete'])
         ->name('image.delete')
         ->middleware(['checkManagerPermission:DELETE_IMAGE']);
+
 
     Route::get('tag', [TagController::class, 'list'])
         ->name('tag')
