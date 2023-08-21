@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\EmailVerify;
 use App\Mail\OrderSendMail;
 use App\Providers\RouteServiceProvider;
+use App\Rules\ValidRecaptcha;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\RedirectsUsers;
@@ -49,6 +50,11 @@ class VerificationController extends Controller
      */
     public function show(Request $request): View|RedirectResponse
     {
+        $request->validate([
+            'email' => 'required|email|unique:customers,email|string|max:255',
+            'g-recaptcha-response' => ['required', new ValidRecaptcha()],
+        ]);
+
         $success = '';
         $email = $request->input('email');
 
@@ -58,7 +64,9 @@ class VerificationController extends Controller
 
         return view('pages.auth.notice', [
                 'pageTitle' => __('Email Verification')
-            ])->with(compact('email', 'success'));
+            ])
+            ->with(compact('email', 'success'))
+            ->with('success', 'Send email verification successfully!');
     }
 
     /**
@@ -70,18 +78,19 @@ class VerificationController extends Controller
         $email = $request->input('hidden_email');
         Mail::to($email)->send(new EmailVerify());
 
+        session(['email_verify' => $email]);
+
         return view('pages.auth.notice', [
             'pageTitle' => __('Email Verification')
             ])
             ->with('email', $email)
-            ->with('success', 'Resend email successfully!');
+            ->with('success', 'Resend email verification successfully!');
     }
 
     /**
-     * @param Request $request
      * @return Factory|\Illuminate\Contracts\View\View|Application
      */
-    public function register(Request $request): \Illuminate\Contracts\View\View|Factory|Application
+    public function register(): \Illuminate\Contracts\View\View|Factory|Application
     {
         $email = session('email_verify', []);
 

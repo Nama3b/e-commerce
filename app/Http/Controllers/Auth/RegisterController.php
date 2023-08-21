@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Customer;
 use App\Rules\ValidRecaptcha;
+use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\RedirectResponse;
@@ -19,27 +23,24 @@ class RegisterController extends Controller
 
     /**
      * @param Request $request
-     * @return RedirectResponse
+     * @return Application|Factory|View
      */
-    public function signupHome(Request $request): RedirectResponse
+    public function signupHome(Request $request): Application|Factory|View
     {
         $request->validate([
-            'email' => 'required|email|unique:customers,email|string|max:255',
             'password' => 'required|min:6|confirmed',
             'full_name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'phone_number' => 'required|string|unique:customers,phone_number|max:13',
             'birthday' => 'nullable',
             'image' => 'nullable',
-            'g-recaptcha-response' => ['required', new ValidRecaptcha()],
         ]);
 
-//        $customer = $request->email;
-//        event(new Registered($customer));
-
+        $time_now = Carbon::now();
         Customer::create([
             'role_id' => 3,
-            'email' => $request->input('email'),
+            'email' => session('email_verify', []),
+            'email_verified_at' => $time_now,
             'password' => Hash::make($request->input('password')),
             'full_name' => $request->input('full_name'),
             'address' => $request->input('address'),
@@ -48,6 +49,9 @@ class RegisterController extends Controller
             'image' => 'WebPage/img/home/logo.jpg',
         ]);
 
-        return redirect()->back()->with('success', 'Create user successfully!');
+        session()->forget('email_verify');
+
+        return view('pages.auth.login-body')
+            ->with('success', 'Create user successfully!');
     }
 }

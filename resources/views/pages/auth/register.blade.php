@@ -1,7 +1,7 @@
 @extends('auth.login')
 @section('content')
+    @if($email)
     <div class="body">
-        @dd($email)
         <div class="container d-flex justify-content-center">
             <div class="form-input col-8 col-lg-5">
                 <ul class="nav nav-tabs mb-3 mt-2 d-flex">
@@ -41,7 +41,7 @@
                                 <input type="password" id="password" name="password" placeholder="Password" required>
                                 <a onclick="showPassword()" title="Show Password"><i class="far fa-eye"></i></a>
                             </div>
-                            <small class="text-right">Forgot Password?</small>
+                            <small class="text-right"><a href="{{ route('password.forgot') }}">Forgot Password?</a></small>
                             <button type="submit" class="btn btn-dark" name="login">Sign In</button>
                             <label for="policy"> <small>By signing in, you agree to the <b>Terms of Service</b>
                                     and <b>Privacy Policy</b></small></label>
@@ -64,7 +64,7 @@
                                     </ul>
                                 @endforeach
                             </div>
-                            <input type="email" name="email" placeholder="{{ $email }}" readonly>
+                            <span class="d-flex">Email is verified:<p class="text-success ml-2 mb-0">{{ $email }}</p></span>
                             <div class="password-input">
                                 <input type="password" id="password_signup" name="password" placeholder="Password" required>
                                 <a onclick="showPasswordSignup()" title="Show Password"><i class="far fa-eye"></i></a>
@@ -79,8 +79,6 @@
                             <input type="date" name="birthday">
                             {{--                        <input type="file" name="avatar">--}}
                             <input type="hidden" name="avatar" value="../WebPage/img/home/logo.jpg">
-                            <div class="g-recaptcha" id="feedback-recaptcha"
-                                 data-sitekey="6LfHAjMnAAAAAGGa8s7BWJcKZBr_y3SiaXARnAPf"></div>
                             <div class="d-flex">
                                 <input type="checkbox" class="checkbox" name="policy" checked>
                                 <label for="policy"> <small>By signing up, you agree to the <b>Terms of Service</b>
@@ -93,4 +91,18 @@
             </div>
         </div>
     </div>
+    @else
+        <body>
+        <div class="d-flex align-items-center justify-content-center vh-100" style="min-height: 77vh">
+            <div class="text-center">
+                <h1 class="display-1 fw-bold">404</h1>
+                <p class="fs-3"> <span class="text-danger">Opps!</span> Page not found.</p>
+                <p class="lead">
+                    The page you’re looking for doesn’t exist.
+                </p>
+                <a href="{{ URL::to('home') }}" class="btn btn-dark">Go Home</a>
+            </div>
+        </div>
+        </body>
+    @endif
 @endsection
