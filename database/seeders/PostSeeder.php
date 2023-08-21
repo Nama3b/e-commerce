@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,6 +15,8 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
+        $time_now = Carbon::now();
+
         DB::table('posts')->insert([
             [
                 'author' => 1,
@@ -21,6 +24,7 @@ class PostSeeder extends Seeder
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi doloremque dolorum iure libero minima mollitia sapiente similique tenetur. A asperiores dolorum eaque excepturi expedita incidunt quam repudiandae temporibus ut!',
                 'post_type' => 'NEWS',
                 'status' => 'ACTIVE',
+                'created_at' => $time_now
             ],
             [
                 'author' => 1,
@@ -28,6 +32,7 @@ class PostSeeder extends Seeder
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi doloremque dolorum iure libero minima mollitia sapiente similique tenetur. A asperiores dolorum eaque excepturi expedita incidunt quam repudiandae temporibus ut!',
                 'post_type' => 'NEWS',
                 'status' => 'ACTIVE',
+                'created_at' => $time_now
             ],
             [
                 'author' => 1,
@@ -35,6 +40,7 @@ class PostSeeder extends Seeder
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi doloremque dolorum iure libero minima mollitia sapiente similique tenetur. A asperiores dolorum eaque excepturi expedita incidunt quam repudiandae temporibus ut!',
                 'post_type' => 'NEWS',
                 'status' => 'ACTIVE',
+                'created_at' => $time_now
             ],
             [
                 'author' => 1,
@@ -42,6 +48,7 @@ class PostSeeder extends Seeder
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi doloremque dolorum iure libero minima mollitia sapiente similique tenetur. A asperiores dolorum eaque excepturi expedita incidunt quam repudiandae temporibus ut!',
                 'post_type' => 'NEWS',
                 'status' => 'ACTIVE',
+                'created_at' => $time_now
             ],
             [
                 'author' => 1,
@@ -49,6 +56,7 @@ class PostSeeder extends Seeder
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi doloremque dolorum iure libero minima sapiente similique tenetur. A asperiores dolorum eaque excepturi expedita incidunt quam repudiandae temporibus ut!',
                 'post_type' => 'NEWS',
                 'status' => 'ACTIVE',
+                'created_at' => $time_now
             ],
             [
                 'author' => 1,
@@ -56,6 +64,7 @@ class PostSeeder extends Seeder
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi doloremque doloruo sapiente similique tenetur. A asperiores dolorum eaque excepturi expedita incidunt quam repudiandae temporibus ut!',
                 'post_type' => 'NEWS',
                 'status' => 'ACTIVE',
+                'created_at' => $time_now
             ],
             [
                 'author' => 1,
@@ -63,6 +72,7 @@ class PostSeeder extends Seeder
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi doloremque minima mollitia sapiente similique tenetur. A asperiores dolorum eaque excepturi expedita incidunt quam repudiandae temporibus ut!',
                 'post_type' => 'NEWS',
                 'status' => 'ACTIVE',
+                'created_at' => $time_now
             ],
             [
                 'author' => 1,
@@ -70,6 +80,7 @@ class PostSeeder extends Seeder
                 'content' => 'Lorem ipsum dolor sit amet elit. Animi doloremque dolorum iure libero minima mollitia sapiente similique tenetur. A asperiores dolorum eaque excepturi expedita incidunt quam repudiandae temporibus ut!',
                 'post_type' => 'NEWS',
                 'status' => 'ACTIVE',
+                'created_at' => $time_now
             ],
         ]);
     }

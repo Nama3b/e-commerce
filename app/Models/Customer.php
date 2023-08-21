@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
@@ -17,7 +19,9 @@ use Illuminate\Support\Carbon;
  * App\Models\Customer
  *
  * @property int $id
+ * @property int $role_id
  * @property string $email
+ * @property Carbon|null $email_verified_at
  * @property string $password
  * @property string $full_name
  * @property string $address
@@ -30,6 +34,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property-read Collection<int, Comment> $comments
  * @property-read int|null $comments_count
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
  * @property-read Collection<int, Order> $orders
  * @property-read int|null $orders_count
  * @property-read Collection<int, Post> $posts
@@ -39,15 +45,17 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Customer onlyTrashed()
  * @method static Builder|Customer query()
  * @method static Builder|Customer whereAddress($value)
- * @method static Builder|Customer whereImage($value)
  * @method static Builder|Customer whereBirthday($value)
  * @method static Builder|Customer whereCreatedAt($value)
  * @method static Builder|Customer whereDeletedAt($value)
  * @method static Builder|Customer whereEmail($value)
+ * @method static Builder|Customer whereEmailVerifiedAt($value)
  * @method static Builder|Customer whereFullName($value)
  * @method static Builder|Customer whereId($value)
+ * @method static Builder|Customer whereImage($value)
  * @method static Builder|Customer wherePassword($value)
  * @method static Builder|Customer wherePhoneNumber($value)
+ * @method static Builder|Customer whereRoleId($value)
  * @method static Builder|Customer whereStatus($value)
  * @method static Builder|Customer whereUpdatedAt($value)
  * @method static Builder|Customer withTrashed()
@@ -71,10 +79,20 @@ class Customer extends Authenticatable implements MustVerifyEmail
     protected $table = 'customers';
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
      * @var string[]
      */
     protected $fillable = [
         'email',
+        'email_verified_at',
         'password',
         'full_name',
         'address',
