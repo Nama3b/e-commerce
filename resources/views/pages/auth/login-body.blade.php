@@ -9,12 +9,12 @@
                 </ul>
                 <a href="{{ URL::to('login-google') }}">
                     <button class="btn btn-outline-dark mb-2">
-                        <i class="fab fa-google mr-2"></i><b>Continue with Google</b>
+                        <i class="fab fa-google mr-2"></i><b>Login with Google</b>
                     </button>
                 </a>
                 <a href="{{ URL::to('login-facebook') }}">
                     <button class="btn btn-outline-primary mb-2">
-                        <i class="fab fa-facebook mr-2"></i><b>Continue with Facebook</b>
+                        <i class="fab fa-facebook mr-2"></i><b>Login with Facebook</b>
                     </button>
                 </a>
                 <div class="tab-content">
@@ -40,7 +40,7 @@
                                 <input type="password" id="password" name="password" placeholder="Password" required>
                                 <a onclick="showPassword()" title="Show Password"><i class="far fa-eye"></i></a>
                             </div>
-                            <small class="text-right">Forgot Password?</small>
+                            <small class="text-right"><a href="{{ route('password.forgot') }}">Forgot Password?</a></small>
                             <button type="submit" class="btn btn-dark" name="login">Sign In</button>
                             <label for="policy"> <small>By signing in, you agree to the <b>Terms of Service</b>
                                     and <b>Privacy Policy</b></small></label>
@@ -73,4 +73,5 @@
             </div>
         </div>
     </div>
+
 @endsection

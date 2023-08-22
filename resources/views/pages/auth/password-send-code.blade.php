@@ -55,21 +55,21 @@
                             <img src="https://f10-zpcloud.zdn.vn/203965711082389279/b67e83244d3c9f62c62d.jpg" alt="">
                             <hr>
                             <div class="col-6">
-                                <h4>Hello!</h4>
-                                <p>Please click the button below to verify your email address:</p>
+                                <h4>Dear!</h4>
+                                <p>A password change has been requested for your account. If this was you, please use the link below to reset your password.</p>
                                 <div class="d-flex justify-content-center">
                                     <a href="{{ $url }}">
-                                        <button class="btn btn-md btn-dark">Verify email address</button>
+                                        <button class="btn btn-md btn-dark">Reset password</button>
                                     </a>
                                 </div>
                                 <p>
-                                    If you did not create an account, no further action is required. <br><br>
+                                    If you did not do this action, no further action is required. <br><br>
                                     Regards. <br>
                                     E-project
                                 </p>
                                 <hr>
                                 <p>
-                                    If you're having trouble clicking the "Verify Email Address" button, click the URL below:
+                                    If you're having trouble clicking the "Reset password" button, click the URL below:
                                 </p>
                                 <a href="{{ $url }}" class="text-decoration-none">{{ $url }}</a>
                             </div>
@@ -80,6 +80,5 @@
         </td>
     </tr>
 </table>
-
 </body>
 </html>

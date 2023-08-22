@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\EmailVerify;
-use App\Mail\OrderSendMail;
-use App\Providers\RouteServiceProvider;
 use App\Rules\ValidRecaptcha;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -88,9 +86,10 @@ class VerificationController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return Factory|\Illuminate\Contracts\View\View|Application
      */
-    public function register(): \Illuminate\Contracts\View\View|Factory|Application
+    public function register(Request $request): \Illuminate\Contracts\View\View|Factory|Application
     {
         $email = session('email_verify', []);
 

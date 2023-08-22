@@ -1,5 +1,6 @@
 @extends('auth.login')
 @section('content')
+    @if($email)
     <div class="body">
         <div class="container d-flex justify-content-center">
             <div class="form-input col-8 col-lg-5">
@@ -26,11 +27,18 @@
                         }
                         ?>
                         <p class="mb-0">Enter your email address and we'll send you an email with instructions to reset your password.</p>
-                        <form action="{{ route('password.verify') }}" method="POST" class="d-inline">
+                        <form action="{{ URL::to('/password/change') }}" method="POST" class="d-inline">
                             @csrf
-                            <input type="email" name="email" placeholder="Email address">
+                            <div class="password-input">
+                                <input type="password" id="password_signup" name="password" placeholder="Password" required>
+                                <a onclick="showPasswordSignup()" title="Show Password"><i class="far fa-eye"></i></a>
+                            </div>
+                            <div class="password-input">
+                                <input type="password" id="password_repeat" name="password_confirmation" placeholder="Password confirmation" required>
+                                <a onclick="showPasswordRepeat()" title="Show Password"><i class="far fa-eye"></i></a>
+                            </div>
                             <button type="submit" class="btn btn-md btn-dark mt-2">
-                                Next
+                                Reset password
                             </button>
                         </form>
                     </div>
@@ -38,4 +46,7 @@
             </div>
         </div>
     </div>
+    @else
+        @include('pages.common.expired-page')
+    @endif
 @endsection

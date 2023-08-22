@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controller\Auth\Password as PasswordReset;
 use App\Exceptions\HandlesComponentException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\ResetPasswordRequest;
-use App\Http\Requests\Auth\StorePasswordRequest;
-use Exception;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Password;
+use App\Mail\PasswordReset;
+use App\Models\Customer;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 
 class ForgotPasswordController extends Controller
@@ -28,43 +32,61 @@ class ForgotPasswordController extends Controller
     */
 
     /**
-     * @param ResetPasswordRequest $request
-     * @return JsonResponse
+     * @return Factory|View|Application
      */
-    public function verify(ResetPasswordRequest $request): JsonResponse
+    public function index(): Factory|View|Application
     {
-        try {
-            $status = (new PasswordReset($request))->code();
-
-            if ($status == Password::RESET_LINK_SENT) {
-                return $this->message(trans($status))->respondOk();
-            }
-
-            return $this->message(trans($status))->respondBadRequest();
-        } catch (Exception) {
-            return $this->message(__('An unexpected error occurred. Please try again later.'))
-                ->respondBadRequest();
-        }
-
+        return view('pages.auth.forgot-password');
     }
 
     /**
-     * @param StorePasswordRequest $request
-     * @return mixed
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function reset(StorePasswordRequest $request): mixed
+    public function verify(Request $request): RedirectResponse
     {
-        return $this->withErrorHandling(function () use ($request) {
+        $user = Customer::where('email', '=', $request->input('email'));
+        if ($user->count() > 0) {
+            $user = $user->get()->toArray();
+            $email = array_shift($user)['email'];
+            session(['email_verify_reset_password' => $email]);
 
-            $status = (new PasswordReset($request))->reset();
+            Mail::to($email)->send(new PasswordReset());
 
-            if ($status == Password::PASSWORD_RESET) {
-                return $this->message(__($status))->respondOk();
-            }
+            return Redirect::back()->with('success', 'We just sent a link for reset password to your email address');
+        } else {
+            return Redirect::back()->with('error', 'Your email address is not exist!');
+        }
+    }
 
-            return $this->message(__($status))->respondBadRequest();
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function reset(Request $request): Application|Factory|View
+    {
+        $email = session('email_verify_reset_password', []);
 
-        });
+        return view('pages.auth.password-reset')->with(compact('email'));
+    }
+
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function change(Request $request): Application|Factory|View
+    {
+        $email = session('email_verify_reset_password', []);
+
+        $user = Customer::where('email', '=', $email)->get()->toArray();
+        $user_id = array_shift($user)['id'];
+
+        $customer = Customer::findOrFail($user_id);
+        $customer->password = Hash::make($request->input('password'));
+        $customer->save();
+
+        return view('pages.auth.login-body')
+            ->with('success', 'Reset password successfully!');
     }
 
 }

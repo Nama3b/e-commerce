@@ -88,7 +88,8 @@ Route::get('/email/register', [VerificationController::class, 'register'])->name
  */
 Route::get('/password/forgot', [ForgotPasswordController::class, 'index'])->name('password.forgot');
 Route::post('/customer/verify', [ForgotPasswordController::class, 'verify'])->name('password.verify');
-Route::post('/password/reset', [ForgotPasswordController::class, 'reset'])->name('password.reset');
+Route::get('/password/reset', [ForgotPasswordController::class, 'reset'])->name('password.res3t')->middleware('signed');
+Route::post('/password/change', [ForgotPasswordController::class, 'change'])->name('password.change');
 
 /**
  * Home page Routes

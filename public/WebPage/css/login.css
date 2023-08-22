@@ -158,3 +158,8 @@ ul li a:hover {
     right: 10px;
     top: 21px;
 }
+
+.tab-content form .text-right a {
+    color: black;
+    text-decoration: none;
+}
