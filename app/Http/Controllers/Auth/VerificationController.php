@@ -86,10 +86,9 @@ class VerificationController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return Factory|\Illuminate\Contracts\View\View|Application
      */
-    public function register(Request $request): \Illuminate\Contracts\View\View|Factory|Application
+    public function register(): \Illuminate\Contracts\View\View|Factory|Application
     {
         $email = session('email_verify', []);
 

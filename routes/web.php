@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Delivery\ShippingController;
+use App\Http\Controllers\HomePage\PaymentController;
 use App\Http\Controllers\HomePage\UserController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\HomePage\HomeController;
@@ -145,6 +146,13 @@ Route::middleware('auth:customer')->group(function () {
      */
     Route::get('/order-status', [\App\Http\Controllers\HomePage\OrderController::class, 'orderStatus']);
     Route::patch('/order/edit/{order}', [\App\Http\Controllers\HomePage\OrderController::class, 'edit']);
+
+    /**
+     * Other payment Routes
+     */
+    Route::post('/vnpay-payment', [PaymentController::class, 'vnpayPayment']);
+    Route::post('/momo-payment', [PaymentController::class, 'momoPayment']);
+    Route::post('/onepay-payment', [PaymentController::class, 'onepayPayment']);
 
     /**
      * Customer profile function Routes

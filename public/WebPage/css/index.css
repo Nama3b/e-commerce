@@ -1520,6 +1520,10 @@ td .container input {
     width: 100%;
 }
 
+.checkout-body .checkout-section form {
+    margin-right: 10px;
+}
+
 /* ====================================FINISH-PAYMENT==================================== */
 
 .payment-body {

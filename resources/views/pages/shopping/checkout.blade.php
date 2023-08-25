@@ -97,8 +97,15 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Ship cost:</td>
-                                        <td>Freeship</td>
+                                        <td class="d-flex">
+                                            <form action="{{ URL::to('vnpay-payment') }}"><button type="submit"><img src="{{ asset('WebPage/img/shopping/momo.webp') }}" alt="" width="50px"></button></form>
+                                            <form action="{{ URL::to('momo-payment') }}"><button type="submit"><img src="{{ asset('WebPage/img/shopping/vn-pay.png') }}" alt="" width="50px"></button></form>
+                                            <form action="{{ URL::to('onepay-payment') }}"><button type="submit"><img src="{{ asset('WebPage/img/shopping/onepay.png') }}" alt="" width="50px"></button></form>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ship fee:</td>
+                                        <td>Free ship</td>
                                     </tr>
                                     <tr>
                                         <td>Tax cost:</td>
