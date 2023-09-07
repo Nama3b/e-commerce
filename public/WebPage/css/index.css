@@ -1524,6 +1524,11 @@ td .container input {
     margin-right: 10px;
 }
 
+.checkout-body .other-payment button {
+    background: none;
+    border: none;
+}
+
 /* ====================================FINISH-PAYMENT==================================== */
 
 .payment-body {

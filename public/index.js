@@ -248,21 +248,47 @@ document.getElementById('updateForm').addEventListener('submit', function (event
 
     document.getElementById('updateForm').submit();
 });
+
 document.getElementById('deleteForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
     document.getElementById('deleteForm').submit();
 });
+
 document.getElementById('backToProduct').addEventListener('submit', function (event) {
     event.preventDefault();
 
     document.getElementById('backToProduct').submit();
 });
 
+document.getElementById('paymentForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    document.getElementById('paymentForm').submit();
+});
+
+document.getElementById('vnpay_payment').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    document.getElementById('vnpay_payment').submit();
+});
+
+document.getElementById('momo_payment').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    document.getElementById('momo_payment').submit();
+});
+document.getElementById('onepay_payment').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    document.getElementById('onepay_payment').submit();
+});
+
 <!-- sign in to save post -->
 function signup1() {
     alert("Please sign in to add favorite!");
 }
+
 function signup2() {
     alert("Please sign in to save post!");
 }

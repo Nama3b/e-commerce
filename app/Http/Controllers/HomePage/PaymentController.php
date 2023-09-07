@@ -3,10 +3,21 @@
 namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
+use App\Support\ResourceHelper\BrandResourceHelper;
+use App\Support\ResourceHelper\CartResourceHelper;
+use App\Support\ResourceHelper\CategoryResourceHelper;
+use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
+use App\Support\ResourceHelper\ProductResourceHelper;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+
+    use CategoryResourceHelper,
+        BrandResourceHelper,
+        ProductResourceHelper,
+        CartResourceHelper,
+        CustomerFromSessionResourceHelper;
 
     public function vnpayPayment()
     {
@@ -15,61 +26,43 @@ class PaymentController extends Controller
 
     public function momoPayment(Request $request)
     {
+        $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+        $partnerCode = 'MOMOBKUN20180529';
+        $accessKey = 'klm05TvNBzhg7h7j';
+        $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
 
-        $endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
-
-
-        $partnerCode = "MOMOBKUN20180529";
-        $accessKey = "klm05TvNBzhg7h7j";
-        $secretKey = "at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa";
-
-        $orderInfo = "Thanh toán qua MoMo";
+        $orderInfo = "Payment by MoMo";
         $amount = "10000";
-        $orderId = time() . "";
-        $returnUrl = "http://localhost:8000/atm/result_atm.php";
-        $notifyurl = "http://localhost:8000/atm/ipn_momo.php";
-
-        $bankCode = "SML";
+        $orderId = rand(0000, 9999);
+        $redirectUrl = view('pages.auth.login-body');
+        $ipnUrl = view('pages.auth.login-body');
+        $extraData = "";
 
         $requestId = time() . "";
-        $requestType = "payWithMoMoATM";
-        $extraData = "";
+        $requestType = "payWithATM";
         //before sign HMAC SHA256 signature
-        $rawHashArr = array(
-            'partnerCode' => $partnerCode,
-            'accessKey' => $accessKey,
-            'requestId' => $requestId,
-            'amount' => $amount,
-            'orderId' => $orderId,
-            'orderInfo' => $orderInfo,
-            'bankCode' => $bankCode,
-            'returnUrl' => $returnUrl,
-            'notifyUrl' => $notifyurl,
-            'extraData' => $extraData,
-            'requestType' => $requestType
-        );
-
-        $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&bankCode=" . $bankCode . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyurl . "&extraData=" . $extraData . "&requestType=" . $requestType;
+        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
         $signature = hash_hmac("sha256", $rawHash, $secretKey);
-
-        $data = array('partnerCode' => $partnerCode,
-            'accessKey' => $accessKey,
+        $data = [
+            'partnerCode' => $partnerCode,
+            'partnerName' => "Test",
+            "storeId" => "MomoTestStore",
             'requestId' => $requestId,
             'amount' => $amount,
             'orderId' => $orderId,
             'orderInfo' => $orderInfo,
-            'returnUrl' => $returnUrl,
-            'bankCode' => $bankCode,
-            'notifyUrl' => $notifyurl,
+            'redirectUrl' => $redirectUrl,
+            'ipnUrl' => $ipnUrl,
+            'lang' => 'vi',
             'extraData' => $extraData,
             'requestType' => $requestType,
-            'signature' => $signature);
+            'signature' => $signature
+        ];
 
         $result = $this->execPostRequest($endpoint, json_encode($data));
-        dd($result);
         $jsonResult = json_decode($result, true);  // decode json
+        dd($jsonResult, $result, $data);
 
-        error_log(print_r($jsonResult, true));
         header('Location: ' . $jsonResult['payUrl']);
 
     }
@@ -79,11 +72,6 @@ class PaymentController extends Controller
 
     }
 
-    /**
-     * @param $url
-     * @param $data
-     * @return bool|string
-     */
     public function execPostRequest($url, $data): bool|string
     {
         $ch = curl_init($url);
@@ -96,9 +84,7 @@ class PaymentController extends Controller
         );
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        //execute post
         $result = curl_exec($ch);
-        //close connection
         curl_close($ch);
         return $result;
     }

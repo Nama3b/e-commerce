@@ -40,6 +40,7 @@
                                         <td>${{ number_format($cart_item['price'], 0, '', '.') }}</td>
                                         <td style="width: 70px">
                                             <fieldset>
+                                                <form></form>
                                                 <form action="{{URL::to('/update-cart')}}" method="post"
                                                       id="updateForm">
                                                     @csrf

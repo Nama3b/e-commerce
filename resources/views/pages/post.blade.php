@@ -34,9 +34,11 @@
                                     class="fas fa-long-arrow-alt-right"></i></a></p>
                     </div>
                 </div>
+                <div class="form">
                     @foreach($popular_post as $key => $post_item)
                         @include('pages.common.post_item_1')
                     @endforeach
+                </div>
             </div>
 
             <div class="carousel-post">

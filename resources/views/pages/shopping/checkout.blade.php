@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-lg-4 pl-0 pr-0">
-                    <form action="{{ URL::to('/checkout-action') }}" method="post">
+                    <form action="{{ URL::to('/checkout-action') }}" method="post" id="paymentForm">
                         @csrf
                         <div class="client-info">
                             <h6><b>Ordering person</b></h6>
@@ -82,6 +82,27 @@
                         </div>
                         <div class="checkout-section">
                             <h6><b>Payment</b></h6>
+                            <div class="other-payment d-flex mb-2">
+                                <form></form>
+                                <form id="vnpay_payment" action="{{ URL::to('vnpay-payment') }}" method="POST">
+                                    @csrf
+                                    <button type="submit"><img
+                                            src="{{ asset('WebPage/img/shopping/vn-pay.png') }}" alt=""
+                                            width="50px"></button>
+                                </form>
+                                <form id="momo_payment" action="{{ URL::to('momo-payment') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" name="payUrl"><img
+                                            src="{{ asset('WebPage/img/shopping/momo.webp') }}" alt=""
+                                            width="50px"></button>
+                                </form>
+                                <form id="onepay_payment" action="{{ URL::to('onepay-payment') }}" method="POST">
+                                    @csrf
+                                    <button type="submit"><img
+                                            src="{{ asset('WebPage/img/shopping/onepay.png') }}" alt=""
+                                            width="50px"></button>
+                                </form>
+                            </div>
                             <div class="item-price">
                                 <table>
                                     <tr>
@@ -94,13 +115,6 @@
                                                     <option value="{{ $i }}">{{ $payment }}</option>
                                                 @endforeach
                                             </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="d-flex">
-                                            <form action="{{ URL::to('vnpay-payment') }}"><button type="submit"><img src="{{ asset('WebPage/img/shopping/momo.webp') }}" alt="" width="50px"></button></form>
-                                            <form action="{{ URL::to('momo-payment') }}"><button type="submit"><img src="{{ asset('WebPage/img/shopping/vn-pay.png') }}" alt="" width="50px"></button></form>
-                                            <form action="{{ URL::to('onepay-payment') }}"><button type="submit"><img src="{{ asset('WebPage/img/shopping/onepay.png') }}" alt="" width="50px"></button></form>
                                         </td>
                                     </tr>
                                     <tr>
@@ -134,7 +148,9 @@
                         </div>
                     </form>
                 </div>
-                <a href="{{ URL::to('/my-cart') }}" class="back-to-cart"><button class="btn btn-dark mt-3 ml-3">Back to cart</button></a>
+                <a href="{{ URL::to('/my-cart') }}" class="back-to-cart">
+                    <button class="btn btn-dark mt-3 ml-3">Back to cart</button>
+                </a>
             </div>
         </div>
     </div>
