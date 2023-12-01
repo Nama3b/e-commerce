@@ -17,18 +17,23 @@ use App\Models\ProductCategory;
 use App\Models\Role;
 use App\Models\Shipping;
 use App\Models\Tag;
+use App\Support\ApiResponsesJson;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\WithPaginationLimit;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, HandleJsonResponses, HandleComponentError, WithPaginationLimit;
+    use AuthorizesRequests, ApiResponsesJson, DispatchesJobs, ValidatesRequests, HandleJsonResponses, HandleComponentError, WithPaginationLimit;
 
     const INSTANCE_DATA_TABLE = [
         'permission' => [
@@ -134,5 +139,38 @@ class Controller extends BaseController
     public function unauth(): array
     {
         return (['status' => 'unauth']);
+    }
+
+    /**
+     * Make API call with exception handling.
+     * This allows to gracefully catch all possible exceptions and handle them properly.
+     *
+     * @param $callback
+     *
+     * @return mixed
+     */
+    protected function withErrorHandling($callback): mixed
+    {
+        try {
+            return $callback();
+        } catch (Exception $exception) {
+            return $this->resMessage(__('An unexpected error occurred. Please try again later.'), 500);
+        }
+    }
+
+    /**
+     * @param $callback
+     * @return mixed
+     */
+    protected function withErrorNotFound($callback): mixed
+    {
+        try {
+            return $callback();
+        } catch (ModelNotFoundException $e) {
+            return $this->resMessage(__("response.data_not_exist"), 404);
+        } catch (Exception $e) {
+            return $this->message($e->getMessage())
+                ->respondBadRequest();
+        }
     }
 }

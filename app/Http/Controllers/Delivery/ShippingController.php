@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers\Delivery;
 
-use App\Components\Shipping\Creator;
-use App\Components\Shipping\Editor;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Delivery\EditShippingRequest;
-use App\Http\Requests\Delivery\StoreShippingRequest;
 use App\Models\Delivery;
 use App\Models\Member;
-use App\Models\PaymentOption;
 use App\Models\Shipping;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
@@ -52,10 +47,10 @@ class ShippingController extends Controller
     }
 
     /**
-     * @param StoreShippingRequest $request
+     * @param Request $request
      * @return JsonResponse|mixed
      */
-    public function store(StoreShippingRequest $request): mixed
+    public function store(Request $request): mixed
     {
         return $this->withComponentErrorHandling(function () use ($request) {
             $status = (new Creator($request))->create();
@@ -68,10 +63,10 @@ class ShippingController extends Controller
 
     /**
      * @param Shipping $shipping
-     * @param EditShippingRequest $request
+     * @param Request $request
      * @return JsonResponse|mixed
      */
-    public function edit(Shipping $shipping, EditShippingRequest $request): mixed
+    public function edit(Shipping $shipping, Request $request): mixed
     {
         return $this->withComponentErrorHandling(function () use ($shipping, $request) {
             $status = (new Editor($request))->edit($shipping);

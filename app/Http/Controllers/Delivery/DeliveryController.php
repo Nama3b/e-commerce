@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Delivery;
 
+use App\Components\Delivery\DeliveryCreator;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
-use App\Models\PaymentOption;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\WithPaginationLimit;
@@ -28,19 +28,14 @@ class DeliveryController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return Application|Factory|View
      */
-    public function list(): Application|Factory|View
+    public function list(Request $request): Application|Factory|View
     {
-        $data = Delivery::with(['payment', 'member'])->get()->toArray();
-
-        $payment = PaymentOption::pluck('name', 'id');
-
-        return view('dashboard-pages/delivery')
-            ->with(compact(
-                'data',
-                'payment'
-            ));
+        return $this->withErrorHandling(function () use ($request) {
+            return (new DeliveryCreator($request))->list();
+        });
     }
 
     /**
