@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Order;
 
+use App\Components\Order\OrderCreator;
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Models\OrderDetail;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -23,19 +22,14 @@ class OrderController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return Application|Factory|View
      */
-    public function list(): Application|Factory|View
+    public function list(Request $request): Application|Factory|View
     {
-        $data = $this->getOrder();
-
-        $status = Order::STATUS;
-
-        return view('dashboard-pages.order')
-            ->with(compact(
-                'data',
-                'status'
-            ));
+        return $this->withErrorHandling(function () use ($request) {
+            return (new OrderCreator($request))->list();
+        });
     }
 
     /**
@@ -45,18 +39,9 @@ class OrderController extends Controller
      */
     public function edit($order, Request $request): RedirectResponse
     {
-        $order = Order::findOrFail($order);
-        $order->status = $request->input('status');
-        $order->save();
-
-        return redirect()->back()->with('success', 'Order status updated successfully!');
+        return $this->withErrorHandling(function () use ($order, $request) {
+            return (new OrderCreator($request))->edit($order, $request);
+        });
     }
 
-    /**
-     * @return array
-     */
-    public function getOrder(): array
-    {
-        return Order::with(['customer', 'orderdetails'])->get()->toArray();
-    }
 }

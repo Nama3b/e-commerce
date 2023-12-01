@@ -792,7 +792,7 @@ footer .footer-desc {
     margin-top: 64px;
     padding: 37px 0;
     background: url('../img/poster/browse-headersSneakers.jpg') no-repeat;
-    background-size: 100%;
+    background-size: cover;
 }
 
 .product-main .product-body {
@@ -1166,7 +1166,7 @@ footer .footer-desc {
 
 .post-main .popular-post .form {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 2fr));
 }
 
 .post-main .post-item-type-1 {
@@ -1522,11 +1522,6 @@ td .container input {
 
 .checkout-body .checkout-section form {
     margin-right: 10px;
-}
-
-.checkout-body .other-payment button {
-    background: none;
-    border: none;
 }
 
 /* ====================================FINISH-PAYMENT==================================== */
