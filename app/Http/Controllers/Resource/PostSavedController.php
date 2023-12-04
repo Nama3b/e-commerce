@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
-use App\Models\Favorite;
 use App\Models\Member;
 use App\Models\Post;
 use App\Models\PostSaved;
