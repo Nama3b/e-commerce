@@ -2,31 +2,16 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Components\Post\PostCreator;
 use App\Http\Controllers\Controller;
-use App\Models\Image;
-use App\Models\Member;
-use App\Models\Post;
-use App\Support\HandleComponentError;
-use App\Support\HandleJsonResponses;
-use App\Support\ResourceHelper\ImageHandlerResourceHelper;
-use App\Support\ResourceHelper\PostResourceHelper;
-use App\Support\WithPaginationLimit;
-use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    use WithPaginationLimit,
-        HandleJsonResponses,
-        HandleComponentError,
-        PostResourceHelper,
-        ImageHandlerResourceHelper;
-
     /**
      * @return RedirectResponse
      */
@@ -36,27 +21,14 @@ class PostController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return Application|Factory|View
      */
-    public function list(): Application|Factory|View
+    public function list(Request $request): Application|Factory|View
     {
-        $data = $this->getPostImage();
-        $data_news = collect($this->getPostImage())->where('post_type', '==', 'NEWS');
-        $data_blog = collect($this->getPostImage())->where('post_type', '==', 'BLOG');
-        $author = Member::with('posts')->whereId(array_column($this->getAllPost(),'author'))->get()->toArray();
-
-        $type = Post::POST_TYPE;
-        $status = Post::STATUS;
-
-        return view('dashboard-pages.post')
-            ->with(compact(
-                'data',
-                'data_news',
-                'data_blog',
-                'author',
-                'type',
-                'status'
-            ));
+        return $this->withErrorHandling(function () use ($request) {
+            return (new PostCreator($request))->list();
+        });
     }
 
     /**
@@ -65,22 +37,9 @@ class PostController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $time_now = Carbon::now();
-
-        $post = [];
-        $post['author'] = $request->input('author');
-        $post['title'] = $request->input('title');
-        $post['content'] = $request->input('content');
-        $post['post_type'] = $request->input('post_type');
-        $post['created_at'] = $time_now;
-        $post_id = DB::table('posts')->insertGetId($post);
-
-        $image['reference_id'] = $post_id;
-        $image['image'] = $this->imageHandler($request);
-        $image['image_type'] = 'POST';
-        DB::table('images')->insert($image);
-
-        return redirect()->back()->with('success', 'Post added successfully!');
+        return $this->withErrorHandling(function () use ($request) {
+            return (new PostCreator($request))->store($request);
+        });
     }
 
     /**
@@ -90,38 +49,20 @@ class PostController extends Controller
      */
     public function edit($post, Request $request): RedirectResponse
     {
-        $post = Post::findOrFail($post);
-        $post->author = $request->input('author');
-        $post->title = $request->input('title');
-        $post->content = $request->input('content');
-        $post->post_type = $request->input('post_type');
-        $post->status = $request->input('status');
-        $post->save();
-
-        if($request->hasFile('image'))
-        {
-            $image['image'] = $this->imageHandler($request);
-        }
-        $image['image_type'] = 'POST';
-        Image::whereReferenceId($request->input('id'))->whereImageType('POST')->update($image);
-
-        return redirect()->back()->with('success', 'Post updated successfully!');
+        return $this->withErrorHandling(function () use ($post, $request) {
+            return (new PostCreator($request))->edit($post, $request);
+        });
     }
 
     /**
      * @param $post
+     * @param Request $request
      * @return RedirectResponse
      */
-    public function delete($post): RedirectResponse
+    public function delete($post, Request $request): RedirectResponse
     {
-        $post = Post::find($post);
-
-        if (!$post) {
-            return redirect()->route('dashboard/post')->with('error', 'Cannot find a record!');
-        }
-
-        $post->delete();
-
-        return redirect()->back()->with('success', 'Post deleted successfully!');
+        return $this->withErrorHandling(function () use ($post, $request) {
+            return (new PostCreator($request))->delete($post);
+        });
     }
 }

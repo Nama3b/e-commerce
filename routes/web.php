@@ -179,7 +179,7 @@ Route::middleware('auth:customer')->group(function () {
  */
 Route::prefix('dashboard')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [LoginController::class, 'loginAdmin']);
+    Route::post('login', [LoginController::class, 'loginDashboard']);
 });
 
 Route::middleware('auth:member')->prefix('dashboard')->group(function () {

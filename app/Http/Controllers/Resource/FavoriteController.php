@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Resource;
 
+use App\Components\Resource\FavoriteCreator;
 use App\Http\Controllers\Controller;
-use App\Models\Favorite;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\WithPaginationLimit;
@@ -12,10 +12,6 @@ use Illuminate\Http\Request;
 
 class FavoriteController extends Controller
 {
-    use WithPaginationLimit,
-        HandleJsonResponses,
-        HandleComponentError;
-
     /**
      * @return RedirectResponse
      */
@@ -30,6 +26,9 @@ class FavoriteController extends Controller
      */
     public function list(Request $request): mixed
     {
+        return $this->withErrorHandling(function () use ($request) {
+            return (new FavoriteCreator($request))->list();
+        });
 
     }
 
@@ -39,29 +38,20 @@ class FavoriteController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        Favorite::create([
-            'reference_id' => $request->input('id_hidden'),
-            'customer_id' => Auth()->guard('customer')->user()->id,
-            'type' => $request->input('type'),
-        ]);
-
-        return redirect()->back()->with('success', 'Favorite added successfully!');
+        return $this->withErrorHandling(function () use ($request) {
+            return (new FavoriteCreator($request))->store($request);
+        });
     }
 
     /**
+     * @param Request $request
      * @param $favorite
      * @return RedirectResponse
      */
-    public function edit($favorite): RedirectResponse
+    public function edit(Request $request, $favorite): RedirectResponse
     {
-        $favorite = Favorite::find($favorite);
-
-        if (!$favorite) {
-            return redirect()->back()->with('error', 'Cannot find a record!');
-        }
-
-        $favorite->delete();
-
-        return redirect()->back()->with('success', 'Favorite updated successfully!');
+        return $this->withErrorHandling(function () use ($request, $favorite) {
+            return (new FavoriteCreator($request))->edit($favorite);
+        });
     }
 }

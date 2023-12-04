@@ -2,34 +2,26 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Components\Product\ProductCategoryCreator;
 use App\Http\Controllers\Controller;
-use App\Models\ProductCategory;
-use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProductCategoryController extends Controller
 {
 
     /**
+     * @param Request $request
      * @return Application|Factory|View
-     * @throws Exception
      */
-    public function list(): Application|Factory|View
+    public function list(Request $request): Application|Factory|View
     {
-        $data = ProductCategory::all()->toArray();
-
-        $status = ProductCategory::STATUS;
-
-        return view('dashboard-pages.Category')
-            ->with(compact(
-                'data',
-                'status'
-            ));
+        return $this->withErrorHandling(function () use ($request) {
+            return (new ProductCategoryCreator($request))->list();
+        });
     }
 
     /**
@@ -38,12 +30,9 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        DB::table('product_category')->insert([
-            'name' => $request->input('name'),
-            'status' => $request->input('status'),
-        ]);
-
-        return redirect()->back()->with('success', 'Category added successfully!');
+        return $this->withErrorHandling(function () use ($request) {
+            return (new ProductCategoryCreator($request))->store($request);
+        });
     }
 
     /**
@@ -53,28 +42,20 @@ class ProductCategoryController extends Controller
      */
     public function edit($productCategory, Request $request): RedirectResponse
     {
-        $productCategory = ProductCategory::findOrFail($productCategory);
-        $productCategory->name = $request->input('name');
-        $productCategory->status = $request->input('status');
-        $productCategory->save();
-
-        return redirect()->back()->with('success', 'Category updated successfully!');
+        return $this->withErrorHandling(function () use ($productCategory, $request) {
+            return (new ProductCategoryCreator($request))->edit($productCategory, $request);
+        });
     }
 
     /**
      * @param $productCategory
+     * @param Request $request
      * @return RedirectResponse
      */
-    public function delete($productCategory): RedirectResponse
+    public function delete($productCategory, Request $request): RedirectResponse
     {
-        $productCategory = ProductCategory::find($productCategory);
-
-        if (!$productCategory) {
-            return redirect()->route('dashboard/product_category')->with('error', 'Cannot find a record!');
-        }
-
-        $productCategory->delete();
-
-        return redirect()->back()->with('success', 'Category deleted successfully!');
+        return $this->withErrorHandling(function () use ($productCategory, $request) {
+            return (new ProductCategoryCreator($request))->delete($productCategory);
+        });
     }
 }
