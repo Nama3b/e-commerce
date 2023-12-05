@@ -44,16 +44,19 @@
         </div>
         @php ($member = Auth()->guard('member')->user())
         <div class="header-right col-6 d-flex">
+            <a href="" class="menu-icon"><i class="fab fa-buromobelexperte"></i></a>
             <a href="" class="noti-icon"><i class="material-icons">notifications_none</i></a>
-            <div class="dropdown d-flex">
+            <div class="dropdown profile-item">
+                <a href=""><b>{{ $member->full_name }}</b></a>
                 <button class="btn btn-outline-dark user-btn" type="button" data-toggle="dropdown">
                     <img src="{{ asset('Dashboard/img/user_logo.jpg') }}" alt="" width="90%">
                 </button>
                 <i class="fas fa-caret-down d-none"></i>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href=""><b>{{ $member->full_name }}</b></a></li>
                     <li><a href="{{ URL::to('dashboard/member/detail') }}">My profile</a></li>
-                    <li>Setting</li>
+                    <li><a href="">Security</a></li>
+                    <li><a href="">Support & Privacy</a></li>
+                    <li><a href="">Setting</a></li>
                     <hr>
                     <li>
                         <form action="{{URL::to('/logout')}}" method="post">

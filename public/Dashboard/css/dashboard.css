@@ -155,6 +155,7 @@ html, body {
 }
 
 .sidebar h5 {
+    font-weight: bold;
     color: white;
     margin: 15px 0 15px 15px;
 }
@@ -209,6 +210,25 @@ html, body {
     color: white;
 }
 
+.header-right .profile-item {
+    display: flex;
+    align-items: center;
+    border-radius: 22px;
+    background: #272934;
+}
+
+.header-right .profile-item a {
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+    margin: 0 10px;
+}
+
+.header-right .menu-icon i {
+    font-size: 29px;
+    padding: 8px 15px 0 0;
+}
+
 .header-right .noti-icon i {
     font-size: 29px;
     padding: 8px 15px 0 0;
@@ -216,6 +236,7 @@ html, body {
 
 .header-right .dropdown-menu li a {
     padding: 0;
+    margin: 0;
 }
 
 .header-right .dropdown-menu li a:hover {
@@ -333,13 +354,13 @@ html, body {
 }
 
 .dataTables_length {
-    margin-top: 10px;
     display: flex;
 }
 
 .dataTables_length select {
     margin: 0 10px;
-    height: 40px !important;
+    padding: 7px !important;
+    height: 37px !important;
 }
 
 .dataTables_filter {
@@ -360,7 +381,7 @@ html, body {
 }
 
 .dataTables_paginate .pagination a {
-    background-color: #585858 !important;
+    background-color: #272934 !important;
     border-color: #585858 !important;
     color: white !important;
 }
@@ -372,6 +393,7 @@ html, body {
 }
 
 .card .nav-pills .nav-item a {
+    font-size: 16px;
     color: white;
     background: #272934;
 }
@@ -405,6 +427,11 @@ html, body {
     color: white;
 }
 
+.card .card-title {
+    font-weight: bold;
+    font-size: 29px;
+}
+
 .card .card-body {
     background: #1f2129;
 }
@@ -414,7 +441,7 @@ html, body {
 }
 
 .card .card-body .body-header button {
-    margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 .card table {

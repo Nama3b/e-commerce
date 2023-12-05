@@ -25,7 +25,6 @@ use App\Http\Controllers\Resource\TagController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\User\AdminController;
 use App\Http\Controllers\User\MemberController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
 /*
