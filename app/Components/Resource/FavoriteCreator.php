@@ -25,13 +25,13 @@ class FavoriteCreator extends Component
      */
     public function list(): Factory|View|Application
     {
-        $data = Product::get()->toArray();
-        $favorite = Favorite::TYPE;
+        $data = Product::with('favorites')->get()->toArray();
+        $status = Product::STATUS;
 
         return view('dashboard-pages.favorite')
             ->with(compact(
                 'data',
-                'favorite'
+                'status'
             ));
     }
 

@@ -1,4 +1,4 @@
-<h4>Order#{{ $loop->iteration }}</h4>
+<h5>Order#{{ $loop->iteration }}</h5>
 <div class="order-item">
     <div class="col-8">
         <table>
@@ -43,7 +43,7 @@
 
         @if ($item['status'] == 'CANCELLED')
             <div class="order-status">
-                <select name="status">
+                <select name="status" disabled>
                     <option value="4">{{ $item['status'] }}</option>
                 </select>
             </div>

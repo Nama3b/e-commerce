@@ -492,6 +492,9 @@ return [
         'title' => 'Tag management',
         'modal_size' => 'md',
     ],
+    'favorite' => [
+        'title' => 'Product favorite management'
+    ],
 
     'translate' => [
         'news' => [
@@ -510,7 +513,7 @@ return [
         ],
         'button' => [
             'search' => 'Search',
-            'model_new'=> 'Add new',
+            'model_new' => 'Add new',
             'input' => 'Input',
             'select' => 'Select',
             'edit' => 'Edit',
