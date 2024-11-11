@@ -22,9 +22,20 @@ Create directory storage/framework/views - cache - sessions.
 
 Run command:
 
-- php artisan key:generate
-- php artisan migrate
-- php artisan db:seed
+Generate project key in .env
+````
+php artisan key:generate
+````
+
+Create project's database structure
+````
+php artisan migrate
+````
+
+Add project's data into database
+````
+php artisan db:seed
+````
 
 This project is developed and maintained by <a href="">Nam4eb de Creative</a>.
 
