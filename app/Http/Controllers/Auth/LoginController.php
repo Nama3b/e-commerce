@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Cart;
 use App\Models\Member;
-use App\Models\Product;
-use App\Providers\RouteServiceProvider;
 use App\Support\ResourceHelper\CartResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;

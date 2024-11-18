@@ -252,7 +252,7 @@
                         <div class="news-section">
                             @foreach($news as $key => $news_item)
                                 @include('pages.common.news_item')
-                            @endforeach
+                             @endforeach
                         </div>
                     </div>
                 </div>

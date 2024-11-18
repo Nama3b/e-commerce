@@ -30,7 +30,7 @@
                 btnParentSb = $(this).parent().attr(dataItems);
                 itemsSplit = btnParentSb.split(',');
                 $(this).parent().attr("id", "MultiCarousel" + id);
-                if (bodyWidth >= 1200) {
+                if (bodyWidth >= 2000) {
                     incno = itemsSplit[3];
                     itemWidth = sampwidth / incno;
                 } else if (bodyWidth >= 992) {

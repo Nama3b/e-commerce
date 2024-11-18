@@ -3,7 +3,6 @@
 namespace App\Components\Auth;
 
 use App\Models\Cart;
-use App\Providers\RouteServiceProvider;
 use App\Support\ResourceHelper\CartResourceHelper;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
@@ -16,17 +15,6 @@ class LoginHomeCreator extends Component
 {
     use AuthenticatesUsers,
         CartResourceHelper;
-
-    /**
-     * @var string
-     */
-    protected string $redirectToHome = RouteServiceProvider::HOME;
-
-    /**
-     * @var string
-     */
-    protected string $redirectToDashboard = RouteServiceProvider::DASHBOARD;
-
 
     /**
      * @return JsonResponse|RedirectResponse

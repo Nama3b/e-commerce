@@ -387,6 +387,10 @@ a {
     padding: 10px 0;
 }
 
+.home-main .item .pad15 {
+    margin: 0 15px !important;
+}
+
 .home-main .brand-item .row {
     width: 100% !important;
 }
@@ -401,6 +405,7 @@ a {
 
 .home-main .shopping-section {
     background: url('../img/background.jpg') no-repeat fixed;
+    background-size: cover;
 }
 
 .home-main .shopping-section .brand-section .brand img:hover {
