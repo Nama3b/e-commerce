@@ -20,8 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verify_at')->nullable();
             $table->string('password');
             $table->string('full_name');
-            $table->string('address');
-            $table->string('phone_number')->unique();
+            $table->string('address')->nullable();
+            $table->string('phone_number')->unique()->nullable();
             $table->date('birthday')->nullable();
             $table->string('image')->default('WebPage/img/home/logo.jpg')->nullable();
             $table->boolean('status')->default(1);

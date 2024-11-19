@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Member;
+use App\Providers\RouteServiceProvider;
 use App\Support\ResourceHelper\CartResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -13,6 +15,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
@@ -46,7 +49,7 @@ class LoginController extends Controller
                     Cart::updateOrCreate([
                         'customer_id' => Auth()->guard('customer')->user()->id,
                         'product_id' => $cart_item['id'],
-                    ],[
+                    ], [
                         'quantity' => $cart_item['quantity'],
                     ]);
                 }
@@ -55,7 +58,6 @@ class LoginController extends Controller
             $request->session()->put('auth.password_confirmed_at', time());
 
             return $this->sendLoginResponse($request);
-
         } else {
             throw ValidationException::withMessages([
                 $this->username() => ['failed' => 'Email or password is incorrect!'],
@@ -104,5 +106,37 @@ class LoginController extends Controller
     protected function loggedOut(): Redirector|Application|RedirectResponse
     {
         return redirect('/home');
+    }
+
+    public function redirectToGoogle(): \Symfony\Component\HttpFoundation\RedirectResponse|RedirectResponse
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+
+    public function handleGoogleCallback(): Redirector|Application|RedirectResponse
+    {
+        $googleUser = Socialite::driver('google')->stateless()->user();
+        $user = Customer::where('email', $googleUser->email)->first();
+
+        if (!$user) {
+            $user = Customer::create([
+                'role_id' => 3,
+                'full_name' => $googleUser->name,
+                'email' => $googleUser->email,
+                'password' => \Hash::make(rand(100000, 999999)),
+                'image' => $googleUser->avatar,
+                'status' => 1
+            ]);
+        }
+
+        $credentials = $user->only('email', 'password');
+        $credentials = ["email" => 'longdev2210@gmail.com', "password" => '$2y$10$.IpZtp.ZQDoA3EqDHUVam.qeGBsiI493i3YQ.xktg.IE.DnM1AbBS'];
+        if (Auth::guard('customer')->attempt($credentials)) {
+            dd($user);
+            return Auth::login($user);
+        }
+
+        return redirect(RouteServiceProvider::HOME);
     }
 }

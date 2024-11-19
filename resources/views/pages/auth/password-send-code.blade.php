@@ -65,7 +65,7 @@
                                 <p>
                                     If you did not do this action, no further action is required. <br><br>
                                     Regards. <br>
-                                    E-project
+                                    E-MU
                                 </p>
                                 <hr>
                                 <p>

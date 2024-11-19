@@ -65,7 +65,7 @@
                                 <p>
                                     If you did not create an account, no further action is required. <br><br>
                                     Regards. <br>
-                                    E-project
+                                    E-MU
                                 </p>
                                 <hr>
                                 <p>

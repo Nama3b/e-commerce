@@ -102,6 +102,14 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('signup', [RegisterController::class, 'signupHome'])->name('signup');
 
 /**
+ * Google login Routes
+ */
+Route::prefix('google')->group(function () {
+    Route::get('/redirect', [LoginController::class, 'redirectToGoogle'])->name('google.redirect');
+    Route::get('/callback', [LoginController::class, 'handleGoogleCallback'])->name('google.callback');
+});
+
+/**
  * Product page Routes
  */
 Route::get('/product', [\App\Http\Controllers\HomePage\ProductController::class, 'products']);
