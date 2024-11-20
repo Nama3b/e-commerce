@@ -22,7 +22,7 @@
                     <div class="col-xs-12 col-lg-4">
                         <div class="card mb-4">
                             <div class="card-body text-center">
-                                @if(file_exists($user->image))
+                                @if($user->image)
                                     <img src="{{ asset($user->image) }}" class="rounded-circle img-fluid">
                                 @else
                                     <img src="{{ asset('/storage/public/uploads/img/'.$user->image) }}"

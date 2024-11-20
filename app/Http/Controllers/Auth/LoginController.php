@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Guards\CustomerGuard;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Cart;
 use App\Models\Customer;
@@ -89,7 +90,9 @@ class LoginController extends Controller
             ]);
         }
 
-        if ($this->attemptLogin($request)) {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('member')->attempt($credentials)) {
             $request->session()->put('auth.password_confirmed_at', time());
 
             return $this->sendLoginResponse($request);
@@ -116,7 +119,7 @@ class LoginController extends Controller
 
     public function handleGoogleCallback(): Redirector|Application|RedirectResponse
     {
-        $googleUser = Socialite::driver('google')->stateless()->user();
+        $googleUser = Socialite::driver('google')->user();
         $user = Customer::where('email', $googleUser->email)->first();
 
         if (!$user) {
@@ -124,17 +127,15 @@ class LoginController extends Controller
                 'role_id' => 3,
                 'full_name' => $googleUser->name,
                 'email' => $googleUser->email,
-                'password' => \Hash::make(rand(100000, 999999)),
+                'password' => bcrypt('default_password'),
                 'image' => $googleUser->avatar,
                 'status' => 1
             ]);
         }
 
-        $credentials = $user->only('email', 'password');
-        $credentials = ["email" => 'longdev2210@gmail.com', "password" => '$2y$10$.IpZtp.ZQDoA3EqDHUVam.qeGBsiI493i3YQ.xktg.IE.DnM1AbBS'];
-        if (Auth::guard('customer')->attempt($credentials)) {
-            dd($user);
-            return Auth::login($user);
+        $credentials = ['email' => $user->email, 'password' => $user->password];
+        if ((new CustomerGuard())->attempt($credentials)) {
+            Auth::guard('customer')->login($user);
         }
 
         return redirect(RouteServiceProvider::HOME);

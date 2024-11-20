@@ -95,8 +95,8 @@ Route::post('/password/change', [ForgotPasswordController::class, 'change'])->na
  * Home page Routes
  */
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/home', [HomeController::class, 'index']);
-Route::get('/login', [LoginHomeController::class, 'loginHome'])->name('loginHome');
+Route::get('home', [HomeController::class, 'index']);
+Route::get('login', [LoginHomeController::class, 'loginHome'])->name('loginHome');
 Route::post('login', [LoginController::class, 'loginHome']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('signup', [RegisterController::class, 'signupHome'])->name('signup');

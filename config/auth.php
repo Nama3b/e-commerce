@@ -56,18 +56,8 @@ return [
             'provider' => 'admins'
         ],
 
-        'admin-api' => [
-            'driver' => 'token',
-            'provider' => 'admins'
-        ],
-
         'member' => [
             'driver' => 'session',
-            'provider' => 'members'
-        ],
-
-        'member-api' => [
-            'driver' => 'token',
             'provider' => 'members'
         ],
 
@@ -76,10 +66,6 @@ return [
             'provider' => 'customers'
         ],
 
-        'customer-api' => [
-            'driver' => 'session',
-            'provider' => 'customers'
-        ]
     ],
 
     /*

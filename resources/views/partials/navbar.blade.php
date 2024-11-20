@@ -64,8 +64,8 @@
                                 </div>
                                 <div class="d-flex">
                                     <div class="noti-item-infor">
-                                        <a href="">E Project</a>
-                                        <p>Welcome to our shop!</p>
+                                        <a href="">E-MU</a>
+                                        <p>You're Welcome!</p>
                                         <small>Now</small>
                                     </div>
                                     <div class="noti-item-remove">
@@ -147,7 +147,7 @@
                 @if ($customer)
                     <div class="dropdown">
                         <button class="btn btn-outline-dark btn-user" type="button" data-toggle="dropdown">
-                            @if(file_exists($customer->image))
+                            @if($customer->image)
                                 <img src="{{ asset($customer->image) }}" width="90%">
                             @else
                                 <img src="{{ asset('/storage/public/uploads/img/'.$customer->image) }}" width="90%">
