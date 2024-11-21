@@ -34,8 +34,8 @@
     <div class="container d-flex justify-content-center">
         <div class="form-input col-8 col-lg-5">
             <ul class="nav nav-tabs mb-3 mt-2 d-flex">
-                <li class="active col-6 text-center"><a data-toggle="tab" href="#home">Sign In</a></li>
-                <li class="col-6 text-center"><a data-toggle="tab" href="#menu1">Sign Up</a></li>
+                <li class="col-6 text-center"><a data-toggle="tab" href="#signin">Sign In</a></li>
+                <li class="col-6 text-center"><a data-toggle="tab" href="#signup">Sign Up</a></li>
             </ul>
             <a href="{{ URL::to('google/redirect') }}">
                 <button class="btn btn-outline-dark mb-2">

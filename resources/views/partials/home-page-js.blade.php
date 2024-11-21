@@ -84,4 +84,32 @@
             ResCarousel(ell, Parent, slide);
         }
     });
+
+    // brand - auto slide
+    document.addEventListener("DOMContentLoaded", function () {
+        const multiCarousel = document.querySelector(".MultiCarousel");
+        const interval = 3000; // Transition time between slides
+        const slideCount = parseInt(multiCarousel.getAttribute("data-slide"), 10) || 1; // Number element sliding each single time
+        const carouselInner = multiCarousel.querySelector(".MultiCarousel-inner");
+        const items = carouselInner.children;
+        const totalItems = items.length;
+
+        let currentIndex = 0;
+
+        function slideNext() {
+            const itemWidth = items[0].offsetWidth; // Get width each element
+            currentIndex += slideCount;
+
+            if (currentIndex >= totalItems) {
+                currentIndex = 0;
+            }
+
+            carouselInner.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+            carouselInner.style.transition = "transform 0.5s ease-in-out";
+        }
+
+        // Auto run every single element
+        setInterval(slideNext, interval);
+    });
+
 </script>

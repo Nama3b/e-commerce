@@ -84,7 +84,8 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        if (!optional(Member::where('email', $request->input('email'))->first())->status) {
+        $member = Member::where('email', $request->input('email'))->first();
+        if (!optional($member)->status) {
             throw ValidationException::withMessages([
                 $this->username() => ['failed' => 'Email or password is incorrect!'],
             ]);
@@ -95,7 +96,9 @@ class LoginController extends Controller
         if (Auth::guard('member')->attempt($credentials)) {
             $request->session()->put('auth.password_confirmed_at', time());
 
-            return $this->sendLoginResponse($request);
+            Auth::guard('member')->login($member);
+
+            return redirect(RouteServiceProvider::DASHBOARD);
         }
 
         $this->incrementLoginAttempts($request);
@@ -136,6 +139,18 @@ class LoginController extends Controller
         $credentials = ['email' => $user->email, 'password' => $user->password];
         if ((new CustomerGuard())->attempt($credentials)) {
             Auth::guard('customer')->login($user);
+
+            if (session('cart', [])) {
+                $cart = session('cart', []);
+                foreach ($cart as $cart_item) {
+                    Cart::updateOrCreate([
+                        'customer_id' => Auth()->guard('customer')->user()->id,
+                        'product_id' => $cart_item['id'],
+                    ], [
+                        'quantity' => $cart_item['quantity'],
+                    ]);
+                }
+            }
         }
 
         return redirect(RouteServiceProvider::HOME);

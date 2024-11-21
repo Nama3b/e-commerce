@@ -1,7 +1,7 @@
 @extends('auth.login')
 @section('content')
     <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
+        <div id="signin" class="tab-pane active">
             <?php
             $message = Session::get('message');
             if ($message) {
@@ -29,7 +29,7 @@
                         and <b>Privacy Policy</b></small></label>
             </form>
         </div>
-        <div id="menu1" class="tab-pane fade">
+        <div id="signup" class="tab-pane">
             <?php
             $message = Session::get('message');
             if ($message) {

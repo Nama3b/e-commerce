@@ -45,10 +45,6 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <button class="btn btn-secondary leftLst"><i class="fas fa-chevron-left"></i>
-                                </button>
-                                <button class="btn btn-secondary rightLst"><i class="fas fa-chevron-right"></i>
-                                </button>
                             </div>
                         </div>
                     </div>

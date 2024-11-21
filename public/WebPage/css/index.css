@@ -2094,15 +2094,15 @@ input[type="file"] {
 /* ====================================CAROUSEL-ITEM==================================== */
 
 .MultiCarousel {
-    float: left;
     overflow: hidden;
-    padding: 15px;
-    width: 100%;
     position: relative;
+    float: left;
+    width: 100%;
+    padding: 15px;
 }
 
 .MultiCarousel .MultiCarousel-inner {
-    transition: 1s ease all;
+    transition: transform 0.5s ease-in-out;
     float: left;
 }
 

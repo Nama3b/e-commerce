@@ -122,6 +122,15 @@ ul li a:hover {
     font-weight: bold;
 }
 
+.nav-tabs a.active {
+    border-top: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+    border-bottom: 1px solid white;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .nav-tabs a:focus {
     color: grey;
     text-decoration: none;
