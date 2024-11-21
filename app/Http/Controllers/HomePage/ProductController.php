@@ -5,11 +5,6 @@ namespace App\Http\Controllers\HomePage;
 use App\Http\Controllers\Controller;
 use App\Models\OrderDetail;
 use App\Models\Product;
-use App\Support\ResourceHelper\BrandResourceHelper;
-use App\Support\ResourceHelper\CartResourceHelper;
-use App\Support\ResourceHelper\CategoryResourceHelper;
-use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
-use App\Support\ResourceHelper\ProductResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,13 +12,6 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-
-    use CategoryResourceHelper,
-        BrandResourceHelper,
-        ProductResourceHelper,
-        CartResourceHelper,
-        CustomerFromSessionResourceHelper;
-
     /**
      * Show product home
      *

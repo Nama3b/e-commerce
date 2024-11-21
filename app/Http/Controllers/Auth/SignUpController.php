@@ -11,16 +11,15 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 
-class RegisterController extends Controller
+class SignUpController extends Controller
 {
-    use RegistersUsers,
-        VerifiesEmails;
+    use RegistersUsers, VerifiesEmails;
 
     /**
      * @param Request $request
      * @return Application|Factory|View
      */
-    public function signupHome(Request $request): Application|Factory|View
+    public function signup(Request $request): Application|Factory|View
     {
         return $this->withErrorHandling(function () use ($request) {
             return (new RegisterUserCreator($request))->Register();

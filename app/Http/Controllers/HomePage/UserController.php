@@ -4,11 +4,6 @@ namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
-use App\Support\ResourceHelper\BrandResourceHelper;
-use App\Support\ResourceHelper\CartResourceHelper;
-use App\Support\ResourceHelper\CategoryResourceHelper;
-use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
-use App\Support\ResourceHelper\ImageHandlerResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,12 +12,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
-    use CategoryResourceHelper,
-        BrandResourceHelper,
-        CartResourceHelper,
-        CustomerFromSessionResourceHelper,
-        ImageHandlerResourceHelper;
 
     /**
      * Show customer profile

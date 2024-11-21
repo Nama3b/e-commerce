@@ -6,9 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Member;
 use App\Models\Shipping;
-use App\Support\HandleComponentError;
-use App\Support\HandleJsonResponses;
-use App\Support\WithPaginationLimit;
 use App\Transformers\Delivery\DetailShippingTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -16,8 +13,6 @@ use Illuminate\Http\Request;
 
 class ShippingController extends Controller
 {
-    use WithPaginationLimit, HandleJsonResponses, HandleComponentError;
-
     /**
      * @return RedirectResponse
      */

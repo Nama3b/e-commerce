@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Support\ResourceHelper;
+namespace App\Traits;
 
 use App\Models\Post;
 
-trait PostResourceHelper
+trait PostResourceTrait
 {
     /**
      * @return mixed

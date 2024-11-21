@@ -2,12 +2,8 @@
 
 namespace App\Components\Resource;
 
-use App\Models\Banner;
 use App\Models\Favorite;
 use App\Models\Product;
-use App\Support\HandleComponentError;
-use App\Support\HandleJsonResponses;
-use App\Support\WithPaginationLimit;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,10 +12,6 @@ use Illuminate\Http\RedirectResponse;
 
 class FavoriteCreator extends Component
 {
-    use WithPaginationLimit,
-        HandleJsonResponses,
-        HandleComponentError;
-
     /**
      * @return Factory|View|Application
      */

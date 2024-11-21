@@ -3,22 +3,10 @@
 namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
-use App\Support\ResourceHelper\BrandResourceHelper;
-use App\Support\ResourceHelper\CartResourceHelper;
-use App\Support\ResourceHelper\CategoryResourceHelper;
-use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
-use App\Support\ResourceHelper\ProductResourceHelper;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-
-    use CategoryResourceHelper,
-        BrandResourceHelper,
-        ProductResourceHelper,
-        CartResourceHelper,
-        CustomerFromSessionResourceHelper;
-
     public function vnpayPayment()
     {
 

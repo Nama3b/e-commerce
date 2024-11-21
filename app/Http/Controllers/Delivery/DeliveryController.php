@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Delivery;
 use App\Components\Delivery\DeliveryCreator;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
-use App\Support\HandleComponentError;
-use App\Support\HandleJsonResponses;
-use App\Support\WithPaginationLimit;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,8 +14,6 @@ use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
 {
-    use WithPaginationLimit, HandleJsonResponses, HandleComponentError;
-
     /**
      * @return RedirectResponse
      */

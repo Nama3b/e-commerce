@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\LoginHomeController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginDashboardController;
+use App\Http\Controllers\Auth\RouteController;
+use App\Http\Controllers\Auth\SignUpController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Delivery\ShippingController;
@@ -96,17 +98,18 @@ Route::post('/password/change', [ForgotPasswordController::class, 'change'])->na
  */
 Route::get('/', [HomeController::class, 'index']);
 Route::get('home', [HomeController::class, 'index']);
-Route::get('login', [LoginHomeController::class, 'loginHome'])->name('loginHome');
-Route::post('login', [LoginController::class, 'loginHome']);
+Route::get('login', [RouteController::class, 'login'])->name('loginHome');
+
+Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-Route::post('signup', [RegisterController::class, 'signupHome'])->name('signup');
+Route::post('signup', [SignUpController::class, 'signup'])->name('signup');
 
 /**
  * Google login Routes
  */
 Route::prefix('google')->group(function () {
-    Route::get('/redirect', [LoginController::class, 'redirectToGoogle'])->name('google.redirect');
-    Route::get('/callback', [LoginController::class, 'handleGoogleCallback'])->name('google.callback');
+    Route::get('/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
+    Route::get('/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 });
 
 /**
@@ -185,8 +188,8 @@ Route::middleware('auth:customer')->group(function () {
  * Login dashboard Routes
  */
 Route::prefix('dashboard')->group(function () {
-    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [LoginController::class, 'loginDashboard']);
+    Route::get('login', [LoginDashboardController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginDashboardController::class, 'loginDashboard']);
 });
 
 Route::middleware('auth:member')->prefix('dashboard')->group(function () {

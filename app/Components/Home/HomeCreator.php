@@ -2,30 +2,17 @@
 
 namespace App\Components\Home;
 
+use App\Components\Component;
 use App\Models\Banner;
 use App\Models\Member;
 use App\Models\Post;
-use App\Support\ResourceHelper\BannerResourceHelper;
-use App\Support\ResourceHelper\BrandResourceHelper;
-use App\Support\ResourceHelper\CartResourceHelper;
-use App\Support\ResourceHelper\CategoryResourceHelper;
-use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
-use App\Support\ResourceHelper\ProductResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use App\Components\Component;
 use Illuminate\Http\Request;
 
 class HomeCreator extends Component
 {
-    use CategoryResourceHelper,
-        BannerResourceHelper,
-        BrandResourceHelper,
-        ProductResourceHelper,
-        CartResourceHelper,
-        CustomerFromSessionResourceHelper;
-
     /**
      * @return Factory|View|Application
      */

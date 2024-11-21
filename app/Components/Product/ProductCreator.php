@@ -2,26 +2,18 @@
 
 namespace App\Components\Product;
 
+use App\Components\Component;
 use App\Models\Image;
 use App\Models\Product;
-use App\Support\ResourceHelper\BrandResourceHelper;
-use App\Support\ResourceHelper\CategoryResourceHelper;
-use App\Support\ResourceHelper\ImageHandlerResourceHelper;
-use App\Support\ResourceHelper\ProductResourceHelper;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use App\Components\Component;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
 class ProductCreator extends Component
 {
-    use ProductResourceHelper,
-        CategoryResourceHelper,
-        BrandResourceHelper,
-        ImageHandlerResourceHelper;
 
     /**
      * @return Factory|View|Application

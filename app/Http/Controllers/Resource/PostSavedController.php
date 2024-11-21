@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resource;
 
+use App\Helpers\CustomerFromSessionResourceHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\Post;
@@ -9,7 +10,6 @@ use App\Models\PostSaved;
 use App\Support\ResourceHelper\BrandResourceHelper;
 use App\Support\ResourceHelper\CartResourceHelper;
 use App\Support\ResourceHelper\CategoryResourceHelper;
-use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
 use App\Support\ResourceHelper\PostResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;

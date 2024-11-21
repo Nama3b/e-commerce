@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Support\ResourceHelper;
+namespace App\Traits;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 
-trait ProductResourceHelper
+trait ProductResourceTrait
 {
     /**
      * @return Collection|array

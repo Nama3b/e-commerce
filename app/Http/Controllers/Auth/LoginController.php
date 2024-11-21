@@ -3,28 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Guards\CustomerGuard;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Models\Cart;
-use App\Models\Customer;
-use App\Models\Member;
 use App\Providers\RouteServiceProvider;
-use App\Support\ResourceHelper\CartResourceHelper;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Auth;
+use App\Services\Auth\LoginHomeService;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers,
-        CartResourceHelper;
-
-
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -33,126 +19,22 @@ class LoginController extends Controller
     /**
      * Login home handle
      *
-     * @param LoginRequest $request
+     * @param Request $request
      * @return Response
-     * @throws ValidationException
      */
-    public function loginHome(LoginRequest $request): Response
+    public function login(Request $request): Response
     {
-        $this->validateLogin($request);
+        return $this->withErrorHandling(function () use ($request) {
+            $data = (new LoginHomeService($request))->LoginHome();
 
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::guard('customer')->attempt($credentials)) {
-            if (session('cart', [])) {
-                $cart = session('cart', []);
-                foreach ($cart as $cart_item) {
-                    Cart::updateOrCreate([
-                        'customer_id' => Auth()->guard('customer')->user()->id,
-                        'product_id' => $cart_item['id'],
-                    ], [
-                        'quantity' => $cart_item['quantity'],
-                    ]);
-                }
+            if (isset($data['access_token'])) {
+                return redirect(RouteServiceProvider::HOME);
+            } else {
+                dd(123);
+                throw ValidationException::withMessages([
+                    $this->username() => ['failed' => 'Email or password is incorrect!'],
+                ]);
             }
-
-            $request->session()->put('auth.password_confirmed_at', time());
-
-            return $this->sendLoginResponse($request);
-        } else {
-            throw ValidationException::withMessages([
-                $this->username() => ['failed' => 'Email or password is incorrect!'],
-            ]);
-        }
-    }
-
-    /**
-     * Login dashboard handle
-     *
-     * @param LoginRequest $request
-     * @return Response
-     * @throws ValidationException
-     */
-    public function loginDashboard(LoginRequest $request): Response
-    {
-        $this->validateLogin($request);
-
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-
-            return $this->sendLockoutResponse($request);
-        }
-
-        $member = Member::where('email', $request->input('email'))->first();
-        if (!optional($member)->status) {
-            throw ValidationException::withMessages([
-                $this->username() => ['failed' => 'Email or password is incorrect!'],
-            ]);
-        }
-
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::guard('member')->attempt($credentials)) {
-            $request->session()->put('auth.password_confirmed_at', time());
-
-            Auth::guard('member')->login($member);
-
-            return redirect(RouteServiceProvider::DASHBOARD);
-        }
-
-        $this->incrementLoginAttempts($request);
-
-        return $this->sendFailedLoginResponse($request);
-    }
-
-    /**
-     * @return Redirector|Application|RedirectResponse
-     */
-    protected function loggedOut(): Redirector|Application|RedirectResponse
-    {
-        return redirect('/home');
-    }
-
-    public function redirectToGoogle(): \Symfony\Component\HttpFoundation\RedirectResponse|RedirectResponse
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-
-    public function handleGoogleCallback(): Redirector|Application|RedirectResponse
-    {
-        $googleUser = Socialite::driver('google')->user();
-        $user = Customer::where('email', $googleUser->email)->first();
-
-        if (!$user) {
-            $user = Customer::create([
-                'role_id' => 3,
-                'full_name' => $googleUser->name,
-                'email' => $googleUser->email,
-                'password' => bcrypt('default_password'),
-                'image' => $googleUser->avatar,
-                'status' => 1
-            ]);
-        }
-
-        $credentials = ['email' => $user->email, 'password' => $user->password];
-        if ((new CustomerGuard())->attempt($credentials)) {
-            Auth::guard('customer')->login($user);
-
-            if (session('cart', [])) {
-                $cart = session('cart', []);
-                foreach ($cart as $cart_item) {
-                    Cart::updateOrCreate([
-                        'customer_id' => Auth()->guard('customer')->user()->id,
-                        'product_id' => $cart_item['id'],
-                    ], [
-                        'quantity' => $cart_item['quantity'],
-                    ]);
-                }
-            }
-        }
-
-        return redirect(RouteServiceProvider::HOME);
+        });
     }
 }

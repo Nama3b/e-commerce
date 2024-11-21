@@ -2,19 +2,15 @@
 
 namespace App\Components\Resource;
 
+use App\Components\Component;
 use App\Models\Banner;
-use App\Support\ResourceHelper\BrandResourceHelper;
-use App\Support\ResourceHelper\ImageHandlerResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use App\Components\Component;
 use Illuminate\Http\RedirectResponse;
 
 class BannerCreator extends Component
 {
-    use BrandResourceHelper,
-        ImageHandlerResourceHelper;
 
     /**
      * @return Factory|View|Application

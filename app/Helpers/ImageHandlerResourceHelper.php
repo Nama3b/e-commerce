@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\ResourceHelper;
+namespace App\Helpers;
 
 trait ImageHandlerResourceHelper
 {

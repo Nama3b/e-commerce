@@ -2,30 +2,19 @@
 
 namespace App\Components\Post;
 
+use App\Components\Component;
 use App\Models\Image;
 use App\Models\Member;
 use App\Models\Post;
-use App\Support\HandleComponentError;
-use App\Support\HandleJsonResponses;
-use App\Support\ResourceHelper\ImageHandlerResourceHelper;
-use App\Support\ResourceHelper\PostResourceHelper;
-use App\Support\WithPaginationLimit;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use App\Components\Component;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
 class PostCreator extends Component
 {
-    use WithPaginationLimit,
-        HandleJsonResponses,
-        HandleComponentError,
-        PostResourceHelper,
-        ImageHandlerResourceHelper;
-
     /**
      * @return Factory|View|Application
      */

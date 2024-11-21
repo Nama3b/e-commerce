@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CustomerFromSessionResourceHelper;
+use App\Helpers\ImageHandlerResourceHelper;
 use App\Models\Brand;
 use App\Models\Comment;
 use App\Models\Customer;
@@ -21,19 +23,37 @@ use App\Support\ApiResponsesJson;
 use App\Support\HandleComponentError;
 use App\Support\HandleJsonResponses;
 use App\Support\WithPaginationLimit;
+use App\Traits\BrandResourceTrait;
+use App\Traits\CartResourceTrait;
+use App\Traits\CategoryResourceTrait;
+use App\Traits\PostResourceTrait;
+use App\Traits\ProductResourceTrait;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, ApiResponsesJson, DispatchesJobs, ValidatesRequests, HandleJsonResponses, HandleComponentError, WithPaginationLimit;
+    use AuthenticatesUsers,
+        AuthorizesRequests,
+        ApiResponsesJson,
+        DispatchesJobs,
+        ValidatesRequests,
+        HandleJsonResponses,
+        HandleComponentError,
+        WithPaginationLimit,
+        CartResourceTrait,
+        CategoryResourceTrait,
+        BrandResourceTrait,
+        ProductResourceTrait,
+        PostResourceTrait,
+        CustomerFromSessionResourceHelper,
+        ImageHandlerResourceHelper;
 
     const INSTANCE_DATA_TABLE = [
         'permission' => [

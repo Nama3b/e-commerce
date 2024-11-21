@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\ResourceHelper;
+namespace App\Traits;
 
 use App\Models\Cart;
 use App\Models\Product;
@@ -8,7 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Session\SessionManager;
 use Illuminate\Session\Store;
 
-trait CartResourceHelper
+trait CartResourceTrait
 {
     /**
      * Get cart before login and after login

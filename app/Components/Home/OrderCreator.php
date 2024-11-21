@@ -2,22 +2,17 @@
 
 namespace App\Components\Home;
 
+use App\Components\Component;
 use App\Mail\OrderSendMail;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\PaymentOption;
 use App\Models\Product;
-use App\Support\ResourceHelper\BrandResourceHelper;
-use App\Support\ResourceHelper\CartResourceHelper;
-use App\Support\ResourceHelper\CategoryResourceHelper;
-use App\Support\ResourceHelper\CustomerFromSessionResourceHelper;
-use App\Support\ResourceHelper\ProductResourceHelper;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use App\Components\Component;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -25,12 +20,6 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderCreator extends Component
 {
-    use CategoryResourceHelper,
-        BrandResourceHelper,
-        ProductResourceHelper,
-        CartResourceHelper,
-        CustomerFromSessionResourceHelper;
-
     /**
      * @return Factory|View|Application
      */

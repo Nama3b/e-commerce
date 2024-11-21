@@ -123,9 +123,9 @@ ul li a:hover {
 }
 
 .nav-tabs a.active {
-    border-top: 1px solid #dee2e6;
-    border-right: 1px solid #dee2e6;
-    border-left: 1px solid #dee2e6;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
     border-bottom: 1px solid white;
     opacity: 0.5;
     pointer-events: none;

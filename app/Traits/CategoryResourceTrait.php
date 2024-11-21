@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Support\ResourceHelper;
+namespace App\Traits;
 
-use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Database\Eloquent\Collection;
 
-trait CategoryResourceHelper
+trait CategoryResourceTrait
 {
     /**
      * @return Collection|array
      */
-    private function getAllCategory(): Collection|array
+    public function getAllCategory(): Collection|array
     {
         return ProductCategory::whereStatus(1)->take(10)->get();
     }

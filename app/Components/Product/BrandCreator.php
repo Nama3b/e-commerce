@@ -2,23 +2,15 @@
 
 namespace App\Components\Product;
 
+use App\Components\Component;
 use App\Models\Brand;
-use App\Support\ResourceHelper\BrandResourceHelper;
-use App\Support\ResourceHelper\CategoryResourceHelper;
-use App\Support\ResourceHelper\ImageHandlerResourceHelper;
-use App\Support\ResourceHelper\ProductResourceHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use App\Components\Component;
 use Illuminate\Http\RedirectResponse;
 
 class BrandCreator extends Component
 {
-    use BrandResourceHelper,
-        CategoryResourceHelper,
-        ImageHandlerResourceHelper;
-
     /**
      * @return Factory|View|Application
      */
