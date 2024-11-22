@@ -14,6 +14,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * App\Models\Customer
@@ -64,7 +65,7 @@ use Illuminate\Support\Carbon;
  */
 class Customer extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, SoftDeletes, Notifiable;
+    use HasFactory, SoftDeletes, Notifiable, HasApiTokens;
 
     const CREATE = 'CREATE_CUSTOMER';
     const VIEW = 'VIEW_CUSTOMER';

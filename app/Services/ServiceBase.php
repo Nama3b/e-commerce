@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cart;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
@@ -22,18 +22,17 @@ class ServiceBase extends Controller
         $this->request = $request;
     }
 
-    public function CartInitialize(): void
+    public function responseHandle($user): array
     {
-        if (session('cart', [])) {
-            $cart = session('cart', []);
-            foreach ($cart as $cart_item) {
-                Cart::updateOrCreate([
-                    'customer_id' => Auth()->guard('customer')->user()->id,
-                    'product_id' => $cart_item['id'],
-                ], [
-                    'quantity' => $cart_item['quantity'],
-                ]);
-            }
-        }
+        $token = $user->createToken('Personal Access Token');
+        $plainTextToken = $token->plainTextToken;
+
+        return [
+            'access_token' => $plainTextToken,
+            'token_type' => 'Bearer',
+            'expires_at' => Carbon::parse(
+                Carbon::now()->addHours(3)
+            )->toDateTimeString()
+        ];
     }
 }

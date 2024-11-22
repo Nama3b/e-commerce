@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Guards\CustomerGuard;
-use App\Models\Cart;
-use App\Models\Customer;
+use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Services\Auth\GoogleLoginService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Facades\Socialite;
 
-class GoogleLoginController
+class GoogleLoginController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|RedirectResponse
@@ -23,41 +23,20 @@ class GoogleLoginController
     }
 
     /**
+     * @param Request $request
      * @return Redirector|Application|RedirectResponse
+     * @throws ValidationException
      */
-    public function handleGoogleCallback(): Redirector|Application|RedirectResponse
+    public function handleGoogleCallback(Request $request): Redirector|Application|RedirectResponse
     {
-        $googleUser = Socialite::driver('google')->user();
-        $user = Customer::where('email', $googleUser->email)->first();
+        $data = (new GoogleLoginService($request))->LoginHome();
 
-        if (!$user) {
-            $user = Customer::create([
-                'role_id' => 3,
-                'full_name' => $googleUser->name,
-                'email' => $googleUser->email,
-                'password' => bcrypt('default_password'),
-                'image' => $googleUser->avatar,
-                'status' => 1
+        if (isset($data['access_token'])) {
+            return redirect(RouteServiceProvider::HOME);
+        } else {
+            throw ValidationException::withMessages([
+                $this->username() => ['failed' => 'Email or password is incorrect!'],
             ]);
         }
-
-        $credentials = ['email' => $user->email, 'password' => $user->password];
-        if ((new CustomerGuard())->attempt($credentials)) {
-            Auth::guard('customer')->login($user);
-
-            if (session('cart', [])) {
-                $cart = session('cart', []);
-                foreach ($cart as $cart_item) {
-                    Cart::updateOrCreate([
-                        'customer_id' => Auth()->guard('customer')->user()->id,
-                        'product_id' => $cart_item['id'],
-                    ], [
-                        'quantity' => $cart_item['quantity'],
-                    ]);
-                }
-            }
-        }
-
-        return redirect(RouteServiceProvider::HOME);
     }
 }

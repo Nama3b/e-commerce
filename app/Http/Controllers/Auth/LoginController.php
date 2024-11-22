@@ -21,20 +21,18 @@ class LoginController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
      */
     public function login(Request $request): Response
     {
-        return $this->withErrorHandling(function () use ($request) {
-            $data = (new LoginHomeService($request))->LoginHome();
+        $data = (new LoginHomeService($request))->LoginHome();
 
-            if (isset($data['access_token'])) {
-                return redirect(RouteServiceProvider::HOME);
-            } else {
-                dd(123);
-                throw ValidationException::withMessages([
-                    $this->username() => ['failed' => 'Email or password is incorrect!'],
-                ]);
-            }
-        });
+        if (isset($data['access_token'])) {
+            return redirect(RouteServiceProvider::HOME);
+        } else {
+            throw ValidationException::withMessages([
+                $this->username() => ['failed' => 'Email or password is incorrect!'],
+            ]);
+        }
     }
 }
